@@ -4,32 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ShoppingBag, Trash2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useCart } from "./CartContext";
-
-function parsePriceNumber(price: string): number {
-  // Turkish price formatting uses "." as a thousands separator and "," as
-  // the decimal separator (e.g. "1.250,00 ₺").
-  const numeric = parseFloat(
-    price
-      .replace(/[^0-9.,]/g, "")
-      .replace(/\./g, "")
-      .replace(",", "."),
-  );
-  return Number.isFinite(numeric) ? numeric : 0;
-}
+import { useCart, formatSubtotal } from "./CartContext";
 
 export function CartDrawer() {
   const { items, isOpen, closeCart, updateQuantity, removeItem } = useCart();
 
-  const subtotal = items.reduce(
-    (sum, line) => sum + parsePriceNumber(line.price) * line.quantity,
-    0,
-  );
-
-  const subtotalLabel = `${subtotal.toLocaleString("tr-TR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })} ₺`;
+  const subtotalLabel = formatSubtotal(items);
 
   return (
     <>

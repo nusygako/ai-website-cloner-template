@@ -29,6 +29,29 @@ interface CartContextValue {
 
 const STORAGE_KEY = "showroom-ayakkabi-cart";
 
+export function parsePriceNumber(price: string): number {
+  // Turkish price formatting uses "." as a thousands separator and "," as
+  // the decimal separator (e.g. "1.250,00 ₺").
+  const numeric = parseFloat(
+    price
+      .replace(/[^0-9.,]/g, "")
+      .replace(/\./g, "")
+      .replace(",", "."),
+  );
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
+export function formatSubtotal(items: CartLine[]): string {
+  const subtotal = items.reduce(
+    (sum, line) => sum + parsePriceNumber(line.price) * line.quantity,
+    0,
+  );
+  return `${subtotal.toLocaleString("tr-TR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })} ₺`;
+}
+
 const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
