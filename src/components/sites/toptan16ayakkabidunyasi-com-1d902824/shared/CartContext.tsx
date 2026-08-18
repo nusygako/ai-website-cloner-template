@@ -1,0 +1,105 @@
+"use client";
+
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+
+export interface CartLine {
+  id: string;
+  title: string;
+  image: string;
+  size?: string | null;
+  price: string;
+  quantity: number;
+}
+
+interface CartContextValue {
+  items: CartLine[];
+  isOpen: boolean;
+  addItem: (line: Omit<CartLine, "quantity">, quantity?: number) => void;
+  updateQuantity: (id: string, delta: number) => void;
+  removeItem: (id: string) => void;
+  openCart: () => void;
+  closeCart: () => void;
+}
+
+const STORAGE_KEY = "showroom-ayakkabi-cart";
+
+const CartContext = createContext<CartContextValue | null>(null);
+
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [items, setItems] = useState<CartLine[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time hydration from localStorage, unavailable during SSR
+      if (raw) setItems(JSON.parse(raw) as CartLine[]);
+    } catch {
+      // Ignore corrupt/unavailable storage; start with an empty cart.
+    }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  }, [items, hydrated]);
+
+  function addItem(line: Omit<CartLine, "quantity">, quantity = 1) {
+    setItems((current) => {
+      const existing = current.find((l) => l.id === line.id);
+      if (existing) {
+        return current.map((l) =>
+          l.id === line.id ? { ...l, quantity: l.quantity + quantity } : l,
+        );
+      }
+      return [...current, { ...line, quantity }];
+    });
+    setIsOpen(true);
+  }
+
+  function updateQuantity(id: string, delta: number) {
+    setItems((current) =>
+      current
+        .map((line) =>
+          line.id === id
+            ? { ...line, quantity: Math.max(1, line.quantity + delta) }
+            : line,
+        )
+        .filter((line) => line.quantity > 0),
+    );
+  }
+
+  function removeItem(id: string) {
+    setItems((current) => current.filter((line) => line.id !== id));
+  }
+
+  return (
+    <CartContext.Provider
+      value={{
+        items,
+        isOpen,
+        addItem,
+        updateQuantity,
+        removeItem,
+        openCart: () => setIsOpen(true),
+        closeCart: () => setIsOpen(false),
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+}
+
+export function useCart() {
+  const ctx = useContext(CartContext);
+  if (!ctx) throw new Error("useCart must be used within a CartProvider");
+  return ctx;
+}

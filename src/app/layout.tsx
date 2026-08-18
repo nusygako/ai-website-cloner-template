@@ -1,20 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins, Archivo } from "next/font/google";
+import { SiteChrome } from "@/components/sites/toptan16ayakkabidunyasi-com-1d902824/shared/SiteChrome";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "Website Clone",
-  description: "Pixel-perfect website clone",
+  title: {
+    default: "Showroom Ayakkabı",
+    template: "%s | Showroom Ayakkabı",
+  },
+  description:
+    "Showroom Ayakkabı — spor, terlik, topuklu ve babet ayakkabı modelleri.",
 };
 
 export default function RootLayout({
@@ -24,10 +31,12 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="tr"
+      className={`${poppins.variable} ${archivo.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SiteChrome>{children}</SiteChrome>
+      </body>
     </html>
   );
 }

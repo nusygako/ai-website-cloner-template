@@ -7,9 +7,14 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --font-heading: var(--font-archivo), var(--font-sans);
+  --color-toptan-accent: var(--toptan-accent);
+  --color-toptan-dark: var(--toptan-dark);
+  --color-toptan-surface-muted: var(--toptan-surface-muted);
+  --color-toptan-success: var(--toptan-success);
+  --color-toptan-star: var(--toptan-star);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -81,6 +86,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --toptan-accent: #14b8a6;
+  --toptan-dark: #121212;
+  --toptan-surface-muted: #eff2f6;
+  --toptan-success: #35cc3a;
+  --toptan-star: #ffd700;
 }
 
 .dark {
@@ -126,5 +137,19 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+@layer utilities {
+  .marquee-track {
+    animation: marquee 22s linear infinite;
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 }

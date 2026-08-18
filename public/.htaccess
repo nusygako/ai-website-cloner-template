@@ -1,0 +1,24 @@
+ErrorDocument 404 /404.html
+
+# Next.js static export creates BOTH "route.html" (the real page) and a
+# same-named "route/" directory (empty RSC prefetch payload, no index file).
+# Without this, Apache's default DirectorySlash matches the directory first
+# for extensionless URLs and 403s since there's no index inside it — so we
+# turn that off and explicitly resolve "route" -> "route.html" ourselves.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  DirectorySlash Off
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
+  RewriteRule ^(.*[^/])$ $1.html [L]
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
