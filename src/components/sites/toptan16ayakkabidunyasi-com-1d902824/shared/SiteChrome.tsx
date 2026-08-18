@@ -6,11 +6,13 @@ import { SiteFooter } from "./SiteFooter";
 import { CartDrawer } from "./CartDrawer";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { CartProvider } from "./CartContext";
+import { PageNavBar } from "./PageNavBar";
 
 export function SiteChrome({ children }: { children: ReactNode }) {
   return (
     <CartProvider>
       <SiteHeader />
+      <PageNavBar />
       <main className="flex-1">{children}</main>
       <SiteFooter />
       <CartDrawer />
