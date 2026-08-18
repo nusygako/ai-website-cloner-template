@@ -185,13 +185,13 @@ export function SiteHeader() {
             >
               <Heart className="h-5 w-5 text-toptan-dark" />
             </button>
-            <button
-              type="button"
+            <Link
+              href="/account"
               aria-label="Hesabım"
               className="hidden items-center justify-center sm:flex"
             >
               <User className="h-5 w-5 text-toptan-dark" />
-            </button>
+            </Link>
             <button
               type="button"
               aria-label="Sepetim"
