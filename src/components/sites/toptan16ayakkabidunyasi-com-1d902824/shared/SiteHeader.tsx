@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCart } from "./CartContext";
+import { useWishlist } from "./WishlistContext";
 
 interface NavLink {
   label: string;
@@ -84,6 +85,7 @@ export function SiteHeader() {
   const router = useRouter();
   const { items, openCart } = useCart();
   const cartCount = items.reduce((sum, line) => sum + line.quantity, 0);
+  const { items: wishlistItems } = useWishlist();
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -178,13 +180,18 @@ export function SiteHeader() {
             >
               <Search className="h-5 w-5 text-toptan-dark" />
             </button>
-            <button
-              type="button"
+            <Link
+              href="/apps/page/wishlist"
               aria-label="Favoriler"
-              className="hidden items-center justify-center sm:flex"
+              className="relative hidden items-center justify-center sm:flex"
             >
               <Heart className="h-5 w-5 text-toptan-dark" />
-            </button>
+              {wishlistItems.length > 0 && (
+                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-toptan-dark text-[10px] font-semibold text-white">
+                  {wishlistItems.length}
+                </span>
+              )}
+            </Link>
             <Link
               href="/account"
               aria-label="Hesabım"

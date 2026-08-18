@@ -1,7 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CollectionToolbar } from "./CollectionToolbar";
+import {
+  CollectionToolbar,
+  type StockFilter,
+  type PriceFilter,
+} from "./CollectionToolbar";
 import { ProductCard } from "../shared/ProductCard";
 import type { Product } from "@/types/toptan16";
 
@@ -25,19 +29,55 @@ function sortProducts(products: Product[], sortValue: string): Product[] {
   }
 }
 
+function filterProducts(
+  products: Product[],
+  stockFilter: StockFilter,
+  priceFilter: PriceFilter,
+): Product[] {
+  const min = priceFilter.min ? Number(priceFilter.min) : null;
+  const max = priceFilter.max ? Number(priceFilter.max) : null;
+  const stockActive = stockFilter.inStock || stockFilter.outOfStock;
+
+  return products.filter((product) => {
+    if (stockActive) {
+      const inStock = product.variants.some((v) => v.available);
+      const matchesStock =
+        (stockFilter.inStock && inStock) || (stockFilter.outOfStock && !inStock);
+      if (!matchesStock) return false;
+    }
+    if (min !== null && (product.price ?? 0) < min) return false;
+    if (max !== null && (product.price ?? 0) > max) return false;
+    return true;
+  });
+}
+
 export function CollectionView({ products }: { products: Product[] }) {
   const [sortValue, setSortValue] = useState("featured");
+  const [stockFilter, setStockFilter] = useState<StockFilter>({
+    inStock: false,
+    outOfStock: false,
+  });
+  const [priceFilter, setPriceFilter] = useState<PriceFilter>({ min: "", max: "" });
+
+  const filtered = useMemo(
+    () => filterProducts(products, stockFilter, priceFilter),
+    [products, stockFilter, priceFilter],
+  );
   const sorted = useMemo(
-    () => sortProducts(products, sortValue),
-    [products, sortValue],
+    () => sortProducts(filtered, sortValue),
+    [filtered, sortValue],
   );
 
   return (
     <div>
       <CollectionToolbar
-        productCount={products.length}
+        productCount={sorted.length}
         sortValue={sortValue}
         onSortChange={setSortValue}
+        stockFilter={stockFilter}
+        onStockFilterChange={setStockFilter}
+        priceFilter={priceFilter}
+        onPriceFilterChange={setPriceFilter}
       />
 
       {sorted.length === 0 ? (

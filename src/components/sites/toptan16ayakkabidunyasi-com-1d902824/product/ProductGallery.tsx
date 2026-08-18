@@ -5,15 +5,19 @@ import Image from "next/image";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ProductImage } from "@/types/toptan16";
+import { useWishlist } from "../shared/WishlistContext";
 
 interface ProductGalleryProps {
   images: ProductImage[];
   title: string;
+  handle: string;
+  price: string;
 }
 
-export function ProductGallery({ images, title }: ProductGalleryProps) {
+export function ProductGallery({ images, title, handle, price }: ProductGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [wishlisted, setWishlisted] = useState(false);
+  const { isWishlisted, toggle } = useWishlist();
+  const wishlisted = isWishlisted(handle);
 
   if (!images || images.length === 0) {
     return (
@@ -38,7 +42,9 @@ export function ProductGallery({ images, title }: ProductGalleryProps) {
         />
         <button
           type="button"
-          onClick={() => setWishlisted((value) => !value)}
+          onClick={() =>
+            toggle({ handle, title, image: activeImage.src, price })
+          }
           aria-label={wishlisted ? "Favorilerden çıkar" : "Favorilere ekle"}
           aria-pressed={wishlisted}
           className="absolute left-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white"

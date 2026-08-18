@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/data";
 import type { Product } from "@/types/toptan16";
+import { useWishlist } from "./WishlistContext";
 
 interface ProductCardProps {
   product: Product;
@@ -14,9 +14,10 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, showPromoBadge = true }: ProductCardProps) {
-  const [wishlisted, setWishlisted] = useState(false);
+  const { isWishlisted, toggle } = useWishlist();
   const image = product.images[0];
   const href = `/products/${product.handle}`;
+  const wishlisted = isWishlisted(product.handle);
 
   return (
     <div className="rounded-lg border-[1.6px] border-[rgba(18,18,18,0.2)] bg-white">
@@ -42,7 +43,12 @@ export function ProductCard({ product, showPromoBadge = true }: ProductCardProps
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            setWishlisted((prev) => !prev);
+            toggle({
+              handle: product.handle,
+              title: product.title,
+              image: image?.src ?? "",
+              price: formatPrice(product.price),
+            });
           }}
           className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-[rgba(18,18,18,0.15)] bg-white"
         >

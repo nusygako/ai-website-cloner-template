@@ -4,10 +4,24 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+export interface StockFilter {
+  inStock: boolean;
+  outOfStock: boolean;
+}
+
+export interface PriceFilter {
+  min: string;
+  max: string;
+}
+
 interface CollectionToolbarProps {
   productCount: number;
   sortValue: string;
   onSortChange: (value: string) => void;
+  stockFilter: StockFilter;
+  onStockFilterChange: (filter: StockFilter) => void;
+  priceFilter: PriceFilter;
+  onPriceFilterChange: (filter: PriceFilter) => void;
 }
 
 const SORT_OPTIONS = [
@@ -28,6 +42,10 @@ export function CollectionToolbar({
   productCount,
   sortValue,
   onSortChange,
+  stockFilter,
+  onStockFilterChange,
+  priceFilter,
+  onPriceFilterChange,
 }: CollectionToolbarProps) {
   const [openFilter, setOpenFilter] = useState<FilterKey | null>(null);
 
@@ -60,11 +78,25 @@ export function CollectionToolbar({
           {openFilter === "stock" && (
             <div className="absolute left-0 top-full z-10 mt-2 w-48 rounded-md border border-[rgba(18,18,18,0.15)] bg-white p-3 shadow-md">
               <label className="flex items-center gap-2 py-1">
-                <input type="checkbox" className="h-4 w-4" />
+                <input
+                  type="checkbox"
+                  className="h-4 w-4"
+                  checked={stockFilter.inStock}
+                  onChange={(e) =>
+                    onStockFilterChange({ ...stockFilter, inStock: e.target.checked })
+                  }
+                />
                 Stokta var
               </label>
               <label className="flex items-center gap-2 py-1">
-                <input type="checkbox" className="h-4 w-4" />
+                <input
+                  type="checkbox"
+                  className="h-4 w-4"
+                  checked={stockFilter.outOfStock}
+                  onChange={(e) =>
+                    onStockFilterChange({ ...stockFilter, outOfStock: e.target.checked })
+                  }
+                />
                 Stokta yok
               </label>
             </div>
@@ -94,12 +126,20 @@ export function CollectionToolbar({
                 <input
                   type="number"
                   placeholder="En düşük"
+                  value={priceFilter.min}
+                  onChange={(e) =>
+                    onPriceFilterChange({ ...priceFilter, min: e.target.value })
+                  }
                   className="w-full rounded border border-[rgba(18,18,18,0.2)] px-2 py-1 text-sm"
                 />
                 <span>-</span>
                 <input
                   type="number"
                   placeholder="En yüksek"
+                  value={priceFilter.max}
+                  onChange={(e) =>
+                    onPriceFilterChange({ ...priceFilter, max: e.target.value })
+                  }
                   className="w-full rounded border border-[rgba(18,18,18,0.2)] px-2 py-1 text-sm"
                 />
               </div>

@@ -7,6 +7,7 @@ import {
   products,
   getProduct,
   getColorSiblings,
+  formatPrice,
 } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/data";
 
 export function generateStaticParams() {
@@ -38,12 +39,17 @@ export default async function ProductPage({ params }: PageProps) {
   return (
     <div className="mx-auto max-w-[1400px] px-4 py-8 md:px-8">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[45%_1fr] lg:gap-16">
-        <ProductGallery images={product.images} title={product.title} />
+        <ProductGallery
+          images={product.images}
+          title={product.title}
+          handle={product.handle}
+          price={formatPrice(product.price)}
+        />
         <ProductBuyBox product={product} colorOptions={colorOptions} />
       </div>
 
       <div className="mt-16 border-t border-[rgba(18,18,18,0.1)] pt-12">
-        <ProductReviews productTitle={product.title} />
+        <ProductReviews productHandle={product.handle} productTitle={product.title} />
       </div>
     </div>
   );

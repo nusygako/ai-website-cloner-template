@@ -1,11 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ProductReviewsProps {
+  productHandle: string;
   productTitle: string;
+}
+
+interface Review {
+  id: string;
+  name: string;
+  rating: number;
+  text: string;
+  date: string;
 }
 
 interface OtherProductReview {
@@ -45,15 +54,20 @@ const OTHER_PRODUCT_REVIEWS: OtherProductReview[] = [
 ];
 
 type Tab = "product" | "store";
+type SortOrder = "newest" | "oldest";
 
-function StarRow() {
+function reviewsStorageKey(handle: string) {
+  return `showroom-ayakkabi-reviews-${handle}`;
+}
+
+function StarRow({ rating = 5 }: { rating?: number }) {
   return (
     <div className="flex items-center gap-0.5">
       {Array.from({ length: 5 }).map((_, index) => (
         <Star
           key={index}
           className="h-[18px] w-[18px]"
-          fill="#0F9D8C"
+          fill={index < rating ? "#0F9D8C" : "none"}
           stroke="#0F9D8C"
         />
       ))}
@@ -61,8 +75,51 @@ function StarRow() {
   );
 }
 
-export function ProductReviews({ productTitle }: ProductReviewsProps) {
+export function ProductReviews({ productHandle, productTitle }: ProductReviewsProps) {
   const [activeTab, setActiveTab] = useState<Tab>("product");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [name, setName] = useState("");
+  const [rating, setRating] = useState(5);
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(reviewsStorageKey(productHandle));
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time hydration from localStorage, unavailable during SSR
+      if (raw) setReviews(JSON.parse(raw) as Review[]);
+    } catch {
+      // Ignore corrupt/unavailable storage.
+    }
+  }, [productHandle]);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const newReview: Review = {
+      id: crypto.randomUUID(),
+      name: name.trim() || "Anonim",
+      rating,
+      text: text.trim(),
+      date: new Date().toLocaleDateString("tr-TR"),
+    };
+    const updated = [newReview, ...reviews];
+    setReviews(updated);
+    window.localStorage.setItem(
+      reviewsStorageKey(productHandle),
+      JSON.stringify(updated),
+    );
+    setShowForm(false);
+    setName("");
+    setRating(5);
+    setText("");
+  }
+
+  const sortedReviews = [...reviews].sort((a, b) =>
+    sortOrder === "newest"
+      ? b.id.localeCompare(a.id)
+      : a.id.localeCompare(b.id),
+  );
 
   return (
     <div className="mx-auto w-full max-w-[900px] px-4">
@@ -82,7 +139,7 @@ export function ProductReviews({ productTitle }: ProductReviewsProps) {
             )}
             style={activeTab === "product" ? undefined : { color: "rgba(18,18,18,0.5)" }}
           >
-            Ürün değerlendirmeleri (0)
+            Ürün değerlendirmeleri ({reviews.length})
           </button>
           <button
             type="button"
@@ -102,7 +159,8 @@ export function ProductReviews({ productTitle }: ProductReviewsProps) {
           aria-label="Sırala"
           className="rounded px-2 py-1 text-sm text-[#121212]"
           style={{ border: "1px solid rgba(18,18,18,0.25)" }}
-          defaultValue="newest"
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value as SortOrder)}
         >
           <option value="newest">En yeni</option>
           <option value="oldest">En eski</option>
@@ -110,17 +168,91 @@ export function ProductReviews({ productTitle }: ProductReviewsProps) {
       </div>
 
       {activeTab === "product" && (
-        <div className="flex flex-col items-center gap-4 py-12 text-center">
-          <p className="text-base text-[#121212]">
-            İlk değerlendirmeyi yapan siz olun
-          </p>
-          <button
-            type="button"
-            aria-label={`${productTitle} için değerlendirme yazın`}
-            className="rounded-[6px] bg-[#0F9D8C] px-5 py-2.5 text-sm font-semibold text-white"
-          >
-            Değerlendirme yazın
-          </button>
+        <div className="py-8">
+          {sortedReviews.length === 0 && !showForm && (
+            <div className="flex flex-col items-center gap-4 py-4 text-center">
+              <p className="text-base text-[#121212]">
+                İlk değerlendirmeyi yapan siz olun
+              </p>
+            </div>
+          )}
+
+          {sortedReviews.map((review) => (
+            <div key={review.id} className="border-b border-[rgba(18,18,18,0.08)] py-4">
+              <StarRow rating={review.rating} />
+              <p className="mt-2 font-bold text-[#121212]">{review.name}</p>
+              <p className="mt-0.5 text-[13px] text-gray-500">{review.date}</p>
+              {review.text && (
+                <p className="mt-2 text-[15px] text-[#121212]">{review.text}</p>
+              )}
+            </div>
+          ))}
+
+          {showForm ? (
+            <form
+              onSubmit={handleSubmit}
+              className="mt-4 flex flex-col gap-3 rounded-lg border border-[rgba(18,18,18,0.12)] p-4 text-left"
+            >
+              <div className="flex items-center gap-1">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    aria-label={`${index + 1} yıldız`}
+                    onClick={() => setRating(index + 1)}
+                  >
+                    <Star
+                      className="h-6 w-6"
+                      fill={index < rating ? "#0F9D8C" : "none"}
+                      stroke="#0F9D8C"
+                    />
+                  </button>
+                ))}
+              </div>
+              <input
+                placeholder="Adınız"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="rounded-md border px-3 py-2 text-sm"
+                style={{ borderColor: "rgba(18,18,18,0.2)" }}
+              />
+              <textarea
+                required
+                placeholder={`${productTitle} hakkında ne düşünüyorsunuz?`}
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                rows={3}
+                className="rounded-md border px-3 py-2 text-sm"
+                style={{ borderColor: "rgba(18,18,18,0.2)" }}
+              />
+              <div className="flex gap-3">
+                <button
+                  type="submit"
+                  className="flex-1 rounded-[6px] bg-[#0F9D8C] px-5 py-2.5 text-sm font-semibold text-white"
+                >
+                  Gönder
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowForm(false)}
+                  className="flex-1 rounded-[6px] border border-[rgba(18,18,18,0.2)] px-5 py-2.5 text-sm font-semibold text-[#121212]"
+                >
+                  Vazgeç
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="mt-4 flex justify-center">
+              <button
+                type="button"
+                aria-label={`${productTitle} için değerlendirme yazın`}
+                onClick={() => setShowForm(true)}
+                className="rounded-[6px] bg-[#0F9D8C] px-5 py-2.5 text-sm font-semibold text-white"
+              >
+                Değerlendirme yazın
+              </button>
+            </div>
+          )}
         </div>
       )}
 

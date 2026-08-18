@@ -7,19 +7,22 @@ import { CartDrawer } from "./CartDrawer";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { CartProvider } from "./CartContext";
 import { AccountProvider } from "./AccountContext";
+import { WishlistProvider } from "./WishlistContext";
 import { PageNavBar } from "./PageNavBar";
 
 export function SiteChrome({ children }: { children: ReactNode }) {
   return (
     <AccountProvider>
-      <CartProvider>
-        <SiteHeader />
-        <PageNavBar />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
-        <CartDrawer />
-        <WhatsAppButton />
-      </CartProvider>
+      <WishlistProvider>
+        <CartProvider>
+          <SiteHeader />
+          <PageNavBar />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+          <CartDrawer />
+          <WhatsAppButton />
+        </CartProvider>
+      </WishlistProvider>
     </AccountProvider>
   );
 }
