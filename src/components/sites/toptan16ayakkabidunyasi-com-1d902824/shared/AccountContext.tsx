@@ -61,14 +61,20 @@ function writeUsers(users: StoredUser[]) {
   window.localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
-function toSession(stored: StoredUser): AccountUser {
-  const session: AccountUser = {
-    name: stored.name,
-    email: stored.email,
-    phone: stored.phone,
-    addresses: stored.addresses,
+// Older sessions/users predate the phone/addresses fields, so backfill
+// defaults for anything persisted before that migration.
+function normalizeUser(user: Partial<AccountUser> | null | undefined): AccountUser | null {
+  if (!user || !user.name || !user.email) return null;
+  return {
+    name: user.name,
+    email: user.email,
+    phone: user.phone ?? "",
+    addresses: user.addresses ?? [],
   };
-  return session;
+}
+
+function toSession(stored: StoredUser): AccountUser {
+  return normalizeUser(stored) as AccountUser;
 }
 
 export function AccountProvider({ children }: { children: ReactNode }) {
@@ -79,7 +85,7 @@ export function AccountProvider({ children }: { children: ReactNode }) {
     try {
       const raw = window.localStorage.getItem(SESSION_KEY);
       // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time hydration from localStorage, unavailable during SSR
-      if (raw) setUser(JSON.parse(raw) as AccountUser);
+      if (raw) setUser(normalizeUser(JSON.parse(raw) as Partial<AccountUser>));
     } catch {
       // Ignore corrupt/unavailable storage; start signed out.
     }
