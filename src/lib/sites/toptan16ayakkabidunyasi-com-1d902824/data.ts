@@ -47,7 +47,7 @@ const BROAD_COLLECTION_HANDLES = new Set([
   "adidas-ayakkabi",
   "erkek-spor-ayakkabi",
   "kadin-spor-ayakkabi",
-  "toptan-seri̇li̇-satis-koleksi̇yon",
+  "toptan-serili-satis-koleksiyon",
 ]);
 
 /**
