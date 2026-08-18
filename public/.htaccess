@@ -1,5 +1,44 @@
 ErrorDocument 404 /404.html
 
+# --- Security hardening ---------------------------------------------------
+
+# Force HTTPS
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# No directory listings
+Options -Indexes
+# Don't leak server signature/version
+ServerSignature Off
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; media-src 'self'; connect-src 'self' https:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+</IfModule>
+
+# Block access to dotfiles (.env, .git, etc.) and common sensitive files
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+<FilesMatch "(\.(bak|config|sql|ini|log|sh|yml|yaml)|package\.json|package-lock\.json|tsconfig\.json)$">
+  Require all denied
+</FilesMatch>
+
+# Block common exploit-probe methods
+<LimitExcept GET POST HEAD>
+  Require all denied
+</LimitExcept>
+
+# --- End security hardening ------------------------------------------------
+
 # Next.js static export creates BOTH "route.html" (the real page) and a
 # same-named "route/" directory (empty RSC prefetch payload, no index file).
 # Without this, Apache's default DirectorySlash matches the directory first

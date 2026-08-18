@@ -96,8 +96,16 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-12 max-w-6xl border-t border-white/10 pt-6 text-center text-[13px] text-white/60">
-        © 2026, Showroom Ayakkabı
+      <div className="mx-auto mt-12 flex max-w-6xl flex-col items-center gap-2 border-t border-white/10 pt-6 text-center text-[13px] text-white/60">
+        <span>© 2026, Showroom Ayakkabı</span>
+        <a
+          href="https://www.instagram.com/cekenbiradam"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white/70 transition-colors hover:text-white hover:underline"
+        >
+          CekenBirADAM
+        </a>
       </div>
     </footer>
   );
