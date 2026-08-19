@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins, Archivo } from "next/font/google";
 import { SiteChrome } from "@/components/sites/toptan16ayakkabidunyasi-com-1d902824/shared/SiteChrome";
 import "./globals.css";
@@ -22,6 +22,17 @@ export const metadata: Metadata = {
   },
   description:
     "Showroom Ayakkabı — spor, terlik, topuklu ve babet ayakkabı modelleri.",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Showroom Ayakkabı",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#14b8a6",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

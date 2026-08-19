@@ -298,7 +298,12 @@ export function CollectionToolbar(props: CollectionToolbarProps) {
             className="absolute inset-0 bg-black/40"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-5">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Filtrele ve sırala"
+            className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl bg-white p-5"
+          >
             <div className="mb-4 flex items-center justify-between">
               <h2 className="font-heading text-lg font-semibold text-[#121212]">
                 Filtrele & Sırala

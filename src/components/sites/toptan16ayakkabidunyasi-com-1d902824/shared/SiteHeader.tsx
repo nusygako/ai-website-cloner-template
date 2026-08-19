@@ -234,7 +234,7 @@ export function SiteHeader() {
                         {item.label}
                         <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
                       </button>
-                      <div className="invisible absolute left-1/2 top-full z-50 flex w-[420px] -translate-x-1/2 translate-y-2 overflow-hidden rounded-lg bg-white opacity-0 shadow-[0_16px_40px_rgba(0,0,0,0.15)] transition-all duration-200 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                      <div className="pointer-events-none absolute left-1/2 top-full z-50 flex w-[420px] -translate-x-1/2 translate-y-2 overflow-hidden rounded-lg bg-white opacity-0 shadow-[0_16px_40px_rgba(0,0,0,0.15)] transition-all duration-200 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
                         <div className="flex-1 p-4">
                           {item.children.map((child) => (
                             <Link
@@ -296,7 +296,12 @@ export function SiteHeader() {
             className="absolute inset-0 bg-black/40"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <div className="absolute left-0 top-0 h-full w-[85vw] max-w-sm overflow-y-auto bg-white shadow-xl">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menüsü"
+            className="absolute left-0 top-0 h-full w-[85vw] max-w-sm overflow-y-auto bg-white shadow-xl"
+          >
             <div className="flex items-center justify-between border-b border-toptan-dark/10 px-4 py-4">
               <span className="font-heading text-lg font-semibold text-toptan-dark">
                 Menü

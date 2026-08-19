@@ -92,7 +92,12 @@ export function PredictiveSearch({ open, onClose }: PredictiveSearchProps) {
     <div className="fixed inset-0 z-[110]">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
 
-      <div className="absolute inset-x-0 top-0 max-h-[85vh] overflow-y-auto rounded-b-2xl bg-white shadow-[0_16px_40px_rgba(0,0,0,0.2)]">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Ürün ara"
+        className="absolute inset-x-0 top-0 max-h-[85vh] overflow-y-auto rounded-b-2xl bg-white shadow-[0_16px_40px_rgba(0,0,0,0.2)]"
+      >
         <form
           onSubmit={(e) => {
             e.preventDefault();

@@ -9,9 +9,13 @@ export default function manifest(): MetadataRoute.Manifest {
     description:
       "Showroom Ayakkabı — spor, terlik, topuklu ve babet ayakkabı modelleri.",
     start_url: "/",
+    scope: "/",
     display: "standalone",
+    orientation: "portrait-primary",
     background_color: "#ffffff",
     theme_color: "#14b8a6",
+    categories: ["shopping"],
+    lang: "tr",
     icons: [
       {
         src: "/seo/icon-192.png",

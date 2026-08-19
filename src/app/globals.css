@@ -156,4 +156,24 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  .animate-page-enter {
+    animation: page-enter 280ms ease-out;
+  }
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-page-enter,
+    .marquee-track {
+      animation: none;
+    }
+  }
 }

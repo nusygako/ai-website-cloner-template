@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Ruler, X } from "lucide-react";
 
 interface SizeRow {
@@ -20,6 +20,15 @@ const STANDARD_SIZES: SizeRow[] = [
 export function SizeChart({ rows = STANDARD_SIZES }: { rows?: SizeRow[] }) {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (!open) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
     <>
       <button
@@ -37,6 +46,9 @@ export function SizeChart({ rows = STANDARD_SIZES }: { rows?: SizeRow[] }) {
           onClick={() => setOpen(false)}
         >
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Beden tablosu"
             onClick={(e) => e.stopPropagation()}
             className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
           >

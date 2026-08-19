@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { useCart, formatSubtotal, parsePriceNumber } from "./CartContext";
 import { useAccount } from "./AccountContext";
 import { trackEvent } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/analytics";
+import { hapticTap } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/haptics";
 
 const WHATSAPP_NUMBER = "905521254911";
 const FREE_SHIPPING_THRESHOLD = 2500;
@@ -119,6 +120,7 @@ export function CheckoutView() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    hapticTap();
 
     let finalName = name;
     let finalPhone = phone;

@@ -10,6 +10,8 @@ import { AccountProvider } from "./AccountContext";
 import { WishlistProvider } from "./WishlistContext";
 import { PageNavBar } from "./PageNavBar";
 import { CookieConsent } from "./CookieConsent";
+import { PageTransition } from "./PageTransition";
+import { ServiceWorkerRegister } from "./ServiceWorkerRegister";
 
 export function SiteChrome({ children }: { children: ReactNode }) {
   return (
@@ -18,11 +20,14 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         <CartProvider>
           <SiteHeader />
           <PageNavBar />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <SiteFooter />
           <CartDrawer />
           <WhatsAppButton />
           <CookieConsent />
+          <ServiceWorkerRegister />
         </CartProvider>
       </WishlistProvider>
     </AccountProvider>

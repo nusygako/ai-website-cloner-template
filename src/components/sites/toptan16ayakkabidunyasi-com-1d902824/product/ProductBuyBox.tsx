@@ -9,6 +9,7 @@ import type { Product } from "@/types/toptan16";
 import { formatPrice } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/data";
 import { getBaselineRating } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/ratings";
 import { trackEvent } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/analytics";
+import { hapticTap } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/haptics";
 import { SizeChart } from "../shared/SizeChart";
 import { useCart } from "../shared/CartContext";
 
@@ -95,6 +96,7 @@ export function ProductBuyBox({
     }
     setSizeError(false);
     if (addState !== "idle") return;
+    hapticTap();
     setAddState("loading");
     window.setTimeout(() => {
       addItem({
