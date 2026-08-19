@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   Search,
   Heart,
@@ -16,10 +15,13 @@ import {
 import { cn } from "@/lib/utils";
 import { useCart } from "./CartContext";
 import { useWishlist } from "./WishlistContext";
+import { PredictiveSearch } from "./PredictiveSearch";
+import { getCollectionProducts } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/data";
 
 interface NavLink {
   label: string;
   href: string;
+  collectionHandle: string;
 }
 
 interface NavItem {
@@ -34,21 +36,21 @@ const NAV_ITEMS: NavItem[] = [
   {
     label: "Adidas",
     children: [
-      { label: "Adizero", href: "/collections/adizero" },
-      { label: "Samba", href: "/collections/samba" },
-      { label: "Spezial", href: "/collections/spezial" },
-      { label: "Süperstar", href: "/collections/superstar" },
+      { label: "Adizero", href: "/collections/adizero", collectionHandle: "adizero" },
+      { label: "Samba", href: "/collections/samba", collectionHandle: "samba" },
+      { label: "Spezial", href: "/collections/spezial", collectionHandle: "spezial" },
+      { label: "Süperstar", href: "/collections/superstar", collectionHandle: "superstar" },
     ],
   },
   {
     label: "Nike",
     children: [
-      { label: "530", href: "/collections/530" },
-      { label: "Airforce Premium", href: "/collections/airforce-premium" },
-      { label: "Airmax TN", href: "/collections/airmax-tn" },
-      { label: "Dunk", href: "/collections/dunk" },
-      { label: "Monarch", href: "/collections/monarch" },
-      { label: "Zoomx", href: "/collections/zoomx" },
+      { label: "530", href: "/collections/530", collectionHandle: "530" },
+      { label: "Airforce Premium", href: "/collections/airforce-premium", collectionHandle: "airforce-premium" },
+      { label: "Airmax TN", href: "/collections/airmax-tn", collectionHandle: "airmax-tn" },
+      { label: "Dunk", href: "/collections/dunk", collectionHandle: "dunk" },
+      { label: "Monarch", href: "/collections/monarch", collectionHandle: "monarch" },
+      { label: "Zoomx", href: "/collections/zoomx", collectionHandle: "zoomx" },
     ],
   },
   { label: "Vans", href: "/collections/vans" },
@@ -56,6 +58,15 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Topuklu Ayakkabı", href: "/collections/topuklu-ayakkabi" },
   { label: "Tüm Ayakkabılar", href: "/collections/tum-ayakkabilar" },
 ];
+
+function megaMenuBanner(children: NavLink[]): { src: string; alt: string } | null {
+  for (const child of children) {
+    const [firstProduct] = getCollectionProducts(child.collectionHandle);
+    const image = firstProduct?.images[0];
+    if (image) return { src: image.src, alt: firstProduct.title };
+  }
+  return null;
+}
 
 const TICKER_ITEMS = [
   "🚚 TÜM TÜRKİYE'YE ŞEFFAF KARGO",
@@ -82,21 +93,13 @@ function TickerContent() {
 }
 
 export function SiteHeader() {
-  const router = useRouter();
   const { items, openCart } = useCart();
   const cartCount = items.reduce((sum, line) => sum + line.quantity, 0);
   const { items: wishlistItems } = useWishlist();
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
-
-  function submitSearch() {
-    const q = searchQuery.trim();
-    setSearchOpen(false);
-    router.push(q ? `/search?q=${encodeURIComponent(q)}` : "/search");
-  }
 
   useEffect(() => {
     function onScroll() {
@@ -215,75 +218,76 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Search overlay */}
-        {searchOpen && (
-          <div className="border-t border-toptan-dark/10 bg-white px-4 py-3">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                submitSearch();
-              }}
-              className="mx-auto flex max-w-2xl items-center gap-2 rounded-full border border-toptan-dark/15 px-4 py-2"
-            >
-              <Search className="h-4 w-4 shrink-0 text-toptan-dark/50" />
-              <input
-                type="text"
-                autoFocus
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Ne aramıştınız?"
-                className="w-full bg-transparent text-sm text-toptan-dark outline-none placeholder:text-toptan-dark/40"
-              />
-              <button
-                type="button"
-                aria-label="Aramayı kapat"
-                onClick={() => setSearchOpen(false)}
-              >
-                <X className="h-4 w-4 text-toptan-dark/50" />
-              </button>
-            </form>
-          </div>
-        )}
-
         {/* Nav row (desktop) */}
         <nav className="hidden border-t border-toptan-dark/10 md:block">
           <ul className="flex items-center justify-center gap-8 py-3 lg:gap-8 md:gap-4">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.label} className="group relative">
-                {item.children ? (
-                  <>
-                    <button
-                      type="button"
-                      className="flex items-center gap-1 font-sans text-[18px] text-toptan-dark"
+            {NAV_ITEMS.map((item) => {
+              const banner = item.children ? megaMenuBanner(item.children) : null;
+              return (
+                <li key={item.label} className="group relative">
+                  {item.children ? (
+                    <>
+                      <button
+                        type="button"
+                        className="flex items-center gap-1 font-sans text-[18px] text-toptan-dark"
+                      >
+                        {item.label}
+                        <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
+                      </button>
+                      <div className="invisible absolute left-1/2 top-full z-50 flex w-[420px] -translate-x-1/2 translate-y-2 overflow-hidden rounded-lg bg-white opacity-0 shadow-[0_16px_40px_rgba(0,0,0,0.15)] transition-all duration-200 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                        <div className="flex-1 p-4">
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="block whitespace-nowrap rounded px-3 py-2.5 text-sm text-toptan-dark transition-colors hover:bg-toptan-surface-muted"
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                        {banner && (
+                          <Link
+                            href={item.children[0]?.href ?? "#"}
+                            className="relative block w-[160px] shrink-0 self-stretch"
+                          >
+                            <Image
+                              src={banner.src}
+                              alt={banner.alt}
+                              fill
+                              sizes="160px"
+                              className="object-cover"
+                            />
+                            <div
+                              className="absolute inset-0"
+                              style={{
+                                background:
+                                  "linear-gradient(180deg, rgba(18,18,18,0) 40%, rgba(18,18,18,0.5) 100%)",
+                              }}
+                            />
+                            <span className="absolute bottom-2 left-2 right-2 text-xs font-bold text-white">
+                              {item.label} Koleksiyonu
+                            </span>
+                          </Link>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href ?? "#"}
+                      className="font-sans text-[18px] text-toptan-dark"
                     >
                       {item.label}
-                      <ChevronDown className="h-4 w-4" />
-                    </button>
-                    <div className="invisible absolute left-1/2 top-full z-50 min-w-[200px] -translate-x-1/2 translate-y-1 rounded-md bg-white p-2 opacity-0 shadow-lg transition-all duration-150 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block whitespace-nowrap rounded px-3 py-2 text-sm text-toptan-dark hover:bg-toptan-surface-muted"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <Link
-                    href={item.href ?? "#"}
-                    className="font-sans text-[18px] text-toptan-dark"
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </li>
-            ))}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>
+
+      <PredictiveSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
 
       {/* Mobile menu overlay */}
       {mobileMenuOpen && (
