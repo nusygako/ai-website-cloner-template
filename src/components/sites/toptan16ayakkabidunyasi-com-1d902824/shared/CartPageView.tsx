@@ -5,25 +5,6 @@ import Link from "next/link";
 import { ShoppingBag, Trash2 } from "lucide-react";
 import { useCart, formatSubtotal } from "./CartContext";
 
-const WHATSAPP_NUMBER = "905521254911";
-
-function buildOrderMessage(
-  items: ReturnType<typeof useCart>["items"],
-  subtotalLabel: string,
-): string {
-  const lines = items.map(
-    (line) =>
-      `• ${line.title}${line.size ? ` (Beden: ${line.size})` : ""} x${line.quantity} — ${line.price}`,
-  );
-  return [
-    "Merhaba, aşağıdaki siparişi vermek istiyorum:",
-    "",
-    ...lines,
-    "",
-    `Ara Toplam: ${subtotalLabel}`,
-  ].join("\n");
-}
-
 export function CartPageView() {
   const { items, updateQuantity, removeItem } = useCart();
 
@@ -48,9 +29,6 @@ export function CartPageView() {
   }
 
   const subtotalLabel = formatSubtotal(items);
-  const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    buildOrderMessage(items, subtotalLabel),
-  )}`;
 
   return (
     <div className="mx-auto max-w-[900px] px-4 py-10 md:py-16">
@@ -123,14 +101,12 @@ export function CartPageView() {
             {subtotalLabel}
           </span>
         </div>
-        <a
-          href={whatsappHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full rounded-full bg-[#25D366] px-6 py-4 text-center text-base font-bold text-white sm:w-auto sm:px-10"
+        <Link
+          href="/checkout"
+          className="w-full rounded-full bg-[#121212] px-6 py-4 text-center text-base font-bold text-white transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] sm:w-auto sm:px-10"
         >
-          WhatsApp&apos;tan Sipariş Ver
-        </a>
+          Ödemeye Geç
+        </Link>
       </div>
     </div>
   );

@@ -235,7 +235,7 @@ export function CartDrawer() {
                 </span>
               </div>
               <Link
-                href="/cart"
+                href="/checkout"
                 onClick={closeCart}
                 className="block w-full rounded-full bg-toptan-dark px-6 py-4 text-center text-sm font-medium text-white transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98]"
               >

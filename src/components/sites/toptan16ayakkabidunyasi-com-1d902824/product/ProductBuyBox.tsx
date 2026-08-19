@@ -3,10 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle, Loader2, RefreshCw, Tag, Truck } from "lucide-react";
+import { CheckCircle, Loader2, Lock, RefreshCw, ShieldCheck, Star, Tag, Truck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types/toptan16";
 import { formatPrice } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/data";
+import { getBaselineRating } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/ratings";
+import { trackEvent } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/analytics";
 import { SizeChart } from "../shared/SizeChart";
 import { useCart } from "../shared/CartContext";
 
@@ -84,6 +86,7 @@ export function ProductBuyBox({
   const lowStockCount = selectedSize
     ? lowStockCountFor(product.handle, selectedSize)
     : null;
+  const rating = getBaselineRating(product.handle);
 
   function handleAddToCart() {
     if (sizes.length > 0 && !selectedSize) {
@@ -101,10 +104,37 @@ export function ProductBuyBox({
         size: selectedSize,
         price: formatPrice(product.price),
       });
+      trackEvent("add_to_cart", {
+        currency: "TRY",
+        value: product.price ?? 0,
+        items: [
+          {
+            item_id: product.handle,
+            item_name: product.title,
+            price: product.price ?? 0,
+            quantity: 1,
+          },
+        ],
+      });
       setAddState("added");
       window.setTimeout(() => setAddState("idle"), 1400);
     }, 500);
   }
+
+  useEffect(() => {
+    trackEvent("view_item", {
+      currency: "TRY",
+      value: product.price ?? 0,
+      items: [
+        {
+          item_id: product.handle,
+          item_name: product.title,
+          price: product.price ?? 0,
+        },
+      ],
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fire once per mounted product page
+  }, [product.handle]);
 
   useEffect(() => {
     const target = addToCartRef.current;
@@ -128,6 +158,23 @@ export function ProductBuyBox({
       <h1 className="font-heading text-[32px] font-semibold text-[#121212]">
         {product.title}
       </h1>
+
+      <div className="mt-2 flex items-center gap-1.5">
+        <div className="flex items-center gap-0.5">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star
+              key={i}
+              className="h-4 w-4"
+              fill={i < Math.round(rating.average) ? "#0F9D8C" : "none"}
+              stroke="#0F9D8C"
+            />
+          ))}
+        </div>
+        <span className="text-sm font-bold text-[#121212]">{rating.average}</span>
+        <span className="text-sm text-[rgba(18,18,18,0.5)]">
+          ({rating.count} değerlendirme)
+        </span>
+      </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-3">
         <span className="text-2xl font-bold text-[#121212]">
@@ -266,6 +313,33 @@ export function ProductBuyBox({
       >
         HEMEN SATIN ALIN
       </button>
+
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <span
+          className="flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] font-bold"
+          style={{ borderColor: "rgba(18,18,18,0.15)", color: "rgba(18,18,18,0.6)" }}
+        >
+          <Lock className="h-3 w-3" /> SSL Güvenli Ödeme
+        </span>
+        <span
+          className="flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] font-bold"
+          style={{ borderColor: "rgba(18,18,18,0.15)", color: "rgba(18,18,18,0.6)" }}
+        >
+          <ShieldCheck className="h-3 w-3" /> 256-bit Şifreleme
+        </span>
+        <span
+          className="rounded-md border px-2 py-1 text-[11px] font-bold"
+          style={{ borderColor: "rgba(18,18,18,0.15)", color: "rgba(18,18,18,0.6)" }}
+        >
+          VISA
+        </span>
+        <span
+          className="rounded-md border px-2 py-1 text-[11px] font-bold"
+          style={{ borderColor: "rgba(18,18,18,0.15)", color: "rgba(18,18,18,0.6)" }}
+        >
+          Mastercard
+        </span>
+      </div>
 
       <div
         className="mt-6 flex flex-wrap items-center justify-between gap-3 text-[13px]"

@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { trackEvent } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/analytics";
 
 export interface CartLine {
   id: string;
@@ -23,6 +24,7 @@ interface CartContextValue {
   addItem: (line: Omit<CartLine, "quantity">, quantity?: number) => void;
   updateQuantity: (id: string, delta: number) => void;
   removeItem: (id: string) => void;
+  clearCart: () => void;
   openCart: () => void;
   closeCart: () => void;
 }
@@ -101,7 +103,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   function removeItem(id: string) {
-    setItems((current) => current.filter((line) => line.id !== id));
+    setItems((current) => {
+      const removed = current.find((line) => line.id === id);
+      if (removed) {
+        trackEvent("remove_from_cart", {
+          currency: "TRY",
+          items: [
+            {
+              item_id: removed.id,
+              item_name: removed.title,
+              price: parsePriceNumber(removed.price),
+              quantity: removed.quantity,
+            },
+          ],
+        });
+      }
+      return current.filter((line) => line.id !== id);
+    });
+  }
+
+  function clearCart() {
+    setItems([]);
   }
 
   return (
@@ -112,6 +134,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         addItem,
         updateQuantity,
         removeItem,
+        clearCart,
         openCart: () => setIsOpen(true),
         closeCart: () => setIsOpen(false),
       }}
