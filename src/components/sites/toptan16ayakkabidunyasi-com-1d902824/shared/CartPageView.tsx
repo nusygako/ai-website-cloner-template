@@ -61,14 +61,16 @@ export function CartPageView() {
       <div className="mt-8 flex flex-col divide-y divide-[rgba(18,18,18,0.08)] border-y border-[rgba(18,18,18,0.08)]">
         {items.map((line) => (
           <div key={line.id} className="relative flex gap-4 py-5">
-            <div className="h-24 w-24 shrink-0 overflow-hidden rounded-lg border border-[rgba(18,18,18,0.1)]">
-              <Image
-                src={line.image}
-                alt={line.title}
-                width={96}
-                height={96}
-                className="h-full w-full object-cover"
-              />
+            <div className="h-24 w-24 shrink-0 overflow-hidden rounded-lg border border-[rgba(18,18,18,0.1)] bg-[rgba(18,18,18,0.04)]">
+              {line.image && (
+                <Image
+                  src={line.image}
+                  alt={line.title}
+                  width={96}
+                  height={96}
+                  className="h-full w-full object-cover"
+                />
+              )}
             </div>
             <div className="flex flex-1 flex-col gap-1 pr-8">
               <p className="text-base font-bold text-[#121212]">

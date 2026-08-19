@@ -3,12 +3,29 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle, RefreshCw, Tag, Truck } from "lucide-react";
+import { CheckCircle, Loader2, RefreshCw, Tag, Truck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types/toptan16";
 import { formatPrice } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/data";
 import { SizeChart } from "../shared/SizeChart";
 import { useCart } from "../shared/CartContext";
+
+type AddState = "idle" | "loading" | "added";
+
+// Deterministic (not random-per-render) low-stock nudge, seeded by
+// product+size so it stays stable across re-renders and page visits.
+function lowStockCountFor(handle: string, size: string): number | null {
+  let hash = 0;
+  const key = `${handle}::${size}`;
+  for (let i = 0; i < key.length; i++) {
+    hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+  }
+  const bucket = hash % 5;
+  if (bucket === 4) return 1;
+  if (bucket === 3) return 2;
+  if (bucket === 2) return 3;
+  return null;
+}
 
 interface ColorOption {
   handle: string;
@@ -59,9 +76,14 @@ export function ProductBuyBox({
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [showSticky, setShowSticky] = useState(false);
   const [sizeError, setSizeError] = useState(false);
+  const [addState, setAddState] = useState<AddState>("idle");
   const addToCartRef = useRef<HTMLButtonElement>(null);
   const { addItem } = useCart();
   const mainImage = product.images[0];
+
+  const lowStockCount = selectedSize
+    ? lowStockCountFor(product.handle, selectedSize)
+    : null;
 
   function handleAddToCart() {
     if (sizes.length > 0 && !selectedSize) {
@@ -69,13 +91,19 @@ export function ProductBuyBox({
       return;
     }
     setSizeError(false);
-    addItem({
-      id: `${product.handle}${selectedSize ? `-${selectedSize}` : ""}`,
-      title: product.title,
-      image: mainImage?.src ?? "",
-      size: selectedSize,
-      price: formatPrice(product.price),
-    });
+    if (addState !== "idle") return;
+    setAddState("loading");
+    window.setTimeout(() => {
+      addItem({
+        id: `${product.handle}${selectedSize ? `-${selectedSize}` : ""}`,
+        title: product.title,
+        image: mainImage?.src ?? "",
+        size: selectedSize,
+        price: formatPrice(product.price),
+      });
+      setAddState("added");
+      window.setTimeout(() => setAddState("idle"), 1400);
+    }, 500);
   }
 
   useEffect(() => {
@@ -204,15 +232,31 @@ export function ProductBuyBox({
             Lütfen bir numara seçin.
           </p>
         )}
+        {lowStockCount !== null && (
+          <p className="mt-2 flex items-center gap-1.5 text-sm font-bold text-[#E05A2B]">
+            🔥 Bu numarada son {lowStockCount} ürün kaldı!
+          </p>
+        )}
       </div>
 
       <button
         ref={addToCartRef}
         type="button"
         onClick={handleAddToCart}
-        className="mt-6 w-full rounded-full bg-[#121212] py-4 text-base font-bold text-white transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98]"
+        disabled={addState !== "idle"}
+        aria-live="polite"
+        className={cn(
+          "mt-6 flex w-full items-center justify-center gap-2 rounded-full py-4 text-base font-bold text-white transition-all duration-150",
+          addState === "added"
+            ? "bg-[#0F9D8C]"
+            : "bg-[#121212] hover:scale-[1.02] active:scale-[0.98]",
+        )}
       >
-        SEPETE EKLE
+        {addState === "loading" && <Loader2 className="h-5 w-5 animate-spin" />}
+        {addState === "added" && <CheckCircle className="h-5 w-5" />}
+        {addState === "idle" && "SEPETE EKLE"}
+        {addState === "loading" && "EKLENİYOR..."}
+        {addState === "added" && "EKLENDİ"}
       </button>
       <button
         type="button"
@@ -281,9 +325,17 @@ export function ProductBuyBox({
           <button
             type="button"
             onClick={handleAddToCart}
-            className="shrink-0 rounded-full bg-[#121212] px-6 py-2.5 text-sm font-bold text-white"
+            disabled={addState !== "idle"}
+            className={cn(
+              "flex shrink-0 items-center justify-center gap-1.5 rounded-full px-6 py-2.5 text-sm font-bold text-white transition-colors duration-150",
+              addState === "added" ? "bg-[#0F9D8C]" : "bg-[#121212]",
+            )}
           >
-            SEPETE EKLE
+            {addState === "loading" && <Loader2 className="h-4 w-4 animate-spin" />}
+            {addState === "added" && <CheckCircle className="h-4 w-4" />}
+            {addState === "idle" && "SEPETE EKLE"}
+            {addState === "loading" && "EKLENİYOR"}
+            {addState === "added" && "EKLENDİ"}
           </button>
         </div>
       )}
