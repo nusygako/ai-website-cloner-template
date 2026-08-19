@@ -9,6 +9,7 @@ import { CartProvider } from "./CartContext";
 import { AccountProvider } from "./AccountContext";
 import { WishlistProvider } from "./WishlistContext";
 import { PageNavBar } from "./PageNavBar";
+import { CookieConsent } from "./CookieConsent";
 
 export function SiteChrome({ children }: { children: ReactNode }) {
   return (
@@ -21,6 +22,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
           <SiteFooter />
           <CartDrawer />
           <WhatsAppButton />
+          <CookieConsent />
         </CartProvider>
       </WishlistProvider>
     </AccountProvider>

@@ -20,7 +20,7 @@ export function ProductCard({ product, showPromoBadge = true }: ProductCardProps
   const wishlisted = isWishlisted(product.handle);
 
   return (
-    <div className="rounded-lg border-[1.6px] border-[rgba(18,18,18,0.2)] bg-white">
+    <div className="group rounded-lg border-[1.6px] border-[rgba(18,18,18,0.2)] bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(18,18,18,0.35)] hover:shadow-[0_12px_28px_rgba(18,18,18,0.12)]">
       <div className="relative aspect-square overflow-hidden rounded-t-md bg-white">
         <Link href={href} className="block h-full w-full" tabIndex={-1}>
           {image ? (
@@ -29,7 +29,7 @@ export function ProductCard({ product, showPromoBadge = true }: ProductCardProps
               alt={image.alt || product.title}
               fill
               sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-              className="object-cover transition-transform duration-300 hover:scale-105"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
             <div className="h-full w-full bg-gray-200" />

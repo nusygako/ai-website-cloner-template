@@ -135,8 +135,8 @@ export function SiteHeader() {
       {/* Sticky header + nav */}
       <div
         className={cn(
-          "sticky top-0 z-50 bg-white transition-shadow duration-200",
-          scrolled && "shadow-sm",
+          "sticky top-0 z-50 bg-white transition-shadow duration-300",
+          scrolled && "shadow-[0_4px_20px_rgba(18,18,18,0.08)]",
         )}
       >
         {/* Header row */}

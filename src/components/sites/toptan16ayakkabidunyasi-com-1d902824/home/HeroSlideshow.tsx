@@ -40,6 +40,24 @@ export function HeroSlideshow() {
           playsInline
           preload="auto"
         />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(0deg, rgba(18,18,18,0.55) 0%, rgba(18,18,18,0.05) 45%, rgba(18,18,18,0) 65%)",
+          }}
+        />
+        <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-4 px-6 pb-10 text-center sm:pb-14">
+          <h1 className="font-heading text-2xl font-bold text-white drop-shadow-md sm:text-4xl">
+            Showroom Ayakkabı&apos;ya Hoş Geldiniz
+          </h1>
+          <p className="max-w-md text-sm text-white/90 drop-shadow-md sm:text-base">
+            En yeni sezon modelleri, uygun fiyatlarla kapınıza kadar.
+          </p>
+          <span className="pointer-events-auto rounded-full bg-white px-8 py-3 text-sm font-bold text-[#121212] transition-transform duration-200 hover:scale-105">
+            Koleksiyonu Keşfet
+          </span>
+        </div>
       </Link>
     </section>
   );

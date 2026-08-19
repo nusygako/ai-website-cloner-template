@@ -210,14 +210,14 @@ export function ProductBuyBox({
         ref={addToCartRef}
         type="button"
         onClick={handleAddToCart}
-        className="mt-6 w-full rounded-full bg-[#121212] py-4 text-base font-bold text-white"
+        className="mt-6 w-full rounded-full bg-[#121212] py-4 text-base font-bold text-white transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98]"
       >
         SEPETE EKLE
       </button>
       <button
         type="button"
         onClick={handleAddToCart}
-        className="mt-3 w-full rounded-full bg-transparent py-4 text-base font-bold text-[#14B8A6]"
+        className="mt-3 w-full rounded-full bg-transparent py-4 text-base font-bold text-[#14B8A6] transition-colors duration-150 hover:bg-[#14B8A6] hover:text-white"
         style={{ border: "1.6px solid #14B8A6" }}
       >
         HEMEN SATIN ALIN
