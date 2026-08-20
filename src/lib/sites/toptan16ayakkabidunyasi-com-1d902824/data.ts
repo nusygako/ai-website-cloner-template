@@ -4,18 +4,30 @@ import collectionsJson from "./collections.json";
 import globalAssetsJson from "./global-assets.json";
 import campaignJson from "./campaign.json";
 
+// Product images are served with a 1-year cache-control header (see
+// public/.htaccess) but get overwritten in place on every re-shoot, so
+// browsers that cached the old file keep showing it indefinitely. Bumping
+// this on every image-content update busts that cache without renaming
+// files or touching every consumer.
+const ASSET_VERSION = "20260821a";
+
+function withVersion(src: string): string {
+  return `${src}${src.includes("?") ? "&" : "?"}v=${ASSET_VERSION}`;
+}
+
 // A handful of catalog entries carry a stale `compareAtPrice` lower than the
 // current `price` (e.g. price was raised without updating the old "was"
 // price), which renders as a nonsensical "discount" (crossed-out price lower
 // than the real one). Drop the compareAtPrice in that case rather than show
 // a misleading strikethrough everywhere it's rendered.
-export const products = (productsJson as Product[]).map((p) =>
-  p.compareAtPrice !== null &&
-  p.price !== null &&
-  p.compareAtPrice <= p.price
-    ? { ...p, compareAtPrice: null }
-    : p
-);
+export const products = (productsJson as Product[]).map((p) => ({
+  ...p,
+  compareAtPrice:
+    p.compareAtPrice !== null && p.price !== null && p.compareAtPrice <= p.price
+      ? null
+      : p.compareAtPrice,
+  images: p.images.map((img) => ({ ...img, src: withVersion(img.src) })),
+}));
 export const collections = collectionsJson as Collection[];
 export const globalAssets = globalAssetsJson as GlobalAssets;
 
@@ -27,7 +39,10 @@ export interface CampaignItem {
   image: string;
 }
 
-export const campaignItems = campaignJson as CampaignItem[];
+export const campaignItems = (campaignJson as CampaignItem[]).map((c) => ({
+  ...c,
+  image: withVersion(c.image),
+}));
 
 const productsByHandle = new Map(products.map((p) => [p.handle, p]));
 const collectionsByHandle = new Map(collections.map((c) => [c.handle, c]));
