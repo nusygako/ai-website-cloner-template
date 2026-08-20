@@ -4,7 +4,18 @@ import collectionsJson from "./collections.json";
 import globalAssetsJson from "./global-assets.json";
 import campaignJson from "./campaign.json";
 
-export const products = productsJson as Product[];
+// A handful of catalog entries carry a stale `compareAtPrice` lower than the
+// current `price` (e.g. price was raised without updating the old "was"
+// price), which renders as a nonsensical "discount" (crossed-out price lower
+// than the real one). Drop the compareAtPrice in that case rather than show
+// a misleading strikethrough everywhere it's rendered.
+export const products = (productsJson as Product[]).map((p) =>
+  p.compareAtPrice !== null &&
+  p.price !== null &&
+  p.compareAtPrice <= p.price
+    ? { ...p, compareAtPrice: null }
+    : p
+);
 export const collections = collectionsJson as Collection[];
 export const globalAssets = globalAssetsJson as GlobalAssets;
 
