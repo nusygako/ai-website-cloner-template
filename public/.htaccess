@@ -48,6 +48,14 @@ ServerSignature Off
   RewriteEngine On
   DirectorySlash Off
 
+  # Trailing-slash URLs (e.g. /collections/foo/) hit the same empty RSC
+  # prefetch directory and 403 without this — strip the slash and resolve
+  # to the real .html file, same as the no-slash case below.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} ^(.+)/$
+  RewriteCond %{DOCUMENT_ROOT}%1.html -f
+  RewriteRule ^(.+)/$ %1.html [L]
+
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
   RewriteRule ^(.*[^/])$ $1.html [L]
