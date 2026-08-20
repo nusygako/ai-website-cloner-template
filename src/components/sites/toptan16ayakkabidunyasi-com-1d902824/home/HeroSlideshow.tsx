@@ -17,9 +17,32 @@ export function HeroSlideshow() {
     // markup, and refuse to autoplay unmuted video. Forcing it imperatively
     // guarantees autoplay works consistently across desktop and mobile.
     video.muted = true;
-    video.play().catch(() => {
-      // Autoplay can still be blocked (e.g. low-power mode) — poster stays visible.
-    });
+
+    const tryPlay = () => video.play().catch(() => {});
+    tryPlay();
+
+    // In-app browsers (WhatsApp, Instagram, etc.) frequently defer or reject
+    // the initial autoplay attempt until the video has actually buffered, or
+    // block it outright until a genuine user gesture occurs. Retry on the
+    // load lifecycle, and once more on the very first tap/click anywhere on
+    // the page (a real gesture always satisfies autoplay policies).
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
+
+    const onFirstGesture = () => {
+      tryPlay();
+      document.removeEventListener("touchstart", onFirstGesture);
+      document.removeEventListener("click", onFirstGesture);
+    };
+    document.addEventListener("touchstart", onFirstGesture, { once: true, passive: true });
+    document.addEventListener("click", onFirstGesture, { once: true });
+
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+      document.removeEventListener("touchstart", onFirstGesture);
+      document.removeEventListener("click", onFirstGesture);
+    };
   }, []);
 
   return (
