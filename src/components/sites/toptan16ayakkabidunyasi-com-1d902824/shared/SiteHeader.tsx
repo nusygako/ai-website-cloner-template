@@ -75,6 +75,8 @@ const TICKER_ITEMS = [
 
 const LOGO_SRC =
   "/sites/toptan16ayakkabidunyasi-com-1d902824/shared/global/shoe-3d-icon.png";
+const WORDMARK_SRC =
+  "/sites/toptan16ayakkabidunyasi-com-1d902824/shared/global/wordmark-3d.png";
 
 
 function TickerContent() {
@@ -166,18 +168,20 @@ export function SiteHeader() {
           <Link href="/" className="flex items-center justify-center gap-2">
             <Image
               src={LOGO_SRC}
-              alt="Showroom Ayakkabı"
+              alt=""
               width={512}
               height={512}
               className="h-10 w-auto object-contain md:h-14"
               priority
             />
-            <span className="font-heading text-lg font-bold leading-none text-toptan-dark md:text-2xl">
-              Showroom
-              <br className="md:hidden" />
-              <span className="hidden md:inline"> </span>
-              Ayakkabı
-            </span>
+            <Image
+              src={WORDMARK_SRC}
+              alt="Showroom Ayakkabı"
+              width={1304}
+              height={744}
+              className="h-8 w-auto object-contain md:h-11"
+              priority
+            />
           </Link>
 
           <div className="flex items-center gap-4 md:min-w-[120px] md:justify-end md:gap-6">
