@@ -52,8 +52,8 @@ export default function Home() {
   return (
     <>
       <HeroSlideshow />
-      <BentoShowcase />
       <CampaignSection />
+      <BentoShowcase />
       <DealsCountdown deals={deals} />
       <BrandMarquee />
       <ProductGridSection
