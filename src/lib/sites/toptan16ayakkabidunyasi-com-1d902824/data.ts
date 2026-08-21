@@ -9,7 +9,7 @@ import campaignJson from "./campaign.json";
 // browsers that cached the old file keep showing it indefinitely. Bumping
 // this on every image-content update busts that cache without renaming
 // files or touching every consumer.
-const ASSET_VERSION = "20260821a";
+const ASSET_VERSION = "20260821b";
 
 function withVersion(src: string): string {
   return `${src}${src.includes("?") ? "&" : "?"}v=${ASSET_VERSION}`;
