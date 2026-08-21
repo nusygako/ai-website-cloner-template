@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { ChevronRight } from "lucide-react";
 import {
   CollectionToolbar,
   type StockFilter,
@@ -66,6 +67,8 @@ function collator(a: string, b: string) {
   return a.localeCompare(b, "tr");
 }
 
+const PAGE_SIZE = 24;
+
 export function CollectionView({ products }: { products: Product[] }) {
   const [sortValue, setSortValue] = useState("featured");
   const [stockFilter, setStockFilter] = useState<StockFilter>({
@@ -74,6 +77,7 @@ export function CollectionView({ products }: { products: Product[] }) {
   });
   const [priceFilter, setPriceFilter] = useState<PriceFilter>({ min: "", max: "" });
   const [sizeFilter, setSizeFilter] = useState<string[]>([]);
+  const [page, setPage] = useState(1);
 
   const availableSizes = useMemo(() => {
     const sizes = new Set<string>();
@@ -94,10 +98,29 @@ export function CollectionView({ products }: { products: Product[] }) {
     [filtered, sortValue],
   );
 
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const paged = useMemo(
+    () => sorted.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE),
+    [sorted, currentPage],
+  );
+
+  useEffect(() => {
+    setPage(1);
+  }, [stockFilter, priceFilter, sizeFilter, sortValue]);
+
+  function goToPage(next: number) {
+    setPage(next);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
   function clearAll() {
     setStockFilter({ inStock: false, outOfStock: false });
     setPriceFilter({ min: "", max: "" });
     setSizeFilter([]);
+    setPage(1);
   }
 
   const appliedChips: AppliedChip[] = [
@@ -179,11 +202,46 @@ export function CollectionView({ products }: { products: Product[] }) {
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-4 py-8 sm:grid-cols-2 md:gap-8 lg:grid-cols-4">
-          {sorted.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-2 gap-4 py-8 sm:grid-cols-2 md:gap-8 lg:grid-cols-4">
+            {paged.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <nav
+              aria-label="Sayfalama"
+              className="flex items-center justify-center gap-2 pb-12"
+            >
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => goToPage(n)}
+                  aria-current={n === currentPage ? "page" : undefined}
+                  className={
+                    n === currentPage
+                      ? "flex h-9 w-9 items-center justify-center rounded-full bg-[#121212] text-sm font-bold text-white"
+                      : "flex h-9 w-9 items-center justify-center rounded-full text-sm text-[#121212] underline underline-offset-4 hover:bg-[rgba(18,18,18,0.06)]"
+                  }
+                >
+                  {n}
+                </button>
+              ))}
+              {currentPage < totalPages && (
+                <button
+                  type="button"
+                  onClick={() => goToPage(currentPage + 1)}
+                  aria-label="Sonraki sayfa"
+                  className="flex h-9 w-9 items-center justify-center rounded-full text-[#121212] hover:bg-[rgba(18,18,18,0.06)]"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              )}
+            </nav>
+          )}
+        </>
       )}
     </div>
   );
