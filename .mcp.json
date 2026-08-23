@@ -38,6 +38,13 @@
     "omniroute": {
       "type": "http",
       "url": "http://127.0.0.1:20128/api/mcp/stream"
+    },
+    "capcut": {
+      "command": "node",
+      "args": ["C:\\Users\\mynam\\mcp-servers\\capcut-mcp-server-extended\\dist\\index.js"],
+      "env": {
+        "CAPCUT_API_URL": "http://localhost:9001"
+      }
     }
   }
 }
