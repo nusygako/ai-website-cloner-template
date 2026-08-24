@@ -1,7 +1,7 @@
 import { Calendar, CheckCircle, Shield, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-const TICKER_ITEMS = Array.from({ length: 8 }, () => "1 Alana 1 Bedava");
+const TICKER_ITEMS = Array.from({ length: 8 }, () => "TEK FİYAT 790 TL");
 
 const FEATURES: Array<{
   icon: LucideIcon;

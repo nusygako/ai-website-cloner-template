@@ -123,8 +123,9 @@ export function SiteHeader() {
   return (
     <>
       {/* Announcement bar */}
-      <div className="bg-toptan-accent px-4 py-3 text-center text-sm font-bold text-white">
-        🔥 1 Alana 1 Bedava Fırsatı Başladı!
+      <div className="bg-toptan-accent px-4 py-3 text-center font-bold text-white">
+        🔥 TÜM AYAKKABILARDA TEK FİYAT{" "}
+        <span className="text-2xl font-black tracking-wide sm:text-3xl">790 TL</span>
       </div>
 
       {/* Shipping ticker */}

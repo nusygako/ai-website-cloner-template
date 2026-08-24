@@ -64,7 +64,7 @@ export function ProductCard({ product, showPromoBadge = true }: ProductCardProps
         {showPromoBadge && (
           <div className="absolute bottom-3 left-3 flex items-center gap-1 rounded-full bg-[#14B8A6] px-3 py-1.5 text-[13px] text-white">
             <Tag size={13} />
-            <span>1 Alana 1 Bedava</span>
+            <span>{formatPrice(product.price)}</span>
           </div>
         )}
       </div>

@@ -192,7 +192,7 @@ export function ProductBuyBox({
         )}
         <span className="inline-flex items-center gap-1 rounded-full bg-[#14B8A6] px-3 py-1 text-xs font-bold text-white">
           <Tag className="h-3.5 w-3.5" />
-          1 Alana 1 Bedava
+          Kampanyalı Fiyat
         </span>
       </div>
 
