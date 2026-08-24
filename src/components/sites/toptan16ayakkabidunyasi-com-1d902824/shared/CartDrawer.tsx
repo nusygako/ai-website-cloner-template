@@ -6,8 +6,6 @@ import { Footprints, ShoppingBag, Sparkles, Trash2, Truck, X } from "lucide-reac
 import { cn } from "@/lib/utils";
 import { useCart, formatSubtotal, parsePriceNumber } from "./CartContext";
 
-const FREE_SHIPPING_THRESHOLD = 2500;
-
 interface CrossSellItem {
   id: string;
   title: string;
@@ -20,35 +18,15 @@ const CROSS_SELL_ITEMS: CrossSellItem[] = [
   { id: "cross-sell-corap", title: "Spor Çorap (3'lü)", price: "89,00TL", icon: Footprints },
 ];
 
-function FreeShippingProgress({ subtotal }: { subtotal: number }) {
-  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
-  const progress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
-  const qualified = remaining === 0;
-
+function FreeShippingProgress() {
   return (
     <div className="border-b border-toptan-dark/10 px-5 py-4">
       <p className="flex items-center gap-1.5 text-sm font-medium text-toptan-dark">
         <Truck className="h-4 w-4 shrink-0" />
-        {qualified ? (
-          <span>Ücretsiz kargo hakkını kazandınız! 🎉</span>
-        ) : (
-          <span>
-            Kargo bedavaya{" "}
-            <strong className="font-bold">
-              {remaining.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}TL
-            </strong>{" "}
-            kaldı
-          </span>
-        )}
+        <span>Ücretsiz kargo hakkını kazandınız! 🎉</span>
       </p>
       <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-toptan-dark/10">
-        <div
-          className={cn(
-            "h-full rounded-full transition-all duration-500 ease-out",
-            qualified ? "bg-[#0F9D8C]" : "bg-toptan-dark",
-          )}
-          style={{ width: `${progress}%` }}
-        />
+        <div className="h-full rounded-full bg-[#0F9D8C]" style={{ width: "100%" }} />
       </div>
     </div>
   );
@@ -157,7 +135,7 @@ export function CartDrawer() {
           </div>
         ) : (
           <>
-            <FreeShippingProgress subtotal={subtotalValue} />
+            <FreeShippingProgress />
 
             {/* Item list */}
             <div className="flex flex-1 flex-col overflow-y-auto">

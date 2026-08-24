@@ -70,7 +70,7 @@ function megaMenuBanner(children: NavLink[]): { src: string; alt: string } | nul
 
 const TICKER_ITEMS = [
   "🚚 TÜM TÜRKİYE'YE ŞEFFAF KARGO",
-  "2500₺ ÜSTÜ ÜCRETSİZ KARGO",
+  "TÜM SİPARİŞLERDE ÜCRETSİZ KARGO",
 ];
 
 const LOGO_COMBINED_SRC =

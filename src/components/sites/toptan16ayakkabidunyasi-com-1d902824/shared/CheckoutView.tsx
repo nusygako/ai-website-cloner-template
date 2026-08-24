@@ -11,7 +11,6 @@ import { trackEvent } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/ana
 import { hapticTap } from "@/lib/sites/toptan16ayakkabidunyasi-com-1d902824/haptics";
 
 const WHATSAPP_NUMBER = "905521254911";
-const FREE_SHIPPING_THRESHOLD = 2500;
 
 function buildOrderMessage(params: {
   items: ReturnType<typeof useCart>["items"];
@@ -62,8 +61,8 @@ export function CheckoutView() {
     (sum, line) => sum + parsePriceNumber(line.price) * line.quantity,
     0,
   );
-  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotalValue);
-  const progress = Math.min(100, (subtotalValue / FREE_SHIPPING_THRESHOLD) * 100);
+  const remaining: number = 0;
+  const progress: number = 100;
 
   useEffect(() => {
     if (items.length === 0) return;
