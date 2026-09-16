@@ -1,3 +1,32 @@
+# ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
+
+Saat Türkiye saatiyle 15:00'i (12:00 UTC) geçtiği için bu turda yeni arama yapılmadı;
+bu bölüm önceki iki turda (Tur 1, Tur 2) toplanan sonuçların özetidir.
+
+**Toplam bulunan kaynak: 14** (2 skill koleksiyonu, 2 agent/subagent koleksiyonu daha —
+toplam 4 skill/agent koleksiyonu — ve 8 ücretsiz/meşru API/MCP sağlayıcısı; ayrıntılı
+döküm aşağıda Tur 1 ve Tur 2 bölümlerinde).
+
+**En önemli 5 kaynak:**
+1. **[anthropics/skills](https://github.com/anthropics/skills)** — Anthropic'in resmi Agent
+   Skills referans deposu (~176k ⭐, Apache 2.0). Gerçek `SKILL.md` dosyaları, doğrudan
+   `~/.claude/skills/` altına kopyalanabilir.
+2. **[wshobson/agents](https://github.com/wshobson/agents)** — 202 agent + 183 skill + 105
+   komut içeren çok-harness'lı plugin marketplace (~39.7k ⭐, MIT). Tek `git clone` ile kurulum.
+3. **[ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)**
+   — Google'ın resmi MCP sunucusu (~52k ⭐, Apache 2.0), API key gerektirmez; bu template'in
+   kendi `INSPECTION_GUIDE.md` akışıyla (hedef site reverse-engineering) doğrudan örtüşüyor.
+4. **[upstash/context7](https://github.com/upstash/context7)** — Güncel kütüphane
+   dokümantasyonunu prompt'a çeker (~62k ⭐, MIT); bu template Next.js 16 gibi training
+   data'dan farklı bir framework kullandığı için özellikle faydalı.
+5. **Groq API ücretsiz katmanı** (console.groq.com) — kredi kartı gerektirmeyen, kalıcı
+   ücretsiz geliştirici katmanı; kendi API key'in, paylaşımlı değil.
+
+Detaylı liste (yıldız/lisans/kurulum adımları dahil) aşağıda Tur 1 ve Tur 2 bölümlerinde.
+Dışlanan/dikkat edilmesi gereken bulgular için dosyanın sonundaki uyarı bölümüne bakın.
+
+---
+
 # Gece Araştırma Kataloğu — Claude Code'u Güçlendirecek Ücretsiz & Meşru Kaynaklar
 
 Bu dosya, otomatik gece araştırma görevi tarafından derlenmiştir. Her kaynak GitHub üzerinden
