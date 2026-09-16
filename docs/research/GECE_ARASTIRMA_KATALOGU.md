@@ -129,6 +129,99 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 
 ---
 
+## Tur 2 — 2026-09-16
+
+### A) Skill Koleksiyonları
+
+#### 9. [glebis/claude-skills](https://github.com/glebis/claude-skills)
+- **Yıldız:** 378 · **Fork:** 56 · **Lisans:** MIT (istisnalar için ilgili skill klasörüne bak)
+- **Güncellik:** 349 commit, en son eklemeler 2026-07 tarihli, 7 açık issue / 4 açık PR — aktif
+- **Ne işe yarar:** ~100 gerçek `SKILL.md` dosyası (her biri kendi klasöründe
+  `SKILL.md` + `CHANGELOG.md` + `scripts/` + `assets/` + `references/` yapısıyla) — toplantı
+  pipeline'ları, araştırma, görsel üretim, TDD, yayınlama, kişisel analitik ve Claude Code
+  operasyon skill'leri.
+- **Neden meşru:** Tek geliştirici (Gleb Kalinin) tarafından yönetilen, kodu tamamen açık ve
+  incelenebilir bir koleksiyon; gizli API çağrısı veya paylaşımlı servis yok.
+- **Kurulum:** Claude plugin marketplace üzerinden, `npx skills add glebis/claude-skills --skill <isim>`
+  ile ya da doğrudan `git clone` + `~/.claude/skills/` altına kopyalama. Yerel onay gerekmez.
+
+#### 10. [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) — DİKKAT: liste/keşif deposu
+- **Yıldız:** ~75.2k · **Lisans:** Apache 2.0 · **Güncellik:** 77 commit, aktif
+- **Ne işe yarar:** "1000+ production ready" skill'i kataloglayan bir dizin. **Önemli:** doğrulama
+  sonucu bu deponun büyük çoğunluğu (200+ giriş) `anthropics/skills`, `zxkane/aws-skills` gibi
+  BAŞKA repolara link veriyor — depoda gömülü/yerel gerçek `SKILL.md` sadece ~15-20 skill için var
+  (`changelog-generator/`, `connect/`, `mcp-builder/` vb.). Yani kendisi bir "skill deposu" değil,
+  bir **keşif/dizin** kaynağı.
+- **Neden meşru:** Composio'nun (YC destekli, gerçek şirket) resmi deposu, içerik tamamen açık
+  ve linkler gerçek/incelenebilir; hiçbir gizli/paylaşımlı erişim önermiyor.
+- **Kurulum:** Doğrudan kurulum yok — bir keşif noktası olarak kullan, ilgini çeken linke gidip
+  ORADAKI deponun kendi lisans/güncellik durumunu tekrar doğrula, sonra normal skill kurulumunu
+  (dosya kopyalama / `npx skills add`) uygula.
+
+### B) Agent / Subagent Koleksiyonları
+
+#### 11. [0xfurai/claude-code-subagents](https://github.com/0xfurai/claude-code-subagents)
+- **Yıldız:** ~1.000 · **Fork:** 186 · **Lisans:** MIT
+- **Güncellik:** 7 commit (toplu eklenmiş), 5 açık PR, 2 açık issue — düşük commit sayısına
+  rağmen aktif topluluk etkileşimi var
+- **Ne işe yarar:** 100+ gerçek `agents/<isim>.md` dosyası — programlama dilleri (23),
+  web framework'leri (17), mobil/masaüstü (8), veritabanları (16), altyapı/DevOps (9) ve
+  servis/test/ML/güvenlik kategorilerinde uzman subagent tanımları.
+- **Neden meşru:** MIT lisanslı, tamamen incelenebilir Markdown dosyaları; harici servis veya
+  API key gerektirmiyor. VoltAgent/wshobson'dan farklı, bağımsız bir koleksiyon (Tur 1'de
+  bahsedilen fork/klon sorunuyla karıştırılmamalı).
+- **Kurulum:** `cd ~/.claude && git clone https://github.com/0xfurai/claude-code-subagents.git`
+  — subagent'lar otomatik olarak `~/.claude/agents/` altında kullanılabilir olur. Yerel onay
+  gerekmez.
+
+### C) Ücretsiz & Meşru API / MCP Sağlayıcıları
+
+#### 12. [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp) — RESMİ (Google)
+- **Yıldız:** ~52.1k · **Lisans:** Apache 2.0 · **Güncellik:** 1.231 commit, aktif
+- **Ücretsiz katman:** Tamamen ücretsiz, API key GEREKTİRMİYOR — yerel makinendeki Chrome'a
+  doğrudan bağlanıyor (Puppeteer tabanlı).
+- **Ne işe yarar:** Kod ajanlarının canlı bir Chrome tarayıcısını kontrol etmesini ve
+  incelemesini sağlıyor — performans trace'i kaydetme, network isteklerini analiz etme,
+  ekran görüntüsü alma, console mesajlarını okuma, otomatik sonuç bekleme ile tarayıcı
+  eylemlerini otomatikleştirme. **Bu template'in kendi `docs/research/INSPECTION_GUIDE.md`
+  akışıyla (Chrome MCP / DevTools ile hedef site inceleme) doğrudan örtüşüyor** — hedef site
+  reverse-engineering'inde tasarım token'ı/komponent envanteri çıkarmak için birebir kullanılabilir.
+- **Neden meşru:** Google Chrome DevTools ekibinin resmi deposu (`developer.chrome.com/docs/devtools/agents`
+  referansı var), kod tamamen açık. Not: Google varsayılan olarak anonim kullanım istatistiği
+  topluyor, `--no-usage-statistics` bayrağıyla kapatılabilir (gizlilik hassasiyeti olan kullanıcı
+  için belirtmekte fayda var, engelleyici bir sorun değil).
+- **Kurulum:** `claude mcp add chrome-devtools npx chrome-devtools-mcp@latest` (veya MCP config'e
+  ekleme) — yerel onay gerekir (MCP sunucusu ekleme), API key gerekmez.
+
+#### 13. Cloudflare Workers AI ücretsiz katmanı (resmi)
+- **Ücretsiz katman:** Her ücretsiz Cloudflare hesabında kredi kartı/onay olmadan günlük
+  **10.000 Neuron** (Cloudflare'in normalize edilmiş hesaplama birimi), her gün 00:00 UTC'de
+  sıfırlanıyor — tek seferlik kredi değil, süresiz tekrarlayan katman. 82 modele erişim
+  (Llama, Mistral, Gemma, DeepSeek, Qwen dahil). Örnek: ~500 token'lık bir Llama 3 yanıtı
+  ~400-600 Neuron tutuyor → günde yaklaşık 15-25 metin çağrısı ücretsiz.
+- **Ne işe yarar:** Claude Code'un yanında ikincil/yedek model sağlayıcısı — MCP tool içinde
+  hızlı sınıflandırma, kısa özet gibi düşük hacimli işler için.
+- **Neden meşru:** Resmi Cloudflare ürünü (cloudflare.com/products/workers-ai), her kullanıcı
+  kendi hesabı ve kendi API token'ıyla erişiyor, paylaşımlı key yok.
+- **Kurulum:** dash.cloudflare.com üzerinden ücretsiz hesap + Workers AI API token oluştur,
+  kendi ortamına ekle — yerel onay/gizli bilgi girişi gerekir, bu oturumdan otomatik yapılamaz
+  (bu sandbox'ta developers.cloudflare.com'a doğrudan ağ erişimi de kapalı, bilgiler bağımsız
+  kaynaklardan çapraz doğrulanmıştır).
+
+#### 14. Mistral La Plateforme "Experiment" ücretsiz katmanı (resmi)
+- **Ücretsiz katman:** Tüm API modellerine (Mistral Large, Codestral dahil) kredi kartı
+  gerektirmeden erişim; yaklaşık ayda 1 milyar token / ~1 istek-saniye sınırı (Mistral tam
+  rakamları artık herkese açık yayınlamıyor — kesin limitler için Admin Console → Limits'e bak).
+  Telefon numarası doğrulaması gerekiyor.
+- **Ne işe yarar:** Deneme/prototipleme amaçlı alternatif model erişimi — production için
+  önerilmiyor ama geliştirme/test için gerçek ve kalıcı bir ücretsiz katman.
+- **Neden meşru:** Resmi Mistral AI ürünü, bireysel hesap + kendi key'in; paylaşımlı erişim yok.
+- **Kurulum:** console.mistral.ai üzerinden ücretsiz kayıt (telefon doğrulama gerekir) + key al,
+  ortam değişkeni olarak ekle — yerel onay gerekir, bu oturumdan otomatik yapılamaz (bu
+  sandbox'ta mistral.ai'a doğrudan ağ erişimi de kapalı).
+
+---
+
 ## ⚠️ Doğrulanan ama EKLENMEYEN / Dikkat Edilmesi Gereken Bulgular
 
 - **GitHub Models (resmi ücretsiz LLM API)** — **2026-07-30 tarihinde GitHub tarafından
@@ -141,11 +234,22 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 - **VoltAgent deposunun `afsarctg/`, `Shyboy0499/`, `Saad-web-spec/` kullanıcı adlarındaki
   kopyaları** — aynı README ve içerikle görünüyorlar, orijinal/kaynak depo değiller; olası
   fork'lar. Katalogda sadece orijinal VoltAgent deposu listelendi.
+- **"FreeLLMAPI" ve benzeri "birden fazla ücretsiz sağlayıcıyı tek key altında birleştiren
+  self-hosted router" araçları** (Tur 2'de rastlandı) — **bilerek eklenmedi.** Bu tarz araçlar
+  birden fazla sağlayıcının ücretsiz katmanını otomatik/programatik olarak art arda tüketiyor;
+  bu, ilgili sağlayıcıların ToS'unda genelde "otomatik/toplu erişim" veya "yeniden satış" olarak
+  yasaklanan bir kullanım deseni sayılabilir ve hesap askıya alınma riski taşır. Talimattaki
+  "hesap askıya alınma riski taşıyan hiçbir şey eklenmeyecek" kuralına takıldığı için dışlandı.
+- **"tokenmix.ai", "freellmapi.co", "costbench.com", "pricepertoken.com", "itsfree.ai" gibi
+  SEO/listicle siteleri** — ücretsiz API karşılaştırmaları için çapraz referans olarak
+  kullanıldı ama kaynak/repo olarak kataloğa EKLENMEDİ; bunlar resmi sağlayıcı değil, üçüncü
+  parti pazarlama içerikleri (rakamları bağımsız doğrulama için kullanışlı ama tek başına
+  güvenilir birincil kaynak değil).
 - **Dışlama kriterlerine takılan ve hiç araştırılmayan kategoriler:** paylaşımlı/havuzlanmış
   API key sunan "sınırsız ücretsiz AI" araçları, X/Twitter/Reddit giriş engeli aşan scraping
   araçları, ve kanıtsız yüksek kazanç iddialı trading botları — talimat gereği hiç aranmadı.
 
 ---
 
-*Son güncelleme: 2026-09-16 (Tur 1). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, bu turda listelenenler tekrarlanmayacak.*
+*Son güncelleme: 2026-09-16 (Tur 2). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1 ve Tur 2'de listelenenler tekrarlanmayacak.*
