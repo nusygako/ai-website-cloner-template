@@ -646,7 +646,80 @@ zaten eklenmezdi).
 
 ---
 
-*Son güncelleme: 2026-09-17 (Tur 7). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–7'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
-(ve aynı adla dolaşan fork/mirror'ları) şüpheli bulundu — kurmadan önce ilgili notu oku. Tur 7'de
-OpenRouter ücretsiz katmanı ağ kısıtlaması nedeniyle doğrulanamadı, gelecek turda tekrar denenmeli.*
+## Tur 8 — 2026-09-17
+
+Bu turda da `gh` CLI yoktu; doğrulama GitHub MCP sunucusunun `search_repositories`/`search_code`
+araçlarıyla yapıldı. `get_file_contents`/`list_commits` bu oturumda YALNIZCA bu şablon reposu
+(`nusygako/ai-website-cloner-template`) için çalışıyor — başka bir repo için çağrıldığında
+"Access denied: repository not configured for this session" hatası döndüğü doğrulandı; bu yüzden
+dış repoların dosya içeriği doğrulaması yine `search_code` üzerinden path/içerik araması ile
+yapıldı. `openrouter.ai` bu oturumda da ağ proxy'si tarafından doğrudan engellendi
+(`EGRESS_BLOCKED` hatası) — Tur 1 ve Tur 7'deki kısıtlamayla birebir aynı, ücretsiz katman yine
+doğrulanamadı.
+
+**Önemli gözlem:** Bu turun genel repo taramasında (`claude-code-plugin` topic'i, stars:>500),
+sonuçların büyük bölümü Tur 3/5/6'da tespit edilen "şişirilmiş yıldız" deseniyle uyumluydu —
+ör. `DietrichGebert/ponytail` (~140.7k yıldız / sadece 274 açık issue), `thedotmack/claude-mem`
+(~94.1k yıldız / 198 issue), `ayghri/i-have-adhd` (~47.1k yıldız / 69 issue),
+`shanraisshan/claude-code-best-practice` (~66k yıldız / 34 issue) — hepsi bu ölçekte organik
+topluluk büyümesiyle uyumsuz yıldız/issue oranı gösteriyor, **hiçbiri eklenmedi**. Ayrıca
+`mvanhorn/last30days-skill` (~62.2k yıldız) Reddit/X/Instagram/TikTok gibi platformları
+"araştırma" amacıyla tarıyor — talimattaki ToS-bypass scraping dışlama kriterine girdiği için
+(Tur 3'teki Agent-Reach ile aynı gerekçe) **bilerek eklenmedi**.
+
+### A) MCP Sunucusu (resmi, proje-özel — Next.js 16 + Vercel ile birebir örtüşüyor)
+
+#### 30. [vercel/next-devtools-mcp](https://github.com/vercel/next-devtools-mcp) — RESMİ (Vercel)
+- **Yıldız:** 821 · **Fork:** 66 · **Açık issue:** 10 · **Lisans:** MIT
+- **Güncellik:** Aktif, son güncelleme 2026-09-15; yıldız/issue/fork oranı organik (bu turdaki
+  şişirilmiş-yıldız vakalarının aksine — küçük ama gerçek bir resmi araç).
+- **Ne işe yarar:** `package.json`da doğrulandı: "Next.js development tools MCP server with
+  stdio transport". `nextjs_index`/`nextjs_call` araçlarıyla çalışan Next.js dev server'ları
+  keşfediyor ve sunucunun kendi MCP tool'larını (Next.js 16'nın yerleşik MCP desteği) proxy'liyor;
+  ayrıca `browser_eval` ile tarayıcı otomasyonu köprüsü var. **Kod içinde birebir doğrulandı:**
+  "Next.js MCP support requires Next.js 16+ where MCP is enabled by default" — bu şablonun
+  `AGENTS.md`'de belirttiği tam sürüm (Next.js 16, App Router) ile birebir örtüşüyor; ayrıca
+  `AGENTS.md`'nin "Bu Next.js sürümü training data'dan farklı, breaking change'lere dikkat et"
+  uyarısıyla da doğrudan alakalı — bu MCP, çalışan dev server'ın GERÇEK API'sini sorgulayarak
+  ajanın eski/yanlış Next.js bilgisine güvenmesini önlüyor.
+- **Neden meşru:** Vercel'in kendi resmi GitHub organizasyonundan (`vercel/`), MIT lisanslı,
+  kod tamamen açık, harici/paylaşımlı API key gerektirmiyor (tamamen yerel dev server'a bağlanıyor).
+- **Kurulum:** `claude mcp add next-devtools npx next-devtools-mcp@latest` (veya MCP config'e
+  ekleme) — yerel onay gerekir, API key gerekmez. `npm run dev` çalışırken kullanılabilir.
+
+### B) Proje-Özel Araç (hedef site → design token, `INSPECTION_GUIDE.md` Phase 1 ile örtüşüyor)
+
+#### 31. [Manavarya09/design-extract](https://github.com/Manavarya09/design-extract)
+- **Yıldız:** 4.109 · **Fork:** 348 · **Açık issue:** 23 · **Lisans:** MIT (LICENSE dosyasında
+  "Copyright (c) 2024 Manavarya Singh" doğrulandı)
+- **Güncellik:** Aktif, son push 2026-09-16; yıldız/fork/issue oranı (11.8 yıldız/fork) bu turdaki
+  şişirilmiş-yıldız vakalarının aksine makul/organik görünüyor; resmi ürün sitesi de var
+  (designlang.app).
+- **Ne işe yarar:** Tek komutla bir web sitesinin **tüm design sistemini** çıkarıyor — DTCG
+  (Design Tokens Community Group) formatında semantic+primitive+composite token'lar, Tailwind v4
+  ve shadcn/ui'a özel çıktı, Figma variables entegrasyonu, CSS sağlık denetimi, WCAG uyumluluk
+  düzeltmeleri, Chrome eklentisi ve Claude Code/Cursor/Windsurf için MCP sunucusu. **Bu şablonun
+  `docs/research/INSPECTION_GUIDE.md` Phase 1 (Visual Audit → Design Tokens) ve
+  `DESIGN_TOKENS.md` çıktı adımıyla, ayrıca `AGENTS.md`'deki tam tech stack'iyle (Tailwind v4,
+  shadcn/ui) birebir örtüşüyor** — hedef siteyi elle inceleyip token tablosu yazmak yerine bu
+  araçla otomatik ilk taslak çıkarılabilir (yine de "gerçek içerik/pixel-perfect" ilkesi gereği
+  çıktı elle doğrulanmalı).
+- **Neden meşru:** MIT lisanslı, kaynağı tek bir geliştiriciye ait (doğrulanabilir profil +
+  gerçek ürün sitesi), API key veya paylaşımlı servis gerektirmiyor (Playwright ile yerel/kendi
+  makinende çalışıyor); "web-scraping" etiketi kullanıcının KENDİ hedeflediği (klonlamak istediği)
+  siteyi taramasıyla ilgili, login duvarı arkasındaki üçüncü parti platform (X/Reddit) bypass'ı
+  DEĞİL.
+- **Kurulum:** `npx design-extract <url>` (kurulum gerektirmez) veya MCP sunucusu olarak
+  `claude mcp add design-extract ...` ile ekle — yerel onay gerekir (npx paket çalıştırma / yeni
+  MCP sunucusu), API key gerekmez. Node 20+ gerektiriyor.
+
+---
+
+*Son güncelleme: 2026-09-17 (Tur 8). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–8'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+(ve aynı adla dolaşan fork/mirror'ları) şüpheli bulundu — kurmadan önce ilgili notu oku. Tur 8'de
+genel `claude-code-plugin` taramasında çok sayıda şişirilmiş-yıldız reposu tespit edildi (yukarıdaki
+gözlem notuna bak) — bu ekosistemde yıldız sayısını TEK BAŞINA güvenilirlik kriteri olarak kullanmak
+giderek daha riskli hale geliyor, gelecek turlarda issue/fork oranı + kuruluş tarihi + bağımsız
+doğrulama önceliklendirilmeli. OpenRouter ücretsiz katmanı yine ağ kısıtlaması nedeniyle
+doğrulanamadı.*
