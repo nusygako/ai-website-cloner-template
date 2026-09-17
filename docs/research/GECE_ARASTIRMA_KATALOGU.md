@@ -359,6 +359,61 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 
 ---
 
+## Tur 5 — 2026-09-17
+
+### A) Skill Koleksiyonu
+
+#### 23. [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills)
+- **Yıldız:** ~26k · **Fork:** ~3.7k · **Lisans:** MIT
+- **Güncellik:** 1.499 commit, 6 açık issue, 12 açık PR — bu oran (aşağıdaki #24'te
+  bahsedilen sickn33 vakasının aksine) organik topluluk büyümesiyle uyumlu.
+- **Ne işe yarar:** 388 üretim-hazır skill, 20 domain dizini (`engineering/`,
+  `marketing-skill/`, `product-team/`, `research/`, `c-level-advisor/` vb.); her skill kendi
+  `SKILL.md` + `scripts/` (727 adet stdlib-only, pip bağımlılığı olmayan Python CLI aracı) +
+  `references/` (823 şablon/checklist) + `assets/` içeriyor. `.claude/`, `.codex/`, `.vibe/`,
+  `.hermes/` dizinleriyle çoklu harness desteği var.
+- **Neden meşru:** Tek geliştirici (Alireza Rezvani) tarafından yönetiliyor, doğrulanabilir bir
+  yazar profili var (kişisel site, Medium, uzun süredir yazı/konuşma geçmişi); klasör yapısı
+  gerçek içerik gösteriyor (placeholder link değil), gizli API/servis bağımlılığı yok.
+- **Kurulum:** Repoyu klonla, ilgili domain klasöründeki skill'i `~/.claude/skills/` altına
+  kopyala ya da reponun kendi kurulum script'ini kullan. Yerel dosya kopyalama, onay gerekmez.
+
+### B) Proje-Özel MCP / API Sağlayıcıları (web scraping — `clone-website` akışıyla örtüşüyor)
+
+#### 24. [firecrawl/firecrawl-mcp-server](https://github.com/firecrawl/firecrawl-mcp-server) — RESMİ
+- **Yıldız:** ~7.5k · **Fork:** ~887 · **Lisans:** MIT
+- **Güncellik:** 477 commit, güncel CHANGELOG.md ve CI workflow'ları — aktif
+- **Ücretsiz katman:** Kredi kartı gerektirmeden aylık 1.000 kredi (kaynaklar arasında "aylık
+  yenilenen" vs "tek seferlik" konusunda küçük tutarsızlık var, çoğunluk kaynak aylık diyor —
+  kurulumdan önce firecrawl.dev/pricing'den teyit et).
+- **Ne işe yarar:** `scrape`/`crawl`/`map`/`search`/`extract`/`interact` araçlarıyla bir web
+  sayfasını temiz Markdown/yapılandırılmış veriye çeviriyor, JS render destekli. **Bu template'in
+  `clone-website` akışıyla (hedef siteden gerçek içerik/asset çıkarma, `AGENTS.md`'deki "Real
+  content" ilkesi) birebir örtüşüyor** — hedef sitenin sayfalarını toplu olarak temiz markdown'a
+  çevirip içerik/asset envanterini hızlandırabilir.
+- **Neden meşru:** Firecrawl'ın resmi organizasyon deposu, MIT lisanslı, her kullanıcı kendi API
+  key'ini alıyor (paylaşımlı key değil); kullanım kamuya açık/kullanıcının kendi hedef sitesi
+  içindir — login duvarı arkasındaki içerik kazıma (X/Twitter/Reddit bypass) amaçlı DEĞİL.
+- **Kurulum:** firecrawl.dev'den ücretsiz kayıt + API key al, `claude mcp add firecrawl ...` ile
+  MCP config'ine ekle (npx üzerinden de çalışıyor). Yerel onay + API key girişi gerekir.
+
+#### 25. [unclecode/crawl4ai](https://github.com/unclecode/crawl4ai) — self-hosted, ücretsiz alternatif
+- **Yıldız:** ~83.7k · **Fork:** ~8.7k · **Lisans:** Apache 2.0
+- **Güncellik:** 1.651 commit, güncel sürüm v0.9.3 (güvenlik yaması) — aktif
+- **Ne işe yarar:** Açık kaynak, tamamen yerel çalışan "LLM-friendly" web crawler — sayfaları
+  temiz Markdown'a çeviriyor, JS render destekli, **API key GEREKTİRMİYOR** (Firecrawl'a göre
+  kota/kredi limiti olmayan tamamen ücretsiz self-hosted alternatif). Resmi/tek bir MCP sunucusu
+  içermiyor; Docker dağıtımı MCP entegrasyonundan bahsediyor ve topluluk tarafından yazılmış
+  birden fazla bağımsız MCP wrapper reposu var (ör. `sadiuysal/crawl4ai-mcp-server`) — bunlar
+  tek tek doğrulanmadı, kullanmadan önce kendi güncellik/lisans kontrolünü ayrıca yap.
+- **Neden meşru:** Apache 2.0, tamamen açık kod, gizli servis çağrısı yok, geniş topluluk kabul
+  görmüş (83k+ yıldız, düzenli sürüm geçmişi, güvenlik yamaları).
+- **Kurulum:** `pip install crawl4ai` veya Docker imajıyla self-hosted çalıştır; MCP olarak
+  kullanmak istersen topluluk wrapper'larından birini (lisans/güncellik kontrolü sonrası) MCP
+  config'ine ekle. Yerel onay gerekir (paket kurulumu), API key gerekmez.
+
+---
+
 ## ⚠️ Doğrulanan ama EKLENMEYEN / Dikkat Edilmesi Gereken Bulgular
 
 - **GitHub Models (resmi ücretsiz LLM API)** — **2026-07-30 tarihinde GitHub tarafından
@@ -410,8 +465,23 @@ trading araçları bilerek DIŞLANMIŞTIR.**
   (MIT, ~4.4k yıldız/531 fork, 24 gerçek agent — Laravel/Django/Rails/React/Vue
   orchestrator deseni) gerçek ve olgun ama Tur 1'deki VoltAgent/wshobson/0xfurai kapsamıyla
   yeterince örtüştüğü için ayrı madde açılmadı, burada referans olarak bırakıldı.
+- **sickn33/agentic-awesome-skills** (eskiden "antigravity-awesome-skills" adıyla dolaşıma
+  girmiş, Tur 5'te rastlandı) — "AAS Core... local, agent-first control plane... agent-owned
+  selection, stack validation" gibi pazarlama diliyle 2.115+ skill iddia ediyor; 46.5k yıldız,
+  6.8k fork ve 2.760 commit gösteriyor ama sadece **0 açık issue / 2 açık PR** var. Bu oran
+  (Tur 3'teki affaan-m/ECC vakasına çok benzer şekilde) bu ölçekte organik bir topluluğun
+  bırakması beklenen iz ile uyumsuz — gerçek SKILL.md dosyaları var gibi görünse de sahte/
+  şişirilmiş yıldız riski nedeniyle **bilerek eklenmedi**. Tekrar değerlendirilecekse önce
+  yıldız geçmişi (star history) ve kuruluş tarihi ayrıca doğrulanmalı.
+- **NVIDIA NIM ücretsiz katmanı** (Tur 5'te araştırıldı) — birden fazla bağımsız kaynak
+  birbiriyle çelişiyor: kimi "1.000 kredi tek seferlik + istek üzerine 4.000 ek kredi", kimi
+  "aylık 1.000 kredi", kimi de "Ağustos 2026 itibarıyla süresiz ücretsiz plan" diyor.
+  `build.nvidia.com` bu oturumdan ağ engeli nedeniyle doğrudan doğrulanamadı. DeepSeek'teki
+  (Tur 4, #21 sonrası not) ile aynı gerekçeyle — "kalıcı/tekrarlayan ücretsiz katman" kriteri
+  net olarak sağlanamadığı için — **bilerek eklenmedi**. İleride tekrar değerlendirilecekse
+  önce resmi `developer.nvidia.com/nim` sayfasından doğrudan teyit edilmeli.
 
 ---
 
-*Son güncelleme: 2026-09-17 (Tur 4). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1, Tur 2, Tur 3 ve Tur 4'te listelenenler tekrarlanmayacak.*
+*Son güncelleme: 2026-09-17 (Tur 5). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–5'te listelenenler tekrarlanmayacak.*
