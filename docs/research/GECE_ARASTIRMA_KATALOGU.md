@@ -1,32 +1,3 @@
-# ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
-
-Saat Türkiye saatiyle 15:00'i (12:00 UTC) geçtiği için bu turda yeni arama yapılmadı;
-bu bölüm önceki iki turda (Tur 1, Tur 2) toplanan sonuçların özetidir.
-
-**Toplam bulunan kaynak: 14** (2 skill koleksiyonu, 2 agent/subagent koleksiyonu daha —
-toplam 4 skill/agent koleksiyonu — ve 8 ücretsiz/meşru API/MCP sağlayıcısı; ayrıntılı
-döküm aşağıda Tur 1 ve Tur 2 bölümlerinde).
-
-**En önemli 5 kaynak:**
-1. **[anthropics/skills](https://github.com/anthropics/skills)** — Anthropic'in resmi Agent
-   Skills referans deposu (~176k ⭐, Apache 2.0). Gerçek `SKILL.md` dosyaları, doğrudan
-   `~/.claude/skills/` altına kopyalanabilir.
-2. **[wshobson/agents](https://github.com/wshobson/agents)** — 202 agent + 183 skill + 105
-   komut içeren çok-harness'lı plugin marketplace (~39.7k ⭐, MIT). Tek `git clone` ile kurulum.
-3. **[ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)**
-   — Google'ın resmi MCP sunucusu (~52k ⭐, Apache 2.0), API key gerektirmez; bu template'in
-   kendi `INSPECTION_GUIDE.md` akışıyla (hedef site reverse-engineering) doğrudan örtüşüyor.
-4. **[upstash/context7](https://github.com/upstash/context7)** — Güncel kütüphane
-   dokümantasyonunu prompt'a çeker (~62k ⭐, MIT); bu template Next.js 16 gibi training
-   data'dan farklı bir framework kullandığı için özellikle faydalı.
-5. **Groq API ücretsiz katmanı** (console.groq.com) — kredi kartı gerektirmeyen, kalıcı
-   ücretsiz geliştirici katmanı; kendi API key'in, paylaşımlı değil.
-
-Detaylı liste (yıldız/lisans/kurulum adımları dahil) aşağıda Tur 1 ve Tur 2 bölümlerinde.
-Dışlanan/dikkat edilmesi gereken bulgular için dosyanın sonundaki uyarı bölümüne bakın.
-
----
-
 # Gece Araştırma Kataloğu — Claude Code'u Güçlendirecek Ücretsiz & Meşru Kaynaklar
 
 Bu dosya, otomatik gece araştırma görevi tarafından derlenmiştir. Her kaynak GitHub üzerinden
@@ -251,6 +222,60 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 
 ---
 
+## Tur 3 — 2026-09-17
+
+### A) Skill Koleksiyonları
+
+#### 15. [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)
+- **Yıldız:** ~95.5k · **Lisans:** MIT
+- **Güncellik:** Aktif, güncel commit'ler var
+- **Ne işe yarar:** "Production-grade engineering skills for AI coding agents" — `skills/`
+  klasöründe gerçek `SKILL.md` dosyaları (test-driven-development, spec-driven-development,
+  code-review-and-quality vb. ~25 workflow dosyası), ayrıca `agents/` (uzman personalar),
+  `commands/`, `hooks/`, `references/`, `evals/` klasörleri. Google mühendislik kültüründen
+  (test pyramid, Hyrum's Law, trunk-based development) esinlenen disiplinli bir SDLC akışı.
+  Claude Code, Codex, Cursor, Gemini CLI, OpenCode için adaptörleri var (`.claude/`,
+  `.codex-plugin/`, `.gemini/commands/`, `.opencode/`).
+- **Neden meşru:** Yazarı Addy Osmani — Google Chrome ekibinden tanınan, doğrulanabilir bir
+  geliştirici (halka açık konuşmalar, kitaplar, uzun süredir devam eden GitHub geçmişi var).
+  İçerik tamamen açık Markdown dosyaları, gizli API çağrısı yok.
+- **Kurulum:** Repoyu klonla, istediğin `skills/<isim>/SKILL.md` dosyasını `~/.claude/skills/`
+  altına kopyala; ya da reponun kendi plugin marketplace entegrasyonunu kullan. Yerel dosya
+  kopyalama, onay gerekmez.
+  - **Not:** Bu proje ~7 ayda ~95k yıldıza ulaşmış — yüksek ama Addy Osmani'nin geniş kitlesi
+    göz önüne alındığında (bkz. Tur 3 sonundaki "dikkat" notu) organik olabilir; içerik kalitesi
+    doğrulandı, kurulum öncesi yine de kendi gözlemini yap.
+
+### B) MCP Sunucuları (proje-özel faydalı)
+
+#### 16. [Jpisnice/shadcn-ui-mcp-server](https://github.com/Jpisnice/shadcn-ui-mcp-server)
+- **Yıldız:** ~3.0k · **Fork:** 306 · **Lisans:** MIT
+- **Ücretsiz katman:** Tamamen ücretsiz; API key GEREKTİRMİYOR (opsiyonel bir GitHub personal
+  access token saatlik rate limit'i 60'tan 5.000'e çıkarıyor — kendi token'ın, paylaşımlı değil).
+- **Ne işe yarar:** LLM ajanlarına shadcn/ui komponent kaynak kodu, demo, block ve metadata
+  erişimi sağlıyor (React/varsayılan, Svelte, Vue, React Native, Base UI çerçeveleri dahil).
+  **Bu template'in kendi tech stack'iyle (shadcn/ui + Tailwind v4, `AGENTS.md`'de belirtilen)
+  birebir örtüşüyor** — clone edilen sitedeki component'leri shadcn primitiflerine eşlerken
+  doğru prop/varyant bilgisini doğrudan sağlayabilir.
+- **Neden meşru:** Açık kaynak, MIT lisanslı, npm üzerinden `@jpisnice/shadcn-ui-mcp-server`
+  paketi olarak dağıtılıyor, kod tamamen incelenebilir.
+- **Kurulum:** `npx @jpisnice/shadcn-ui-mcp-server` (kurulum gerektirmez) veya MCP config'e ekle
+  — yerel onay gerekir (yeni MCP sunucusu ekleme), API key zorunlu değil.
+
+### C) Keşif/Dizin Kaynağı (kurulum değil, referans)
+
+#### 17. [punkpeye/awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers) — DİKKAT: liste/keşif deposu
+- **Yıldız:** ~95.1k · **Fork:** 16.2k · **Lisans:** MIT · **Güncellik:** 12.271+ commit, çok aktif
+- **Ne işe yarar:** MCP sunucularını kategorilere ayırarak listeleyen geniş, çok dilli (EN, JA,
+  KO, PT, ZH, FA) bir "awesome list". Kendisi bir MCP implementasyonu DEĞİL, dizin/keşif kaynağı
+  (Tur 2'deki ComposioHQ/awesome-claude-skills ile aynı kategori).
+- **Neden meşru:** glama.ai ekibi tarafından yönetiliyor, içerik tamamen açık ve linkler
+  incelenebilir, gizli/paylaşımlı erişim önermiyor.
+- **Kurulum:** Doğrudan kurulum yok — ilgini çeken MCP sunucusuna gidip ORADA lisans/güncellik/
+  API key gereksinimini ayrıca doğrula, sonra normal MCP kurulumunu uygula.
+
+---
+
 ## ⚠️ Doğrulanan ama EKLENMEYEN / Dikkat Edilmesi Gereken Bulgular
 
 - **GitHub Models (resmi ücretsiz LLM API)** — **2026-07-30 tarihinde GitHub tarafından
@@ -277,8 +302,19 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 - **Dışlama kriterlerine takılan ve hiç araştırılmayan kategoriler:** paylaşımlı/havuzlanmış
   API key sunan "sınırsız ücretsiz AI" araçları, X/Twitter/Reddit giriş engeli aşan scraping
   araçları, ve kanıtsız yüksek kazanç iddialı trading botları — talimat gereği hiç aranmadı.
+- **[Panniantong/Agent-Reach](https://github.com/Panniantong/Agent-Reach)** (Tur 3'te
+  rastlandı) — "Read & search Twitter, Reddit, YouTube... one CLI, zero API fees" olarak
+  tanıtılıyor; bu birebir talimattaki "X/Twitter/Reddit giriş engelini aşan scraping aracı"
+  dışlama kriterine giriyor. **Bilerek eklenmedi.**
+- **[affaan-m/ECC](https://github.com/affaan-m/ECC)** (Tur 3'te rastlandı) — "agent harness
+  performance optimization system" olarak 68 agent/292 skill/94 komut iddia ediyor, teknik
+  içerik gerçek görünüyor (MIT lisans, gerçek dosya ağacı). Ancak **yıldız/fork/issue oranı
+  şüpheli**: Ocak 2026'da açılmış (~8 aylık), ~260k yıldız + ~39k fork'a karşılık sadece
+  ~218 açık issue — organik topluluk büyümesiyle uyumsuz bir hız. Sahte/şişirilmiş yıldız
+  riski nedeniyle **bilerek eklenmedi**; ileride tekrar değerlendirilecekse önce yıldız
+  geçmişi (star history) ayrıca doğrulanmalı.
 
 ---
 
-*Son güncelleme: 2026-09-16 (Tur 2). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1 ve Tur 2'de listelenenler tekrarlanmayacak.*
+*Son güncelleme: 2026-09-17 (Tur 3). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1, Tur 2 ve Tur 3'te listelenenler tekrarlanmayacak.*
