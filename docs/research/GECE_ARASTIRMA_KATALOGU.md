@@ -833,12 +833,65 @@ güvenilirlik seviyesi) statüsünde kataloğa eklenebildi. GitHub adaylarının
 
 ---
 
-*Son güncelleme: 2026-09-17 (Tur 9). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–9'da listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+## Tur 10 — 2026-09-17
+
+Oturum başında saat kontrol edildi: 10:05 UTC / 13:05 Türkiye saati — talimattaki 12:00 UTC / 15:00
+Türkiye kesme noktasının ÖNCESİNDE, bu yüzden normal araştırma turu yapıldı (özet-moduna geçilmedi).
+`WebSearch` çalıştı, ama `WebFetch` ile `huggingface.co` ve `jina.ai`'a doğrudan erişim yine
+`EGRESS_BLOCKED` hatasıyla engellendi (Tur 1/7/8/9'daki ticari domain kısıtlamasıyla aynı desen) —
+bu yüzden aşağıdaki Jina AI maddesi Tur 9'daki OpenRouter ile aynı yöntemle (birincil kaynak değil,
+birden fazla bağımsız üçüncü parti kaynağın çapraz doğrulanmasıyla) doğrulandı; kurulum öncesi
+resmi `jina.ai/reader` sayfasından rakamları teyit etmek gerekiyor.
+
+`topic:claude-code-skill` (stars:>200) genel taraması 52 sonuç döndürdü ama hiçbiri üç kategoriye
+(skill/agent koleksiyonu, ücretsiz API sağlayıcı) temiz bir şekilde uymuyordu — çoğu token/context
+optimizasyon araçları, görsel üretim araçları veya not-alma sistemleri gibi kapsam dışı projelerdi;
+**bilerek eklenmedi**. Özellikle `mksglu/context-mode` (23.319★/1.680 fork/253 issue — oran kendi
+başına şişirilmiş-yıldız şüphesi yaratmıyor) dikkat çekti: "17 platform boyunca hook + MCP ile
+routing zorluyor" açıklaması, Tur 6'daki `OthmanAdi/planning-with-files` bulgusundaki "çoklu-platform
+otomatik-çalışan hook" risk profiliyle yüzeysel olarak örtüşüyor (kötü niyetli olduğuna dair KANIT
+yok, sadece kapsam dışı + dosya içeriği bu oturumdan doğrulanamadı) — bu yüzden hem kapsam dışı
+olduğu hem de ekstra doğrulama gerektirdiği için **bilerek eklenmedi**, ileride tekrar
+değerlendirilecekse önce `search_code` ile hook dosyalarının içeriği tek tek okunmalı.
+`topic:sitemap topic:seo mcp` taraması 0 sonuç döndürdü (Tur 9'daki SEO/favicon bulgusuz sonucuyla
+aynı).
+
+### A) Ücretsiz & Meşru API Sağlayıcısı (proje-özel faydalı — web içerik çıkarma)
+
+#### 36. [Jina AI Reader](https://jina.ai/reader/) (`r.jina.ai`) — RESMİ, GitHub deposu değil
+- **Doğrulama notu:** Barındırılan (hosted) bir API — GitHub yıldız/lisans doğrulaması geçerli
+  değil; doğrulama birden fazla bağımsız kaynaktan (yangmao.ai, linkstartai.com, xpay.sh,
+  makerstack.co) çapraz yapıldı (Tur 9'daki OpenRouter ile aynı güvenilirlik seviyesi).
+- **Ücretsiz katman:** API key OLMADAN da çalışıyor (~20 istek/dk, gerçek ücretsiz hobi kullanımı
+  için yeterli); ücretsiz key ile (jina.ai üzerinden kayıt, kredi kartı gerekmiyor) kayıt anında
+  10 milyon token kredisi (Reader/embeddings/reranker arasında paylaşımlı) + 500 istek/dk (read)
+  / 100 istek/dk (search) limiti.
+- **Ne işe yarar:** Tek bir GET isteğiyle (`https://r.jina.ai/<hedef-url>`) herhangi bir web
+  sayfasını temiz, LLM-dostu Markdown'a çeviriyor — JS render destekli. **Bu şablonun
+  `clone-website` akışıyla (Tur 5'teki Firecrawl/crawl4ai ile aynı kategori — hedef siteden
+  içerik çıkarma) birebir örtüşüyor**, ama MCP kurulumu bile gerektirmiyor: tek satır HTTP isteği.
+- **Neden meşru:** Jina AI'nin resmi ürünü (bilinen bir "search foundation" şirketi — embeddings/
+  reranker API'leriyle de tanınıyor), her kullanıcı isteğe bağlı kendi key'ini alıyor (paylaşımlı
+  key DEĞİL), kullanım kullanıcının kendi hedef sitesini kazımasıyla ilgili — üçüncü parti
+  platform (X/Reddit) login duvarı bypass'ı DEĞİL.
+- **Kurulum:** Doğrudan kullanılabilir, kurulum gerekmez: `curl https://r.jina.ai/<url>` (key'siz,
+  düşük limit) veya `Authorization: Bearer <jina-key>` header'ıyla (jina.ai'dan ücretsiz key alıp)
+  yüksek limit. MCP olarak sarmalamak istersen bulunan wrapper depoları (`spences10/
+  mcp-jinaai-reader` — 29★ ama ARŞİVLENMİŞ/bakımsız, `kealuya/mcp-jina-ai` — 9★, diğerleri 0-2★)
+  hepsi çok küçük/bakımsız — bağımlılık olarak ÖNERİLMİYOR, düz HTTP isteği yeterli ve daha güvenli.
+
+---
+
+*Son güncelleme: 2026-09-17 (Tur 10). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–10'da listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları) şüpheli bulundu — kurmadan önce ilgili notu oku. Tur 8'de
 genel `claude-code-plugin` taramasında çok sayıda şişirilmiş-yıldız reposu tespit edildi (yukarıdaki
 gözlem notuna bak) — bu ekosistemde yıldız sayısını TEK BAŞINA güvenilirlik kriteri olarak kullanmak
 giderek daha riskli hale geliyor, gelecek turlarda issue/fork oranı + kuruluş tarihi + bağımsız
-doğrulama önceliklendirilmeli. Tur 9'da OpenRouter ücretsiz katmanı nihayet (birincil kaynak yerine
-çapraz bağımsız kaynaklarla) doğrulanıp kataloğa eklenebildi — birincil `openrouter.ai` doğrulaması
-hâlâ bekliyor, ağ erişimi açılırsa öncelikli olarak tekrar teyit edilmeli.*
+doğrulama önceliklendirilmeli. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader ücretsiz katmanları
+birincil kaynak yerine çapraz bağımsız kaynaklarla doğrulanıp kataloğa eklenebildi — ikisinin de
+birincil kaynak (`openrouter.ai`, `jina.ai`) doğrulaması hâlâ bekliyor, ağ erişimi açılırsa
+öncelikli olarak tekrar teyit edilmeli. Tur 10'da `mksglu/context-mode` (çok-platform hook + MCP
+routing) kapsam dışı + ekstra-dikkat gerektiren bir aday olarak not edildi ama kanıtsız olduğu için
+Tur 6'daki gibi "KESİNLİKLE EKLENMEDİ" bölümüne değil, normal "eklenmedi" notlarına alındı — ileride
+tekrar karşılaşılırsa hook dosyaları tek tek okunmalı.*
