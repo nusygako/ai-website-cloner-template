@@ -1,3 +1,42 @@
+## ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
+
+**Durum:** Bu gece boyunca 11 tur (Tur 1–11) araştırma yapıldı, saat 12:00 UTC / 15:00 Türkiye
+kesme noktasına ulaşıldığı için bu tur (Tur 12) yeni arama yapmadı — sadece bu özeti ekledi.
+
+**Toplam:** 38 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (aşağıya bak) + onlarca
+"doğrulandı ama eklenmedi" madde (şişirilmiş yıldız, geçersiz/tek-seferlik ücretsiz katman, ToS-bypass
+riski vb. gerekçelerle elendi).
+
+**En önemli 5 bulgu:**
+
+1. **🚨 GÜVENLİK UYARISI — [OthmanAdi/planning-with-files](https://github.com/OthmanAdi/planning-with-files) KURMA.**
+   Şişirilmiş yıldız (~27k yıldız / sadece 11 açık issue), 11+ ajan platformunda
+   `UserPromptSubmit` olayında otomatik shell/PowerShell çalıştıran hook'lar kuruyor, aynı
+   pazarlama metniyle birden fazla mirror/fork hesabı bulundu. Detay: Tur 6 bölümü.
+2. **[vercel/next-devtools-mcp](https://github.com/vercel/next-devtools-mcp)** — Resmi Vercel MCP,
+   bu şablonun tam kullandığı Next.js 16 sürümüyle birebir örtüşüyor; çalışan dev server'ın
+   gerçek API'sini sorgulayarak `AGENTS.md`'deki "training data'dan farklı, breaking change'lere
+   dikkat et" uyarısını doğrudan çözüyor. API key gerekmez. (Tur 8, #30)
+3. **[shadcn-ui/ui resmi `shadcn mcp` + skill](https://github.com/shadcn-ui/ui)** — shadcn/ui artık
+   MCP sunucusunu kendi CLI'sine gömmüş; `npx shadcn mcp init` ile tek komutla kurulum, bu
+   şablonun UI kütüphanesiyle (shadcn/ui + Tailwind v4) birebir örtüşüyor. API key gerekmez.
+   (Tur 11, #37 — Tur 3'teki üçüncü parti alternatifi tamamlıyor, değiştirmiyor)
+4. **[anthropics/skills](https://github.com/anthropics/skills)** — Anthropic'in resmi Agent
+   Skills referans deposu (~176k yıldız), doğrudan `~/.claude/skills/` altına kopyalanabilir
+   gerçek `SKILL.md` dosyaları. (Tur 1, #1)
+5. **[Manavarya09/design-extract](https://github.com/Manavarya09/design-extract)** — Tek komutla
+   bir web sitesinin tüm design token sistemini (Tailwind v4 + shadcn/ui uyumlu) çıkarıyor;
+   `docs/research/INSPECTION_GUIDE.md` Phase 1'in (Visual Audit → Design Tokens) otomasyonu.
+   (Tur 8, #31)
+
+**Ayrıca dikkat:** Tur 8'de ve sonrasında, GitHub'da "binlerce yıldız + tek haneli issue sayısı"
+deseni gösteren çok sayıda şişirilmiş/şüpheli repo tespit edildi (`DietrichGebert/ponytail`,
+`thedotmack/claude-mem`, `sickn33/agentic-awesome-skills`, `affaan-m/ECC` vb.) — bunların hiçbiri
+kataloğa eklenmedi. Tüm turların tam detayı, kurulum adımları ve "eklenmedi" gerekçeleri aşağıda.
+
+---
+
 # Gece Araştırma Kataloğu — Claude Code'u Güçlendirecek Ücretsiz & Meşru Kaynaklar
 
 Bu dosya, otomatik gece araştırma görevi tarafından derlenmiştir. Her kaynak GitHub üzerinden
