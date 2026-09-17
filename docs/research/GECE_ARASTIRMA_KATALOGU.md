@@ -276,6 +276,89 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 
 ---
 
+## Tur 4 — 2026-09-17
+
+### A) MCP Sunucuları (resmi, proje-özel faydalı)
+
+#### 18. [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) — RESMİ
+- **Yıldız:** ~90.4k · **Lisans:** Apache 2.0 (yeni katkılar) / MIT (mevcut kod)
+- **Güncellik:** 4.188 commit, aktif (MCP steering group tarafından yönetiliyor)
+- **Ne işe yarar:** MCP'nin resmi referans sunucu koleksiyonu — `src/filesystem`, `src/git`,
+  `src/fetch`, `src/memory`, `src/time`, `src/sequentialthinking`, `src/everything`. Bunların
+  çoğu sadece "nasıl MCP sunucusu yazılır" örneği değil, doğrudan kullanılabilir gerçek araçlar
+  (ör. `fetch` web içeriği çekip LLM için temizliyor, `filesystem` kontrollü dosya erişimi
+  sağlıyor, `sequential-thinking` yapılandırılmış problem çözme adımı ekliyor).
+- **Neden meşru:** README'de açıkça "maintained by the MCP steering group" yazıyor — Anthropic'in
+  de içinde olduğu resmi MCP yönetişim grubu; npm paketleri (`@modelcontextprotocol/server-*`)
+  olarak resmi dağıtılıyor.
+- **Kurulum:** `claude mcp add fetch npx @modelcontextprotocol/server-fetch` gibi MCP config'e
+  doğrudan ekleme — çoğu sunucu (fetch, filesystem, memory, time, sequential-thinking) API key
+  gerektirmiyor. Yerel onay gerekir (yeni MCP sunucusu ekleme).
+
+#### 19. [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) — RESMİ
+- **Yıldız:** ~37.2k · **Fork:** ~3.2k · **Lisans:** Apache-2.0
+- **Güncellik:** 582 commit, aktif
+- **Ne işe yarar:** LLM ajanlarının gerçek bir tarayıcıyı Playwright üzerinden, ekran görüntüsü
+  yerine accessibility tree kullanarak kontrol etmesini sağlıyor — 60+ araç (navigasyon, tab
+  yönetimi, form doldurma, network mocking, kayıt). **Bu template'in kendi kuralıyla ("UI/frontend
+  değişikliklerinde dev server başlatıp tarayıcıda test et") ve `clone-website` akışının hedef
+  site inceleme + kendi klonunu doğrulama adımlarıyla birebir örtüşüyor.**
+- **Neden meşru:** Playwright'ın kendi ekibi tarafından yönetilen resmi Microsoft deposu, API key
+  gerektirmiyor, tamamen yerel çalışıyor (Puppeteer tabanlı Chrome DevTools MCP'den — Tur 2 #12 —
+  farklı bir yaklaşım; ikisi birbirini dışlamıyor, tamamlayıcı).
+- **Kurulum:** `claude mcp add playwright npx @playwright/mcp@latest` — yerel onay gerekir,
+  API key gerekmez.
+
+### B) Agent / Plugin Koleksiyonu
+
+#### 20. [davepoon/claude-code-subagents-collection](https://github.com/davepoon/claude-code-subagents-collection) (buildwithclaude.com)
+- **Yıldız:** ~3.5k · **Fork:** ~508 · **Lisans:** MIT
+- **Güncellik:** 566 commit, aktif
+- **Ne işe yarar:** buildwithclaude.com sitesinin kaynak deposu — gerçek `plugins/<isim>/{agents,
+  commands,hooks}/*.md` dosya yapısıyla 117 agent, 175 command, 28 hook, 26 skill barındırıyor;
+  ayrıca 20k+ topluluk plugin'i ve 4.500+ MCP sunucusunu indeksleyen bir keşif katmanı da var.
+  Tur 1'deki wshobson/agents'a benzer ama farklı/bağımsız bir koleksiyon.
+- **Neden meşru:** MIT lisanslı, tamamen açık kod, içerik resmi web sitesiyle (buildwithclaude.com)
+  senkron ve incelenebilir; gizli servis çağrısı yok.
+- **Kurulum:** İlgili `plugins/<isim>/agents|commands|hooks/*.md` dosyasını `~/.claude/agents/`
+  (veya `commands/`, `hooks/`) altına kopyala, ya da reponun `.claude-plugin/` marketplace
+  entegrasyonunu kullan. Yerel dosya kopyalama, onay gerekmez.
+
+### C) Ücretsiz & Meşru API Sağlayıcıları
+
+#### 21. [Cerebras Cloud API](https://cloud.cerebras.ai) ücretsiz katmanı (resmi)
+- **Ücretsiz katman:** Günde **1 milyon token**, kredi kartı gerektirmeden, kalıcı (tek seferlik
+  deneme kredisi değil). 30 istek/dk limit. Llama 4 Scout, Qwen3 32B, DeepSeek R1 Distill gibi
+  modellere erişim. WSE-3 wafer-scale donanımında 2.600+ token/sn hız (bilinen en hızlı
+  sağlayıcılardan biri).
+- **Ne işe yarar:** Claude Code'un yanında ultra hızlı ikincil/yedek model sağlayıcısı — MCP tool
+  içinde hızlı sınıflandırma, taslak üretimi, kısa özetleme gibi düşük gecikme gerektiren işler için.
+- **Neden meşru:** Resmi Cerebras ürünü, bireysel email/GitHub hesabıyla kendi key'ini alıyorsun,
+  paylaşımlı erişim değil.
+- **Kurulum:** cloud.cerebras.ai üzerinden ücretsiz kayıt + key al, ortam değişkeni olarak ekle
+  — yerel onay/gizli bilgi girişi gerekir, bu oturumdan otomatik yapılamaz (bu sandbox'ta
+  cerebras.ai'a doğrudan ağ erişimi de kapalı; rakamlar birden fazla bağımsız kaynaktan (yangmao.ai,
+  getaiperks.com, LinkedIn duyurusu) çapraz doğrulanmıştır — kurulum öncesi resmi sayfada
+  teyit et).
+
+### D) Keşif/Dizin Kaynağı (kurulum değil, referans)
+
+#### 22. [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — DİKKAT: liste/keşif deposu
+- **Yıldız:** ~54.2k · **Fork:** ~4.7k · **Lisans:** mevcut (LICENSE dosyası var)
+- **Güncellik:** 1.818 commit, çok aktif
+- **Ne işe yarar:** Claude Code ekosistemi için elle seçilmiş, yapılandırılmış kaynak kataloğu —
+  slash command'lar, `CLAUDE.md` örnekleri, hook'lar, statusline'lar, agent skill'leri, plugin'ler.
+  Programatik olarak yönetiliyor (`THE_RESOURCES_TABLE_NEW.csv` + `generate_readme.py`), Tur 2/3'teki
+  ComposioHQ ve punkpeye kataloglarından farklı olarak özellikle Claude Code'a (genel MCP/skill
+  ekosistemine değil) odaklanıyor.
+- **Neden meşru:** Geniş topluluk kabul görmüş, aktif bakımlı, tamamen açık kaynak; kendisi bir
+  kurulum paketi değil, doğrulanabilir bir keşif noktası.
+- **Kurulum:** Doğrudan kurulum yok — ilgini çeken linke git, ORADAKI kaynağın kendi lisans/
+  güncellik durumunu ayrıca doğrula, sonra normal kurulum adımını (dosya kopyalama / `npx skills add`
+  / MCP config) uygula.
+
+---
+
 ## ⚠️ Doğrulanan ama EKLENMEYEN / Dikkat Edilmesi Gereken Bulgular
 
 - **GitHub Models (resmi ücretsiz LLM API)** — **2026-07-30 tarihinde GitHub tarafından
@@ -313,8 +396,22 @@ trading araçları bilerek DIŞLANMIŞTIR.**
   ~218 açık issue — organik topluluk büyümesiyle uyumsuz bir hız. Sahte/şişirilmiş yıldız
   riski nedeniyle **bilerek eklenmedi**; ileride tekrar değerlendirilecekse önce yıldız
   geçmişi (star history) ayrıca doğrulanmalı.
+- **DeepSeek Platform API "ücretsiz katmanı"** (Tur 4'te araştırıldı) — resmi kaynaklarda kalıcı
+  bir ücretsiz katman **yok**; yeni hesaplara tek seferlik ~5 milyon token / 30 gün deneme
+  kredisi veriliyor, süre/kota bitince ödeme yöntemi eklemek zorunlu. Diğer maddeler (Groq,
+  Cerebras, Cloudflare Workers AI, Mistral) kalıcı/tekrarlayan ücretsiz katman sunduğu için
+  kataloğa alındı; DeepSeek'in tek seferlik deneme kredisi bu kritere uymadığından **bilerek
+  eklenmedi**.
+- **rahulvrane/awesome-claude-agents, navin4078/awesome-claude-code-agents** (Tur 4'te
+  incelendi) — ilki sadece başka depolara link veren bir meta-dizin (gerçek agent dosyası yok),
+  ikincisi teknik olarak gerçek `.md` dosyaları içeriyor ama sadece 1 yıldız/0 fork ile
+  doğrulanamayacak kadar erken/küçük. İkisi de **eklenmedi**. Aynı taramada bulunan
+  [vijaythecoder/awesome-claude-agents](https://github.com/vijaythecoder/awesome-claude-agents)
+  (MIT, ~4.4k yıldız/531 fork, 24 gerçek agent — Laravel/Django/Rails/React/Vue
+  orchestrator deseni) gerçek ve olgun ama Tur 1'deki VoltAgent/wshobson/0xfurai kapsamıyla
+  yeterince örtüştüğü için ayrı madde açılmadı, burada referans olarak bırakıldı.
 
 ---
 
-*Son güncelleme: 2026-09-17 (Tur 3). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1, Tur 2 ve Tur 3'te listelenenler tekrarlanmayacak.*
+*Son güncelleme: 2026-09-17 (Tur 4). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1, Tur 2, Tur 3 ve Tur 4'te listelenenler tekrarlanmayacak.*
