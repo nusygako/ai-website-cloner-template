@@ -715,11 +715,130 @@ topluluk büyümesiyle uyumsuz yıldız/issue oranı gösteriyor, **hiçbiri ekl
 
 ---
 
-*Son güncelleme: 2026-09-17 (Tur 8). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–8'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+## Tur 9 — 2026-09-17
+
+Bu turda ilk kez `WebSearch`/`WebFetch` araçları çalışır durumdaydı (önceki turlarda bazı ticari
+domain'ler ağ proxy'si tarafından engellenmişti). `openrouter.ai` ve `openrouter.zendesk.com`'a
+doğrudan `WebFetch` bu turda da `EGRESS_BLOCKED` hatasıyla engellendi (Tur 1/7/8 ile aynı kısıtlama),
+ancak `WebSearch` çalıştı ve birden fazla bağımsız üçüncü parti kaynaktan (klymentiev.com,
+buldrr.com, costgoat.com, pricepertoken.com) tutarlı rakamlar elde edildi — bu yüzden OpenRouter
+artık "birden fazla bağımsız kaynaktan çapraz doğrulanmış" (Tur 4'teki Cerebras/Cloudflare ile aynı
+güvenilirlik seviyesi) statüsünde kataloğa eklenebildi. GitHub adaylarının repo sayfaları doğrudan
+`WebFetch` ile teyit edildi (yıldız/fork/issue/lisans/dosya yapısı).
+
+### A) Ücretsiz & Meşru API Sağlayıcısı
+
+#### 32. [OpenRouter](https://openrouter.ai) `:free` model katmanı (resmi, çok sağlayıcılı)
+- **Ücretsiz katman:** Kredi kartı GEREKTİRMİYOR — openrouter.ai/keys üzerinden email/GitHub ile
+  kayıt, $0 bakiyeyle kullanılabiliyor. ID'si `:free` ile biten ~19-28 model (DeepSeek, Llama,
+  Qwen, Mistral türevleri — liste zamanla döner/değişir). Limit: dakikada 20 istek her zaman;
+  günlük limit toplam harcama geçmişine göre değişiyor — hiç ödeme yapılmamışsa 50 istek/gün,
+  herhangi bir zamanda toplam $10+ ödeme yapılmışsa 1.000 istek/gün'e çıkıyor (tek seferlik
+  deneme değil, kalıcı/tekrarlayan bir katman — başarısız istekler de günlük kotadan düşüyor).
+- **Ne işe yarar:** Tek bir API key ile OpenAI-uyumlu endpoint üzerinden birden fazla açık modele
+  erişim — Claude Code'un yanında ikincil/yedek model sağlayıcısı, özellikle model çeşitliliği
+  gerektiren deneme/karşılaştırma işleri için (ör. farklı modellerin aynı prompt'a yanıtını
+  karşılaştırma).
+- **Neden meşru:** Her kullanıcı kendi email/GitHub hesabıyla kendi API key'ini alıyor
+  (paylaşımlı key DEĞİL), resmi openrouter.ai ürünü, rakamlar birden fazla bağımsız kaynaktan
+  çapraz doğrulandı. **Dikkat:** Bu oturumda resmi `openrouter.ai/docs` sayfasına doğrudan ağ
+  erişimi engellendiği için birincil kaynaktan teyit edilemedi — kurulum öncesi resmi FAQ/rate-limit
+  sayfasından güncel rakamları teyit et (ücretsiz model listesi zamanla değişiyor).
+- **Kurulum:** openrouter.ai/keys üzerinden ücretsiz kayıt + key al, model ID'sinin sonuna `:free`
+  ekleyerek OpenAI-uyumlu endpoint'e istek gönder. Yerel onay/gizli bilgi girişi gerekir, bu
+  oturumdan otomatik yapılamaz.
+
+### B) MCP Sunucuları (proje-özel faydalı)
+
+#### 33. [JustasMonkev/mcp-accessibility-scanner](https://github.com/JustasMonkev/mcp-accessibility-scanner)
+- **Yıldız:** 56 · **Fork:** 15 · **Açık issue:** 1 · **Lisans:** MIT
+- **Güncellik:** 645 commit (`main`), 2025-01-26'dan beri aktif, son push 2026-09-16 — yıldız/
+  issue oranı (56:1) organik büyümeyle uyumlu (bu kataloğun sık rastladığı şişirilmiş-yıldız
+  deseninin aksine).
+- **Ne işe yarar:** Playwright + axe-core tabanlı, gerçek kaynak kodu doğrulanmış (`src/`,
+  `index.js`/`index.d.ts`, `cli.js`, `tests/`) bir MCP sunucusu — `scan_page`, `audit_site`,
+  `scan_page_matrix`, `audit_keyboard`, `audit_screen_reader` araçlarıyla WCAG 2.0/2.1/2.2
+  A/AA/AAA denetimi yapıyor. **Bu şablonun `docs/research/INSPECTION_GUIDE.md` Phase 2
+  (Component Inventory → States/Interactions) ve genel erişilebilirlik doğrulama ihtiyacıyla
+  örtüşüyor** — hem hedef siteyi hem kendi klonlanmış sonucu tarayarak karşılaştırmalı
+  erişilebilirlik raporu çıkarabilir.
+- **Neden meşru:** MIT lisanslı, tamamen açık ve incelenebilir kod, API key veya harici servis
+  gerektirmiyor (yerel Playwright ile çalışıyor), gerçek entegrasyon testleri (`vitest.config.ts`)
+  var.
+- **Kurulum:** `git clone` + `npm install`, stdio MCP sunucusu olarak `claude mcp add
+  accessibility-scanner ...` ile config'e ekle (veya Docker imajıyla çalıştır). Yerel onay
+  gerekir, API key gerekmez.
+
+#### 34. [cloudinary/mcp-servers](https://github.com/cloudinary/mcp-servers) — RESMİ (Cloudinary)
+- **Yıldız:** 10 · **Fork:** 2 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** Aktif; **dikkat:** yıldız sayısı çok düşük (yeni/niş bir resmi araç, henüz geniş
+  benimsenme yok) — bu düşük sayı şişirilmiş-yıldız şüphesi YARATMIYOR (ki bu kataloğun asıl
+  endişesi *yüksek* yıldıza karşı *düşük* issue oranıydı), ama tek başına "geniş topluluk kabul
+  görmüş" da denemez; dahil etme gerekçesi resmi Cloudinary organizasyon hesabından (`cloudinary/`)
+  gelmesi.
+- **Ne işe yarar:** Cloudinary'nin resmi 5 MCP sunucusu (asset-management, environment-config,
+  structured-metadata, analysis, mediaflows) — doğal dilde medya yükleme/dönüştürme/organize etme.
+  **Bu şablonun `public/images/` ve `public/videos/` (hedef siteden indirilen asset'ler) akışıyla
+  örtüşüyor** — indirilen görselleri toplu optimize etme/dönüştürme için kullanılabilir (Cloudinary
+  hesabı ve kendi API key'ini gerektiriyor, ücretsiz katmanı ayrıca cloudinary.com/pricing'den
+  doğrulanmalı — bu MCP'nin kendisi ücretsiz/açık kaynak ama ARKASINDAKİ Cloudinary servisi
+  kendi ücretsiz/ücretli katmanına sahip).
+- **Neden meşru:** Resmi Cloudinary GitHub organizasyonu, MIT lisanslı, README'de "Official
+  Cloudinary MCP Servers" olarak tanımlanıyor, kod tamamen açık.
+- **Kurulum:** İlgili paketi `npx` ile çalıştır veya Cloudinary'nin barındırılan MCP endpoint'ine
+  bağlan (OAuth2 veya API key ile) — README'deki adımları takip et. Yerel onay + Cloudinary
+  hesabı/API key girişi gerekir.
+
+#### 35. [Vercel MCP](https://vercel.com/docs/mcp/vercel-mcp) — RESMİ (Vercel, barındırılan servis)
+- **Doğrulama notu:** Bu bir GitHub deposu değil, Vercel'in resmi barındırılan (hosted) MCP
+  servisi (`https://mcp.vercel.com`); yıldız/commit sayısı bu yüzden geçerli değil — doğrulama
+  resmi vercel.com dokümantasyonu üzerinden yapıldı.
+- **Ücretsiz katman:** Servisin kendisi ücretsiz (OAuth ile kendi Vercel hesabına bağlanıyor);
+  altındaki Vercel deployment/hosting kendi ücretsiz Hobby planı limitlerine tabi (ayrıca
+  vercel.com/pricing'den doğrulanmalı).
+- **Ne işe yarar:** AI istemcisine (Claude Code dahil) OAuth ile güvenli erişim vererek Vercel
+  proje/deployment/log/dokümantasyon sorgulamasını sağlıyor. **Bu şablonun `AGENTS.md`'de
+  belirtilen "Deployment: Vercel" satırıyla birebir örtüşüyor** — deploy sonrası log/hata
+  takibini veya proje ayarlarını doğal dille sorgulamak için kullanılabilir.
+- **Neden meşru:** Vercel'in kendi resmi ürün dokümantasyonunda tanımlanmış, birinci taraf
+  barındırılan servis; paylaşımlı erişim yok, her kullanıcı kendi Vercel hesabıyla OAuth yapıyor.
+- **Kurulum:** Claude Code MCP config'ine `https://mcp.vercel.com` sunucusunu ekle, OAuth akışını
+  tamamla — yerel onay gerekir, ayrı API key girişi gerekmez (OAuth).
+
+### C) Doğrulanan ama EKLENMEYEN Bulgular (Tur 9)
+
+- **Together AI, Novita AI** — kalıcı/tekrarlayan ücretsiz katman YOK (Together AI: sadece $5
+  tek seferlik kayıt kredisi; Novita AI: $0.50 tek seferlik + referans kredisi) — Tur 4/5'teki
+  "tek seferlik deneme kredisi" kriterine takılıp **eklenmedi**.
+- **Chutes.ai** — "kalıcı ücretsiz" iddia ediyor ama Bittensor/kripto-sübvansiyonlu merkeziyetsiz
+  bir compute pazarı; rate limit'leri "topluluk gücüyle" belirsiz/garantisiz — güvenilir bir
+  "kalıcı" katman olarak kabul edilemeyecek kadar istikrarsız, **eklenmedi**.
+- **microsoft/power-platform-skills** — gerçek `SKILL.md` ve `agents/`/`AGENTS.md` dosyaları
+  doğrulandı (879 yıldız/179 fork/129 issue — organik oran), resmi Microsoft deposu. Ancak
+  kapsamı Power Platform'a (canvas apps, power pages, power automate) özel — bu şablonun
+  Next.js/web geliştirme kapsamıyla örtüşmüyor, bu yüzden ayrı madde açılmadı; ileride başka bir
+  proje türü için referans olarak not edildi.
+- **mylee04/claude-code-subagents** — gerçek `agents/**/*.md` dosyaları var ama sadece 32
+  yıldız/4 fork — meşru ama Tur 1-8'deki kurulu koleksiyonlara (VoltAgent, wshobson, davepoon,
+  0xfurai, numman-ali) anlamlı bir katkısı olmadığı için **eklenmedi**.
+- Genel `topic:claude-code-skills` / `topic:claude-code-subagents` taramasında bulunan
+  `jangviktor-web/nihaixia` (2.961★/1 issue), `ciembor/agent-rules-books` (2.801★/5 issue),
+  `wondelai/skills` (2.193★/8 issue), `Weizhena/Deep-Research-skills` (2.174★/0 issue),
+  `rohitg00/pro-workflow` (2.872★/29 issue) — hepsi klasik şişirilmiş-yıldız deseni gösteriyor
+  (binlerce yıldıza karşı tek/çift haneli issue, 2026'nın son aylarında kurulmuş) — Tur 3/5/6/8'deki
+  kriterle **eklenmedi**, tekrar araştırılmasın.
+- SEO/favicon/SVG optimizasyonu için meşru bir MCP sunucusu bulunamadı — aramalar sadece
+  sıfıra-yakın-yıldızlı, bakımsız veya tek-yazarlı "toy" repolar döndürdü, benimsenme sinyali
+  yok — **eklenmedi**.
+
+---
+
+*Son güncelleme: 2026-09-17 (Tur 9). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–9'da listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları) şüpheli bulundu — kurmadan önce ilgili notu oku. Tur 8'de
 genel `claude-code-plugin` taramasında çok sayıda şişirilmiş-yıldız reposu tespit edildi (yukarıdaki
 gözlem notuna bak) — bu ekosistemde yıldız sayısını TEK BAŞINA güvenilirlik kriteri olarak kullanmak
 giderek daha riskli hale geliyor, gelecek turlarda issue/fork oranı + kuruluş tarihi + bağımsız
-doğrulama önceliklendirilmeli. OpenRouter ücretsiz katmanı yine ağ kısıtlaması nedeniyle
-doğrulanamadı.*
+doğrulama önceliklendirilmeli. Tur 9'da OpenRouter ücretsiz katmanı nihayet (birincil kaynak yerine
+çapraz bağımsız kaynaklarla) doğrulanıp kataloğa eklenebildi — birincil `openrouter.ai` doğrulaması
+hâlâ bekliyor, ağ erişimi açılırsa öncelikli olarak tekrar teyit edilmeli.*
