@@ -568,6 +568,85 @@ dosya içeriği doğrulaması `search_code` ile path/içerik araması üzerinden
 
 ---
 
-*Son güncelleme: 2026-09-17 (Tur 6). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–6'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
-(ve aynı adla dolaşan fork/mirror'ları) şüpheli bulundu — kurmadan önce yukarıdaki notu oku.*
+## Tur 7 — 2026-09-17
+
+Bu turda `gh` CLI yine yoktu; doğrulama GitHub MCP sunucusunun `search_repositories`/`search_code`
+araçlarıyla yapıldı. Web araması (WebSearch) bu oturumda tutarsız çalıştı — `openrouter.ai`
+sorguları özellikle "unavailable" döndü (Tur 1'deki ağ kısıtlaması notuyla uyumlu), bu yüzden
+OpenRouter/HuggingFace gibi ticari sağlayıcı ücretsiz katmanları bu turda GÜVENİLİR şekilde
+doğrulanamadı ve kataloğa eklenmedi (HuggingFace Inference: 30k çağrı/ay + belirsiz dk-bazlı
+limit + sadece $0.10 aylık kredi — Tur 4/5'teki "belirsiz/zayıf ücretsiz katman" kriterine takılıp
+zaten eklenmezdi).
+
+### A) Proje-Özel Araç (görsel → kod, `clone-website` akışıyla birebir örtüşüyor)
+
+#### 28. [abi/screenshot-to-code](https://github.com/abi/screenshot-to-code)
+- **Yıldız:** ~79.1k · **Fork:** ~9.7k · **Lisans:** MIT · **Açık issue:** 145
+- **Güncellik:** Kasım 2023'ten beri aktif, bugün (2026-09-17) güncellenmiş commit'ler var —
+  açık issue/yıldız oranı bu ölçekte organik büyümeyle uyumlu (Tur 3/5/6'daki şişirilmiş-yıldız
+  vakalarının aksine).
+- **Ne işe yarar:** Bir ekran görüntüsünü (veya Figma tasarımını/video kaydını) temiz HTML/
+  Tailwind/React/Vue koduna çeviriyor. **Bu template'in tam da yaptığı işle (hedef siteyi
+  görsel olarak inceleyip pixel-perfect Next.js/Tailwind koduna dönüştürme, `AGENTS.md`'deki
+  "Beauty-first" ve "pixel-perfect emulation" ilkeleri) birebir örtüşüyor** — `clone-website`
+  akışının Phase 1 (Visual Audit) çıktısı olan ekran görüntülerini hızlı bir ilk-taslak koda
+  çevirmek için kullanılabilir (üretilen kod birebir kullanılmaz ama referans/başlangıç noktası
+  olarak değerli).
+- **Neden meşru:** MIT lisanslı (README'de doğrulandı: `Copyright (c) 2023 Abi Raja`), kod
+  tamamen açık ve self-hosted (Docker ile kendi makinende çalıştırıyorsun); kendi
+  OpenAI/Anthropic/Gemini API key'ini giriyorsun (`OPENAI_API_KEY=sk-your-key` — paylaşımlı key
+  DEĞİL, README'de doğrulandı). Gizli/harici servis çağrısı yok.
+- **Kurulum:** `git clone` + `docker-compose up -d --build` (kendi API key'ini `.env` dosyasına
+  gir) veya barındırılan sürümünü (screenshottocode.com, ücretli) kullan. Yerel onay + API key
+  girişi gerekir, bu oturumdan otomatik yapılamaz. NOT: GitHub'da aynı isimle (`screenshot-to-code`,
+  `image-to-code-mcp`, `UI-to-Code`, `visionforge-ui` vb.) 0 yıldızlı, çok yeni kopya/benzer
+  projeler de bulundu — orijinal/doğrulanmış kaynak olan `abi/screenshot-to-code`'u tercih et.
+
+### B) MCP Sunucusu (proje-özel faydalı — inceleme/QA aşaması)
+
+#### 29. [danielsogl/lighthouse-mcp-server](https://github.com/danielsogl/lighthouse-mcp-server)
+- **Yıldız:** ~71 · **Fork:** ~13 · **Lisans:** MIT · **Açık issue:** 6
+- **Güncellik:** Haziran 2025'ten beri aktif, son güncelleme 2026-09-14; gerçek CI pipeline'ı
+  (`.github/workflows/release.yml` içinde typecheck + test adımları) doğrulandı.
+- **Ne işe yarar:** Google Lighthouse'u MCP üzerinden 13+ araçla (performans, erişilebilirlik,
+  SEO, güvenlik) çalıştırıyor. **`docs/research/INSPECTION_GUIDE.md`'nin Phase 4 (Technical
+  Stack Analysis) ve genel "check" akışıyla (`npm run check`) örtüşüyor** — hedef siteyi VEYA
+  kendi klonlanmış sonucunu Lighthouse skorlarıyla karşılaştırmak için kullanılabilir.
+- **Neden meşru:** MIT lisanslı (README'de doğrulandı: `Copyright (c) 2025 Daniel Sogl`), Google'ın
+  kendi açık kaynak Lighthouse motorunu sarmalıyor, API key veya harici servis gerektirmiyor
+  (tamamen yerel Chrome ile çalışıyor).
+- **Kurulum:** `claude mcp add lighthouse npx lighthouse-mcp-server@latest` (veya MCP config'e
+  ekleme) — yerel onay gerekir, API key gerekmez.
+
+### C) Doğrulanan ama EKLENMEYEN Bulgular (Tur 7)
+
+- **Figma MCP alternatifleri** (`tathagat22/plumb-mcp` — 82 yıldız, "no REST rate limits, no
+  metered tool-call quotas" iddiasıyla Figma'nın kendi Dev Mode/REST kota sistemini bypass etmeyi
+  pazarlıyor) — talimattaki "platform ToS'unu bypass eden araçlar" dışlama kriterine potansiyel
+  olarak giriyor, ayrıca çok yeni/küçük (Mayıs 2026, 82 yıldız) ve doğrulanmamış; **bilerek
+  eklenmedi**. Figma'nın kendi resmi Dev Mode MCP sunucusunun ayrı bir GitHub deposu yok (Figma
+  masaüstü uygulamasına gömülü özellik) — bu yüzden "resmi" bir GitHub kaynağı olarak da
+  eklenemedi.
+- **`wtznicy/my-websearch`** — "9 engine (bing/baidu/csdn/juejin/sogou/duckduckgo/exa/brave/
+  startpage), no API keys required" web arama MCP'si — API key olmadan arama motorlarını
+  scrape ettiğini açıkça belirtiyor, bu birebir talimattaki ToS-bypass scraping dışlama
+  kriterine giriyor (ayrıca 1 yıldız, doğrulanamaz). **Bilerek eklenmedi.**
+- **OpenRouter (openrouter.ai) ücretsiz `:free` modelleri** — resmi ve meşru olduğu biliniyor
+  (paylaşımlı key değil, her kullanıcı kendi key'i), ANCAK bu oturumda `openrouter.ai`'a hem
+  doğrudan ağ erişimi hem de bu domain hakkındaki web araması sorguları tutarlı şekilde
+  başarısız oldu (Tur 1'de de aynı kısıtlama not edilmişti). Güncel rate limit rakamlarını
+  güvenilir şekilde doğrulayamadığım için **bu turda eklenmedi** — gelecek bir turda ağ erişimi
+  varsa öncelikli olarak tekrar denenmeli.
+- Küçük/yeni (0-4 yıldız) görüntü optimizasyon CLI'ları (`pic-shrink`, `image-optimizer`,
+  `webp-crusher`, `imgforge` vb.) ve "awesome skills/agents" marketplace'leri (`eduwxyz/
+  my-awesome-skills`, `bakhod1r/awesome-agents` vb., 0-16 yıldız) tarandı ama Tur 1-6'daki
+  kurulu koleksiyonlara (VoltAgent, wshobson, davepoon, numman-ali) anlamlı bir katkı
+  sağlamadıkları ve tek başlarına doğrulanamayacak kadar küçük/yeni oldukları için
+  **eklenmedi**.
+
+---
+
+*Son güncelleme: 2026-09-17 (Tur 7). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–7'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+(ve aynı adla dolaşan fork/mirror'ları) şüpheli bulundu — kurmadan önce ilgili notu oku. Tur 7'de
+OpenRouter ücretsiz katmanı ağ kısıtlaması nedeniyle doğrulanamadı, gelecek turda tekrar denenmeli.*
