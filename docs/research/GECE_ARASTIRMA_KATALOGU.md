@@ -882,8 +882,90 @@ aynı).
 
 ---
 
-*Son güncelleme: 2026-09-17 (Tur 10). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–10'da listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+## Tur 11 — 2026-09-17
+
+Oturum başında saat kontrol edildi: 11:05 UTC / 14:05 Türkiye saati — talimattaki 12:00 UTC / 15:00
+Türkiye kesme noktasının ÖNCESİNDE, bu yüzden normal araştırma turu yapıldı. Bu oturumda ayrıca
+önceki turlarda `master` dalına hiç push edilmemiş 11 commit'lik bir kuyruk bulundu (detached HEAD'de
+kalmışlardı) — bu turun başında `master`'a fast-forward edilip `origin/master`'a push edildi, veri
+kaybı yaşanmadı. `WebSearch` çalıştı; `WebFetch` ile ticari sağlayıcı dokümantasyon domain'lerine
+(`inference-docs.cerebras.ai`, `console.groq.com`, `docs.cohere.com`) erişim yine Tur 1/7/8/9/10'daki
+gibi `EGRESS_BLOCKED` hatasıyla engellendi — bu üç sağlayıcı da Tur 9/10'daki yöntemle (birden fazla
+bağımsız üçüncü parti kaynağın çapraz doğrulanması) teyit edildi. `github.com` sayfalarına `WebFetch`
+ile doğrudan erişim ise SORUNSUZ çalıştı (Tur 6-10'da GitHub MCP sunucusunun repo-scope kısıtlaması
+nedeniyle sadece `search_code` ile dolaylı doğrulama yapılabiliyordu — bu turda ilk kez GitHub repo
+sayfaları doğrudan `WebFetch` ile teyit edildi: yıldız/fork/issue/lisans birebir okunabildi).
+
+### A) MCP Sunucusu / Skill (RESMİ — bu şablonun tech stack'iyle birebir örtüşüyor, önceki bir
+maddeyi GÜNCELLİYOR)
+
+#### 37. [shadcn-ui/ui](https://github.com/shadcn-ui/ui) — resmi `shadcn mcp` + `skills/shadcn/SKILL.md`
+- **Yıldız:** 124.1k · **Fork:** 10.5k · **Açık issue:** 836 · **Lisans:** MIT — oran (148:1)
+  bu ölçekte organik/köklü bir projeyle tutarlı (shadcn/ui zaten bu şablonun resmi UI kütüphanesi).
+- **Ne işe yarar:** shadcn/ui artık MCP sunucusunu **kendi CLI'sine gömmüş durumda** — `npx shadcn
+  mcp` (stdio) veya `npx shadcn mcp init` (Claude Code, Cursor, VS Code, OpenCode için otomatik
+  config üretir) komutlarıyla çalışıyor. `WebFetch` ile `skills/shadcn/mcp.md` dosyası birebir
+  doğrulandı: registry listeleme, fuzzy component arama, component/demo içeriği görüntüleme, kurulum
+  komutu üretme ve **"audit checklist" (import/dependency/lint/TypeScript doğrulama)** araçları var.
+  API key gerekmiyor. Ayrıca repo içinde `skills/shadcn/SKILL.md` + `cli.md` + `customization.md` +
+  `registry.md` + `rules/` yapısıyla gerçek, resmi bir Claude Skill de bulunuyor — bu şablonun
+  `AGENTS.md`'de belirttiği "shadcn/ui (Radix primitives, Tailwind v4)" tech stack'iyle birebir
+  örtüşüyor.
+- **Neden meşru:** shadcn/ui'ın kendi resmi organizasyon deposu (`shadcn-ui/`), MIT lisanslı, kod ve
+  skill/MCP dosyaları tamamen açık; harici/paylaşımlı API key veya servis çağrısı yok.
+- **Kurulum:** `npx shadcn mcp init` (mevcut Claude Code kurulumuna otomatik MCP config'i ekler) veya
+  `skills/shadcn/SKILL.md` dosyasını `~/.claude/skills/` altına kopyala. Yerel onay gerekir
+  (yeni MCP sunucusu / npx çalıştırma), API key gerekmez.
+- **GÜNCELLEME NOTU (Tur 3 #16'yı değiştirmiyor, TAMAMLIYOR):** Tur 3'te eklenen
+  `Jpisnice/shadcn-ui-mcp-server` (üçüncü parti, ~3.0k yıldız) hâlâ geçerli/kullanılabilir — özellikle
+  Svelte/Vue/React Native gibi shadcn/ui'ın resmi CLI'sinin henüz tam kapsamadığı framework'ler için
+  faydalı olabilir. Ama **React/Next.js için (bu şablonun kullandığı) artık önce resmi `shadcn mcp`
+  denenmeli** — birinci taraf, bakımı garantili ve `components.json`'daki özel registry'leri de
+  destekliyor.
+
+### B) Ücretsiz & Meşru API Sağlayıcısı
+
+#### 38. [Cohere Trial API Key](https://cohere.com/pricing) (resmi)
+- **Ücretsiz katman:** Kredi kartı gerektirmeden, **süresi dolmayan** (tek seferlik deneme değil)
+  bir "Trial" API key; ayda 1.000 çağrı limiti. Endpoint bazlı dakika limiti: Chat 20 istek/dk,
+  Embed 5 istek/dk, Rerank 10 istek/dk. Birden fazla bağımsız kaynaktan (eesel.ai, pocketlantern.dev,
+  codenote.net, itsfree.ai) çapraz doğrulandı.
+- **Ne işe yarar:** Claude Code'un yanında ikincil model/embedding/rerank sağlayıcısı — ÖZELLİKLE
+  Cohere'in rerank API'si RAG/arama sıralaması gerektiren araçlarda faydalı olabilir. **Önemli
+  kısıtlama:** Trial key resmi olarak "prototip/geliştirme amaçlı" lisanslanmış, **production/ticari
+  kullanım için AÇIKÇA yasaklanmış** — bu şablon gibi bir geliştirme/deneme ortamında kullanılması
+  amaca uygun, ama üretime alınacak bir entegrasyona bu key ile gidilmemeli.
+- **Neden meşru:** Resmi Cohere ürünü, her kullanıcı kendi hesabı ve kendi key'iyle kayıt oluyor
+  (paylaşımlı key DEĞİL); kısıtlama (production yasağı) şeffaf şekilde belgelenmiş, gizli bir tuzak
+  değil.
+- **Kurulum:** dashboard.cohere.com üzerinden ücretsiz kayıt + Trial key al, ortam değişkeni olarak
+  ekle — yerel onay/gizli bilgi girişi gerekir, bu oturumdan otomatik yapılamaz (bu sandbox'ta
+  `docs.cohere.com`'a doğrudan ağ erişimi de kapalı, rakamlar bağımsız kaynaklardan çapraz
+  doğrulanmıştır).
+
+### C) ÖNEMLİ GÜNCELLEME — Daha Önce Eklenen Maddelerde Değişiklik Tespit Edildi
+
+- **Tur 4 #21 (Cerebras Cloud API) ARTIK GEÇERSİZ — kredi kartsız ücretsiz katman KALDIRILDI.**
+  Birden fazla bağımsız kaynak (toolfreebie.com, yangmao.ai, tokenmix.ai, pricepertoken.com) tutarlı
+  şekilde doğruluyor: **16 Temmuz 2026 itibarıyla** Cerebras kalıcı ücretsiz katmanı kaldırdı, yeni
+  hesaplar artık doğrulanmış bir ödeme yöntemi eklemeden kullanamıyor (karşılığında 30 gün geçerli
+  $5 deneme kredisi + 5 istek/dk, 1M token/gün, ~64K bağlam limiti). **Sonuç:** Tur 4 #21 maddesi
+  dosyada bilgi amaçlı bırakıldı ama artık "kredi kartı gerektirmeyen kalıcı ücretsiz katman"
+  KRİTERİNİ KARŞILAMIYOR — kullanıcı bu kaynağı kurmadan önce mutlaka cloud.cerebras.ai/pricing'den
+  güncel durumu teyit etmeli, "ücretsiz" beklentisiyle kart bilgisi girmemeli.
+- **Tur 1 #5 (Groq API) KISMİ GÜNCELLEME — Llama modelleri ücretsiz katmandan kaldırıldı.**
+  Birden fazla bağımsız kaynak (eesel.ai, pricepertoken.com, tokenmix.ai) doğruluyor: **16 Ağustos
+  2026** itibarıyla Llama 3.3 70B ve Llama 3.1 8B Groq'un ücretsiz/geliştirici katmanından kaldırıldı,
+  artık sadece kurumsal (enterprise) katmanda mevcut. Ücretsiz katman kredi kartsız/kalıcı olma
+  özelliğini KORUYOR — GPT-OSS 120B (30 istek/dk, 1.000 istek/gün, 200K token/gün) ve GPT-OSS 20B
+  gibi modeller hâlâ ücretsiz erişilebilir durumda. **Sonuç:** Tur 1 #5 maddesi genel olarak GEÇERLİ
+  kalıyor (kalıcı, kredi kartsız katman hâlâ var) ama "Llama, GPT-OSS vb." ifadesi artık kısmen
+  eskimiş — kurulum öncesi console.groq.com/docs/models'dan güncel model listesi teyit edilmeli.
+
+---
+
+*Son güncelleme: 2026-09-17 (Tur 11). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–11'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları) şüpheli bulundu — kurmadan önce ilgili notu oku. Tur 8'de
 genel `claude-code-plugin` taramasında çok sayıda şişirilmiş-yıldız reposu tespit edildi (yukarıdaki
 gözlem notuna bak) — bu ekosistemde yıldız sayısını TEK BAŞINA güvenilirlik kriteri olarak kullanmak
@@ -894,4 +976,11 @@ birincil kaynak (`openrouter.ai`, `jina.ai`) doğrulaması hâlâ bekliyor, ağ 
 öncelikli olarak tekrar teyit edilmeli. Tur 10'da `mksglu/context-mode` (çok-platform hook + MCP
 routing) kapsam dışı + ekstra-dikkat gerektiren bir aday olarak not edildi ama kanıtsız olduğu için
 Tur 6'daki gibi "KESİNLİKLE EKLENMEDİ" bölümüne değil, normal "eklenmedi" notlarına alındı — ileride
-tekrar karşılaşılırsa hook dosyaları tek tek okunmalı.*
+tekrar karşılaşılırsa hook dosyaları tek tek okunmalı. **Tur 11'de ÖNEMLİ:** Tur 4 #21 (Cerebras)
+artık kredi kartsız ücretsiz katın sunmuyor (16 Temmuz 2026'da kaldırıldı) — kullanıcı bu maddeyi
+güncel "kart gerektirmeyen ücretsiz katman" listesi olarak OKUMAMALI, madde sadece tarihsel/bilgi
+amaçlı ve düzeltme notuyla birlikte bırakıldı. Tur 1 #5 (Groq) hâlâ geçerli ama Llama modelleri
+16 Ağustos 2026'da ücretsiz katmandan kaldırıldı. Bu turda GitHub MCP sunucusunun repo-scope
+kısıtlamasına rağmen `WebFetch` ile `github.com` sayfalarına doğrudan erişimin çalıştığı keşfedildi
+— gelecek turlarda dış repo doğrulaması için `search_code` yerine öncelikle bu yöntem denenmeli
+(daha hızlı ve birebir sayfa içeriği veriyor).*
