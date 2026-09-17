@@ -483,5 +483,91 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 
 ---
 
-*Son güncelleme: 2026-09-17 (Tur 5). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–5'te listelenenler tekrarlanmayacak.*
+## Tur 6 — 2026-09-17
+
+Bu oturumda `gh` CLI yoktu; doğrulama GitHub MCP sunucusunun `search_repositories`/`search_code`
+araçlarıyla yapıldı (bu araçlar repo-scope kısıtlamasına tabi değil, ama `get_file_contents`/
+`list_commits` gibi tekil-repo araçları sadece bu oturuma tanımlı repo için çalışıyor — o yüzden
+dosya içeriği doğrulaması `search_code` ile path/içerik araması üzerinden yapıldı).
+
+### A) Skill / Plugin Marketplace
+
+#### 26. [numman-ali/n-skills](https://github.com/numman-ali/n-skills)
+- **Yıldız:** ~1.046 · **Fork:** ~110 · **Açık issue:** 39 · **Lisans:** Apache 2.0
+- **Güncellik:** Aktif (son güncelleme 2026-09-12), gerçek `package.json` (v1.3.6, `scripts.sync`
+  ile harici skill senkronizasyonu)
+- **Ne işe yarar:** Claude Code / Codex / openskills için küratörlü plugin marketplace —
+  `skills/<kategori>/<isim>/skills/<isim>/SKILL.md` yapısında gerçek dosyalar doğrulandı
+  (`orchestration`, `open-source-maintainer`, `dev-browser`, `zai-cli`, `gastown` vb.). Yıldız/
+  fork/issue oranı organik büyümeyle uyumlu (Tur 3/5'teki şişirilmiş-yıldız vakalarının aksine).
+- **Neden meşru:** Apache 2.0, gerçek ve tutarlı dosya ağacı, paylaşımlı/gömülü API key izine
+  rastlanmadı (`zai-cli` skill'i kendi API key'ini kullanıcıdan istiyor, gömülü key yok).
+- **Kurulum:** İlgili `skills/.../SKILL.md` dosyasını `~/.claude/skills/` altına kopyala ya da
+  reponun kendi marketplace/sync mekanizmasını kullan. Yerel dosya kopyalama, onay gerekmez.
+  Not: İçindeki `gastown` (çok-agent orkestrasyon) ve `open-source-maintainer` skill'leri
+  kurulum sırasında ekstra CLI (`gt`/`bd` komutları) kurabilir — kurulum scriptini gözden
+  geçirmeden çalıştırma.
+
+### B) Ücretsiz & Meşru API Sağlayıcıları
+
+#### 27. [SambaNova Cloud API](https://docs.sambanova.ai/docs/en/models/rate-limits) ücretsiz katmanı (resmi)
+- **Ücretsiz katman:** Kredi kartı gerektirmeden, çoğu model için 20 istek/dk, 20 istek/gün,
+  200K token/gün (çok dar); MiniMax M3 modeli için günlük token limiti 1M'e çıkıyor. Ücretli
+  "Developer Tier"e geçince limit 20M token/gün'e sıçrıyor.
+- **Ne işe yarar:** Claude Code'un yanında son derece dar kapsamlı bir yedek/deneme model
+  sağlayıcısı — günlük 20 istek limiti nedeniyle ancak nokta atışı/deneme amaçlı kullanılabilir,
+  Groq/Cerebras/Cloudflare gibi (Tur 1/4) günlük kullanım için pratik değil.
+- **Neden meşru:** Resmi SambaNova ürünü, bireysel hesap + kendi key, paylaşımlı erişim yok;
+  rakamlar resmi `docs.sambanova.ai/docs/en/models/rate-limits` sayfasından teyit edildi.
+- **Kurulum:** cloud.sambanova.ai üzerinden ücretsiz kayıt + key al, ortam değişkeni olarak ekle
+  — yerel onay/gizli bilgi girişi gerekir, bu oturumdan otomatik yapılamaz. Limitin darlığı
+  nedeniyle günlük iş akışı için ÖNCELİKLİ değil, bilgi amaçlı not edildi.
+
+---
+
+## ⚠️ Tur 6 ÖNEMLİ GÜVENLİK BULGUSU — Kesinlikle EKLENMEDİ
+
+### [OthmanAdi/planning-with-files](https://github.com/OthmanAdi/planning-with-files) — ŞÜPHELİ, KURMA
+
+- **Görünen rakamlar:** ~26.944 yıldız, ~2.243 fork ama sadece **11 açık issue** — Tur 3'teki
+  `affaan-m/ECC` ve Tur 5'teki `sickn33/agentic-awesome-skills` ile AYNI şişirilmiş-yıldız deseni
+  (bu ölçekte organik bir toplulukta yüzlerce açık issue/PR beklenir, 11 tanesi istatistiksel
+  olarak uyumsuz).
+- **Doğrulanan dosya yapısı ciddi bir kırmızı bayrak taşıyor:** Repo, 11+ farklı ajan platformu
+  için (`.cursor/hooks.json`, `.codex/hooks.json`, `.kiro/`, `hooks/hooks.json` vb.) her platformda
+  **`UserPromptSubmit` olayında otomatik shell/PowerShell script çalıştıran hook'lar** kuruyor
+  (`sh`, `powershell -ExecutionPolicy Bypass -File ...`, `python3 .../run_sh.py ...` komutları
+  doğrudan `search_code` ile görüldü) — yani kullanıcı her prompt gönderdiğinde arka planda kod
+  çalıştırıyor.
+- **SKILL.md açıklaması alışılmadık şekilde savunmacı/önleyici dil kullanıyor:** "The skill has no
+  network upload path", "never runs commands declared in Markdown", "emits aggregate counts only",
+  "bounded nonce-framed excerpts" gibi ifadeler — bu, bir AI ajanının (tam da bu oturumun yaptığı
+  gibi) güvenlik değerlendirmesi yapacağını öngörüp ONA ÖZEL yazılmış gibi okunuyor, normal bir
+  kullanıcı-yönelimli açıklama değil.
+- **Web araması ek bir kırmızı bayrak ortaya çıkardı:** Aynı isim ve BİREBİR AYNI pazarlama
+  metniyle ("the workflow pattern behind the $2B acquisition") farklı, ilgisiz görünen
+  hesaplarda (`tokenaissance/`, `CloudEngineHub/`, `justinseger015-ctrl/`, `GongYuanCaiJi/`)
+  kopya/mirror repolar bulundu — koordineli bir görünürlük/güven şişirme deseniyle uyumlu.
+- **En kritik bulgu:** Web araması, projenin kendi GitHub Discussion'ında hook'ların "şüpheli
+  görünmesinin" sebebini açıklayan bir metin ortaya çıkardı — bu metin "tamper attestation",
+  "skill-discovery loader", "plan-injection delimiters" gibi güvenlik-jargonu kullanarak tam da
+  bu tür bir incelemenin çıkaracağı şüpheleri ÖNCEDEN cevaplıyor. Bu içerik dış kaynaklı/
+  doğrulanamaz olduğu için güvenilir bir açıklama olarak KABUL EDİLMEDİ — tam tersine, bir AI
+  ajanını ikna etmek için özel olarak yazılmış olabileceği ihtimalini güçlendiriyor.
+- **Bağımsız doğrulama:** Aynı araştırmada, Ağustos 2026'da gerçek bir tedarik zinciri saldırısının
+  (Keyv npm worm, thehackernews.com) tam olarak bu deseni kullandığı görüldü: yüzlerce npm paketine
+  gömülü, "GitHub-verified" rozetiyle kamufle edilmiş Claude Code/VS Code hook'ları ekleyen bir
+  saldırı. `planning-with-files`'ın AYNI kategoride (çok-platformlu, otomatik-çalışan prompt hook'u)
+  olması, kötü niyetli olmasa bile risk profilinin talimattaki "hiçbir şey eklenmeyecek" barının
+  çok altında olduğunu gösteriyor.
+- **Sonuç:** Talimattaki dışlama kriterlerinin ruhuna (hesap/veri güvenliği riski taşıyan hiçbir
+  şey) göre **KESİNLİKLE EKLENMEDİ**. Kullanıcıya: bu repo veya "planning-with-files" adıyla
+  dolaşan herhangi bir fork/mirror, `~/.claude/` veya başka bir ajan config dizinine KURULMAMALI;
+  zaten kurulmuşsa `.claude/hooks/`, `.cursor/hooks.json`, `.codex/hooks.json` vb. dosyalar elle
+  kontrol edilmeli.
+
+---
+
+*Son güncelleme: 2026-09-17 (Tur 6). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–6'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+(ve aynı adla dolaşan fork/mirror'ları) şüpheli bulundu — kurmadan önce yukarıdaki notu oku.*
