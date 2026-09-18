@@ -1,20 +1,23 @@
-## ARAŞTIRMA DURUMU (en son Tur 15 — 2026-09-18)
+## ARAŞTIRMA DURUMU (en son Tur 16 — 2026-09-18)
 
-**Durum:** Bu gece boyunca 15 tur (Tur 1–15) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
-Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14 ve 15 farklı oturumlarda
-(üçü de kesme noktasından önce, sırasıyla 03:04, 04:04 ve 05:06 UTC'de) başladı ve normal
-araştırmaya devam etti. **Tur 14'te metodoloji notu (Tur 15'te de doğrulandı):** bu oturumun GitHub
-erişimi tek repoya (`nusygako/ai-website-cloner-template`) kilitliydi — Tur 6'nın varsaydığının
-aksine `mcp__github__search_repositories`/`search_code` gibi arama araçları da bu kısıtlamaya tabi
-tutuldu, bu yüzden doğrulama tamamen `WebSearch` + `WebFetch` (GitHub'ın normal web sayfaları,
-`raw.githubusercontent.com`) üzerinden yapıldı — sonuçlar etkilenmedi ama gelecek turlar için not
-düşülüyor.
+**Durum:** Bu gece boyunca 16 tur (Tur 1–16) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
+Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14, 15 ve 16 farklı
+oturumlarda (dördü de kesme noktasından önce, sırasıyla 03:04, 04:04, 05:06 ve 06:10 UTC'de)
+başladı ve normal araştırmaya devam etti. **Tur 14'te metodoloji notu (Tur 15 ve 16'da da
+doğrulandı):** bu oturumun GitHub erişimi tek repoya (`nusygako/ai-website-cloner-template`)
+kilitliydi — Tur 6'nın varsaydığının aksine `mcp__github__search_repositories`/`search_code` gibi
+arama araçları da bu kısıtlamaya tabi tutuldu, bu yüzden doğrulama tamamen `WebSearch` + `WebFetch`
+(GitHub'ın normal web sayfaları, `raw.githubusercontent.com`) üzerinden yapıldı — sonuçlar
+etkilenmedi ama gelecek turlar için not düşülüyor. **Tur 16'da ek yöntem notu:** bir sağlayıcının
+resmi domaini engellenmişse, docs'u GitHub'da açık kaynaklıysa `raw.githubusercontent.com`
+üzerinden birincil kaynağa hâlâ ulaşılabiliyor (Cloudflare örneği, aşağıya bak).
 
-**Toplam:** 50 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 51 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı + Tur 13'te tespit edilen
-1 ek "manipülatif hook" uyarısı (aşağıya bak) + onlarca "doğrulandı ama eklenmedi" madde (şişirilmiş
-yıldız, geçersiz/tek-seferlik ücretsiz katman, ToS-bypass riski, lisanssız font kazıma riski vb.
-gerekçelerle elendi).
+1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık mevcut değil" uyarısı
+(GitHub Models, 30 Temmuz 2026'da kapatıldı) + onlarca "doğrulandı ama eklenmedi" madde (şişirilmiş
+yıldız, geçersiz/tek-seferlik ya da anlamsız derecede küçük ücretsiz katman, ToS-bypass riski,
+lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme vb. gerekçelerle elendi).
 
 **En önemli 5 bulgu:**
 
@@ -1412,4 +1415,85 @@ Tur 14'te proje-özel design-token/renk/görsel-optimizasyon MCP boşluğu üç 
 #46) genişletildi. Tur 15'te ikon-arama MCP boşluğu (#48) ve Vercel deployment stack'ine özel yeni
 bir ücretsiz API kategorisi (#50) eklendi; ayrıca font-lisans-riski taşıyan bir MCP (`Microck/font-mcp`)
 ilk kez bu kategoride reddedildi — gelecek turlar font/asset-indirme araçlarını incelerken benzer
-lisans-doğrulama kontrolü yapmalı.*
+lisans-doğrulama kontrolü yapmalı. **Tur 16'da ÖNEMLİ:** `raw.githubusercontent.com` üzerinden
+üçüncü parti sağlayıcının (Cloudflare) KENDİ resmi docs deposunun production branch kaynağı
+doğrudan fetch edilebildiğini gösterdi — bu, Tur 9/10/13/14/15'teki (OpenRouter, Jina, Nebius,
+Z.ai, Vercel) "birincil kaynak engellendi, üçüncü parti çapraz doğrulamayla yetinildi" sınırlamasını
+kısmen aşan bir yöntem: gelecek turlar bir sağlayıcının resmi docs'u GitHub'da açık kaynaklıysa
+(çoğu büyük sağlayıcının docs'u GitHub'da barınıyor) önce `raw.githubusercontent.com/<org>/<docs-repo>/...`
+üzerinden birincil doğrulama denemeli, ancak GitHub üzerinde barınmayan sağlayıcılar (örn. Groq,
+OpenRouter'ın kendi domaini) için bu yöntem uygulanamaz.*
+
+---
+
+## Tur 16 — 2026-09-18
+
+### A) Ücretsiz & Meşru API Sağlayıcısı
+
+#### 51. [Cloudflare Workers AI](https://developers.cloudflare.com/workers-ai/) ücretsiz katmanı (resmi)
+- **Doğrulama notu:** `developers.cloudflare.com`, `patch-diff.githubusercontent.com` ve
+  `pricepertoken.com` bu oturumdan `WebFetch` ile engellendi (önceki turlardaki ticari domain
+  kısıtlamasıyla aynı desen), AMA Cloudflare'in resmi docs deposunun (`cloudflare/cloudflare-docs`)
+  production branch'indeki kaynak `.mdx` dosyası `raw.githubusercontent.com` üzerinden **doğrudan
+  fetch edilip birincil kaynaktan doğrulandı** — Tur 9'dan beri ilk kez üçüncü parti bir API
+  sağlayıcısının rakamları çapraz doğrulama değil, doğrudan resmi metinle teyit edildi.
+- **Ücretsiz katman:** Hesap başına **günde 10.000 Neuron** (Cloudflare'in normalize compute
+  birimi), her gün UTC 00:00'da sıfırlanıyor — tek seferlik deneme kredisi DEĞİL, süresiz
+  tekrarlayan bir katman. **Kredi kartı gerekmiyor** (resmi metin: "No credit card is needed for
+  the free tier"); kart yalnızca Kimi/GLM/DeepSeek gibi bazı premium modellere erişim için
+  isteniyor. Limit aşılırsa istek hata döner ("further operations will fail with an error"),
+  ek kullanım için Workers Paid'e ($5/ay) geçmek gerekiyor.
+- **Ne işe yarar:** 50+ model (Llama 3.1/3.3, Gemma, Mistral, Stable Diffusion XL görsel üretimi,
+  BGE embedding vb.) edge'de REST API üzerinden çalıştırılabiliyor — Tur 1 (Groq), Tur 9
+  (OpenRouter), Tur 13 (Nebius) ve Tur 14 (Z.ai) sağlayıcılarına ek, kredi kartsız ve gerçekten
+  tekrarlayan bir LLM+görsel+embedding kategorisi.
+- **Neden meşru:** Cloudflare'in kendi resmi ürünü; rakamlar şirketin kendi GitHub'da barınan
+  docs kaynağından (üçüncü parti özet değil) doğrulandı.
+- **Kurulum:** Cloudflare hesabı aç (kart istemiyor) → Workers AI için API token oluştur →
+  `https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{model}` REST endpoint'ini
+  veya resmi `wrangler`/SDK'yı kullan. Yerel API key girişi gerekir.
+
+### B) Doğrulanan ama EKLENMEYEN Bulgular (Tur 16)
+
+- **GitHub Models — artık MEVCUT DEĞİL, ileride önerilmemeli.** `github.blog/changelog` (çoklu
+  bağımsız kaynakla çapraz doğrulandı) GitHub Models'ın **30 Temmuz 2026'da tamamen kapatıldığını**
+  doğruluyor — playground, model katalog, inference API ve BYOK artık hiçbir müşteriye (mevcut
+  aktif kullanıcılar dahil) açık değil. Bu kataloğa hiçbir turda eklenmemişti, bu not sadece bir
+  uyarı: şu anda gezinen çok sayıda "ücretsiz LLM API listesi" sitesi (freellm.net, free-model.com,
+  free-llm-apis.pages.dev vb.) GitHub Models'ı hâlâ aktif gibi listeliyor — bu bilgi GÜNCEL DEĞİL,
+  gelecek turlar bu kaynaklara güvenmeden önce retirement tarihini kontrol etmeli.
+- **rshah515/claude-code-subagents** (102 yıldız/17 fork/0 açık issue, MIT) — doğrulandı, meşru
+  (gerçek `core/*.md`, `languages/*.md`, `frameworks/*.md` vb. dosyalar mevcut, yıldız/fork oranı
+  şişirilmiş değil) ama **eklenmedi**: kategori (genel amaçlı subagent koleksiyonu) zaten 5 mevcut
+  kayıtla (VoltAgent, wshobson, 0xfurai, davepoon, dl-ezo) doyurulmuş durumda — Tur 15'teki
+  supatest-ai ile birebir aynı gerekçe.
+- **Hugging Face Inference Providers ücretsiz katmanı** — incelendi ama **eklenmedi**: kredi kartı
+  gerekmiyor olması iyi ama katman ayda sadece **$0,10 kredi** ile sınırlı — ucuz bir modelde bile
+  yalnızca birkaç yüz bin token'a denk geliyor, kataloğun "anlamlı, tekrarlayan ücretsiz katman"
+  barını zar zor karşılıyor. Cloudflare Workers AI'nin (bu turda eklenen) çok daha cömert katmanı
+  tercih edildi.
+- **GetBindu/awesome-claude-code-and-skills** (192 yıldız/187 fork, Apache-2.0) — incelendi, meşru
+  görünüyor ama **eklenmedi**: gerçek `SKILL.md`/agent dosyalarını barındırmıyor, sadece harici
+  kaynaklara (çoğu zaten bu katalogda olan repolara) link veren bir "meta-dizin" — kataloğun
+  "gerçek dosya yapısı doğrulanmış" kriterini karşılamıyor.
+
+---
+
+*Son güncelleme: 2026-09-18 (Tur 16). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–16'da listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+(ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
+(`auto-star-repo.sh` hook'u) şüpheli/manipülatif bulundu — kurmadan önce ilgili notları oku.
+Tur 8'de genel `claude-code-plugin` taramasında çok sayıda şişirilmiş-yıldız reposu tespit edildi —
+bu ekosistemde yıldız sayısını TEK BAŞINA güvenilirlik kriteri olarak kullanmak giderek daha riskli
+hale geliyor, gelecek turlarda issue/fork oranı + kuruluş tarihi + bağımsız doğrulama + hook/script
+dosyalarının içeriği önceliklendirilmeli. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 13'te
+Nebius AI Studio, Tur 14'te Z.ai GLM Flash, Tur 15'te Vercel AI Gateway ücretsiz katmanları
+birincil kaynak yerine çapraz bağımsız kaynaklarla doğrulanabildi — beşinin birincil kaynak
+doğrulaması hâlâ bekliyor. **Tur 16'da YENİ YÖNTEM:** bir sağlayıcının resmi domaini engellenmiş
+olsa bile, docs'u GitHub'da açık kaynaklıysa `raw.githubusercontent.com/<org>/<docs-repo>/<branch>/...`
+üzerinden birincil kaynağa ulaşılabiliyor (Cloudflare Workers AI, #51, bu yöntemle doğrulandı) —
+gelecek turlar OpenRouter/Jina/Nebius/Z.ai/Vercel için de docs'larının GitHub'da açık kaynaklı
+olup olmadığını kontrol etmeli. Tur 16'da ayrıca GitHub Models'ın 30 Temmuz 2026'da tamamen
+kapatıldığı doğrulandı (hiçbir turda önerilmemişti, sadece gelecekteki hatalı önerileri önlemek
+için not edildi) ve genel-amaçlı subagent koleksiyonu kategorisinin artık doygun olduğu bir kez
+daha teyit edildi (rshah515 reddi).*
