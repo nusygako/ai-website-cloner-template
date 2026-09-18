@@ -1,19 +1,20 @@
-## ARAŞTIRMA DURUMU (en son Tur 14 — 2026-09-18)
+## ARAŞTIRMA DURUMU (en son Tur 15 — 2026-09-18)
 
-**Durum:** Bu gece boyunca 14 tur (Tur 1–14) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
-Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13 ve Tur 14 farklı gecelerde
-(her ikisi de kesme noktasından önce, sırasıyla 03:04 UTC ve 04:04 UTC'de) başladı ve normal
-araştırmaya devam etti. **Tur 14'te metodoloji notu:** bu oturumun GitHub erişimi tek repoya
-(`nusygako/ai-website-cloner-template`) kilitliydi — Tur 6'nın varsaydığının aksine
-`mcp__github__search_repositories`/`search_code` gibi arama araçları da bu kısıtlamaya tabi
+**Durum:** Bu gece boyunca 15 tur (Tur 1–15) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
+Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14 ve 15 farklı oturumlarda
+(üçü de kesme noktasından önce, sırasıyla 03:04, 04:04 ve 05:06 UTC'de) başladı ve normal
+araştırmaya devam etti. **Tur 14'te metodoloji notu (Tur 15'te de doğrulandı):** bu oturumun GitHub
+erişimi tek repoya (`nusygako/ai-website-cloner-template`) kilitliydi — Tur 6'nın varsaydığının
+aksine `mcp__github__search_repositories`/`search_code` gibi arama araçları da bu kısıtlamaya tabi
 tutuldu, bu yüzden doğrulama tamamen `WebSearch` + `WebFetch` (GitHub'ın normal web sayfaları,
 `raw.githubusercontent.com`) üzerinden yapıldı — sonuçlar etkilenmedi ama gelecek turlar için not
 düşülüyor.
 
-**Toplam:** 47 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 50 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı + Tur 13'te tespit edilen
 1 ek "manipülatif hook" uyarısı (aşağıya bak) + onlarca "doğrulandı ama eklenmedi" madde (şişirilmiş
-yıldız, geçersiz/tek-seferlik ücretsiz katman, ToS-bypass riski vb. gerekçelerle elendi).
+yıldız, geçersiz/tek-seferlik ücretsiz katman, ToS-bypass riski, lisanssız font kazıma riski vb.
+gerekçelerle elendi).
 
 **En önemli 5 bulgu:**
 
@@ -1282,24 +1283,133 @@ kısıtlamasıyla aynı desen) — 4 bağımsız üçüncü parti kaynaktan çap
 
 ---
 
-*Son güncelleme: 2026-09-18 (Tur 14). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–14'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+## Tur 15 — 2026-09-18
+
+Oturum başında saat kontrol edildi: 05:06 UTC / 08:06 Türkiye saati — talimattaki 12:00 UTC / 15:00
+Türkiye kesme noktasının ÇOK ÖNCESİNDE, bu yüzden normal araştırma turu yapıldı. Doğrulama bir alt
+ajana devredildi; Tur 14'ün notu doğrulandı — bu oturumun GitHub MCP arama araçları
+(`mcp__github__search_repositories`/`search_code`) da tek-repo kısıtlamasına tabi olduğu için hiç
+kullanılmadı, doğrulama tamamen `WebSearch` + `WebFetch` (GitHub web sayfaları, `/commits/main`,
+`raw.githubusercontent.com`) + bağımsız üçüncü parti kaynaklar üzerinden yapıldı. `vercel.com` ve
+`community.vercel.com`'a doğrudan `WebFetch` bu turda da engellendi (Tur 1/7-11/13/14'teki ticari
+domain kısıtlamasıyla aynı desen) — Vercel AI Gateway rakamları 4+ bağımsız üçüncü parti kaynaktan
+çapraz doğrulandı.
+
+### A) MCP Sunucusu (proje-özel faydalı — `src/components/icons.tsx` "Extracted SVG icons" akışı)
+
+#### 48. [better-auth/better-icons](https://github.com/better-auth/better-icons)
+- **Yıldız:** ~1.3k · **Fork:** 55 · **Açık issue:** 2 · **Lisans:** MIT
+- **Güncellik:** Son commit 2026-04-02 (`/commits/main` ile doğrulandı) — commit geçmişi
+  Ocak 2026'da yoğun, sonrasında seyrek; küçük/olgunlaşmış bir araç için normal, şişirilmiş yıldız
+  paterni DEĞİL.
+- **Ne işe yarar:** 150+ koleksiyondan (Lucide, Heroicons, Material Design, Tabler vb.) 200.000+
+  ikonu arayıp doğrudan proje dosyasına (SVG/React/Vue/Svelte) yazan MCP sunucusu + Claude Code
+  skill'i — inline yapıştırma yerine gerçek dosya güncelliyor. **Bu şablonun `AGENTS.md`'de
+  belirtilen `src/components/icons.tsx` ("Extracted SVG icons as React components") akışıyla
+  birebir örtüşüyor** — hedef siteden çıkarılan ikonları shadcn/Lucide muadilleriyle
+  değiştirirken/tamamlarken doğrudan kullanılabilir.
+- **Neden meşru:** Yayıncı organizasyonu doğrulandı — gerçek `better-auth` (framework-agnostik
+  TypeScript auth kütüphanesi, ~30k yıldız) organizasyonunun kendi deposu, isim benzetmesi/namesquat
+  DEĞİL. `hooks/postinstall/auto-star` gibi şüpheli davranış için kod ayrıca kontrol edildi —
+  bulunamadı, temiz kurulum.
+- **Kurulum:** `npx skills add better-auth/better-icons` (skill) veya
+  `npm install -g better-icons` + `npx better-icons setup` (MCP) ya da `.mcp.json`'a
+  `{"command":"npx","args":["-y","better-icons"]}` ekleme. Yerel onay gerekir, API key gerekmez.
+
+### B) Agent / Skill Koleksiyonu (karma — dikkatli değerlendirildi)
+
+#### 49. [rohitg00/awesome-claude-code-toolkit](https://github.com/rohitg00/awesome-claude-code-toolkit)
+- **Yıldız:** ~2.6k · **Fork:** 963 · **Açık issue:** 18 · **Açık PR:** 310 · **Lisans:** Apache 2.0
+- **Güncellik:** Mart 2026'da güncellendi, aktif.
+- **Ne işe yarar:** Hem karma-dizin hem gerçek içerik: `agents/` altında 10 kategoride 135 gerçek
+  agent `.md` dosyası, `skills/` altında 35 küratörlü skill şablonu, ayrıca `plugins/`, `commands/`,
+  `rules/`, `templates/` ve `hooks/` (20 yaşam-döngüsü script'i) içeriyor.
+- **Neden meşru (özellikle kontrol edildi):** Bu desen (`hooks/` klasörü içeren büyük koleksiyon)
+  Tur 6'daki `OthmanAdi/planning-with-files` ve Tur 13'teki `athola/claude-night-market` ile aynı
+  risk kategorisine girdiği için `hooks/hooks.json` kaydı özellikle incelendi — 20 hook'un tamamı
+  meşru geliştirme koruma script'leri (`secret-scanner.js`, `commit-guard.js`, `lint-fix.js`,
+  `type-check.js`, `auto-test.js`, oturum başlangıç/bitiş bağlam yükleyicileri) — **otomatik
+  yıldızlama, kendini-tanıtım enjeksiyonu veya telemetri YOK**. `setup/install.sh` de ayrıca
+  okundu: sadece yerel dosya kopyalıyor, her adımda onay istiyor, uzaktan kod çalıştırma veya git
+  config değişikliği yok. README'deki "SkillKit üzerinden 400.000+ ek skill" iddiası harici bir
+  pazar yerine referans — depoya gömülü DEĞİL, bu iddiaya şüpheyle yaklaşılmalı.
+- **Kurulum:** `curl -fsSL https://raw.githubusercontent.com/rohitg00/awesome-claude-code-toolkit/main/setup/install.sh | bash`
+  (incelendi, temiz — yine de pipe edilen script'i kurmadan önce okumak her zaman daha güvenli) veya
+  sadece istediğin `agents/*.md` / `skills/*` dosyalarını elle `.claude/agents/` ve `.claude/skills/`
+  altına kopyala.
+
+### C) Ücretsiz & Meşru API Sağlayıcısı (yeni kategori — Vercel deployment stack'iyle örtüşüyor)
+
+#### 50. [Vercel AI Gateway](https://vercel.com/ai-gateway) ücretsiz katmanı (resmi)
+- **Doğrulama notu:** `vercel.com`/`community.vercel.com`'a bu oturumdan doğrudan `WebFetch`
+  engellendi (önceki turlardaki ticari domain kısıtlamasıyla aynı desen); rakamlar TrueFoundry,
+  costbench.com, continuumcode.ai, yangmao.ai ve Vercel'in kendi topluluk forumundaki bir başlıktan
+  çapraz doğrulandı — kurulum öncesi resmi `vercel.com/ai-gateway` sayfasından teyit edilmeli.
+- **Ücretsiz katman:** Her Vercel takım hesabına ayda **$5 AI Gateway kredisi**, ilk istekle
+  başlıyor ve her 30 günde bir **süresiz olarak yenileniyor** (ek ücretli kredi satın alınmadığı
+  sürece kalıcı) — bu, kataloğun "tek seferlik deneme kredisi değil, tekrarlayan katman" kriterini
+  karşılıyor. Ücretsiz katman modelleri arasında GPT-OSS 120B, Gemini 2.5 Flash, Llama 4 Maverick,
+  DeepSeek V3.2, Qwen/GLM/Kimi varyantları var.
+- ⚠️ **Belirsizlik dürüstçe işaretleniyor:** Kaynaklar kredi kartı gerekip gerekmediği konusunda
+  çelişiyor — bazıları "sadece email, kart yok" derken, Vercel Community forumundaki bir başlık
+  ("AI Gateway free credits on Hobby without a credit card?") Hobby planında kart doğrulaması
+  gerekebileceğini düşündürüyor. Bu oturumdan `vercel.com` doğrudan doğrulanamadığı için net
+  değil — kayıt sırasında teyit edilmeli.
+- **Ne işe yarar:** Bu şablon zaten Vercel'e deploy ediliyor (`AGENTS.md` "Deployment: Vercel") —
+  AI Gateway kredisi, Groq/Gemini/Mistral/Nebius/Z.ai'den farklı, deployment stack'iyle doğal olarak
+  örtüşen tamamlayıcı bir ücretsiz sağlayıcı kategorisi ekliyor.
+- **Kurulum:** Vercel hesabında AI Gateway'i takım için etkinleştir, OpenAI-uyumlu endpoint'i kendi
+  AI Gateway API key'inle kullan. Yerel onay/gizli bilgi girişi gerekir; kredi kartı gereksinimini
+  kayıt sırasında ayrıca doğrula.
+
+### D) Doğrulanan ama EKLENMEYEN Bulgular (Tur 15)
+
+- **Microck/font-mcp** (9★/1 fork/0 issue, MIT) — **bilerek eklenmedi.** "Font Hunter v2" özelliği
+  font dosyalarını GitHub, GitLab, VK ve Archive.org'dan otomatik indirip "test için" topluyor,
+  hiçbir lisans doğrulama mekanizması yok — bir projeye korsan/lisanssız ticari font çekme riski
+  taşıyor. MCP mekaniği kendi başına sorunlu olmasa da bu davranış "meşru kaynak" barını karşılamıyor.
+- **supatest-ai/awesome-claude-code-sub-agents** (171★/28 fork/1 issue, MIT) — incelendi, meşru
+  bulundu (Supatest AI gerçek bir YC S24 destekli şirket, agent `.md` dosyaları gerçek) ama
+  **eklenmedi**: son commit 2025-09-19 (~1 yıl önce, durgun) ve kategori (genel dil/framework
+  subagent koleksiyonu) zaten 5 mevcut kayıtla (VoltAgent, wshobson, 0xfurai, davepoon, dl-ezo)
+  yeterince kapsanıyor.
+- **awssat/mcp-universal-icons, devstroop/icons-mcp, hustcc/mcp-icon, icons8/icons8-mcp,
+  johndavedecano/icon-mcp** — geçerli ama daha küçük/az doğrulanmış ikon-arama MCP sunucuları;
+  daha güçlü organizasyon desteği, daha fazla yıldız/fork ve temiz doğrulama nedeniyle
+  `better-auth/better-icons` tercih edildi, bunlar **eklenmedi**.
+- **Apify tabanlı "visual regression"/"screenshot diff" MCP sunucuları** (Website Screenshot
+  Monitor, Screenshot Comparison, Visual Regression Monitor vb.) — bunlar Apify platform hesabı
+  gerektiren ÜCRETLİ Apify Actor'ları, bağımsız/açık kaynak ücretsiz araçlar değil — kataloğun
+  "ücretsiz ve meşru" barını bu haliyle karşılamadığı için **eklenmedi**.
+- **glorynguyen/gsap-mcp** — Tur 14'te zaten "erken/doğrulanmamış" notuyla ertelenmişti, talimat
+  gereği tekrar araştırılmadı.
+
+---
+
+*Son güncelleme: 2026-09-18 (Tur 15). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–15'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
 (`auto-star-repo.sh` hook'u) şüpheli/manipülatif bulundu — kurmadan önce ilgili notları oku.
 Tur 8'de genel `claude-code-plugin` taramasında çok sayıda şişirilmiş-yıldız reposu tespit edildi —
 bu ekosistemde yıldız sayısını TEK BAŞINA güvenilirlik kriteri olarak kullanmak giderek daha riskli
 hale geliyor, gelecek turlarda issue/fork oranı + kuruluş tarihi + bağımsız doğrulama + hook/script
-dosyalarının içeriği önceliklendirilmeli. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 13'te
-Nebius AI Studio, Tur 14'te Z.ai GLM Flash ücretsiz katmanları birincil kaynak yerine çapraz
-bağımsız kaynaklarla doğrulanıp kataloğa eklenebildi — dördünün de birincil kaynak (`openrouter.ai`,
-`jina.ai`, `nebius.com`, `z.ai`) doğrulaması hâlâ bekliyor, ağ erişimi açılırsa öncelikli olarak
-tekrar teyit edilmeli. **Tur 11'de ÖNEMLİ:** Tur 4 #21 (Cerebras) artık kredi kartsız ücretsiz
-katman sunmuyor (16 Temmuz 2026'da kaldırıldı). Tur 1 #5 (Groq) hâlâ geçerli ama Llama modelleri
-16 Ağustos 2026'da ücretsiz katmandan kaldırıldı. Tur 13'te Figma/design-to-code MCP boşluğu
-(`GLips/Figma-Context-MCP`, #39) ve bu şablonun tam tech stack'ine özel bir skill koleksiyonu
-(`bitjaru/styleseed`, #40) ile dolduruldu. **Tur 14'te ÖNEMLİ metodoloji notu:** bu oturumun GitHub
-MCP arama araçları (`search_repositories`/`search_code`) da tek-repo kısıtlamasına tabi tutuldu —
-Tur 6'nın notunun aksine, artık bu araçlar genel GitHub aramasında KULLANILAMIYOR; doğrulama
-tamamen `WebSearch`/`WebFetch` (GitHub web sayfaları + `raw.githubusercontent.com`) üzerinden
-yapılmalı, gelecek turlar bu değişikliği dikkate almalı. Tur 14'te ayrıca proje-özel design-token/
-renk/görsel-optimizasyon MCP boşluğu üç yeni kaynakla (#44, #45, #46) genişletildi.*
+dosyalarının içeriği önceliklendirilmeli (Tur 15'te `rohitg00/awesome-claude-code-toolkit`'in
+`hooks/` klasörü bu yöntemle kontrol edilip temiz bulundu — yöntem işe yarıyor, sürdürülmeli).
+Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 13'te Nebius AI Studio, Tur 14'te Z.ai GLM Flash,
+Tur 15'te Vercel AI Gateway ücretsiz katmanları birincil kaynak yerine çapraz bağımsız kaynaklarla
+doğrulanıp kataloğa eklenebildi — beşinin de birincil kaynak (`openrouter.ai`, `jina.ai`,
+`nebius.com`, `z.ai`, `vercel.com`) doğrulaması hâlâ bekliyor, ağ erişimi açılırsa öncelikli olarak
+tekrar teyit edilmeli; Vercel AI Gateway'in kredi kartı gereksinimi özellikle netleştirilmeli.
+**Tur 11'de ÖNEMLİ:** Tur 4 #21 (Cerebras) artık kredi kartsız ücretsiz katman sunmuyor (16 Temmuz
+2026'da kaldırıldı). Tur 1 #5 (Groq) hâlâ geçerli ama Llama modelleri 16 Ağustos 2026'da ücretsiz
+katmandan kaldırıldı. Tur 13'te Figma/design-to-code MCP boşluğu (`GLips/Figma-Context-MCP`, #39)
+ve bu şablonun tam tech stack'ine özel bir skill koleksiyonu (`bitjaru/styleseed`, #40) ile
+dolduruldu. **Tur 14'te ÖNEMLİ metodoloji notu (Tur 15'te doğrulandı):** bu oturumun GitHub MCP
+arama araçları (`search_repositories`/`search_code`) da tek-repo kısıtlamasına tabi tutuldu — Tur
+6'nın notunun aksine, artık bu araçlar genel GitHub aramasında KULLANILAMIYOR; doğrulama tamamen
+`WebSearch`/`WebFetch` (GitHub web sayfaları + `raw.githubusercontent.com`) üzerinden yapılmalı.
+Tur 14'te proje-özel design-token/renk/görsel-optimizasyon MCP boşluğu üç yeni kaynakla (#44, #45,
+#46) genişletildi. Tur 15'te ikon-arama MCP boşluğu (#48) ve Vercel deployment stack'ine özel yeni
+bir ücretsiz API kategorisi (#50) eklendi; ayrıca font-lisans-riski taşıyan bir MCP (`Microck/font-mcp`)
+ilk kez bu kategoride reddedildi — gelecek turlar font/asset-indirme araçlarını incelerken benzer
+lisans-doğrulama kontrolü yapmalı.*
