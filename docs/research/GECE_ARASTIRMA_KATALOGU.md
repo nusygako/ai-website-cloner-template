@@ -1,10 +1,16 @@
-## ARAŞTIRMA DURUMU (en son Tur 13 — 2026-09-18)
+## ARAŞTIRMA DURUMU (en son Tur 14 — 2026-09-18)
 
-**Durum:** Bu gece boyunca 13 tur (Tur 1–13) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
-Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13 farklı bir gecede (kesme
-noktasından önce, 03:04 UTC'de) başladı ve normal araştırmaya devam etti.
+**Durum:** Bu gece boyunca 14 tur (Tur 1–14) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
+Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13 ve Tur 14 farklı gecelerde
+(her ikisi de kesme noktasından önce, sırasıyla 03:04 UTC ve 04:04 UTC'de) başladı ve normal
+araştırmaya devam etti. **Tur 14'te metodoloji notu:** bu oturumun GitHub erişimi tek repoya
+(`nusygako/ai-website-cloner-template`) kilitliydi — Tur 6'nın varsaydığının aksine
+`mcp__github__search_repositories`/`search_code` gibi arama araçları da bu kısıtlamaya tabi
+tutuldu, bu yüzden doğrulama tamamen `WebSearch` + `WebFetch` (GitHub'ın normal web sayfaları,
+`raw.githubusercontent.com`) üzerinden yapıldı — sonuçlar etkilenmedi ama gelecek turlar için not
+düşülüyor.
 
-**Toplam:** 42 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 47 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı + Tur 13'te tespit edilen
 1 ek "manipülatif hook" uyarısı (aşağıya bak) + onlarca "doğrulandı ama eklenmedi" madde (şişirilmiş
 yıldız, geçersiz/tek-seferlik ücretsiz katman, ToS-bypass riski vb. gerekçelerle elendi).
@@ -1142,19 +1148,158 @@ herhangi bir skill/plugin kurulmadan önce `hooks/` klasörü elle incelenmeli.
 
 ---
 
-*Son güncelleme: 2026-09-18 (Tur 13). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–13'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+---
+
+## Tur 14 — 2026-09-18
+
+Oturum başında saat kontrol edildi: 04:04 UTC / 07:04 Türkiye saati — talimattaki 12:00 UTC / 15:00
+Türkiye kesme noktasının ÇOK ÖNCESİNDE, bu yüzden normal araştırma turu yapıldı. Bu turda bu
+oturumun GitHub erişimi tek repoya kilitliydi (bkz. yukarıdaki metodoloji notu), bu yüzden doğrulama
+bir alt ajana devredilip tamamen `WebSearch` + `WebFetch` (GitHub'ın normal web sayfaları — repo ana
+sayfası, `/commits`, `/graphs/contributors`, yazar profilleri — ve `raw.githubusercontent.com` ham
+README'leri) üzerinden yapıldı; `api.github.com` JSON uç noktası da bu repoya kilitliydi. `z.ai` /
+`docs.z.ai` domain'lerine bu oturumdan `WebFetch` yine engellendi (Tur 1/7-11/13'teki ticari domain
+kısıtlamasıyla aynı desen) — 4 bağımsız üçüncü parti kaynaktan çapraz doğrulama yapıldı.
+
+### A) Keşif/Dizin Kaynağı (kurulum değil, referans)
+
+#### 42. [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) — DİKKAT: liste/keşif deposu
+- **Yıldız:** ~15,1k · **Fork:** ~2,0k · **Açık issue:** 46 · **Lisans:** belirtilmemiş (çoğu
+  awesome-list gibi ayrı `LICENSE` dosyası yok — kendi SKILL.md dosyasını barındırmıyor zaten,
+  sadece linkliyor, bu yüzden lisans belirsizliği engelleyici değil)
+- **Güncellik:** 3 bağımsız üçüncü taraf kaynağı (ecosyste.ms, skillsllm.com, c-sharpcorner) yıldız
+  sayısını çapraz doğruladı — zaman içinde organik büyüme izliyor, ani sıçrama yok.
+- **Ne işe yarar:** Anthropic'in resmi skill'lerini ve topluluk skill'lerini (`playwright-skill`,
+  `ios-simulator-skill`, `ffuf-web-fuzzing`, Tur 1'deki `obra/superpowers` dahil 20+ koleksiyon)
+  kategorize eden küratörlü keşif listesi — Tur 2'deki ComposioHQ ve Tur 3'teki punkpeye
+  kataloglarıyla aynı kategoride ama özellikle skill'lere (genel MCP'ye değil) odaklanıyor.
+- **Neden meşru:** Repoda aktif "Skill Verification" ve "Skill Additions" adlı GitHub Discussions
+  kategorileri var — eklenen her skill bir doğrulama sürecinden geçiyor, rastgele link çöplüğü değil.
+- **Kurulum:** Doğrudan kurulum yok — ilgini çeken linke git, ORADAKİ deponun kendi lisans/güncellik
+  durumunu ayrıca doğrula, sonra normal skill kurulumunu (dosya kopyalama / `npx skills add`) uygula.
+
+### B) Agent / Subagent Koleksiyonu
+
+#### 43. [dl-ezo/claude-code-sub-agents](https://github.com/dl-ezo/claude-code-sub-agents)
+- **Yıldız:** 185 · **Fork:** 31 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** ⚠️ Son commit 2025-07-30 (~14 ay önce) — proje "tamamlanmış" olarak sunuluyor,
+  aktif geliştirme yavaş/durmuş görünüyor. Ancak şişirilmiş yıldız paterni YOK (185★/31 fork, düşük
+  ama tutarlı oran) — sadece düşük aktivite, şüpheli değil.
+- **Ne işe yarar:** Uçtan uca yazılım geliştirme yaşam döngüsünü (gereksinim analizi → mimari →
+  implementasyon → proje yönetimi → deployment) kapsayan, `project-orchestrator` merkezli 35 gerçek
+  uzman subagent `.md` dosyası (`requirements-analyst.md`, `system-architect.md`,
+  `code-reviewer.md` vb. doğrulandı) — `AGENTS.md`'deki "agent team'leri worktree'lerde çalıştır,
+  orkestratör rolü" talimatıyla birebir örtüşen bir orkestrasyon deseni sunuyor.
+- **Neden meşru:** Yazar profilinde 5 gerçek repo var (ör. `mcp-server-miro`, AsyncAPI/OpenAPI model
+  üretici `modelina` fork'u), gerçek GitHub achievement rozetleri, şişirme paterni olmayan tutarlı
+  takipçi/yıldız oranı.
+- **Kurulum:** `agents/` klasöründeki `.md` dosyalarını `~/.claude/agents/` veya proje
+  `.claude/agents/` altına kopyala. Yerel dosya kopyalama, onay gerekmez. Kurulum öncesi 14 aylık
+  güncellik boşluğunu göz önünde bulundur.
+
+### C) MCP Sunucuları (proje-özel faydalı — design token / renk / görsel optimizasyon)
+
+#### 44. [Kargatharaakash/website-design-systems-mcp](https://github.com/Kargatharaakash/website-design-systems-mcp)
+- **Yıldız:** 16 · **Fork:** 2 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** Son commit 2026-02-13 — aktif bakım, gerçek `src/` + `package.json` +
+  `CONTRIBUTING.md` + `CHANGELOG.md` içeren TypeScript proje yapısı.
+- **Ne işe yarar:** Bir website URL'sinden **tarayıcı gerektirmeden** komple tasarım sistemini
+  (renk paleti, tipografi, spacing, border-radius, shadow, CSS custom properties) çıkarıp doğrudan
+  bir AI-okuyucu `skill.md` dosyası üretiyor. Araçları: `extract_design_system`, `validate_url`,
+  `get_site_colors`, `get_site_typography`. **Bu şablonun `docs/research/INSPECTION_GUIDE.md`
+  Phase 1 (Visual Audit → Design Tokens) ve Phase 5 (`DESIGN_TOKENS.md` çıktısı) adımlarını neredeyse
+  birebir otomatikleştiriyor** — Tur 8'deki `Manavarya09/design-extract` (#31) ile aynı kategoride
+  ama farklı/bağımsız bir implementasyon, ikisi karşılaştırılıp tercih edilebilir.
+- **Neden meşru:** Yazar (Kargatharaakash) 43 gerçek repo, doğrulanmış Twitter/LinkedIn/
+  StackOverflow/Medium hesapları; en popüler diğer projesi `stitch-mcp` 123★/28 fork ile tutarlı
+  bir geliştirici profili gösteriyor.
+- **Kurulum:** `claude mcp add design-systems -- npx -y website-design-systems-mcp` (npm paketi
+  mevcut) veya `.mcp.json`'a stdio server olarak ekleme. Yerel onay gerekir, API key gerekmez.
+
+#### 45. [x51xxx/coolors-mcp](https://github.com/x51xxx/coolors-mcp)
+- **Yıldız:** 3 · **Fork:** 0 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** Son commit 2026-05-20 — en taze bulunan kaynak, aktif geliştiriliyor. Düşük yıldız
+  sayısı şişirme paterni DEĞİL, gerçekten yeni/niş bir proje olmasından kaynaklanıyor (Tur 2'deki
+  #12 Chrome DevTools MCP gibi köklü büyük projelerin aksine, erken aşama — kurulum öncesi kendi
+  gözlemini yap).
+- **Ne işe yarar:** Görüntüden dominant renk çıkarma, Material Design 3 tonal palet üretimi,
+  WCAG/APCA kontrast kontrolü, renk körlüğü simülasyonu, CSS/SCSS/Tailwind/W3C DTCG token export —
+  #44 (design-systems-mcp) ile birlikte kullanılırsa hedef sitenin renk sistemini çıkarma + bu
+  şablonun shadcn/Tailwind v4 oklch token'larına dönüştürme işini tamamlıyor.
+- **Neden meşru:** Yazar Taras Trishchuk (Softjourn Inc.), 51 gerçek repo, kişisel portfolyo sitesi
+  (trishchuk.com), başka doğrulanabilir MCP projeleri (`gemini-mcp-server`, `kimi-mcp-server`,
+  `codex-mcp-tool`).
+- **Kurulum:** npm paketi olarak `.mcp.json`'a stdio server ekleme. Yerel onay gerekir, API key
+  gerekmez.
+
+#### 46. [piephai/mcp-image-optimizer](https://github.com/piephai/mcp-image-optimizer)
+- **Yıldız:** 12 · **Fork:** 2 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** ⚠️ Son commit 2025-10-21 (~11 ay önce, dependabot merge) — aktif ama yavaş bakımlı.
+- **Ne işe yarar:** Sharp tabanlı; URL veya yerel dosyadan resize/crop, JPEG/PNG/WebP/AVIF/TIFF
+  format dönüşümü, akıllı (attention-detection) crop, watermark, favicon üretimi, lazy-load için
+  low-quality placeholder — bu şablonun `scripts/` asset indirme adımından sonra `public/images/`
+  optimizasyonu için doğrudan kullanılabilir.
+- **Neden meşru:** Yazarın 24 gerçek repo'su var (ör. `V2Ray` dokümantasyonu 30★), gerçek
+  achievement rozetleri, tutarlı commit geçmişi.
+- **Kurulum:** `claude mcp add image-optimizer -- npx -y mcp-image-optimizer`. Yerel onay gerekir,
+  API key gerekmez.
+
+### D) Ücretsiz & Meşru API Sağlayıcısı
+
+#### 47. Z.ai (Zhipu) GLM Flash modelleri ücretsiz katmanı (resmi)
+- **Doğrulama notu:** GitHub deposu değil, resmi barındırılan API — bu oturumda `z.ai`/`docs.z.ai`'a
+  doğrudan `WebFetch` engellendi (Tur 1/7-11/13'teki ticari domain kısıtlamasıyla aynı desen),
+  rakamlar 4 bağımsız üçüncü parti kaynaktan (freellmapi.co, free-llm.com, yangmao.ai,
+  developer.puter.com) çapraz doğrulandı — kurulum öncesi resmi `z.ai`/`bigmodel.cn` sayfasından
+  teyit edilmeli (Tur 9/10/13'teki OpenRouter/Jina/Nebius ile aynı güvenilirlik seviyesi).
+- **Ücretsiz katman:** GLM-4.5-Flash, GLM-4.7-Flash (metin) ve GLM-4.6V-Flash (vision/multimodal)
+  resmi fiyatlandırma tablosunda input/cached-input/output için **$0** olarak listeleniyor. API key
+  oluşturmak kredi kartı istemiyor; kendi API key'inle rate-limitli ama kalıcı (tek seferlik deneme
+  kredisi DEĞİL) bir ücretsiz katman.
+- **Ne işe yarar:** Bu şablonda görsel tarama/analiz gerektiren adımlarda (ör. hedef sitenin ekran
+  görüntüsünü yorumlama, çok modlu tasarım analizi) GLM-4.6V-Flash vision modeli; genel kod/metin
+  üretiminde GLM-4.5-Flash/4.7-Flash kullanılabilir — mevcut kataloğa (Groq #5, Gemini #6,
+  Mistral #14, SambaNova #27, OpenRouter #32, Cohere #38, Nebius #41) ek bir bağımsız ücretsiz
+  sağlayıcı çeşitliliği katıyor, özellikle vision/multimodal tarafında boşluk dolduruyor.
+- **Neden meşru:** Zhipu AI / Z.ai, gerçek ve tanınan bir Çinli AI şirketi (GLM model ailesinin
+  geliştiricisi), resmi fiyatlandırma sayfası; her kullanıcı kendi hesabı ve kendi key'iyle kayıt
+  oluyor, paylaşımlı key yok. Not: veri işleme Çin merkezli bir şirket üzerinden gerçekleşiyor —
+  hassas/özel proje verisi için kullanmadan önce kendi gizlilik politikanı değerlendir.
+- **Kurulum:** Z.ai API Platform'da ücretsiz kayıt → API Keys sayfasından key oluştur →
+  OpenAI-uyumlu SDK/REST endpoint ile `GLM-4.5-Flash` model adını çağır. Yerel onay/gizli bilgi
+  girişi gerekir, bu oturumdan otomatik yapılamaz.
+
+### E) Doğrulanan ama EKLENMEYEN Bulgular (Tur 14)
+
+- **RichardDillman/seo-audit-mcp** (0★, 1 commit) — sadece "job board" siteleri için optimize
+  edilmiş dar kapsamlı bir araç, genel amaçlı SEO/performans denetimi için yeterli olgunlukta değil.
+  Tur 8'deki `danielsogl/lighthouse-mcp-server` (#29) zaten bu ihtiyacı karşılıyor — **eklenmedi**.
+- **glorynguyen/gsap-mcp** (4★/0 fork/0 issue) — iddia edilen "60fps-optimized production kod" için
+  yeterli topluluk doğrulaması/kullanım kanıtı yok; şüpheli değil ama fazla ham/erken aşamada —
+  **eklenmedi**, ileride tekrar bakılabilir.
+- **vdalhambra/siteaudit-mcp, g-battaglia/mcp-seo** — Tur 13'te zaten reddedilmişti, aramada tekrar
+  çıktı, tekrar incelenmedi — **eklenmedi**.
+
+---
+
+*Son güncelleme: 2026-09-18 (Tur 14). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–14'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
 (`auto-star-repo.sh` hook'u) şüpheli/manipülatif bulundu — kurmadan önce ilgili notları oku.
 Tur 8'de genel `claude-code-plugin` taramasında çok sayıda şişirilmiş-yıldız reposu tespit edildi —
 bu ekosistemde yıldız sayısını TEK BAŞINA güvenilirlik kriteri olarak kullanmak giderek daha riskli
 hale geliyor, gelecek turlarda issue/fork oranı + kuruluş tarihi + bağımsız doğrulama + hook/script
 dosyalarının içeriği önceliklendirilmeli. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 13'te
-Nebius AI Studio ücretsiz katmanları birincil kaynak yerine çapraz bağımsız kaynaklarla doğrulanıp
-kataloğa eklenebildi — üçünün de birincil kaynak (`openrouter.ai`, `jina.ai`, `nebius.com`)
-doğrulaması hâlâ bekliyor, ağ erişimi açılırsa öncelikli olarak tekrar teyit edilmeli. **Tur 11'de
-ÖNEMLİ:** Tur 4 #21 (Cerebras) artık kredi kartsız ücretsiz katman sunmuyor (16 Temmuz 2026'da
-kaldırıldı). Tur 1 #5 (Groq) hâlâ geçerli ama Llama modelleri 16 Ağustos 2026'da ücretsiz katmandan
-kaldırıldı. Tur 13'te Figma/design-to-code MCP boşluğu (`GLips/Figma-Context-MCP`, #39) ve bu
-şablonun tam tech stack'ine özel bir skill koleksiyonu (`bitjaru/styleseed`, #40) ile dolduruldu —
-her ikisi de bağımsız olarak iki kez (alt ajan + bu turun yazarı) doğrulandı.*
+Nebius AI Studio, Tur 14'te Z.ai GLM Flash ücretsiz katmanları birincil kaynak yerine çapraz
+bağımsız kaynaklarla doğrulanıp kataloğa eklenebildi — dördünün de birincil kaynak (`openrouter.ai`,
+`jina.ai`, `nebius.com`, `z.ai`) doğrulaması hâlâ bekliyor, ağ erişimi açılırsa öncelikli olarak
+tekrar teyit edilmeli. **Tur 11'de ÖNEMLİ:** Tur 4 #21 (Cerebras) artık kredi kartsız ücretsiz
+katman sunmuyor (16 Temmuz 2026'da kaldırıldı). Tur 1 #5 (Groq) hâlâ geçerli ama Llama modelleri
+16 Ağustos 2026'da ücretsiz katmandan kaldırıldı. Tur 13'te Figma/design-to-code MCP boşluğu
+(`GLips/Figma-Context-MCP`, #39) ve bu şablonun tam tech stack'ine özel bir skill koleksiyonu
+(`bitjaru/styleseed`, #40) ile dolduruldu. **Tur 14'te ÖNEMLİ metodoloji notu:** bu oturumun GitHub
+MCP arama araçları (`search_repositories`/`search_code`) da tek-repo kısıtlamasına tabi tutuldu —
+Tur 6'nın notunun aksine, artık bu araçlar genel GitHub aramasında KULLANILAMIYOR; doğrulama
+tamamen `WebSearch`/`WebFetch` (GitHub web sayfaları + `raw.githubusercontent.com`) üzerinden
+yapılmalı, gelecek turlar bu değişikliği dikkate almalı. Tur 14'te ayrıca proje-özel design-token/
+renk/görsel-optimizasyon MCP boşluğu üç yeni kaynakla (#44, #45, #46) genişletildi.*
