@@ -1,24 +1,29 @@
-## ARAŞTIRMA DURUMU (en son Tur 17 — 2026-09-18)
+## ARAŞTIRMA DURUMU (en son Tur 18 — 2026-09-18)
 
-**Durum:** Bu gece boyunca 17 tur (Tur 1–17) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
-Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14, 15, 16 ve 17 farklı
-oturumlarda (beşi de kesme noktasından önce, sırasıyla 03:04, 04:04, 05:06, 06:10 ve 07:05 UTC'de)
-başladı ve normal araştırmaya devam etti. **Tur 14'te metodoloji notu (Tur 15 ve 16'da da
-doğrulandı, Tur 17'de DÜZELTİLDİ):** önceki turlar bu oturumun GitHub erişiminin tek repoya
-(`nusygako/ai-website-cloner-template`) kilitli olduğunu ve bunun `WebSearch`/`WebFetch`'i de
-etkilediğini varsaymıştı — **Tur 17'de netleşti ki bu kısıtlama sadece `mcp__github__*` MCP
-araçları için geçerli** (bu oturumun GitHub entegrasyonu tek repoya scope'lu); genel `WebFetch`
-(github.com, raw.githubusercontent.com dahil) ve `WebSearch` araçları kısıtlanmamış durumda ve
-Tur 17'de birincil kaynak doğrulaması için doğrudan kullanıldı. **Tur 16'da ek yöntem notu:** bir
-sağlayıcının resmi domaini engellenmişse, docs'u GitHub'da açık kaynaklıysa
+**Durum:** Bu gece boyunca 18 tur (Tur 1–18) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
+Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14, 15, 16, 17 ve 18 farklı
+oturumlarda (altısı da kesme noktasından önce, sırasıyla 03:04, 04:04, 05:06, 06:10, 07:05 ve
+08:05 UTC'de) başladı ve normal araştırmaya devam etti. **Tur 14'te metodoloji notu (Tur 15 ve
+16'da da doğrulandı, Tur 17'de DÜZELTİLDİ, Tur 18'de tekrar teyit edildi):** önceki turlar bu
+oturumun GitHub erişiminin tek repoya (`nusygako/ai-website-cloner-template`) kilitli olduğunu ve
+bunun `WebSearch`/`WebFetch`'i de etkilediğini varsaymıştı — **Tur 17'de netleşti ki bu kısıtlama
+sadece `mcp__github__*` MCP araçları için geçerli** (bu oturumun GitHub entegrasyonu tek repoya
+scope'lu); genel `WebFetch` (github.com dahil) ve `WebSearch` araçları kısıtlanmamış durumda.
+**Tur 18'de ek netlik:** ticari sağlayıcı domainleri (`openrouter.ai`, `jina.ai`) bu turda da
+`WebFetch` ile denendi ve yine `EGRESS_BLOCKED` hatasıyla engellendi — bu, Tur 1/7-11/13-17'deki
+"ticari domain kısıtlaması genel bir proxy politikası, GitHub'a özgü değil" tespitini bir kez daha
+doğruluyor; sadece GitHub (ve bazı belgeleme/blog siteleri) serbest. **Tur 16'da ek yöntem notu:**
+bir sağlayıcının resmi domaini engellenmişse, docs'u GitHub'da açık kaynaklıysa
 `raw.githubusercontent.com` üzerinden birincil kaynağa hâlâ ulaşılabiliyor (Cloudflare örneği,
-aşağıya bak). **Tur 17'de git hijyeni notu:** oturum başında repo `master`'dan ayrı, bağlı
-olmayan bir "detached HEAD" durumundaydı (Tur 13-16 commit'leri teknik olarak bir branch'e
-bağlı değildi); `git fetch` sonrası `origin/master`'ın zaten bu commit'leri içerdiği doğrulandı
-(çalışma kaybı YOK, sadece yerel ref bayatlamıştı) — yine de temizlik için `master` branch'i
-bu commit'lere fast-forward edildi ve normal branch akışına döndürüldü.
+aşağıya bak). **Tur 18'de git hijyeni notu (Tur 17'deki ile birebir aynı tekrarlayan sorun):**
+oturum başında repo yine `master`'dan ayrı, bağlı olmayan bir "detached HEAD" durumundaydı;
+`git fetch` sonrası `origin/master`'ın (3429aaa) HEAD ile birebir aynı commit'te olduğu doğrulandı
+(çalışma kaybı YOK) — `git checkout -B master origin/master` ile branch normale döndürüldü. **Bu
+düzenli tekrarlayan bir desen haline geldi (Tur 13, 17, 18) — muhtemel neden: bu görevi tetikleyen
+otomasyon her oturumda repoyu belirli bir commit'e `checkout` ediyor, branch'e değil; gelecek
+turlar bunu oturum başında rutin bir kontrol olarak görmeli, sürpriz değil.**
 
-**Toplam:** 54 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 56 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı + Tur 13'te tespit edilen
 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık mevcut değil" uyarısı
 (GitHub Models, 30 Temmuz 2026'da kapatıldı) + onlarca "doğrulandı ama eklenmedi" madde (şişirilmiş
@@ -52,6 +57,11 @@ lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme vb. gerekçele
    koleksiyonu güvenilir" sorusuna Anthropic'in kendisinin verdiği resmi cevap niteliğinde — tek
    bir kaynaktan onlarca kategoride (database, security, monitoring, deployment) doğrulanmış
    plugin. (Tur 17, #52)
+7. **[danielsogl/lighthouse-mcp-server](https://github.com/danielsogl/lighthouse-mcp-server)** —
+   Google Lighthouse'u MCP üzerinden ajana açan araç (71 yıldız, MIT, 270+ commit); performans,
+   erişilebilirlik (WCAG), SEO ve güvenlik denetimini API key gerektirmeden yapıyor. `AGENTS.md`'nin
+   "UI değişikliklerinde dev server başlatıp tarayıcıda test et" ve "Beauty-first — her piksel
+   önemli" ilkelerine somut, ölçülebilir bir doğrulama katmanı ekliyor. (Tur 18, #56)
 
 **Ayrıca dikkat:** Tur 8'de ve sonrasında, GitHub'da "binlerce yıldız + tek haneli issue sayısı"
 deseni gösteren çok sayıda şişirilmiş/şüpheli repo tespit edildi (`DietrichGebert/ponytail`,
@@ -1618,3 +1628,102 @@ repo git hijyeni düzeltildi: oturum başında repo bağlı olmayan bir "detache
 `master` branch'i mevcut tüm araştırma commit'lerine fast-forward edilip normale döndürüldü —
 gelecek turlar oturum başında `git status`/`git branch` ile HEAD'in bir branch'e bağlı olduğunu
 doğrulamalı, aksi halde yeni commit'ler yine "kayıp" bir duruma düşebilir.*
+
+---
+
+## Tur 18 — 2026-09-18
+
+Oturum başında saat kontrol edildi: 08:05 UTC / 11:05 Türkiye saati — talimattaki 12:00 UTC / 15:00
+Türkiye kesme noktasının ÇOK ÖNCESİNDE, bu yüzden normal araştırma turu yapıldı. Oturum başında repo
+yine Tur 17'deki gibi "detached HEAD" durumundaydı; `git fetch origin master` ile `origin/master`'ın
+(`3429aaa`) HEAD ile birebir aynı commit olduğu doğrulandı (çalışma kaybı yok, sadece yerel ref
+bayatlamıştı) ve `git checkout -B master origin/master` ile branch normale döndürüldü — bu artık
+üçüncü kez tekrarlayan bir desen (Tur 13, 17, 18), muhtemelen görevi tetikleyen otomasyonun
+oturumu belirli bir commit'e checkout etmesinden kaynaklanıyor; gelecek turlar bunu rutin bir
+kontrol maddesi olarak görmeli. Doğrulama `WebSearch` + `WebFetch` üzerinden yapıldı;
+`mcp__github__*` MCP araçları bu oturumda da tek-repo scope'una tabi olduğu için hiç kullanılmadı.
+`openrouter.ai` ve `jina.ai`'a doğrudan `WebFetch` bu turda tekrar denendi ve yine `EGRESS_BLOCKED`
+hatasıyla engellendi — Tur 9/10'daki bu iki sağlayıcının birincil kaynak doğrulaması hâlâ bekliyor.
+
+### A) MCP Sunucuları (proje-özel faydalı — `public/seo/` ve genel "pixel-perfect" doğrulama)
+
+#### 55. [dh1011/auto-favicon-mcp](https://github.com/dh1011/auto-favicon-mcp)
+- **Yıldız:** 34 · **Fork:** 5 · **Açık issue:** 1 · **Lisans:** MIT
+- **Güncellik:** Küçük ama net bir araç için normal commit hacmi (4 commit ana dalda), şişirilmiş
+  yıldız paterni DEĞİL (yıldız/fork/issue oranı organik).
+- **Ne işe yarar:** Tek bir PNG dosyasından veya URL'den eksiksiz bir favicon seti (16x16'dan
+  256x256'ya kadar boyutlar, `.ico`, Apple touch icon'ları, PWA `manifest.json`) üreten MCP
+  sunucusu — hem yerel dosya hem uzak URL girişini destekleyen iki ayrı araç sunuyor. **Bu
+  şablonun `AGENTS.md`'de tanımlı `public/seo/` klasörüyle ("Favicons, OG images, webmanifest")
+  birebir örtüşüyor** — hedef siteden çıkarılan logo/favicon kaynağından otomatik tam SEO ikon
+  seti üretmek için doğrudan kullanılabilir.
+- **Neden meşru:** MIT lisanslı, tamamen açık kod, standart Python paketleme (`pyproject.toml`),
+  şüpheli hook/otomatik-çalıştırma kodu bulunamadı. Karşılaştırma için aynı kategorideki
+  `elliotxx/favicon-mcp-server` (4 yıldız/0 fork, çok daha erken/az doğrulanmış) ve
+  `shrinathprabhu/favicon-generator` (0 yıldız/0 fork, kendi açıklamasında "vibe coded" ibaresi
+  var — topluluk doğrulaması yok) ayrıca kontrol edildi; dh1011 deposu belirgin şekilde daha
+  olgun/doğrulanabilir bulundu.
+- **Kurulum:** `uvx auto-favicon` (Python 3.12+ ve `uv` paket yöneticisi gerekir) ile MCP config'e
+  ekleme. Yerel onay gerekir, API key gerekmez.
+
+#### 56. [danielsogl/lighthouse-mcp-server](https://github.com/danielsogl/lighthouse-mcp-server)
+- **Yıldız:** ~71 · **Fork:** ~13 · **Açık issue:** 3 · **Lisans:** MIT
+- **Güncellik:** 270+ commit, aktif; CI/CD workflow'ları, uçtan uca test paketi, coverage
+  raporlama ve semantic versioning (release-please) var — olgun bir mühendislik pratiği gösteriyor.
+- **Ne işe yarar:** Google Lighthouse'u yerel Chrome/Chromium üzerinden çalıştırıp MCP ile ajana
+  açan 13+ araç: performans skoru + Core Web Vitals, erişilebilirlik (WCAG uyumluluk), SEO analizi,
+  güvenlik denetimi (HTTPS, CSP), kaynak analizi (JS/CSS/görsel/font optimizasyon fırsatları),
+  mobil/masaüstü karşılaştırmalı analiz. **Bu şablonun `AGENTS.md`'deki "UI/frontend değişikliklerinde
+  dev server başlatıp tarayıcıda test et" kuralı ve "Beauty-first — her piksel önemli" ilkesiyle
+  birebir örtüşüyor** — klonlanan bir sitenin kendi orijinaliyle ölçülebilir şekilde (performans/
+  erişilebilirlik/SEO skoru) karşılaştırılmasını sağlıyor; Tur 2'deki Chrome DevTools MCP (#12) ve
+  Tur 4'teki Playwright MCP (#19) ile tamamlayıcı, çakışmıyor (onlar etkileşim/otomasyon içinken bu
+  ölçüm/audit sağlıyor).
+- **Neden meşru:** MIT lisanslı, npm üzerinden `@danielsogl/lighthouse-mcp` olarak resmi dağıtılıyor,
+  API key gerektirmiyor (tamamen yerel Lighthouse çalıştırıyor), TypeScript + Zod ile yapılandırılmış
+  şema doğrulaması kullanıyor; şüpheli hook/otomatik-çalıştırma davranışı bulunamadı.
+- **Kurulum:** `claude mcp add lighthouse npx @danielsogl/lighthouse-mcp` (veya MCP config'e ekleme)
+  — yerel onay gerekir (yeni MCP sunucusu ekleme + yerel Chrome/Chromium bağımlılığı), API key
+  gerekmez.
+
+### B) Doğrulanan ama EKLENMEYEN Bulgular (Tur 18)
+
+- **[harness/harness-skills](https://github.com/harness/harness-skills)** — doğrulandı, gerçek ve
+  meşru (106 yıldız, 18 fork, 1 açık issue, Apache-2.0, gerçek `skills/<isim>/SKILL.md` dosyaları:
+  `create-pipeline`, `debug-pipeline`, `manage-users` vb.). **Eklenmedi:** Harness CI/CD platformuna
+  özel, bu şablonun tech stack'iyle (Next.js/shadcn/Vercel) veya genel Claude Code kullanımıyla
+  hiçbir örtüşmesi yok — çok niş, ilgisiz bir platforma bağımlı.
+- **[obviousworks/Claude-AI-skills-collection-2026](https://github.com/obviousworks/Claude-AI-skills-collection-2026)**
+  — incelendi (55 yıldız, 19 fork, Apache-2.0 benzeri) ama Tur 2'deki ComposioHQ/awesome-claude-skills
+  ve Tur 3'teki hesreallyhim/awesome-claude-code ile aynı kategori: kendi `SKILL.md` dosyası yok,
+  94 skill'i başka repolara (çoğu zaten bu katalogda) link veren bir meta-dizin. **Eklenmedi**
+  (README'de dürüst bir güvenlik uyarısı var — "bir skill dosya sistemine/shell'e/API key'lere
+  erişimi olan çalıştırılabilir koddur, bir bağımlılık gibi değerlendir" — bu olumlu bir gözlem ama
+  yine de meta-dizin kriterine takıldığı için ayrı madde açılmadı).
+- **`elliotxx/favicon-mcp-server`** (4★/0 fork, MIT) ve **`shrinathprabhu/favicon-generator`**
+  (0★/0 fork, kendi açıklamasında "vibe coded") — yukarıda #55 seçilirken karşılaştırma için
+  incelendi, ikisi de yeterli topluluk doğrulaması olmadığı için **eklenmedi**.
+- **OpenRouter ve Jina AI Reader birincil kaynak doğrulaması** — bu turda da denendi
+  (`openrouter.ai`, `jina.ai`), ikisi de `EGRESS_BLOCKED` ile engellendi. Tur 9/10'dan beri
+  hâlâ sadece üçüncü parti çapraz kaynaklarla doğrulanabiliyor, birincil kaynak bekliyor.
+
+---
+
+*Son güncelleme: 2026-09-18 (Tur 18). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–18'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+(ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
+(`auto-star-repo.sh` hook'u) şüpheli/manipülatif bulundu — kurmadan önce ilgili notları oku.
+Tur 17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo GitHub kısıtlamasına tabi
+DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18'de tekrar doğrulandı ve kullanıldı.
+Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 13'te Nebius AI Studio, Tur 14'te Z.ai GLM
+Flash, Tur 15'te Vercel AI Gateway ücretsiz katmanlarının birincil kaynak doğrulaması hâlâ
+bekliyor (ticari domain engeline takılıyorlar — Tur 18'de OpenRouter ve Jina tekrar denendi, yine
+engellendi — GitHub kısıtlaması değil, genel ticari-domain proxy politikası). **Tur 18'de YENİ:**
+proje-özel `public/seo/` (favicon/OG/manifest) boşluğu `dh1011/auto-favicon-mcp` (#55) ile
+dolduruldu; ayrıca genel "klonlanan site orijinaliyle ne kadar örtüşüyor" ölçülebilir doğrulama
+boşluğu `danielsogl/lighthouse-mcp-server` (#56) ile kapatıldı — Tur 2 (Chrome DevTools MCP) ve
+Tur 4 (Playwright MCP) ile birlikte artık üç farklı tarayıcı-tabanlı doğrulama katmanı (etkileşim,
+otomasyon, ölçüm/audit) mevcut. **Tur 18'de git hijyeni notu:** detached HEAD durumu Tur 13 ve
+17'den sonra üçüncü kez tekrarladı — bu artık şaşırtıcı değil, muhtemelen tetikleyici otomasyonun
+davranışından kaynaklanıyor; gelecek turlar oturum başında rutin olarak kontrol edip düzeltmeli,
+ayrı bir "sorun" olarak raporlamaya gerek yok.*
