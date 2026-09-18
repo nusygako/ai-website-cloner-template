@@ -1,12 +1,13 @@
-## ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
+## ARAŞTIRMA DURUMU (en son Tur 13 — 2026-09-18)
 
-**Durum:** Bu gece boyunca 11 tur (Tur 1–11) araştırma yapıldı, saat 12:00 UTC / 15:00 Türkiye
-kesme noktasına ulaşıldığı için bu tur (Tur 12) yeni arama yapmadı — sadece bu özeti ekledi.
+**Durum:** Bu gece boyunca 13 tur (Tur 1–13) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
+Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13 farklı bir gecede (kesme
+noktasından önce, 03:04 UTC'de) başladı ve normal araştırmaya devam etti.
 
-**Toplam:** 38 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
-MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (aşağıya bak) + onlarca
-"doğrulandı ama eklenmedi" madde (şişirilmiş yıldız, geçersiz/tek-seferlik ücretsiz katman, ToS-bypass
-riski vb. gerekçelerle elendi).
+**Toplam:** 42 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı + Tur 13'te tespit edilen
+1 ek "manipülatif hook" uyarısı (aşağıya bak) + onlarca "doğrulandı ama eklenmedi" madde (şişirilmiş
+yıldız, geçersiz/tek-seferlik ücretsiz katman, ToS-bypass riski vb. gerekçelerle elendi).
 
 **En önemli 5 bulgu:**
 
@@ -1003,23 +1004,157 @@ maddeyi GÜNCELLİYOR)
 
 ---
 
-*Son güncelleme: 2026-09-17 (Tur 11). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–11'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
-(ve aynı adla dolaşan fork/mirror'ları) şüpheli bulundu — kurmadan önce ilgili notu oku. Tur 8'de
-genel `claude-code-plugin` taramasında çok sayıda şişirilmiş-yıldız reposu tespit edildi (yukarıdaki
-gözlem notuna bak) — bu ekosistemde yıldız sayısını TEK BAŞINA güvenilirlik kriteri olarak kullanmak
-giderek daha riskli hale geliyor, gelecek turlarda issue/fork oranı + kuruluş tarihi + bağımsız
-doğrulama önceliklendirilmeli. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader ücretsiz katmanları
-birincil kaynak yerine çapraz bağımsız kaynaklarla doğrulanıp kataloğa eklenebildi — ikisinin de
-birincil kaynak (`openrouter.ai`, `jina.ai`) doğrulaması hâlâ bekliyor, ağ erişimi açılırsa
-öncelikli olarak tekrar teyit edilmeli. Tur 10'da `mksglu/context-mode` (çok-platform hook + MCP
-routing) kapsam dışı + ekstra-dikkat gerektiren bir aday olarak not edildi ama kanıtsız olduğu için
-Tur 6'daki gibi "KESİNLİKLE EKLENMEDİ" bölümüne değil, normal "eklenmedi" notlarına alındı — ileride
-tekrar karşılaşılırsa hook dosyaları tek tek okunmalı. **Tur 11'de ÖNEMLİ:** Tur 4 #21 (Cerebras)
-artık kredi kartsız ücretsiz katın sunmuyor (16 Temmuz 2026'da kaldırıldı) — kullanıcı bu maddeyi
-güncel "kart gerektirmeyen ücretsiz katman" listesi olarak OKUMAMALI, madde sadece tarihsel/bilgi
-amaçlı ve düzeltme notuyla birlikte bırakıldı. Tur 1 #5 (Groq) hâlâ geçerli ama Llama modelleri
-16 Ağustos 2026'da ücretsiz katmandan kaldırıldı. Bu turda GitHub MCP sunucusunun repo-scope
-kısıtlamasına rağmen `WebFetch` ile `github.com` sayfalarına doğrudan erişimin çalıştığı keşfedildi
-— gelecek turlarda dış repo doğrulaması için `search_code` yerine öncelikle bu yöntem denenmeli
-(daha hızlı ve birebir sayfa içeriği veriyor).*
+## Tur 13 — 2026-09-18
+
+Oturum başında saat kontrol edildi: 03:04 UTC / 06:04 Türkiye saati — talimattaki 12:00 UTC / 15:00
+Türkiye kesme noktasının ÇOK ÖNCESİNDE, bu yüzden normal araştırma turu yapıldı. Doğrulama, bir alt
+ajana devredilip (`mcp__github__search_repositories`/`search_code` + `WebSearch` ile) sonrasında bu
+turun yazarı tarafından iki ana adayın (Figma-Context-MCP, styleseed) yıldız/fork/issue/lisans/dosya
+verileri BAĞIMSIZ OLARAK TEKRAR doğrulandı (aşağıdaki rakamlar ikinci elden teyitli). `openrouter.ai`
+ve `jina.ai`'a `WebFetch` bu turda da `EGRESS_BLOCKED` hatasıyla engellendi (Tur 1/7-11'deki
+kısıtlamayla aynı) — Tur 9/10'da eklenen OpenRouter/Jina maddelerinin birincil kaynak doğrulaması
+hâlâ bekliyor.
+
+### A) MCP Sunucusu (proje-özel faydalı — önceki turlarda "bulunamadı" notu düşülen Figma/design-to-code boşluğunu dolduruyor)
+
+#### 39. [GLips/Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP) ("Framelink")
+- **Yıldız:** 15.871 · **Fork:** 1.261 · **Açık issue:** 25 · **Lisans:** MIT
+- **Güncellik:** Kuruluş 2025-02, son push 2026-09-16 (dün) — yıldız/fork/issue oranı (635:1 yıldız/
+  issue ama 1.261 gerçek fork ile birlikte) bu kataloğun sık rastladığı şişirilmiş-yıldız deseninden
+  farklı: 1.000+ gerçek fork'lu, 1.5+ yıllık, aktif geliştirilen köklü bir proje — organik büyüme
+  ile uyumlu.
+- **Ne işe yarar:** Figma tasarım dosyalarındaki layout/spacing/font/component bilgisini doğrudan
+  ajanın bağlamına akıtan bir MCP sunucusu — bir Figma tasarımından çerçeve-farkında (Next.js/
+  Tailwind/shadcn) kod üretimini mümkün kılıyor. **Önceki turlarda (Tur 7) "Figma MCP alternatifleri
+  yetersiz/şüpheli" notuyla açık bırakılan boşluğu dolduruyor** — bu şablonun hedef siteyi Figma
+  tasarımından değil canlı siteden klonlaması senaryosunda doğrudan kullanılmasa da, kullanıcı
+  hedef sitenin Figma kaynağına erişebiliyorsa (ör. kendi tasarımını klonlarken) `INSPECTION_GUIDE.md`
+  Phase 1 (Design Tokens) çıkarımını hızlandırabilir.
+- **Neden meşru:** Framelink.ai adlı gerçek bir ürünün arkasındaki resmi depo, MIT lisanslı, kod
+  tamamen açık; kullanıcı kendi Figma hesabından kendi ücretsiz API key'ini alıyor (paylaşımlı key
+  DEĞİL).
+- **Kurulum:** `npx -y figma-developer-mcp --figma-api-key=<kendi-key'in>` ile MCP config'ine ekle
+  — yerel onay + kendi Figma API key'ini girme gerekir (figma.com hesap ayarlarından ücretsiz alınır).
+
+### B) Skill Koleksiyonu (bu şablonun tam tech stack'ine özel — nextjs/shadcn/tailwindcss/radix-ui repo topic'leriyle doğrulandı)
+
+#### 40. [bitjaru/styleseed](https://github.com/bitjaru/styleseed)
+- **Yıldız:** 956 · **Fork:** 87 · **Açık issue:** 8 · **Lisans:** MIT
+- **Güncellik:** Kuruluş 2026-04-07, son push 2026-09-17 (dün) — oran (110:1 yıldız/issue, 87 gerçek
+  fork) bu kataloğun tespit ettiği şişirilmiş-yıldız deseninden (binlerce yıldız/tek haneli issue)
+  belirgin şekilde farklı; makul/organik görünüyor.
+- **Ne işe yarar:** Repo topic'leri BİREBİR bu şablonun tech stack'iyle örtüşüyor —
+  `nextjs`, `shadcn`, `shadcn-ui`, `tailwindcss`, `radix-ui`, `react`, `typescript`. 23 agent skill
+  (47 gerçek `SKILL.md` dosyası `skills/ss-*/SKILL.md` altında `search_code` ile birebir doğrulandı:
+  `ss-tokens`, `ss-component`, `ss-a11y`, `ss-audit`, `ss-page`, `ss-motion`, `ss-review` vb.) —
+  sabit tasarım yargısı, semantic renk/tipografi token'ları, component pattern kütüphanesi,
+  erişilebilirlik denetimi, kanıt-doğrulamalı UI review akışı sunuyor. **Bu şablonun `AGENTS.md`
+  "Design Principles" (pixel-perfect emulation, beauty-first) ve `INSPECTION_GUIDE.md` Phase 1-2
+  ile doğrudan örtüşüyor.**
+- **Neden meşru:** MIT lisanslı, gerçek ve tutarlı `skills/ss-*/SKILL.md` dosya ağacı (README
+  iddiası değil, `search_code` ile path bazında doğrulandı), demo sitesi var
+  (styleseed-demo.vercel.app), Tur 6/10'daki manipülatif-hook deseni (bkz. aşağıdaki Tur 13 güvenlik
+  notu) için özellikle kontrol edildi — bulunamadı.
+- **Kurulum:** İlgili `skills/ss-*/SKILL.md` klasörlerini `~/.claude/skills/` altına kopyala ya da
+  reponun kendi plugin mekanizmasını kullan. Yerel dosya kopyalama, onay gerekmez.
+
+### C) Ücretsiz & Meşru API Sağlayıcısı
+
+#### 41. [Nebius AI Studio (Token Factory)](https://nebius.com/services/token-factory) ücretsiz model katmanı (resmi)
+- **Doğrulama notu:** GitHub deposu değil, resmi barındırılan API — bu oturumda `nebius.com`'a
+  doğrudan `WebFetch` engellendi (Tur 1/7-11'deki ticari domain kısıtlamasıyla aynı desen), rakamlar
+  birden fazla bağımsız üçüncü parti kaynaktan çapraz doğrulandı (Tur 9/10'daki OpenRouter/Jina ile
+  aynı güvenilirlik seviyesi) — kurulum öncesi resmi studio.nebius.com sayfasından teyit edilmeli.
+- **Ücretsiz katman:** Kredi kartı gerektirmeden, OpenAI-uyumlu endpoint (`api.studio.nebius.com/v1`)
+  üzerinden iki büyük açık modele (Meta-Llama-3.3-70B-Instruct, Qwen3-235B-A22B) SÜREKLİ/tekrarlayan
+  ücretsiz erişim — bu, şirketin ayrı $1'lık tek seferlik deneme kredisinden FARKLI, kalıcı bir
+  katman (kullanım geçmişine göre yükselen katman bazlı rate limit — paylaşımlı key değil, standart
+  kötüye-kullanım-önleme deseni).
+- **Ne işe yarar:** Claude Code'un yanında GPT-4 sınıfı açık model erişimi sunan ikincil/yedek
+  sağlayıcı — Tur 1'deki Groq, Tur 4'teki Cloudflare Workers AI ile aynı kategori (hızlı
+  sınıflandırma, taslak üretimi, içerik üretimi gibi düşük-riskli yardımcı işler için).
+- **Neden meşru:** Nebius, Yandex Cloud'dan ayrılan gerçek bir Avrupa bulut şirketi, resmi ürün
+  sayfası; her kullanıcı kendi hesabı ve kendi key'iyle kayıt oluyor.
+- **Kurulum:** studio.nebius.com üzerinden ücretsiz kayıt + key al, ortam değişkeni olarak ekle —
+  yerel onay/gizli bilgi girişi gerekir, bu oturumdan otomatik yapılamaz.
+
+### D) Doğrulanan ama EKLENMEYEN Bulgular (Tur 13)
+
+- **⚠️ [athola/claude-night-market](https://github.com/athola/claude-night-market)** (336★/35
+  fork/21 issue, 215 gerçek `SKILL.md` dosyası doğrulandı) — **manipülatif hook nedeniyle
+  bilerek eklenmedi.** `plugins/leyline/hooks/auto-star-repo.sh` adlı bir hook, kullanıcının
+  repoyu yıldızlayıp yıldızlamadığını kontrol ediyor ve yıldızlamamışsa Claude'un BİR SONRAKİ
+  yanıtında kullanıcıdan proaktif olarak repoyu yıldızlamasını İSTEMESİ için bir talimat
+  enjekte ediyor. Bu, ajan çıktısını kullanıcının gerçek niyeti olmadan manipüle eden bir
+  desen — Tur 6'daki `OthmanAdi/planning-with-files` bulgusuyla AYNI kategoride (hook'ların
+  ajan davranışını kullanıcı bilgisi/onayı dışında değiştirmesi), ama daha düşük şiddette
+  (shell/PowerShell çalıştırmıyor, sadece kendini-tanıtım metni enjekte ediyor). Kod kalitesi
+  başka yerlerde iyi olsa da (ör. `permission_request.py` içinde `curl|bash` engelleme) bu
+  tek başına "meşru kaynak" kataloğu için diskalifiye edici.
+- **cbrock84/headcount** (1.608★, 238 fork, sadece **2** açık issue, ~3 hafta önce kurulmuş) —
+  Tur 3/5/6/8'deki "binlerce yıldız/tek haneli issue" şişirilmiş-yıldız deseniyle uyumlu; gerçek
+  fork sayısı yüksek olsa da (238) 3 haftalık bir repo için bu oran yeterince şüpheli —
+  **bilerek eklenmedi**, ileride yıldız geçmişi ayrıca doğrulanmadan tekrar değerlendirilmesin.
+- **adityaarsharma/librecrawl-technical-seo-audit-mcp** (40★) — en az 6 farklı GitHub hesabında
+  (VarunAtZethic, PhialsBasement, amedipiran, jamie-dit, jirehnet/SiteCrawlAudit, swang62/
+  seo-crawler) BİREBİR AYNI pazarlama metniyle mirror/kopya bulundu — Tur 6'daki
+  `OthmanAdi/planning-with-files` bulgusundaki "koordineli görünürlük şişirme" işaretiyle aynı
+  desen. MCP wrapper'ın kendisi zararsız görünse de bu belirsizlik nedeniyle **bilerek eklenmedi**.
+- **GetBindu/awesome-claude-code-and-skills** (192★), **obviousworks/Claude-AI-skills-collection-2026**
+  (55★) — `filename:SKILL.md` araması SIFIR sonuç döndürdü; ikisi de sadece başka depolara
+  (çoğunlukla zaten kataloglanmış `anthropics/skills`, `obra/superpowers`) link veren meta-dizin —
+  gerçek skill dosyası yok, **eklenmedi**.
+- **aiskillstore/marketplace** (427★, "security-audited" iddiası) — 6.512 `SKILL.md` bulgusu var
+  ama farklı/ilgisiz yazarların (Tur 5'te zaten reddedilen `sickn33/*` dahil) içeriğini toplu
+  mirror'layan bir agregatör; "security-audited" iddiası bu oturumdan doğrulanamadı — **eklenmedi**.
+- **g-battaglia/mcp-seo** (1★), **vdalhambra/siteaudit-mcp** (5★/0 issue),
+  **undirectlookable/svgo-mcp** (0★), **elliotxx/favicon-mcp-server** (4★) — Tur 9'daki
+  "SEO/favicon/SVG için meşru MCP bulunamadı" notuyla aynı sonuç: gerçek ama neredeyse sıfır
+  topluluk doğrulaması olan tek-yazarlı "toy" repolar — **eklenmedi**, gelecekte benimsenme
+  artarsa tekrar bakılabilir.
+- **hellolucky/v0-mcp** (20★) — Vercel v0 API'sini MCP olarak sarmalıyor ama v0 API kullanımı
+  ÜCRETLİ (ücretsiz katman değil) — talimatın "ücretsiz" kriterine uymadığı için **eklenmedi**
+  (bilgi amaçlı not: proje-özel ilginç ama ücretsiz değil).
+- **xAI Grok API** — ücretsiz katman Mayıs 2025'te sona erdi, mevcut "ücretsiz" yol ödeme
+  yöntemi + veri paylaşım programına (prompt'ların eğitim için kullanılması karşılığı
+  $150/ay kredi) zorunlu kayıt gerektiriyor — "koşulsuz gerçekten ücretsiz" kriterine
+  uymuyor, **eklenmedi**.
+- **Perplexity Sonar API** — ücretsiz katman yok, key almak için bile ödeme yöntemi gerekiyor
+  — **eklenmedi**.
+- **Fireworks AI, Baseten** — sadece tek seferlik kayıt kredisi ($1-$30), tekrarlayan ücretsiz
+  katman yok — Tur 4/5/9'daki kriterle **eklenmedi**.
+- **HuggingFace Inference Providers ücretsiz katmanı** — gerçek ama ayda sadece $0.10 kredi,
+  pratik kullanım için önemsiz — **eklenmedi**.
+
+---
+
+## ⚠️ Tur 13 GÜVENLİK BULGUSU — Manipülatif Hook (Tur 6'dan farklı, daha düşük şiddette)
+
+### [athola/claude-night-market](https://github.com/athola/claude-night-market) — DİKKAT, "auto-star" hook'u kurmadan sil
+
+Yukarıdaki "eklenmedi" notuna ek olarak ayrıca vurgulanıyor: bu repo Tur 6'daki
+`OthmanAdi/planning-with-files` kadar tehlikeli değil (shell/PowerShell çalıştırmıyor), ama
+`plugins/leyline/hooks/auto-star-repo.sh` dosyası **Claude'un kendi yanıtına, kullanıcının
+gerçek niyeti olmadan, repoyu yıldızlaması için bir istek enjekte ediyor** — bu, ajan çıktısının
+kullanıcı bilgisi dışında bir üçüncü taraf (repo sahibi) lehine manipüle edilmesi anlamına geliyor.
+Kullanıcıya: bu depo veya benzer "otomatik yıldızlama isteği enjekte eden" hook'lar içeren
+herhangi bir skill/plugin kurulmadan önce `hooks/` klasörü elle incelenmeli.
+
+---
+
+*Son güncelleme: 2026-09-18 (Tur 13). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–13'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+(ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
+(`auto-star-repo.sh` hook'u) şüpheli/manipülatif bulundu — kurmadan önce ilgili notları oku.
+Tur 8'de genel `claude-code-plugin` taramasında çok sayıda şişirilmiş-yıldız reposu tespit edildi —
+bu ekosistemde yıldız sayısını TEK BAŞINA güvenilirlik kriteri olarak kullanmak giderek daha riskli
+hale geliyor, gelecek turlarda issue/fork oranı + kuruluş tarihi + bağımsız doğrulama + hook/script
+dosyalarının içeriği önceliklendirilmeli. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 13'te
+Nebius AI Studio ücretsiz katmanları birincil kaynak yerine çapraz bağımsız kaynaklarla doğrulanıp
+kataloğa eklenebildi — üçünün de birincil kaynak (`openrouter.ai`, `jina.ai`, `nebius.com`)
+doğrulaması hâlâ bekliyor, ağ erişimi açılırsa öncelikli olarak tekrar teyit edilmeli. **Tur 11'de
+ÖNEMLİ:** Tur 4 #21 (Cerebras) artık kredi kartsız ücretsiz katman sunmuyor (16 Temmuz 2026'da
+kaldırıldı). Tur 1 #5 (Groq) hâlâ geçerli ama Llama modelleri 16 Ağustos 2026'da ücretsiz katmandan
+kaldırıldı. Tur 13'te Figma/design-to-code MCP boşluğu (`GLips/Figma-Context-MCP`, #39) ve bu
+şablonun tam tech stack'ine özel bir skill koleksiyonu (`bitjaru/styleseed`, #40) ile dolduruldu —
+her ikisi de bağımsız olarak iki kez (alt ajan + bu turun yazarı) doğrulandı.*
