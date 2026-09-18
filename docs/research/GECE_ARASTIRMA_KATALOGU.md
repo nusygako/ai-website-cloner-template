@@ -1,18 +1,24 @@
-## ARAŞTIRMA DURUMU (en son Tur 16 — 2026-09-18)
+## ARAŞTIRMA DURUMU (en son Tur 17 — 2026-09-18)
 
-**Durum:** Bu gece boyunca 16 tur (Tur 1–16) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
-Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14, 15 ve 16 farklı
-oturumlarda (dördü de kesme noktasından önce, sırasıyla 03:04, 04:04, 05:06 ve 06:10 UTC'de)
+**Durum:** Bu gece boyunca 17 tur (Tur 1–17) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
+Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14, 15, 16 ve 17 farklı
+oturumlarda (beşi de kesme noktasından önce, sırasıyla 03:04, 04:04, 05:06, 06:10 ve 07:05 UTC'de)
 başladı ve normal araştırmaya devam etti. **Tur 14'te metodoloji notu (Tur 15 ve 16'da da
-doğrulandı):** bu oturumun GitHub erişimi tek repoya (`nusygako/ai-website-cloner-template`)
-kilitliydi — Tur 6'nın varsaydığının aksine `mcp__github__search_repositories`/`search_code` gibi
-arama araçları da bu kısıtlamaya tabi tutuldu, bu yüzden doğrulama tamamen `WebSearch` + `WebFetch`
-(GitHub'ın normal web sayfaları, `raw.githubusercontent.com`) üzerinden yapıldı — sonuçlar
-etkilenmedi ama gelecek turlar için not düşülüyor. **Tur 16'da ek yöntem notu:** bir sağlayıcının
-resmi domaini engellenmişse, docs'u GitHub'da açık kaynaklıysa `raw.githubusercontent.com`
-üzerinden birincil kaynağa hâlâ ulaşılabiliyor (Cloudflare örneği, aşağıya bak).
+doğrulandı, Tur 17'de DÜZELTİLDİ):** önceki turlar bu oturumun GitHub erişiminin tek repoya
+(`nusygako/ai-website-cloner-template`) kilitli olduğunu ve bunun `WebSearch`/`WebFetch`'i de
+etkilediğini varsaymıştı — **Tur 17'de netleşti ki bu kısıtlama sadece `mcp__github__*` MCP
+araçları için geçerli** (bu oturumun GitHub entegrasyonu tek repoya scope'lu); genel `WebFetch`
+(github.com, raw.githubusercontent.com dahil) ve `WebSearch` araçları kısıtlanmamış durumda ve
+Tur 17'de birincil kaynak doğrulaması için doğrudan kullanıldı. **Tur 16'da ek yöntem notu:** bir
+sağlayıcının resmi domaini engellenmişse, docs'u GitHub'da açık kaynaklıysa
+`raw.githubusercontent.com` üzerinden birincil kaynağa hâlâ ulaşılabiliyor (Cloudflare örneği,
+aşağıya bak). **Tur 17'de git hijyeni notu:** oturum başında repo `master`'dan ayrı, bağlı
+olmayan bir "detached HEAD" durumundaydı (Tur 13-16 commit'leri teknik olarak bir branch'e
+bağlı değildi); `git fetch` sonrası `origin/master`'ın zaten bu commit'leri içerdiği doğrulandı
+(çalışma kaybı YOK, sadece yerel ref bayatlamıştı) — yine de temizlik için `master` branch'i
+bu commit'lere fast-forward edildi ve normal branch akışına döndürüldü.
 
-**Toplam:** 51 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 54 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı + Tur 13'te tespit edilen
 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık mevcut değil" uyarısı
 (GitHub Models, 30 Temmuz 2026'da kapatıldı) + onlarca "doğrulandı ama eklenmedi" madde (şişirilmiş
@@ -40,6 +46,12 @@ lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme vb. gerekçele
    bir web sitesinin tüm design token sistemini (Tailwind v4 + shadcn/ui uyumlu) çıkarıyor;
    `docs/research/INSPECTION_GUIDE.md` Phase 1'in (Visual Audit → Design Tokens) otomasyonu.
    (Tur 8, #31)
+6. **[anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official)**
+   — Anthropic'in RESMİ, küratörlü Claude Code plugin marketplace'i (~36.4k yıldız, Apache-2.0,
+   400+ plugin: internal + vetted 3.parti). Tur 1-16'da dağınık şekilde aranan "hangi skill/agent
+   koleksiyonu güvenilir" sorusuna Anthropic'in kendisinin verdiği resmi cevap niteliğinde — tek
+   bir kaynaktan onlarca kategoride (database, security, monitoring, deployment) doğrulanmış
+   plugin. (Tur 17, #52)
 
 **Ayrıca dikkat:** Tur 8'de ve sonrasında, GitHub'da "binlerce yıldız + tek haneli issue sayısı"
 deseni gösteren çok sayıda şişirilmiş/şüpheli repo tespit edildi (`DietrichGebert/ponytail`,
@@ -1497,3 +1509,112 @@ olup olmadığını kontrol etmeli. Tur 16'da ayrıca GitHub Models'ın 30 Temmu
 kapatıldığı doğrulandı (hiçbir turda önerilmemişti, sadece gelecekteki hatalı önerileri önlemek
 için not edildi) ve genel-amaçlı subagent koleksiyonu kategorisinin artık doygun olduğu bir kez
 daha teyit edildi (rshah515 reddi).*
+
+---
+
+## Tur 17 — 2026-09-18
+
+### A) Resmi Anthropic / GitHub Kaynakları (yeni kategori — Tur 1-16'da hiç kapsanmamıştı)
+
+#### 52. [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) — RESMİ
+- **Yıldız:** ~36.4k · **Fork:** ~4.1k · **Açık issue:** 998 · **Lisans:** Apache-2.0
+- **Güncellik:** 4.283 commit, aktif
+- **Ne işe yarar:** Anthropic'in kendi resmi, küratörlü Claude Code plugin marketplace'i.
+  `.claude-plugin/marketplace.json` içinde 400+ plugin girdisi var; her girdi `name`,
+  `description`, `category`, `author`, `source` (git repo + path), `homepage` alanlarını
+  içeriyor. `plugins/` klasörü Anthropic'in kendi geliştirdiği internal plugin'leri
+  (ör. `claude-security` — oturum içinde ajan tabanlı doğrulamayla güvenlik açığı taraması),
+  `external_plugins/` klasörü ise vetted 3. parti partner/topluluk plugin'lerini (ör. `airtable`,
+  `aws-core`, `42crunch-api-security-testing`) barındırıyor. Kategoriler: database, security,
+  monitoring, deployment, design, productivity vb.
+- **Neden meşru:** Doğrudan `anthropics` GitHub organizasyonu altında, Apache-2.0 lisanslı, README
+  ve marketplace.json şeması tamamen açık/incelenebilir; gizli/paylaşımlı erişim yok — her plugin
+  kendi kaynağından (çoğu ayrı açık kaynak repo) çekiliyor.
+- **Kurulum:** Claude Code içinde `/plugin marketplace add anthropics/claude-plugins-official`
+  (varsayılan olarak zaten bağlı olabilir) ardından `/plugin install <isim>` — yerel onay gerekir,
+  API key gerekmez (plugin'in kendi gerektirdiği harici servis hariç, örn. Airtable kendi key'ini
+  ister).
+
+#### 53. [anthropics/claude-code](https://github.com/anthropics/claude-code) — `plugins/` klasörü (RESMİ, ürünle birlikte gelen ilk-parti skill'ler)
+- **Yıldız:** ~146k · **Fork:** ~23.7k · **Lisans:** `LICENSE.md` mevcut ama açık kaynak DEĞİL —
+  içerik "Anthropic's Commercial Terms of Service"e tabi olduğunu belirtiyor (MIT/Apache değil,
+  ticari kullanım şartları). **Bu dürüstçe belirtiliyor:** aşağıdaki plugin'ler ücretsiz ve
+  Claude Code'un kendisiyle birlikte geliyor ama kaynak kodu yeniden dağıtım/türev açısından
+  tam open-source lisans korumasına sahip değil.
+- **Güncellik:** 852 commit, aktif — bu, Claude Code CLI'sinin kendi ana deposu (kurulum
+  script'leri, changelog, güvenlik politikası dahil).
+- **Ne işe yarar:** `plugins/README.md`'de listelenen, CLI ile birlikte kullanılabilen 13 resmi
+  ilk-parti plugin: `frontend-design` (jenerik AI estetiğinden kaçınan, üretim kalitesinde
+  arayüz tasarımı — **bu şablonun `AGENTS.md`'deki "Beauty-first", "pixel-perfect emulation"
+  ilkeleriyle birebir örtüşüyor**), `code-review` (çoklu-ajan, güven skorlu otomatik PR review),
+  `pr-review-toolkit`, `commit-commands` (git commit/push/PR akışı otomasyonu), `plugin-dev`
+  (7 uzman skill ile kendi plugin'ini yazma kiti), `security-guidance` (dosya düzenlerken güvenlik
+  hatırlatma hook'u), `hookify`, `feature-dev`, `agent-sdk-dev`, `ralph-wiggum`,
+  `explanatory-output-style`, `learning-output-style`, `claude-opus-4-5-migration`.
+- **Neden meşru:** Claude Code'un kendi resmi kaynak deposu — Tur 1-16'da bahsi geçen hiçbir
+  3. parti koleksiyondan farklı olarak, doğrudan ürünün kendisiyle birlikte bakımı yapılıyor.
+- **Kurulum:** Bu plugin'ler genelde Claude Code'a önceden dahil/önerilen durumda; elle eklemek
+  için `/plugin marketplace add anthropics/claude-code` + `/plugin install frontend-design` (veya
+  istenen diğer isim). Yerel onay gerekir, API key gerekmez.
+
+#### 54. [github/github-mcp-server](https://github.com/github/github-mcp-server) — RESMİ (GitHub)
+- **Yıldız:** ~32.3k · **Lisans:** MIT
+- **Güncellik:** Aktif, GitHub'ın kendi organizasyonu tarafından bakımı yapılıyor
+- **Ne işe yarar:** GitHub'ın resmi MCP sunucusu — repo/dosya okuma, issue/PR yönetimi
+  (oluşturma, yorum, review, merge), kod arama, Actions/CI durumu sorgulama, commit/branch
+  yönetimi gibi GitHub platformunun tamamına ajan erişimi sağlıyor. (Bu oturumun kendisi de
+  GitHub etkileşimleri için `mcp__github__*` araçlarını kullanıyor — yani bu proje zaten bu
+  sunucunun bir örneğine bağlı çalışıyor.)
+- **Neden meşru:** `github` organizasyonu altında resmi repo, MIT lisanslı, tamamen açık kod;
+  her kullanıcı kendi GitHub Personal Access Token'ıyla (veya OAuth) bağlanıyor — paylaşımlı
+  key sistemi değil, yetkiler token'ın kapsamıyla sınırlı.
+- **Kurulum:** `claude mcp add github -- npx @modelcontextprotocol/... ` yerine resmi Docker imajı
+  (`ghcr.io/github/github-mcp-server`) veya binary indirilip MCP config'e eklenir; bir GitHub
+  PAT (fine-grained, minimum gerekli scope'larla) gerekir. Yerel onay + kendi token'ını girme
+  gerekir, paylaşımlı/pooled erişim değildir.
+
+### B) Doğrulanan ama EKLENMEYEN Bulgular (Tur 17)
+
+- **Figma Dev Mode MCP Server (resmi, `figma/mcp-server-guide`)** — incelendi, resmi ve meşru
+  ama **eklenmedi**: masaüstü sunucusu yalnızca ücretli Figma planında (Professional/Organization/
+  Enterprise) Dev/Full seat ile çalışıyor; ücretsiz/Starter hesaplar veya View/Collab seat'ler
+  ayda sadece **6 tool call** ile sınırlı — kataloğun "anlamlı, tekrarlayan ücretsiz katman"
+  barını karşılamıyor (Tur 16'daki Hugging Face $0,10/ay reddiyle aynı gerekçe). Not: proje-özel
+  design-token boşluğu zaten Tur 13'te `GLips/Figma-Context-MCP` (#39, tamamen ücretsiz, kendi
+  Figma personal access token'ınla) ile dolduruldu — o tercih edilmeye devam ediyor.
+- **xAI Grok API "ücretsiz kredi" iddiaları** — birden fazla SEO/blog kaynağı ($25 kayıt kredisi +
+  "veri paylaşımı programı" üzerinden $150/ay) bahsediyor ama **eklenmedi**: (1) resmi `x.ai`
+  bu oturumdan `WebFetch` ile engellendi, birincil kaynaktan doğrulanamadı; (2) $150/ay kısmı
+  kullanıcı verisinin paylaşılmasına opt-in şartına bağlı — bu, Tur 5'teki "paylaşımlı/pooled key"
+  kadar net bir ihlal olmasa da şeffaf bir "kalıcı, koşulsuz ücretsiz katman" değil, DeepSeek
+  (Tur 4) ve NVIDIA NIM (Tur 5) ile aynı "doğrulanamayan/koşullu" gerekçesiyle dışlandı.
+- **[robotmice/awesome-claude-code-subagents](https://github.com/robotmice/awesome-claude-code-subagents)
+  ve [NeatNerdPrime/awesome-claude-code-subagents](https://github.com/NeatNerdPrime/awesome-claude-code-subagents)**
+  — ikisi de VoltAgent/awesome-claude-code-subagents (Tur 1, #3) ile birebir aynı açıklama
+  ("A collection of 100+ specialized Claude Code subagents covering a wide range of development
+  use cases") ve görünüşe göre aynı içeriği taşıyor — Tur 1'deki `afsarctg/`, `Shyboy0499/`,
+  `Saad-web-spec/` fork/mirror deseniyle aynı kategori. **Eklenmedi**, orijinal VoltAgent deposu
+  tercih edilmeye devam ediyor.
+
+---
+
+*Son güncelleme: 2026-09-18 (Tur 17). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–17'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+(ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
+(`auto-star-repo.sh` hook'u) şüpheli/manipülatif bulundu — kurmadan önce ilgili notları oku.
+**Tur 17'de EN ÖNEMLİ metodoloji düzeltmesi:** Tur 14-16'nın "bu oturumun WebSearch/WebFetch'i de
+tek-repo GitHub kısıtlamasına tabi" varsayımı YANLIŞTI — sadece `mcp__github__*` MCP araçları
+scope'lu, genel `WebFetch`/`WebSearch` serbestçe github.com ve raw.githubusercontent.com'a
+erişebiliyor (Tur 17'de `anthropics/claude-plugins-official`, `anthropics/claude-code`,
+`github/github-mcp-server` bu şekilde doğrudan doğrulandı). Gelecek turlar artık ticari
+sağlayıcı domain'leri (openrouter.ai, ai.google.dev, console.groq.com, vercel.com,
+developers.cloudflare.com, developers.figma.com, x.ai gibi) hariç GitHub doğrulaması için
+üçüncü parti çapraz kaynağa güvenmek ZORUNDA DEĞİL — doğrudan WebFetch/WebSearch kullanmalı.
+Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 13'te Nebius AI Studio, Tur 14'te Z.ai GLM
+Flash, Tur 15'te Vercel AI Gateway ücretsiz katmanlarının birincil kaynak doğrulaması hâlâ
+bekliyor (bu beşi ticari domain engeline takıldı, GitHub kısıtlaması değil). Tur 17'de ayrıca
+repo git hijyeni düzeltildi: oturum başında repo bağlı olmayan bir "detached HEAD" durumundaydı
+(muhtemelen önceki bir oturumun `git checkout <commit>` sonrası branch'e dönmeyi unutmasından);
+`master` branch'i mevcut tüm araştırma commit'lerine fast-forward edilip normale döndürüldü —
+gelecek turlar oturum başında `git status`/`git branch` ile HEAD'in bir branch'e bağlı olduğunu
+doğrulamalı, aksi halde yeni commit'ler yine "kayıp" bir duruma düşebilir.*
