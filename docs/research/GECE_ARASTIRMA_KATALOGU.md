@@ -1,36 +1,43 @@
-## ARAŞTIRMA DURUMU (en son Tur 18 — 2026-09-18)
+## ARAŞTIRMA DURUMU (en son Tur 19 — 2026-09-18)
 
-**Durum:** Bu gece boyunca 18 tur (Tur 1–18) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
-Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14, 15, 16, 17 ve 18 farklı
-oturumlarda (altısı da kesme noktasından önce, sırasıyla 03:04, 04:04, 05:06, 06:10, 07:05 ve
-08:05 UTC'de) başladı ve normal araştırmaya devam etti. **Tur 14'te metodoloji notu (Tur 15 ve
-16'da da doğrulandı, Tur 17'de DÜZELTİLDİ, Tur 18'de tekrar teyit edildi):** önceki turlar bu
-oturumun GitHub erişiminin tek repoya (`nusygako/ai-website-cloner-template`) kilitli olduğunu ve
-bunun `WebSearch`/`WebFetch`'i de etkilediğini varsaymıştı — **Tur 17'de netleşti ki bu kısıtlama
-sadece `mcp__github__*` MCP araçları için geçerli** (bu oturumun GitHub entegrasyonu tek repoya
-scope'lu); genel `WebFetch` (github.com dahil) ve `WebSearch` araçları kısıtlanmamış durumda.
-**Tur 18'de ek netlik:** ticari sağlayıcı domainleri (`openrouter.ai`, `jina.ai`) bu turda da
-`WebFetch` ile denendi ve yine `EGRESS_BLOCKED` hatasıyla engellendi — bu, Tur 1/7-11/13-17'deki
+**Durum:** Bu gece boyunca 19 tur (Tur 1–19) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
+Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14, 15, 16, 17, 18 ve 19
+farklı oturumlarda (yedisi de kesme noktasından önce, sırasıyla 03:04, 04:04, 05:06, 06:10, 07:05,
+08:05 ve 09:09 UTC'de) başladı ve normal araştırmaya devam etti. **Tur 14'te metodoloji notu (Tur
+15 ve 16'da da doğrulandı, Tur 17'de DÜZELTİLDİ, Tur 18 ve 19'da tekrar teyit edildi):** önceki
+turlar bu oturumun GitHub erişiminin tek repoya (`nusygako/ai-website-cloner-template`) kilitli
+olduğunu ve bunun `WebSearch`/`WebFetch`'i de etkilediğini varsaymıştı — **Tur 17'de netleşti ki bu
+kısıtlama sadece `mcp__github__*` MCP araçları için geçerli** (bu oturumun GitHub entegrasyonu tek
+repoya scope'lu); genel `WebFetch` (github.com dahil) ve `WebSearch` araçları kısıtlanmamış
+durumda. **Tur 18'de ek netlik:** ticari sağlayıcı domainleri (`openrouter.ai`, `jina.ai`) bu turda
+da `WebFetch` ile denendi ve yine `EGRESS_BLOCKED` hatasıyla engellendi — bu, Tur 1/7-11/13-17'deki
 "ticari domain kısıtlaması genel bir proxy politikası, GitHub'a özgü değil" tespitini bir kez daha
 doğruluyor; sadece GitHub (ve bazı belgeleme/blog siteleri) serbest. **Tur 16'da ek yöntem notu:**
 bir sağlayıcının resmi domaini engellenmişse, docs'u GitHub'da açık kaynaklıysa
 `raw.githubusercontent.com` üzerinden birincil kaynağa hâlâ ulaşılabiliyor (Cloudflare örneği,
-aşağıya bak). **Tur 18'de git hijyeni notu (Tur 17'deki ile birebir aynı tekrarlayan sorun):**
-oturum başında repo yine `master`'dan ayrı, bağlı olmayan bir "detached HEAD" durumundaydı;
-`git fetch` sonrası `origin/master`'ın (3429aaa) HEAD ile birebir aynı commit'te olduğu doğrulandı
-(çalışma kaybı YOK) — `git checkout -B master origin/master` ile branch normale döndürüldü. **Bu
-düzenli tekrarlayan bir desen haline geldi (Tur 13, 17, 18) — muhtemel neden: bu görevi tetikleyen
-otomasyon her oturumda repoyu belirli bir commit'e `checkout` ediyor, branch'e değil; gelecek
-turlar bunu oturum başında rutin bir kontrol olarak görmeli, sürpriz değil.**
+aşağıya bak). **Tur 19'da git hijyeni notu (Tur 13, 17 ve 18'deki ile birebir aynı, dördüncü kez
+tekrarlayan sorun):** oturum başında repo yine `master`'dan ayrı, bağlı olmayan bir "detached HEAD"
+durumundaydı; `git fetch` sonrası `origin/master`'ın (53178e6) HEAD ile birebir aynı commit'te
+olduğu doğrulandı (çalışma kaybı YOK) — `git reset --hard origin/master` ile branch normale
+döndürüldü. Bu artık dördüncü kez tekrarlayan bir desen (Tur 13, 17, 18, 19) — muhtemel neden: bu
+görevi tetikleyen otomasyon her oturumda repoyu belirli bir commit'e `checkout` ediyor, branch'e
+değil; gelecek turlar bunu oturum başında rutin bir kontrol olarak görmeli, sürpriz değil, ayrı bir
+"sorun" olarak raporlamaya gerek yok. **Tur 19'da metodoloji doğrulaması:** 18 önceki turun kaynak
+havuzunu ne kadar kapsamlı taradığı bu turda somut olarak görüldü — ~15 aday incelendi, sadece 2'si
+gerçekten yeni ve niş-doldurucu bulundu (aşağıya bak); 2 tane meşru ama tekrarlayan "genel subagent
+koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code-sub-agents`)
+bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
+#43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 56 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 58 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı + Tur 13'te tespit edilen
 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık mevcut değil" uyarısı
 (GitHub Models, 30 Temmuz 2026'da kapatıldı) + onlarca "doğrulandı ama eklenmedi" madde (şişirilmiş
 yıldız, geçersiz/tek-seferlik ya da anlamsız derecede küçük ücretsiz katman, ToS-bypass riski,
-lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme vb. gerekçelerle elendi).
+lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme, redundant genel koleksiyon vb.
+gerekçelerle elendi).
 
-**En önemli 5 bulgu:**
+**En önemli bulgular:**
 
 1. **🚨 GÜVENLİK UYARISI — [OthmanAdi/planning-with-files](https://github.com/OthmanAdi/planning-with-files) KURMA.**
    Şişirilmiş yıldız (~27k yıldız / sadece 11 açık issue), 11+ ajan platformunda
@@ -62,6 +69,13 @@ lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme vb. gerekçele
    erişilebilirlik (WCAG), SEO ve güvenlik denetimini API key gerektirmeden yapıyor. `AGENTS.md`'nin
    "UI değişikliklerinde dev server başlatıp tarayıcıda test et" ve "Beauty-first — her piksel
    önemli" ilkelerine somut, ölçülebilir bir doğrulama katmanı ekliyor. (Tur 18, #56)
+8. **[SarthakMishra/site-cloner](https://github.com/SarthakMishra/site-cloner)** — bu şablonun
+   `/clone-website` iş akışının (fetch → asset çıkarma → indirme → site haritası) neredeyse birebir
+   MCP karşılığı; küçük ama gerçek ve temiz bir araç, API key gerekmez. (Tur 19, #57)
+9. **[w01fgang/mcp-design-comparison](https://github.com/w01fgang/mcp-design-comparison)** —
+   `AGENTS.md`'nin "pixel-perfect emulation" ve "beauty-first" ilkelerine doğrudan ölçülebilir bir
+   SSIM/pixelmatch tabanlı doğrulama katmanı ekliyor; klon ile orijinal hedef sitenin ekran
+   görüntülerini karşılaştırıp sayısal uyum skoru üretiyor. API key gerekmez. (Tur 19, #58)
 
 **Ayrıca dikkat:** Tur 8'de ve sonrasında, GitHub'da "binlerce yıldız + tek haneli issue sayısı"
 deseni gösteren çok sayıda şişirilmiş/şüpheli repo tespit edildi (`DietrichGebert/ponytail`,
@@ -1727,3 +1741,130 @@ otomasyon, ölçüm/audit) mevcut. **Tur 18'de git hijyeni notu:** detached HEAD
 17'den sonra üçüncü kez tekrarladı — bu artık şaşırtıcı değil, muhtemelen tetikleyici otomasyonun
 davranışından kaynaklanıyor; gelecek turlar oturum başında rutin olarak kontrol edip düzeltmeli,
 ayrı bir "sorun" olarak raporlamaya gerek yok.*
+
+---
+
+## Tur 19 — 2026-09-18
+
+Oturum saati kontrol edildi: 09:09 UTC / 12:09 Türkiye saati — kesme noktasının öncesinde, normal
+araştırma turu yapıldı. Oturum başında repo yine Tur 13/17/18'deki gibi "detached HEAD"
+durumundaydı; `git fetch` ile `origin/master`'ın (`53178e6`) HEAD ile birebir aynı commit olduğu
+doğrulandı (çalışma kaybı yok) ve `git reset --hard origin/master` ile branch normale döndürüldü —
+artık dördüncü kez tekrarlayan bu desen rutin bir kontrol maddesi olarak ele alındı. Doğrulama
+`WebSearch` + `WebFetch` üzerinden yapıldı; `mcp__github__*` araçları bu oturumda da tek-repo
+scope'una tabi olduğu için hiç kullanılmadı (yalnızca bu projenin kendi reposu için kullanıldı).
+Bu turda ticari sağlayıcı domainlerine (openrouter.ai, jina.ai vb.) tekrar erişim denenmedi çünkü
+yeni bir provider adayı bu turda bulunmadı (Alibaba Qwen ve Moonshot AI/Kimi araştırıldı, ikisi de
+reddedildi — aşağıya bak). ~15 aday incelendi; kataloğun 18 tur boyunca ne kadar kapsamlı
+tarandığı bu turda somut olarak görüldü (çoğu aday ya meta-dizin, ya zaten kataloglanmış bir
+kaynağın forku, ya da artık kapanmış bir ücretsiz katmandı).
+
+### A) MCP Sunucuları (proje-özel faydalı — `/clone-website` akışı ve "pixel-perfect emulation" ilkesi)
+
+#### 57. [SarthakMishra/site-cloner](https://github.com/SarthakMishra/site-cloner)
+- **Yıldız:** 6 · **Fork:** 4 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** 20 commit ana dalda; küçük ama tutarlı geliştirme, şişirilmiş yıldız paterni DEĞİL
+  (yıldız/fork oranı organik, düşük ama gerçek bir erken-aşama proje).
+- **Ne işe yarar:** LLM'lerin web siteleri klonlamasını sağlayan 6 araçlı bir MCP sunucusu:
+  `fetch_page` (HTML çekme), `extract_assets` (HTML'den asset linklerini çıkarma),
+  `download_asset` (dosya indirme), `parse_css_for_assets` (CSS içinden kaynak URL'lerini çıkarma),
+  `create_site_map` (site haritası çıkarma/tarama) ve `analyze_page_structure` (sayfa yapısı
+  analizi) — indirilen dosyaları içerik-tipine göre alt klasörlere organize ediyor. **Bu şablonun
+  `.claude/skills/clone-website/SKILL.md` akışının ve `scripts/` altındaki asset-indirme adımının
+  yaptığı işin neredeyse birebir MCP karşılığı.**
+- **Neden meşru:** MIT lisanslı, tam açık kod, standart Python paketleme (`pyproject.toml`,
+  `pytest.ini`, `.pylintrc` — gerçek test/lint disiplini gösteriyor), Docker containerization,
+  README'de telif hakkı/ToS uyarısı var ("bazı siteler otomatik istekleri engelleyebilir, telif
+  hakkına dikkat edin"). Yazar (Sarthak Mishra, sarthakmishra.com) 30 gerçek public repo'su olan,
+  doğrulanabilir kişisel/profesyonel çevrimiçi varlığı olan aktif bir geliştirici. Şüpheli
+  hook/otomatik-çalıştırma kodu bulunamadı.
+- **Kurulum:** `docker build -t site-cloner-mcp . && docker run -i --rm site-cloner-mcp` veya
+  Cursor/Claude için proje-özel ya da global MCP config dosyasına ekleme. Yerel onay gerekir, API
+  key gerekmez.
+
+#### 58. [w01fgang/mcp-design-comparison](https://github.com/w01fgang/mcp-design-comparison)
+- **Yıldız:** 0 · **Fork:** 0 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** 34 commit ana dalda (`master`) — düşük yıldız sayısına rağmen (henüz keşfedilmemiş,
+  şişirme paterni DEĞİL) olgun/aktif geliştirilmiş bir kod tabanı; aynı kategorideki alternatif
+  `leky90/mcp-image-compare-server` (4★ ama sadece 3 commit) ile karşılaştırıldığında belirgin
+  şekilde daha zengin özellik seti (aşağıdaki B bölümüne bak).
+- **Ne işe yarar:** Tasarım mockup'larını implementasyon ekran görüntüleriyle piksel piksel
+  karşılaştıran tek-araçlı (`compare_design`) bir MCP sunucusu — pixelmatch tabanlı fark tespiti,
+  SSIM (0-1) algısal benzerlik skoru, PNG/JPEG/WebP/GIF/TIFF/**SVG** çoklu format desteği,
+  çözünürlük uyuşmazlıklarında otomatik yeniden boyutlandırma, belirli bölgeleri karşılaştırmadan
+  hariç tutma, fark kümelerinin lokalizasyonu ve CI/CD eşik-tabanlı regresyon kapısı (threshold
+  assertion). **`AGENTS.md`'nin "Pixel-perfect emulation — match the target's spacing, colors,
+  typography exactly" ve "Beauty-first — every pixel matters" ilkelerine doğrudan ölçülebilir bir
+  doğrulama katmanı ekliyor** — klonlanan bir bölümün ekran görüntüsünü orijinal hedef sitenin
+  ekran görüntüsüyle otomatik karşılaştırıp sayısal bir uyum skoru üretebiliyor (Tur 18'deki
+  Lighthouse MCP genel performans/SEO ölçerken, bu doğrudan görsel/piksel uyumu ölçüyor —
+  tamamlayıcı, çakışmıyor).
+- **Neden meşru:** MIT lisanslı, npm üzerinden resmi dağıtılıyor (`mcp-design-comparison`), API key
+  gerektirmiyor, TypeScript ile yazılmış. Yazar (Denis Sumin / w01fgang, Londra/Bali merkezli
+  full-stack geliştirici) 95 public repo'su, 18 takipçisi, tutarlı açık kaynak katkı geçmişi ve
+  sponsorluk aktivitesi olan doğrulanabilir gerçek bir geliştirici. Şüpheli hook/otomatik-çalıştırma
+  kodu bulunamadı.
+- **Kurulum:** `npm install -g mcp-design-comparison` veya `npx mcp-design-comparison` ile MCP
+  config'e stdio server olarak ekleme. Yerel onay gerekir, API key gerekmez.
+
+### B) Doğrulanan ama EKLENMEYEN Bulgular (Tur 19)
+
+- **[GetBindu/awesome-claude-code-and-skills](https://github.com/GetBindu/awesome-claude-code-and-skills)**
+  — doğrulandı (192★, 186 fork, Apache-2.0), ama gerçek `SKILL.md` içermiyor; 250+ skill'i başka
+  repolara (çoğu zaten bu katalogda — `anthropics/claude-code`, `obra/superpowers` vb.) link veren
+  bir keşif-dizini. **Eklenmedi** (meta-dizin kriteri).
+- **[abubakarsiddik31/claude-skills-collection](https://github.com/abubakarsiddik31/claude-skills-collection)**
+  — doğrulandı, yüksek yıldız sayısına rağmen (1.1k★, 192 fork) aynı gerekçeyle **eklenmedi**: her
+  skill satırı "Source: github.com/..." formatında dış repoya link veriyor, kendi `SKILL.md`
+  içeriği yok. Yüksek yıldız/fork oranı burada organik görünüyor (65 commit, düzenli bakım) ama yine
+  de meta-dizin kriterine takılıyor.
+- **[CloudEngineHub/agents](https://github.com/CloudEngineHub/agents)** — doğrulandı, GitHub'da
+  açıkça `wshobson/agents`'ın (zaten kataloğun #4 maddesi) forku olarak işaretli. **Eklenmedi**
+  (zaten kataloglanmış bir kaynağın forku, "aynı kaynağın mirror/forku" kriteri).
+- **[rshah515/claude-code-subagents](https://github.com/rshah515/claude-code-subagents)** —
+  detaylıca doğrulandı: 102★, 17 fork, MIT lisans (gerçek LICENSE dosyası var), 24 kategori altında
+  165 gerçek `.md` agent dosyası (frontmatter + sistem promptu formatında, `core/code-reviewer.md`
+  içeriği bizzat okunarak teyit edildi), yazar profili gerçek. `github-setup.sh` dosyası incelendi —
+  tüm komutlar yorum satırı halinde, otomatik çalışan hiçbir şey yok, şüpheli değil. **Eklenmedi:**
+  kataloğun zaten 6 tane genel-amaçlı "100+ subagent koleksiyonu" maddesi var (#3, #4, #11, #20,
+  #43, #49); bu şablonun tech stack'ine veya kullanım senaryosuna özel bir farklılaşma sunmuyor —
+  ek bir generic koleksiyon eklemek "kalite/dürüstlük > miktar" ilkesine aykırı olur.
+- **[supatest-ai/awesome-claude-code-sub-agents](https://github.com/supatest-ai/awesome-claude-code-sub-agents)**
+  (Alan AI / tryalan.ai şirketine ait) — doğrulandı: 171★, 28 fork, MIT, gerçek `.md` agent dosyaları
+  (`languages/`, `frameworks/`, `architecture/` vb. altında). Şirket gerçek ve doğrulanabilir
+  (tryalan.ai, e-posta, CLI aracı vb. ilişkili repolar). **Eklenmedi:** yukarıdaki rshah515 ile aynı
+  gerekçe — zaten 6 benzer genel-amaçlı koleksiyon kataloglanmış, bu şablona özel bir katkısı yok;
+  ayrıca kendi ürününü (Supatest AI) tanıtan bir şirket deposu olması nötr bir faktör değil, hafif
+  bir dikkat notu.
+- **`leky90/mcp-image-compare-server`** (4★, 2 fork, MIT, TypeScript, ama sadece 3 commit) —
+  yukarıda #58 seçilirken karşılaştırma için incelendi; yazar gerçek/doğrulanabilir (LDKTech
+  Solutions, Vietnam) ve kod meşru, ama `w01fgang/mcp-design-comparison` (34 commit, SSIM skoru,
+  CI/CD eşik kapısı, SVG desteği, bölge hariç tutma) belirgin şekilde daha olgun/zengin bulundu —
+  iki benzer aracı birden eklemek yerine daha güçlü olan tercih edildi.
+- **Alibaba Qwen API ücretsiz katmanı** — araştırıldı, geliştirici API ücretsiz katmanı 15 Nisan
+  2026'da kapatıldı (OAuth üzerinden sınırsız erişim sona erdi). Kalan seçenekler (Alibaba Cloud
+  deneme kredisi — 90 gün sınırlı, ya da Groq üzerinden Qwen3-32B barındırma) kalıcı/doğrudan bir
+  ücretsiz katman değil. **Eklenmedi.**
+- **Moonshot AI (Kimi) API** — araştırıldı, kalıcı ücretsiz üretim katmanı hiç var olmamış; API
+  kullanmak için minimum $1 yükleme gerekiyor (sadece küçük bir tek-seferlik deneme kredisi var).
+  Web sohbet arayüzü ücretsiz ama API değil. **Eklenmedi** (tek-seferlik kredi kriteri).
+
+---
+
+*Son güncelleme: 2026-09-18 (Tur 19). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–19'da listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+(ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
+(`auto-star-repo.sh` hook'u) şüpheli/manipülatif bulundu — kurmadan önce ilgili notları oku.
+Tur 17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo GitHub kısıtlamasına tabi
+DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18 ve 19'da tekrar doğrulandı ve
+kullanıldı. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 13'te Nebius AI Studio, Tur 14'te
+Z.ai GLM Flash, Tur 15'te Vercel AI Gateway ücretsiz katmanlarının birincil kaynak doğrulaması
+hâlâ bekliyor (ticari domain engeline takılıyorlar, GitHub kısıtlaması değil — Tur 19'da yeni
+provider adayı bulunmadığı için bu beşi tekrar denenmedi). **Tur 19'da YENİ:** proje-özel
+`/clone-website` iş akışı boşluğu `SarthakMishra/site-cloner` (#57) ile, "klon ile orijinali piksel
+düzeyinde karşılaştır" boşluğu `w01fgang/mcp-design-comparison` (#58) ile dolduruldu. **Tur 19'da
+doğrulanan tarama olgunluğu:** ~15 aday incelendi, sadece 2'si gerçekten yeni bulundu; 18 tur
+sonra kataloğun kapsamlı olduğu ve gelecekteki turların giderek daha az yeni kaynak bulmasının
+beklenen bir sonuç olduğu (kaynak havuzunun doğal olarak daralması) not edilmelidir. **Tur 19'da
+git hijyeni notu:** detached HEAD durumu dördüncü kez (Tur 13, 17, 18, 19) tekrarladı — artık
+rutin bir başlangıç kontrolü, ayrı bir "sorun" olarak raporlamaya gerek yok.*
