@@ -1,6 +1,27 @@
-## ARAŞTIRMA DURUMU (en son Tur 25 — 2026-09-19)
+## ARAŞTIRMA DURUMU (en son Tur 26 — 2026-09-19)
 
-**Tur 25 notu (aynı gece, 2026-09-19, ~08:03 UTC / 11:03 Türkiye saati başladı):** Kesme noktasının
+**Tur 26 notu (aynı gece, 2026-09-19, ~09:03 UTC / 12:03 Türkiye saati başladı):** Kesme noktasının
+(12:00 UTC) hemen öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (artık
+sekizinci kez tekrarlayan aynı desen); `git fetch` ile `origin/master`'ın (9a57999, Tur 25 commit'i)
+HEAD ile birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master` ile normale
+döndürüldü. Araştırma yine tek bir general-purpose alt-agent'a devredildi; alt-agent'a mevcut 81
+benzersiz kataloglanmış repo'nun TAM listesi + tüm önceki turlarda reddedilen adayların listesi +
+kategori-bazlı yasaklar verildi, kategori D (proje-özel MCP: design-token/component çıkarma,
+erişilebilirlik denetimi, ikon eşleştirme) öncelikli arama alanı olarak işaretlendi. Alt-agent 4 aday
+buldu; bunlardan biri (`shadcn-ui/ui` resmi skill'i) **zaten #37'de kayıtlı olduğu** bu oturumda
+tespit edilip bilerek atlandı — 3'ü bu oturumun kendisi tarafından `WebFetch` ile bağımsız olarak
+yeniden doğrulanıp kataloğa eklendi (#82-#84), 1'i (`noGarne/visual-regression-mcp`) 0 yıldız/tek
+commit nedeniyle "gelecekte tekrar bak" notuyla eklenmedi. ~12 aday reddedildi (fork'lar, arşivlenmiş
+proje, meta-agregatör, ücretsiz-katmanı-artık-kapanmış sağlayıcılar — aşağıya bak). **Tur 26'da
+metodoloji notu:** Google Gemini API ücretsiz katmanı bu turda da `ai.google.dev`/`aistudio.google.com`
+ve bir `web.archive.org` mirror'ı dahil hiçbir yolla doğrudan fetch edilemedi (üçüncü art arda tur);
+alt-agent bu kez 4 bağımsız ikincil kaynağı (aifreeapi.com, tokenmix.ai, cloudzero.com,
+pecollective.com) çapraz doğrulayıp önceki turlardan daha güncel/tutarlı rakamlara ulaştı (günde
+~1.500 istek, sadece Flash modelleri — Pro modeller 1 Nisan 2026'dan beri ücretsiz katman dışında,
+kredi kartı gerekmiyor) ama Tur 21'in "birincil kaynak zorunlu" kuralı yine korunarak **numaralı
+katalog maddesi olarak eklenmedi** — pending listesindeki not bu güncel rakamlarla güncellendi.
+
+**Önceki durum (Tur 25, aynı gece, ~08:03 UTC / 11:03 Türkiye saati başladı):** Kesme noktasının
 (12:00 UTC) öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (artık yedinci kez
 tekrarlayan aynı desen); `git fetch` ile `origin/master`'ın (64a9a5e, Tur 24 commit'i) HEAD ile
 birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master` ile normale
@@ -101,7 +122,7 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 81 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 84 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
 13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
 mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
@@ -2648,7 +2669,116 @@ reddedildi (aşağıya bak).
 
 ---
 
-*Son güncelleme: 2026-09-19 (Tur 25). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+## Tur 26 — 2026-09-19
+
+### A) MCP Sunucuları (proje-özel, kategori D odaklı)
+
+#### 82. [priyankark/a11y-mcp](https://github.com/priyankark/a11y-mcp)
+- **Yıldız:** 52 · **Fork:** 9 · **Lisans:** MPL-2.0 · **Güncellik:** 18 commit — sağlıklı,
+  şişirilmemiş yıldız:fork oranı.
+- **Ne işe yarar:** axe-core tabanlı bir erişilebilirlik denetim MCP sunucusu — `audit_webpage`
+  (WCAG etiket filtresi ile detaylı denetim, opsiyonel HTML snippet) ve `get_summary` (özet
+  rapor) araçları. SSRF-güvenli network proxy (private/reserved IP'leri engelliyor), 90 saniye
+  tarayıcı zaman aşımı. `WebFetch` ile bu oturumda bağımsız doğrulandı (yıldız/fork/lisans
+  birebir teyit edildi).
+- **Neden meşru:** Kod tamamen açık (`/src`, `/test`, `/config`), harici/paylaşımlı servis
+  çağrısı yok, güvenlik odaklı tasarım (SSRF koruması) ayrıca bir olgunluk işareti.
+  `docs/research/INSPECTION_GUIDE.md`'nin Faz 4 "erişilebilirlik" boşluğuna, kataloğun mevcut
+  `JustasMonkev/mcp-accessibility-scanner`'ından (Tur 3, #33) BAĞIMSIZ/farklı bir implementasyonla
+  katkı sağlıyor — ikinci bir bağımsız doğrulama katmanı olarak faydalı.
+- **Kurulum:** `npx a11y-mcp` (Node 22.12+) MCP config'ine stdio sunucusu olarak ekle. API key
+  gerekmez, yerel onay gerekir (yeni MCP sunucusu ekleme).
+
+#### 83. [freema/mcp-design-system-extractor](https://github.com/freema/mcp-design-system-extractor)
+- **Yıldız:** 69 · **Fork:** 14 · **Lisans:** MIT · **Güncellik:** 35 commit, Docker desteği ve
+  test dosyaları mevcut — organik/sağlıklı oran.
+- **Ne işe yarar:** Çalışan bir Storybook örneğine (`/index.json` + `/iframe.html`) Puppeteer ile
+  bağlanıp component listesi/arama, render edilmiş HTML+CSS çıkarma, bağımlılık grafiği ve
+  **tema token'ları (renk, spacing, tipografi)** çıkarıyor; uzun işlemler için async job queue.
+  `WebFetch` ile bu oturumda bağımsız doğrulandı.
+- **Neden meşru:** Kod tamamen açık (`/src`, `/tests`, `vitest.config.ts`, `tsup.config.ts`),
+  harici/paylaşımlı servis yok. Birçok hedef site tasarım sistemini genel-erişime-açık Storybook
+  ile belgeliyor — bu durumda kataloğun mevcut çıkarma araçlarının (canlı sayfa kazıma) YAPAMADIĞI
+  bir şeyi yapıyor: Storybook'un kendi render ettiği "ground truth" component markup'ını ve
+  token'larını doğrudan çekiyor. `AGENTS.md`'nin "pixel-perfect emulation" ve
+  `INSPECTION_GUIDE.md`'nin Faz 1 (Design Tokens) + Faz 2 (Component Inventory) fazlarına doğrudan
+  hizmet ediyor.
+- **Kurulum:** `npm install` + MCP config'e stdio sunucusu olarak ekle, hedef Storybook URL'ini
+  parametre olarak ver. API key gerekmez, yerel onay gerekir.
+
+#### 84. [awssat/mcp-universal-icons](https://github.com/awssat/mcp-universal-icons) — ⚠️ DÜŞÜK BENİMSEME
+- **Yıldız:** 5 · **Fork:** 0 · **Lisans:** MIT · **Güncellik:** 9 commit — düşük topluluk
+  doğrulaması, dürüstçe belirtiliyor. `WebFetch` ile dosya yapısı (`/src`, `package.json`,
+  `tsconfig.json`) temiz/şüpheli-script-içermez şekilde doğrulandı.
+- **Ne işe yarar:** `get_icon`, `search_icons`, `health_check` araçlarıyla 60.000+ SVG ikonuna
+  (Lucide dahil — bu şablonun kendi ikon kütüphanesi — ayrıca Material Symbols, Heroicons, Tabler,
+  Phosphor, Feather, Bootstrap, Remix, Iconoir, FontAwesome 6) erişim; fuzzy arama ve otomatik
+  Tailwind class enjeksiyonu.
+- **Neden meşru:** Kod temiz ve açık, gizli/paylaşımlı servis çağrısı yok; ama sadece 5 yıldız/9
+  commit ile "battle-tested" değil, "denemeye değer" kategorisinde. `src/components/icons.tsx`
+  akışına (hedef siteden çıkarılan ikonları Lucide/diğer kütüphanelere eşleme) doğrudan hizmet
+  ediyor olması nedeniyle düşük yıldıza rağmen not edildi.
+- **Kurulum:** `npx -y mcp-universal-icons` ile `claude mcp add` üzerinden ekle. API key gerekmez.
+
+### B) Doğrulanan ama EKLENMEYEN Bulgular (Tur 26)
+
+- **`shadcn-ui/ui` resmi skill'i** — alt-agent tarafından yeni aday olarak önerildi, ama bu
+  oturumda kontrol edilince kataloğun **zaten #37'de** (`skills/shadcn/SKILL.md` dahil) kayıtlı
+  olduğu görüldü — **bilerek atlandı** (duplicate, yeni madde AÇILMADI).
+- **`noGarne/visual-regression-mcp`** — `package.json` doğrudan incelendi: temiz bağımlılıklar
+  (`@modelcontextprotocol/sdk`, `playwright`, `pixelmatch`, `pngjs`, `zod`), postinstall/preinstall
+  hook'u yok, MIT lisans. Görsel diffing (baseline yakalama, animasyon dondurma, dinamik bölge
+  maskeleme, AI-hakemli yanlış-pozitif azaltma) mimarisi sağlam görünüyor ama **0 yıldız/tek
+  commit** — topluluk doğrulaması yok. **Eklenmedi**, gelecek bir tur benimseme kazanıp
+  kazanmadığını izleyebilir.
+- **`899ms/design-extract`** — zaten kataloglanmış `Manavarya09/design-extract`'in 0 yıldız/0
+  fork'lu bir fork'u, bağımsız değer yok. **Eklenmedi**.
+- **`alexanderuk82/mcp-wcag-accessibility`** (0 yıldız/1 commit), **`Duds/accessibility-mcp`**
+  (1 yıldız/2 commit, Tur 25'te de reddedilmişti, tekrar çıktı) — ikisi de topluluk doğrulaması
+  için çok erken/ince. **Eklenmedi**.
+- **`thereisnotime/skills-collection`** — `WebFetch` ile doğrulandı: kendi orijinal `SKILL.md`
+  içeriği YOK, günlük otomatik senkronizasyonla 105 başka repoyu kendi içine klonlayıp istatistik/
+  grafik üreten bir agregatör. Saf meta-dizin, kriterlere uymuyor. **Eklenmedi**.
+- **`Monotype/fonts-mcp`** — resmi Monotype (meşru kuruluş) deposu ama sadece 1 yıldız, ince
+  dokümantasyon, `recommend_fonts` aracı sadece ÜCRETLİ MyFonts listelerine link veriyor — ücretsiz
+  font teslimatı yok, kataloğun mevcut ücretsiz font araçlarına (Tur 15/24 #59/#65/#66) anlamlı
+  katkısı yok. **Eklenmedi**.
+- **`devstroop/icons-mcp`** — 0 yıldız, aynı ikon setlerini kapsayan daha iyi doğrulanmış
+  `awssat/mcp-universal-icons` (#84) ile redundant. **Eklenmedi**.
+- **`chusri/claude-code-agents`** — zaten kataloglanmış `wshobson/agents`'ın bağımsız içerik
+  taşımayan bir fork'u. **Eklenmedi**.
+- **`iannuttall/claude-agents`** — 2.0k yıldız/273 fork ama **arşivlenmiş** (27 Mayıs 2026'da
+  bakımı durduruldu) ve sadece 7 agent içeriyor — kataloğun zaten aktif/daha büyük 6 genel
+  koleksiyonuna (#3, #4, #11, #20, #43, #49) göre ince ve bakımsız. **Eklenmedi**.
+- **`SankofaForge/design-inspiration-mcp-server`** — 0 yıldız/0 fork; doğrudan site-token
+  çıkarmak yerine çoğunlukla Serper API üzerinden Awwwards araması yapıyor, kataloğun mevcut daha
+  iyi doğrulanmış çıkarma araçlarıyla ince örtüşme. **Eklenmedi**.
+- **GitHub Models API** — birden fazla kaynakla 30 Temmuz 2026'da kapandığı teyit edildi (Tur
+  16'daki bulguyla tutarlı, tekrar araştırılmasın). **Eklenmedi (artık mevcut değil)**.
+- **Fireworks AI ücretsiz katmanı** — artık sadece $1'lık tek seferlik kredi (10 istek/dk), kredi
+  bitince ödeme yöntemi eklenmeden hesap askıya alınıyor — "koşulsuz kalıcı ücretsiz katman"
+  kriterine uymuyor. **Eklenmedi**.
+- **Together AI ücretsiz katmanı** — artık ücretsiz deneme yerine $5'lık zorunlu satın alma
+  gerektiriyor — ücretsiz katman kriterini artık karşılamıyor. **Eklenmedi**.
+
+---
+
+*Son güncelleme: 2026-09-19 (Tur 26). Tur 26'da proje-özel MCP boşluğu üç yeni araçla dolduruldu:
+ikinci bağımsız erişilebilirlik denetim implementasyonu (`priyankark/a11y-mcp`, #82), Storybook
+tabanlı "ground truth" design-token/component çıkarma (`freema/mcp-design-system-extractor`, #83)
+ve düşük-benimsemeli ama proje-uyumlu ikon eşleştirme aracı (`awssat/mcp-universal-icons`, #84,
+düşük yıldız uyarısıyla). Alt-agent'ın önerdiği bir aday (`shadcn-ui/ui` resmi skill'i) kataloğun
+zaten #37'de kayıtlı olduğu bu oturumda tespit edilip duplicate olarak atlandı — gelecek turlar
+alt-agent'a verilen "mevcut liste" özetinin madde madde değil, doğrudan dosyadan `grep` edilmiş
+başlık+link listesi olmasının bu tür duplicate'leri azalttığını unutmamalı. Google Gemini ücretsiz
+katmanının birincil-kaynak doğrulaması üçüncü art arda turda da başarısız oldu (`ai.google.dev`,
+`aistudio.google.com`, web.archive.org mirror'ı hepsi engellendi/erişilemedi) — dört bağımsız
+ikincil kaynak artık günde ~1.500 istek + sadece Flash modelleri (Pro modeller 1 Nisan 2026'dan beri
+ücretsiz katman dışında) rakamlarında birleşiyor, ama Tur 21'in birincil-kaynak-zorunlu kuralı
+gereği yine numaralı madde olarak EKLENMEDİ; ağ erişimi açılırsa gelecek bir tur önce
+`generativelanguage.googleapis.com` dokümantasyonunu veya bir Google Developers blog mirror'ını
+denemeli. Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–26'da
+listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files` Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
 eklenecek, Tur 1–25'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
 (`auto-star-repo.sh` hook'u), Tur 21'de `Microck/font-mcp` (font korsanlığı otomasyonu)
