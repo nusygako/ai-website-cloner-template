@@ -1,17 +1,20 @@
-## ARAŞTIRMA DURUMU (en son Tur 20 — 2026-09-19)
+## ARAŞTIRMA DURUMU (en son Tur 21 — 2026-09-19)
 
-**Tur 20 notu (yeni gece, 2026-09-19, 03:04 UTC / 06:04 Türkiye saati başladı):** Önceki 19 tur
-2026-09-16 ile 2026-09-18 arasındaki geceyi kapsıyordu; bu tur yeni bir günün ilk turu, kesme
-noktasının (12:00 UTC) çok öncesinde başladı. Oturum başında repo yine (Tur 13/17/18/19'daki gibi)
-"detached HEAD" durumundaydı; `git fetch` ile `origin/master`'ın (`705b7ca`) HEAD ile birebir aynı
-commit olduğu doğrulandı (çalışma kaybı yok), `git checkout -B master origin/master` ile branch
-normale döndürüldü — artık beşinci kez tekrarlayan bu desen rutin bir başlangıç kontrolü. Tur
-17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo GitHub kısıtlamasına tabi
-DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) bu turda da doğrulandı ve kullanıldı; ticari
-sağlayıcı domainleri bu turda hiç denenmedi (yeni provider adayı yoktu). ~10 aday incelendi, 2'si
-kataloğa eklendi (aşağıya bak) ve 1 genel güvenlik bulgusu (Snyk ToxicSkills denetimi) eklendi.
+**Tur 21 notu (yeni gece, 2026-09-19, 04:02 UTC / 07:02 Türkiye saati başladı):** Kesme noktasının
+(12:00 UTC) çok öncesinde başladı. Bu turda önceki 60 kaynağın tam listesi `grep` ile (başlık
+numaraları + `github.com/...` linkleri) çıkarılarak tekrar aramanın önüne geçildi; araştırmanın
+büyük kısmı bir general-purpose alt-agent'a devredildi (bağlam tasarrufu + tek odaklı arama turu),
+alt-agent'ın bulduğu en güçlü adaylar bu oturumda `WebFetch` ile bağımsız olarak yeniden
+doğrulandı. **Tur 21'de yöntem notu:** `api.github.com` JSON endpoint'i bu turda 403 döndürdü
+(önceki turlarda çalışıyordu); düz `github.com/<owner>/<repo>` HTML sayfası fetch etmek hâlâ
+güvenilir çalıştı, gelecek turlar bunu öncelikli yöntem olarak kullanmalı. Tur 17'nin metodoloji
+düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo GitHub kısıtlamasına tabi DEĞİL, sadece
+`mcp__github__*` MCP araçları scope'lu) bu turda da doğrulandı ve kullanıldı; ticari sağlayıcı
+domaini (`sambanova.ai`) bu turda da `EGRESS_BLOCKED` ile engellendi. ~9 aday incelendi, 3'ü
+kataloğa eklendi, 1'i düşük-benimseme caveat'iyle eklendi (aşağıya bak), 5'i reddedildi (biri
+ciddi bir font-korsanlığı-otomasyonu bulgusu — bkz. Tur 21).
 
-**Önceki durum:** Bu gece boyunca 19 tur (Tur 1–19) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
+**Önceki durum:** Bu geceden önce 20 tur (Tur 1–20) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
 Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14, 15, 16, 17, 18 ve 19
 farklı oturumlarda (yedisi de kesme noktasından önce, sırasıyla 03:04, 04:04, 05:06, 06:10, 07:05,
 08:05 ve 09:09 UTC'de) başladı ve normal araştırmaya devam etti. **Tur 14'te metodoloji notu (Tur
@@ -40,14 +43,15 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 60 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 64 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
 13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
 mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
-güvenlik/ekosistem bulgusu (Snyk ToxicSkills denetimi — bkz. Tur 20) + onlarca "doğrulandı ama
-eklenmedi" madde (şişirilmiş yıldız, geçersiz/tek-seferlik ya da anlamsız derecede küçük ücretsiz
-katman, ToS-bypass riski, lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme, redundant
-genel koleksiyon vb. gerekçelerle elendi).
+güvenlik/ekosistem bulgusu (Snyk ToxicSkills denetimi) + Tur 21'de eklenen 1 font-korsanlığı-
+otomasyonu uyarısı (`Microck/font-mcp` — bkz. Tur 21) + onlarca "doğrulandı ama eklenmedi" madde
+(şişirilmiş yıldız, geçersiz/tek-seferlik ya da anlamsız derecede küçük ücretsiz katman, ToS-bypass
+riski, lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme, redundant genel koleksiyon,
+yakında ücretliye geçiş sinyali vb. gerekçelerle elendi).
 
 **En önemli bulgular:**
 
@@ -1988,20 +1992,145 @@ koordineli bir malware kampanyası belgeledi.
 
 ---
 
-*Son güncelleme: 2026-09-19 (Tur 20). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–20'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+## Tur 21 — 2026-09-19 (04:02 UTC / 07:02 Türkiye saati başladı)
+
+Bu tur, dosyanın başındaki özet okunduktan ve önceden kataloglanmış 60 kaynağın tam listesi
+(`grep` ile `#### N.` başlıkları ve `github.com/...` linkleri) çıkarılarak tekrar aramanın önüne
+geçildikten sonra başladı. Araştırmanın ağırlıklı kısmı bir alt-agent'a (general-purpose) devredildi
+— hem bağlam tasarrufu için hem de bu geç-tur aşamasında (60 kaynaktan sonra) azalan getiri
+sorununu tek bir odaklı arama turunda toplamak için. Alt-agent'ın bulduğu en güçlü 2 aday
+(`jezweb/claude-skills`, `awesome-skills/code-review-skill`) bu oturumda ayrıca bağımsız olarak
+`WebFetch` ile GitHub repo sayfasından yıldız/fork/issue/lisans rakamları tekrar doğrulandı
+(`api.github.com` JSON endpoint'i bu turda 403 döndürdü — Tur 1-20'de kullanılan yöntem artık
+çalışmıyor olabilir, bunun yerine düz `github.com/<owner>/<repo>` HTML sayfası fetch edilerek
+doğrulama yapıldı, sonuç: rakamlar alt-agent'ın raporuyla birebir eşleşti). SambaNova Cloud için
+resmi domain (`sambanova.ai`, `cloud.sambanova.ai`) bu turda da `WebFetch` ile denendi ve
+ticari-domain engeline takıldı (Tur 1/7-20'deki desenle tutarlı); bilgiler `WebSearch` sonuçlarından
+çapraz doğrulandı ve kaynaklar arasında rate-limit rakamlarında küçük tutarsızlık bulundu (aşağıya
+bak, dikkatli/hedge'li şekilde not edildi). ~9 aday incelendi (alt-agent + bu oturumun kendi
+doğrulaması), 3'ü kataloğa eklendi, 1'i düşük-benimseme uyarısıyla eklendi, 5'i reddedildi (biri
+ciddi bir lisans-ihlali/korsanlık bulgusu — aşağıya bak).
+
+### A) Skill Koleksiyonları (proje-özel — Tailwind v4/shadcn ve kod incelemesi boşluğu)
+
+#### 61. [jezweb/claude-skills](https://github.com/jezweb/claude-skills)
+- **Yıldız:** 1.0k · **Fork:** 102 · **Açık issue:** 13 · **Lisans:** MIT
+- **Güncellik:** 717 commit, 7 açık PR — sağlıklı yıldız:fork:issue oranı (kataloğun başındaki
+  "binlerce yıldız + tek haneli issue" şişirilmiş-yıldız deseninin TAM TERSİ), aktif bakımlı.
+- **Ne işe yarar:** Claude Code plugin marketplace'i, 11 plugin altında 63 gerçek `SKILL.md`
+  dosyası (klonlanarak doğrulandı) barındırıyor: `frontend` plugin'i (`tailwind-theme-builder`,
+  `shadcn-ui`, `landing-page`, `product-showcase`, `react-patterns`, `design-review`), `design-assets`
+  plugin'i (`color-palette`, `favicon-gen`, `icon-set-generator`, `image-processing`,
+  `ai-image-generator`), `web-design` (`seo-local-business`), ve `ux-compare`/`ux-extract`/
+  `responsiveness-check`/`project-docs` skill'leri. **`tailwind-theme-builder` skill'i bu şablonun
+  tam kullandığı yığınla (Tailwind v4 + shadcn/ui) birebir örtüşüyor** — 18 somut "gotcha"
+  dokümante ediyor (ör. `:root`'un `@layer base` içinde theming'i bozması, çift `hsl()` sarmalama,
+  `tailwindcss-animate`'in deprecated olması) — `AGENTS.md`'nin "bu senin bildiğin Next.js değil,
+  breaking change'lere dikkat et" uyarısının Tailwind v4 karşılığı niteliğinde.
+- **Neden meşru:** MIT lisanslı, gerçek dosya yapısı (placeholder/link listesi değil, klonlanarak
+  63 `SKILL.md` doğrulandı), sağlıklı topluluk etkileşim oranı.
+- **Kurulum:** `/plugin marketplace add jezweb/claude-skills` ardından
+  `/plugin install frontend@jezweb-skills` (ve istenirse `design-assets@jezweb-skills`). Yerel
+  onay gerekir (plugin kurulumu), API key gerekmez.
+
+#### 62. [awesome-skills/code-review-skill](https://github.com/awesome-skills/code-review-skill)
+- **Yıldız:** 2.0k · **Fork:** 205 (yıldızın ~%10'u — organik büyümeyle uyumlu bir oran) ·
+  **Açık issue:** 1 · **Lisans:** MIT
+- **Güncellik:** Git geçmişinde dış katkıcılardan (`xronocode`, `Momoyeyu`, `smf-h`) birleştirilmiş
+  PR'lar var (Ruby/Rails, FastAPI, Swift, PHP, Zig rehberleri eklemişler) — tek-yazarlı ani
+  yıldız patlaması DEĞİL, çok-katkıcılı organik büyüme sinyali. **Not:** 2k yıldıza karşı sadece
+  1 açık issue biraz düşük taraf; ama fork oranı ve çok-yazarlı commit geçmişi şişirilmiş-yıldız
+  şüphesini bu durumda gideriyor.
+- **Ne işe yarar:** Tek bir gerçek `SKILL.md` (~220 satır, progressive-disclosure) + 20'den fazla
+  dile özel `reference/*.md` inceleme rehberi (toplam 21.000+ satır); bunların arasında bu projenin
+  yığınına birebir uyan ~870 satırlık bir **React 19 / Next.js / TanStack Query v5** rehberi ve
+  ayrı bir TypeScript rehberi var.
+- **Neden meşru:** Klonlanarak doğrulandı (gerçek `SKILL.md`, `reference/` klasörü,
+  `CONTRIBUTING.md`), MIT lisanslı, çok-katkıcılı organik commit geçmişi.
+- **Kurulum:** `npx skills add awesome-skills/code-review-skill` veya repoyu klonlayıp
+  `.claude/skills/` altına kopyalama. Yerel onay gerekmez.
+
+### B) MCP Sunucusu (düşük-benimseme, dikkatli/caveat'li giriş — Design Tokens boşluğu)
+
+#### 63. [kenneives/design-token-bridge-mcp](https://github.com/kenneives/design-token-bridge-mcp) — ⚠️ DÜŞÜK BENİMSEME
+- **Yıldız:** 5 · **Fork:** 1 · **Açık issue:** 1 · **Lisans:** MIT · Son commit: 2026-08-17 (yeni)
+- **Ne işe yarar:** Tailwind config, ham CSS custom property, Figma Variables veya W3C DTCG JSON'dan
+  design token çıkaran ve CSS variable/Tailwind config/Material3/SwiftUI tema üreten 9 araçlı bir
+  MCP sunucusu; ayrıca bir `validate_contrast` (WCAG AA/AAA) aracı var.
+- **Neden dikkatli eklendi (tam onay DEĞİL):** Sadece 5 yıldız/1 fork — topluluk doğrulaması çok
+  az, bakımının süreceği garanti değil. Ama gerçek olduğu doğrulandı (91 unit test + 31 Playwright
+  test, CI workflow'ları, temiz TypeScript kaynak kodu). `extract_tokens_from_css` ve
+  `validate_contrast` araçları `INSPECTION_GUIDE.md`'nin "Design Tokens to Extract" bölümünü ve
+  WCAG kontrast gereksinimini doğrudan otomatikleştiriyor — kataloğun mevcut Figma-token
+  araçlarından (Figma'dan çıkarıyorlar) farklı olarak CANLI bir sitenin render edilmiş CSS'inden
+  çıkarım yapıyor, bu net bir boşluk.
+- **Kurulum:** MCP config'e ekleme (`npm install` + config, yerel onay gerekir). **Kurulum öncesi
+  kendi gözlemini yap** — düşük yıldız sayısı nedeniyle bu kataloğun diğer maddelerinden daha az
+  güvenle öneriliyor.
+
+### C) Ücretsiz & Meşru API Sağlayıcısı
+
+#### 64. SambaNova Cloud ücretsiz katmanı (resmi) — ⚠️ rakamlar ikincil kaynaktan, teyit gerekir
+- **Domain engeli:** `sambanova.ai` ve `cloud.sambanova.ai` bu turda da `WebFetch` ile denendi,
+  ticari-domain engeline takıldı (Tur 1/7-20'deki desenle tutarlı) — aşağıdaki rakamlar `WebSearch`
+  sonuçlarından derlendi, birincil kaynakta DOĞRULANMADI.
+- **Ücretsiz katman (kaynaklar arası tutarsızlık var — dikkat):** Resmi blog başlığı "SambaNova
+  Cloud Developer Tier Is Live" kalıcı/süresiz bir katman olduğunu ima ediyor; ama tarama sonucu
+  bulunan rakamlar çelişkili — bazı kaynaklar "günde 200.000 token, dakikada 20 istek", bazıları
+  "günde SADECE 20 istek" diyor; ayrıca ayrı bir "$5 kredi, 3 ayda dolan" katmanından da bahsediliyor
+  ki bu kalıcı değil, deneme kredisi. Model kataloğu da kaynaklar arasında tutarsız listeleniyor
+  (Llama 3.3 70B/GPT-OSS 120B vs. DeepSeek-V3.1/V3.2/MiniMax-M2.7/Gemma). **Kurulum öncesi
+  cloud.sambanova.ai/apis üzerinde güncel rakamları MUTLAKA teyit et** — bu giriş kesin bir rakam
+  taahhüdü değil, sadece "araştırmaya değer, kişisel key alınan resmi bir sağlayıcı var" bilgisi.
+- **Ne işe yarar:** Hızlı çıkarım donanımında açık modellere erişim — Claude Code'un yanında
+  ikincil/hızlı model sağlayıcısı.
+- **Neden meşru (rakamlar hariç):** Resmi SambaNova ürünü, paylaşımlı/havuzlanmış key DEĞİL, her
+  kullanıcı kendi hesabı ve kendi key'ini alıyor.
+- **Kurulum:** cloud.sambanova.ai/apis üzerinden ücretsiz kayıt (kredi kartı gerekmez) + key al,
+  rakamları o sayfada teyit ettikten sonra ortam değişkeni olarak ekle. Yerel onay gerekir, bu
+  oturumdan otomatik yapılamaz.
+
+### D) Doğrulanan ama EKLENMEYEN Bulgular (Tur 21)
+
+- **Microck/font-mcp** — "Font Hunter" özelliği açıkça "topluluk paylaşım hub'ları (VK, Telegram
+  indeksleri)" ve "open directory dorking" kullanarak lisanslı/ücretli fontları izinsiz indirmeyi
+  hedefliyor — yani telif/lisans ihlalini (korsanlık) doğrudan otomatikleştiriyor. Yıldız sayısından
+  bağımsız olarak görevin "meşru" kriterini AÇIKÇA ihlal ediyor. **KESİNLİKLE EKLENMEDİ.**
+- **aparajithn/agent-scraper-mcp** — sadece hosted (onrender.com) çalışıyor, repoda commit edilmiş
+  bir `MONETIZATION_PLAN.md` var ve son commit'ler "ücretsiz katmanı daraltma/rate-limit sıkılaştırma"
+  hakkında — yakında ücretliye geçeceğinin sinyali. Ayrıca zaten kataloglanmış crawl4ai/firecrawl/
+  playwright/chrome-devtools-mcp scraping kapsamıyla redundant. **Eklenmedi.**
+- **undirectlookable/svgo-mcp** — 0 yıldız, 0 fork, 0 issue; işlevsel olarak sorun yok (ince bir
+  SVGO wrapper, MIT) ama sıfır benimseme sinyali, mevcut araçlara göre önerilecek kadar
+  doğrulanabilir değil. **Eklenmedi.**
+- **Together AI / Fireworks AI / Hyperbolic** — 2026 itibarıyla üçü de sadece deneme kredisi
+  sunuyor (kalıcı ücretsiz katman DEĞİL). **Eklenmedi.**
+- **Nebius AI Studio / Scaleway** — Nebius sadece ~1$'lık tek seferlik deneme kredisi sunuyor;
+  Scaleway'in ücretsiz token'ları kredi kartı gerektiriyor ve yine kredi-bazlı (kalıcı günlük
+  katman değil). Tur 13'te zaten "birincil kaynak doğrulaması bekliyor" olarak işaretlenmişti —
+  bu turda doğrulandı ve kalıcı ücretsiz katman OLMADIĞI netleşti. **Eklenmedi**, dosyanın altındaki
+  "bekleyen doğrulama" listesinden Nebius çıkarıldı.
+
+---
+
+*Son güncelleme: 2026-09-19 (Tur 21). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–21'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
-(`auto-star-repo.sh` hook'u) şüpheli/manipülatif bulundu; Tur 20'de Snyk'in ToxicSkills denetimi
-(ClawHub/skills.sh ekosisteminde %36 prompt-injection oranı) genel bir güvenlik uyarısı olarak
-eklendi — kurmadan önce ilgili notları oku. Tur 17'nin metodoloji düzeltmesi (genel
-`WebFetch`/`WebSearch` tek-repo GitHub kısıtlamasına tabi DEĞİL, sadece `mcp__github__*` MCP
-araçları scope'lu) Tur 18, 19 ve 20'de tekrar doğrulandı ve kullanıldı. Tur 9'da OpenRouter, Tur
-10'da Jina AI Reader, Tur 13'te Nebius AI Studio, Tur 14'te Z.ai GLM Flash, Tur 15'te Vercel AI
-Gateway ücretsiz katmanlarının birincil kaynak doğrulaması hâlâ bekliyor (ticari domain engeline
-takılıyorlar, GitHub kısıtlaması değil — Tur 20'de yeni provider adayı bulunmadığı için bu beşi
-tekrar denenmedi). **Tur 20'de YENİ:** proje-özel tipografi/design-token boşluğu
-`sliday/google-fonts-skill` (#59) ile dolduruldu, ücretsiz LLM API taramasını hızlandıracak bir
-çapraz-doğrulama referansı `amardeeplakshkar/awesome-free-llm-apis` (#60) ile eklendi, ve
-kataloğun kendi güvenlik duruşunu güçlendiren bir ekosistem-genelinde bulgu (Snyk ToxicSkills)
-belgelendi. **Tur 20'de git hijyeni notu:** detached HEAD durumu beşinci kez (Tur 13, 17, 18, 19,
-20) tekrarladı — artık rutin bir başlangıç kontrolü, ayrı bir "sorun" olarak raporlamaya gerek yok.*
+(`auto-star-repo.sh` hook'u), Tur 21'de `Microck/font-mcp` (font korsanlığı otomasyonu)
+şüpheli/kötü niyetli bulundu; Tur 20'de Snyk'in ToxicSkills denetimi (ClawHub/skills.sh
+ekosisteminde %36 prompt-injection oranı) genel bir güvenlik uyarısı olarak eklendi — kurmadan
+önce ilgili notları oku. Tur 17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo
+GitHub kısıtlamasına tabi DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18-21'de tekrar
+doğrulandı ve kullanıldı; **Tur 21'de ek not:** `api.github.com` JSON endpoint'i bu turda 403
+döndürdü (önceki turlarda kullanılabiliyordu), düz `github.com/<owner>/<repo>` HTML sayfası fetch
+etmek hâlâ güvenilir çalışıyor — gelecek turlar önce HTML sayfasını denemeli. Tur 9'da OpenRouter,
+Tur 10'da Jina AI Reader, Tur 14'te Z.ai GLM Flash, Tur 15'te Vercel AI Gateway ücretsiz
+katmanlarının birincil kaynak doğrulaması hâlâ bekliyor (ticari domain engeline takılıyorlar, GitHub
+kısıtlaması değil); Tur 13'teki Nebius AI Studio bu turda doğrulanıp kalıcı ücretsiz katımı
+OLMADIĞI için listeden çıkarıldı. **Tur 21'de YENİ:** proje-özel Tailwind v4/shadcn ve React/Next.js
+kod-incelemesi boşlukları `jezweb/claude-skills` (#61) ve `awesome-skills/code-review-skill` (#62)
+ile dolduruldu; düşük-benimseme ama gerçek bir design-token-çıkarma+WCAG-kontrast MCP'si
+`kenneives/design-token-bridge-mcp` (#63) caveat'li eklendi; yeni bir ücretsiz API sağlayıcısı
+adayı (SambaNova, #64) rakam tutarsızlığı uyarısıyla eklendi. Araştırmanın büyük kısmı bir
+alt-agent'a devredildi (bağlam tasarrufu + odaklanmış tek-tur arama), sonuçlar bu oturumda
+bağımsız olarak yeniden doğrulandı.*
