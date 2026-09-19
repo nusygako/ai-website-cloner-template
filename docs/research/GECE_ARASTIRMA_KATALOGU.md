@@ -1,6 +1,23 @@
-## ARAŞTIRMA DURUMU (en son Tur 21 — 2026-09-19)
+## ARAŞTIRMA DURUMU (en son Tur 22 — 2026-09-19)
 
-**Tur 21 notu (yeni gece, 2026-09-19, 04:02 UTC / 07:02 Türkiye saati başladı):** Kesme noktasının
+**Tur 22 notu (yeni gece, 2026-09-19, ~05:02 UTC / 08:02 Türkiye saati başladı):** Kesme noktasının
+(12:00 UTC) öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (bkz. aşağıdaki
+git hijyeni notu, artık beşinci kez tekrarlayan aynı desen); `git fetch` + `origin/master` ile
+birebir aynı commit'te olduğu doğrulanıp `git reset --hard origin/master` ile normale döndürüldü.
+Bu turda önce dosyanın tamamı okunup mevcut 64 kaynağın başlıkları `grep` ile çıkarıldı, ardından
+şablonun kendi niş ihtiyaçlarına (font self-hosting, tarayıcı otomasyonu) odaklı ~10 aday
+`WebSearch`/`WebFetch` ile araştırıldı. **Tur 22'de kritik bulgu:** #21 (Cerebras Cloud API)
+maddesindeki "kalıcı ücretsiz katman" bilgisi artık DOĞRU DEĞİL — Cerebras 17 Ağustos 2026'da
+kalıcı ücretsiz katmanını kapatıp kredi kartı gerektiren $5'lık tek seferlik deneme kredisine
+geçti; ilgili madde bu turda düzeltme notuyla güncellendi (aşağıya bak). Ayrıca "UI/UX Pro Max"
+adlı bir Claude Code skill'inin (nextlevelbuilder/hylarucoder/WAAMEngineer hesaplarında aynı
+pazarlama metniyle dolaşan mirror'ları) 128.9k yıldız/13.7k fork'a karşı sadece 39 açık issue
+gösterdiği (oran ~3300:1) tespit edildi — dosyanın başındaki "şişirilmiş yıldız" deseniyle birebir
+örtüşüyor, KESİNLİKLE eklenmedi (aşağıya bak). ~10 aday incelendi, 3'ü kataloğa eklendi, 1 mevcut
+madde (#21) düzeltme notuyla güncellendi, ~6 aday reddedildi (0-yıldız/erken-aşama veya şişirilmiş-
+yıldız gerekçesiyle, aşağıya bak).
+
+**Önceki durum (Tur 21):** Kesme noktasının
 (12:00 UTC) çok öncesinde başladı. Bu turda önceki 60 kaynağın tam listesi `grep` ile (başlık
 numaraları + `github.com/...` linkleri) çıkarılarak tekrar aramanın önüne geçildi; araştırmanın
 büyük kısmı bir general-purpose alt-agent'a devredildi (bağlam tasarrufu + tek odaklı arama turu),
@@ -43,12 +60,14 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 64 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 67 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
 13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
 mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
 güvenlik/ekosistem bulgusu (Snyk ToxicSkills denetimi) + Tur 21'de eklenen 1 font-korsanlığı-
-otomasyonu uyarısı (`Microck/font-mcp` — bkz. Tur 21) + onlarca "doğrulandı ama eklenmedi" madde
+otomasyonu uyarısı (`Microck/font-mcp` — bkz. Tur 21) + Tur 22'de eklenen 1 "artık geçersiz ücretsiz
+katman" düzeltmesi (Cerebras, #21 — bkz. Tur 22) + Tur 22'de eklenen 1 şişirilmiş-yıldız uyarısı
+("UI/UX Pro Max" skill mirror'ları — bkz. Tur 22) + onlarca "doğrulandı ama eklenmedi" madde
 (şişirilmiş yıldız, geçersiz/tek-seferlik ya da anlamsız derecede küçük ücretsiz katman, ToS-bypass
 riski, lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme, redundant genel koleksiyon,
 yakında ücretliye geçiş sinyali vb. gerekçelerle elendi).
@@ -429,10 +448,17 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 ### C) Ücretsiz & Meşru API Sağlayıcıları
 
 #### 21. [Cerebras Cloud API](https://cloud.cerebras.ai) ücretsiz katmanı (resmi)
-- **Ücretsiz katman:** Günde **1 milyon token**, kredi kartı gerektirmeden, kalıcı (tek seferlik
-  deneme kredisi değil). 30 istek/dk limit. Llama 4 Scout, Qwen3 32B, DeepSeek R1 Distill gibi
-  modellere erişim. WSE-3 wafer-scale donanımında 2.600+ token/sn hız (bilinen en hızlı
-  sağlayıcılardan biri).
+- **🚨 TUR 22 GÜNCELLEMESİ — ARTIK GEÇERSİZ:** Bu madde 2026-09-19 itibarıyla ESKİMİŞ. Birden fazla
+  bağımsız kaynak (pricepertoken.com, agentdeals.dev, toolfreebie.com, benchlm.ai) Cerebras'ın kalıcı
+  ücretsiz katmanını **17 Ağustos 2026'da** kapattığını doğruluyor — hesaplar artık kredi kartı
+  gerektiren, 30 gün geçerli $5'lık tek seferlik deneme kredisine geçirildi; kart eklenene kadar API
+  erişimi pasif. Aşağıdaki "günde 1 milyon token, kredi kartı gerekmez" bilgisi **artık DOĞRU DEĞİL**
+  — kurulum öncesi cloud.cerebras.ai üzerinde güncel durumu teyit et, kalıcı ücretsiz katman
+  beklemeden.
+- **Ücretsiz katman (eski bilgi, artık geçersiz — yukarıya bak):** Günde **1 milyon token**, kredi
+  kartı gerektirmeden, kalıcı (tek seferlik deneme kredisi değil). 30 istek/dk limit. Llama 4 Scout,
+  Qwen3 32B, DeepSeek R1 Distill gibi modellere erişim. WSE-3 wafer-scale donanımında 2.600+ token/sn
+  hız (bilinen en hızlı sağlayıcılardan biri).
 - **Ne işe yarar:** Claude Code'un yanında ultra hızlı ikincil/yedek model sağlayıcısı — MCP tool
   içinde hızlı sınıflandırma, taslak üretimi, kısa özetleme gibi düşük gecikme gerektiren işler için.
 - **Neden meşru:** Resmi Cerebras ürünü, bireysel email/GitHub hesabıyla kendi key'ini alıyorsun,
@@ -2113,24 +2139,136 @@ ciddi bir lisans-ihlali/korsanlık bulgusu — aşağıya bak).
 
 ---
 
-*Son güncelleme: 2026-09-19 (Tur 21). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–21'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+## Tur 22 — 2026-09-19 (~05:02 UTC / 08:02 Türkiye saati başladı)
+
+Bu tur, dosyanın tamamı okunup mevcut 64 kaynağın başlıkları `grep` ile çıkarıldıktan sonra
+başladı. Odak, `AGENTS.md`'nin kendi niş ihtiyaçları (font self-hosting/asset indirme, tarayıcı
+otomasyonu) oldu — önceki 21 turun zaten doldurduğu "genel skill koleksiyonu" ve "ücretsiz LLM API"
+kategorilerinde azalan getiri net şekilde görüldü (çoğu aday ya redundant ya trial-kredi ya da
+0-yıldız çıktı). ~10 aday incelendi: 3'ü kataloğa eklendi (#65-#67), 1 mevcut madde (#21, Cerebras)
+"artık geçersiz" düzeltme notuyla güncellendi, geri kalanı reddedildi (biri şişirilmiş-yıldız
+deseni, aşağıya bak).
+
+### A) Asset İndirme / Font Self-Hosting (proje-özel — `public/` klasör boşluğu)
+
+#### 65. [majodev/google-webfonts-helper](https://github.com/majodev/google-webfonts-helper)
+- **Yıldız:** 13.1k · **Fork:** 437 · **Açık issue:** 60 · **Lisans:** MIT
+- **Güncellik:** 190 commit, aktif bakımlı, canlı hosted servis (`gwfh.mranftl.com`) çalışıyor.
+  Sağlıklı yıldız:issue oranı (~218:1), şişirilmiş-yıldız deseni DEĞİL.
+- **Ne işe yarar:** Herhangi bir Google Fonts ailesini (Google'ın kendi Fonts API'sinden farklı
+  olarak) eot/ttf/svg/woff/woff2 formatlarında indirip hazır CSS `@font-face` snippet'i üreten,
+  self-hosting'e hazırlayan bir servis + açık JSON API (`/api/fonts`, `/api/fonts/[id]`). Canlı
+  hosted instance'ı (`gwfh.mranftl.com`) API key gerektirmeden kullanılabiliyor.
+- **Neden meşru:** Google Fonts tamamen OFL (Open Font License) lisanslı — self-hosting tamamen
+  yasal ve Google'ın kendi dokümantasyonunda önerilen bir pratik; bu tam olarak Tur 21'de
+  reddedilen `Microck/font-mcp`'nin (lisanslı/korsan font indirme) TERSİ bir kategori. `AGENTS.md`'nin
+  "Real content — use actual text and assets from the target site" ilkesini tipografi için
+  tamamlıyor; kataloğun mevcut #59 (`sliday/google-fonts-skill`, font ÖNERİSİ/eşleştirme) ile
+  redundant DEĞİL — bu madde gerçek font DOSYALARINI indiriyor.
+- **Kurulum:** `gwfh.mranftl.com` üzerinden doğrudan API çağrısı (kurulum gerekmez) veya repoyu
+  klonlayıp Docker ile kendi instance'ını çalıştırma (kendi deploy'un için Google Fonts API key
+  gerekir, ama hosted instance'ı kullanmak için gerekmez).
+
+#### 66. [mmastrac/webfont-dl](https://github.com/mmastrac/webfont-dl) — ⚠️ ESKİ AMA FONKSİYONEL
+- **Yıldız:** 333 · **Fork:** 17 · **Açık issue:** 5 · **Lisans:** MIT (paket.json'da doğrulandı)
+- **Güncellik:** Son commit Mart 2023 — 3+ yıldır güncellenmiyor (aktif bakımlı DEĞİL). Ama basit,
+  dar kapsamlı bir CSS-parse + indirme aracı olduğu için (Node.js, minimal bağımlılık) bu tür
+  araçlarda eskimişlik daha az risk taşıyor; 333 yıldız/17 fork sağlıklı bir organik benimseme
+  sinyali.
+- **Ne işe yarar:** Herhangi bir CSS dosyasındaki `@font-face` kurallarını okuyup referans verilen
+  font dosyalarını indiren, isteğe bağlı olarak base64 data-URI olarak CSS'e gömen bir CLI. Google
+  Fonts'a özel DEĞİL — dokümantasyonu "`@font-face` kullanan herhangi bir hosted CSS'e karşı
+  çalışmalı" diyor, yani #65'in aksine hedef sitenin KENDİ (Google-dışı, marka-özel self-hosted)
+  fontlarını da indirebiliyor.
+- **Neden meşru:** MIT lisanslı, kaynak kodu küçük ve incelenebilir (sadece CSS parse + HTTP GET —
+  gizli davranış yok), hedef sitenin zaten tarayıcıya herkese açık şekilde sunduğu font dosyalarını
+  indiriyor (görsel/video indirme script'lerinin bu şablonda zaten yaptığı işin font karşılığı).
+- **Kurulum:** `npm install -g webfont-dl`, ardından `webfont-dl <css-url> -o public/fonts/font.css`
+  gibi bir komutla çalıştırma. Yerel onay gerekir, API key gerekmez. **Dikkat:** proje 3+ yıldır
+  bakımsız — kurulum öncesi hâlâ çalıştığını doğrula, ciddi bir sorunla karşılaşırsan #65'e veya
+  manuel `curl` ile indirmeye geri dön.
+
+### B) Tarayıcı Otomasyonu (RESMİ — Vercel Labs)
+
+#### 67. [vercel-labs/agent-browser](https://github.com/vercel-labs/agent-browser) — RESMİ (Vercel)
+- **Yıldız:** 42.9k · **Fork:** 2.9k · **Açık issue:** 387 · **Lisans:** Apache-2.0
+- **Güncellik:** 682 commit, aktif bakımlı, resmi Vercel Labs organizasyonu altında. Sağlıklı
+  yıldız:issue oranı (~111:1), şişirilmiş-yıldız deseni DEĞİL; kataloğun başındaki #30
+  (`vercel/next-devtools-mcp`) ve #35 (Vercel MCP) ile aynı güvenilirlik seviyesinde resmi kaynak.
+- **Ne işe yarar:** Yapay zekâ ajanları için native Rust'ta yazılmış bir tarayıcı otomasyon CLI'ı —
+  Chrome DevTools Protocol üzerinden erişilebilirlik-ağacı snapshot'ları, kompakt element
+  referansları (`@eN`), ekran görüntüsü, navigasyon ve etkileşim sağlıyor. Yerel Chrome/Chromium
+  ile (bulut sağlayıcı gerekmeden) çalışıyor; kendi `SKILL.md`'sini de içeriyor
+  (`agent-browser skills get <name>`).
+- **Neden meşru:** Resmi Vercel Labs deposu, Apache-2.0, yerel çalışıyor (API key gerekmez, tarayıcı
+  Chrome for Testing'i otomatik indiriyor). `INSPECTION_GUIDE.md` Phase 1 (çoklu breakpoint ekran
+  görüntüsü) ve Phase 4 (teknik yığın analizi) için kataloğun mevcut Chrome DevTools MCP (#12) ve
+  Playwright MCP (#19) araçlarına HIZLI, native bir alternatif/tamamlayıcı — Node.js/Puppeteer
+  yükü olmadan CDP'ye erişim.
+- **Kurulum:** `npm install -g agent-browser && agent-browser install` (Chrome for Testing'i
+  otomatik indirir) veya Homebrew/Cargo. Yerel onay gerekir, API key gerekmez.
+
+### C) Doğrulanan ama EKLENMEYEN Bulgular (Tur 22)
+
+- **🚨 "UI/UX Pro Max" skill'i (`nextlevelbuilder/ui-ux-pro-max-skill` ve
+  `hylarucoder/benchmark-skill-ui-ux-pro-max`, `WAAMEngineer/ui-ux-pro-max-skill` mirror'ları)** —
+  128.9k yıldız / 13.7k fork'a karşı sadece 39 açık issue (oran ~3300:1), aynı pazarlama metniyle
+  (aynı özellik listesi, aynı ifadeler) birden fazla hesapta dolaşıyor — dosyanın en başındaki
+  "şişirilmiş yıldız (binlerce yıldız + tek haneli/çok düşük issue sayısı deseni)" uyarısıyla
+  birebir örtüşüyor. Otomatik hook/shell çalıştırma gibi doğrudan tehlikeli bir davranış BU TURDA
+  TESPİT EDİLMEDİ (yani Tur 6/13/21'deki gibi "kurma" seviyesinde bir güvenlik uyarısı DEĞİL), ama
+  yıldız sayısı güvenilir bir benimseme sinyali OLARAK KULLANILAMAZ. **KESİNLİKLE EKLENMEDİ**,
+  gelecek turlar bu deseni gördüğünde aynı şekilde reddetmeli.
+- **`niyamvora/fontfetch`** — teknik olarak #65/#66'dan daha da iyi bir fit (hedef sitenin TÜM
+  fontlarını tek komutla indirip Next.js/Tailwind config'i dahil proje-hazır bir klasöre koyuyor,
+  kodu meşru — piracy hub'ı DEĞİL, sadece hedef sitenin kendi CSS'ini okuyor). Ama 0 yıldız/0 fork/
+  0 issue — sıfır benimseme sinyali. **Eklenmedi**, ama gelecek turlar birkaç ay sonra yıldız
+  kazanıp kazanmadığını kontrol edebilir (iyi bir aday adayı).
+- **`cdmx-in/ui-review`** — `vercel-labs/agent-browser` (#67) üzerine kurulu, 4 breakpoint'te
+  (360/768/1366/1920px) text overflow/tap-target/WCAG zoom-reflow taraması yapan gerçek bir
+  `SKILL.md`; teknik olarak sağlam (MIT, gerçek kod) ama sadece 1 yıldız/0 fork — çok erken aşama.
+  **Eklenmedi**, `INSPECTION_GUIDE.md` Phase 1/3'e iyi uyan bir aday adayı olarak not edildi.
+- **`ogimg/ogimg`** (Open Graph görsel üretici, Next.js 16 + React 19 tabanlı) — 23 yıldız, Apache-2.0,
+  ama repo kendi README'sinde editör arayüzünün "henüz implemente edilmediğini" belirtiyor —
+  fonksiyonel olarak eksik/olgunlaşmamış. **Eklenmedi.**
+- **`ogforge.dev`** — "ücretsiz, API key gerektirmez" OG görsel üretici olarak tanıtılıyor ama
+  domain bu oturumda `EGRESS_BLOCKED` ile engellendi ve açık bir GitHub deposu bulunamadı (sadece
+  glama.ai listesi) — açık kaynak/doğrulanabilirlik kriteri karşılanmıyor. **Eklenmedi.**
+- **NVIDIA NIM ücretsiz katmanı** — kaynaklar arasında tutarsız (bazıları "~1.000 kredi" tek
+  seferlik, bazıları "40 istek/dk kalıcı" diyor) ve telefon doğrulaması gerektiriyor (diğer
+  kataloglanmış sağlayıcılarda olmayan bir sürtünme/gizlilik maliyeti) — kalıcı ücretsiz katman
+  olduğu net değil. **Eklenmedi**, Together/Fireworks/Hyperbolic'in (Tur 21'de reddedilen)
+  yanına benzer bir "belirsiz/kredi-bazlı" kategoride not edildi.
+- **Hugging Face Inference Providers ücretsiz katmanı** — kart gerektirmiyor ama ayda sadece
+  $0,10 kredi veriyor; kataloğun "anlamsız derecede küçük ücretsiz katman" dışlama kriterine
+  giriyor. **Eklenmedi.**
+- **`chipsxp/design-copier`, `hupeng9995/browser-mcp`, `ericshang98/Perfect-Web-Clone-IDE`** — üçü
+  de "CSS/HTML çıkar, Tailwind'e çevir, siteyi klonla" işlevi sunan küçük MCP sunucuları, ama
+  hepsi 3-5 yıldız/0-1 fork ve kataloğun zaten güçlü şekilde kapladığı bir kategoride (#25 crawl4ai,
+  #31 design-extract, #57 site-cloner, #58 design-comparison) redundant. **Eklenmedi.**
+
+---
+
+*Son güncelleme: 2026-09-19 (Tur 22). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–22'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
 (`auto-star-repo.sh` hook'u), Tur 21'de `Microck/font-mcp` (font korsanlığı otomasyonu)
 şüpheli/kötü niyetli bulundu; Tur 20'de Snyk'in ToxicSkills denetimi (ClawHub/skills.sh
-ekosisteminde %36 prompt-injection oranı) genel bir güvenlik uyarısı olarak eklendi — kurmadan
-önce ilgili notları oku. Tur 17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo
-GitHub kısıtlamasına tabi DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18-21'de tekrar
-doğrulandı ve kullanıldı; **Tur 21'de ek not:** `api.github.com` JSON endpoint'i bu turda 403
-döndürdü (önceki turlarda kullanılabiliyordu), düz `github.com/<owner>/<repo>` HTML sayfası fetch
-etmek hâlâ güvenilir çalışıyor — gelecek turlar önce HTML sayfasını denemeli. Tur 9'da OpenRouter,
-Tur 10'da Jina AI Reader, Tur 14'te Z.ai GLM Flash, Tur 15'te Vercel AI Gateway ücretsiz
-katmanlarının birincil kaynak doğrulaması hâlâ bekliyor (ticari domain engeline takılıyorlar, GitHub
-kısıtlaması değil); Tur 13'teki Nebius AI Studio bu turda doğrulanıp kalıcı ücretsiz katımı
-OLMADIĞI için listeden çıkarıldı. **Tur 21'de YENİ:** proje-özel Tailwind v4/shadcn ve React/Next.js
-kod-incelemesi boşlukları `jezweb/claude-skills` (#61) ve `awesome-skills/code-review-skill` (#62)
-ile dolduruldu; düşük-benimseme ama gerçek bir design-token-çıkarma+WCAG-kontrast MCP'si
-`kenneives/design-token-bridge-mcp` (#63) caveat'li eklendi; yeni bir ücretsiz API sağlayıcısı
-adayı (SambaNova, #64) rakam tutarsızlığı uyarısıyla eklendi. Araştırmanın büyük kısmı bir
-alt-agent'a devredildi (bağlam tasarrufu + odaklanmış tek-tur arama), sonuçlar bu oturumda
-bağımsız olarak yeniden doğrulandı.*
+ekosisteminde %36 prompt-injection oranı) genel bir güvenlik uyarısı olarak eklendi; **Tur 22'de
+YENİ:** "UI/UX Pro Max" skill mirror'ları (128.9k yıldız / sadece 39 issue) şişirilmiş-yıldız
+deseniyle tespit edildi (tehlikeli hook YOK, ama güvenilmez benimseme sinyali — kurmadan önce
+ilgili notları oku). Tur 17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo
+GitHub kısıtlamasına tabi DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18-22'de tekrar
+doğrulandı ve kullanıldı. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 14'te Z.ai GLM Flash,
+Tur 15'te Vercel AI Gateway ücretsiz katmanlarının birincil kaynak doğrulaması hâlâ bekliyor
+(ticari domain engeline takılıyorlar, GitHub kısıtlaması değil). **Tur 22'de KRİTİK DÜZELTME:**
+Tur 5'te eklenen #21 (Cerebras Cloud API) artık YANLIŞ bilgi içeriyor — Cerebras 17 Ağustos 2026'da
+kalıcı ücretsiz katmanını kapattı, artık kredi kartı + $5 tek seferlik deneme kredisi gerekiyor;
+madde düzeltme notuyla güncellendi, kurulum öncesi resmi sayfada MUTLAKA teyit edilmeli. **Tur
+22'de YENİ:** proje-özel font self-hosting boşluğu `majodev/google-webfonts-helper` (#65, Google
+Fonts) ve `mmastrac/webfont-dl` (#66, herhangi bir `@font-face`) ile dolduruldu; resmi Vercel Labs
+tarayıcı otomasyon CLI'ı `vercel-labs/agent-browser` (#67) eklendi. Bu turda ayrıca genel
+"ücretsiz LLM API" ve "genel skill koleksiyonu" kategorilerinde belirgin bir azalan-getiri sinyali
+gözlendi — gelecek turlar niş, şablona özgü boşluklara (asset pipeline, SEO/favicon, video
+optimizasyonu, tarayıcı test otomasyonu) odaklanmalı, genel kategorilerde tekrar arama yapmadan
+önce bu notu oku.*
