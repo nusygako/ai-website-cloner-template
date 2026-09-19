@@ -1,6 +1,32 @@
-## ARAŞTIRMA DURUMU (en son Tur 23 — 2026-09-19)
+## ARAŞTIRMA DURUMU (en son Tur 25 — 2026-09-19)
 
-**Tur 23 notu (yeni gece, 2026-09-19, ~06:03 UTC / 09:03 Türkiye saati başladı):** Kesme noktasının
+**Tur 25 notu (aynı gece, 2026-09-19, ~08:03 UTC / 11:03 Türkiye saati başladı):** Kesme noktasının
+(12:00 UTC) öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (artık yedinci kez
+tekrarlayan aynı desen); `git fetch` ile `origin/master`'ın (64a9a5e, Tur 24 commit'i) HEAD ile
+birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master` ile normale
+döndürüldü. Araştırma yine tek bir general-purpose alt-agent'a devredildi; alt-agent'a mevcut 76
+benzersiz kataloglanmış repo'nun TAM listesi + kategori-bazlı yasaklar (paylaşımlı/havuzlanmış API
+key araçları, ToS-bypass scraping, hesap-askıya-alınma riski, kanıtsız trading araçları) verildi.
+Alt-agent 4 yeni aday buldu ve doğruladı (#78-#81), 1 sınırda/zayıf-belgelenmiş aday (Mistral AI
+ücretsiz katmanı) bilgi yetersizliği nedeniyle eklenmedi, ~9 aday reddedildi (ücretli-yalnızca,
+0-1 yıldız/kanıtsız benimseme, veya redundant fork — aşağıya bak). **Tur 25'te metodoloji notu:**
+Google Gemini API ücretsiz katmanı bu turda da `ai.google.dev`'e doğrudan `WebFetch` ile
+`EGRESS_BLOCKED` aldı (Tur 24 ile aynı); alt-agent üç bağımsız ikincil kaynakla (tokenmix.ai,
+aipromptshub.co, pecollective.com) çapraz doğrulama önerse de, Tur 21'de kurulan "birincil kaynak
+zorunlu" kuralı korunarak **numaralı katalog maddesi olarak eklenmedi** — OpenRouter/Jina/Vercel AI
+Gateway/Mistral ile aynı "birincil doğrulama bekliyor" listesine eklendi; ağ erişimi açılırsa
+gelecek bir tur doğrudan `ai.google.dev`'i fetch edip kesin doğrulama yapmalı. Groq resmi MCP
+sunucusu + ücretsiz API katmanı (#81) ise repo sayfası doğrudan `WebFetch` ile erişilebilir
+olduğundan tam güvenle eklendi.
+
+**Önceki durum (Tur 24, aynı gece, ~07:02 UTC / 10:02 Türkiye saati):** Kesme noktasının (12:00 UTC)
+öncesinde başladı. 4 yeni MCP sunucusu/araç eklendi (#74-#77: `marvkr/better-design` tasarım-token
+referansı, `samihalawa/visual-ui-debug-agent-mcp` görsel QA, `us/crw` self-hosted crawler, ve
+`MohamedAbdallah-14/prompt-to-asset` çoklu-platform asset üretimi); ayrıntılar aşağıdaki "Tur 24"
+bölümünde. Bu turda ilk kez ikinci bir bağımsız doğrulama alt-agent'ı `mcp__github__search_repositories`
++ `get_file_contents` ile çapraz kontrol için kullanıldı.
+
+**Tur 23 notu (2026-09-19, ~06:03 UTC / 09:03 Türkiye saati başladı):** Kesme noktasının
 (12:00 UTC) çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (artık altıncı
 kez tekrarlayan aynı desen, bkz. Tur 13/17/18/19 notları); `git fetch` ile `origin/master`'ın
 (1f2985c) HEAD ile birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master`
@@ -75,7 +101,7 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 73 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 81 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
 13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
 mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
@@ -2522,10 +2548,108 @@ bulunmadı.
   engellendi) birincil-kaynak doğrulaması tamamlanamadı. **Bu turda eklenmedi**, gelecek tur takibi
   gerekiyor.
 
+## Tur 25 — 2026-09-19 (~08:03 UTC / 11:03 Türkiye saati başladı)
+
+Metodoloji: alt-agent'a 76 benzersiz kataloglanmış repo'nun TAM listesi (Tur 1-24'te eklenen VE
+reddedilen her şey, malicious-flagged olanlar dahil) verildi. Alt-agent 4 yeni aday buldu ve
+doğruladı, 1 sınırda aday (Mistral) yetersiz belgeleme nedeniyle bilerek reddedildi, ~9 aday
+reddedildi (aşağıya bak).
+
+### A) Tasarım Token / Subagent Koleksiyonu / Ücretsiz LLM API (proje-özel + genel)
+
+#### 78. [arvindrk/extract-design-system](https://github.com/arvindrk/extract-design-system)
+- **Yıldız:** 224 · **Fork:** 27 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** Son commit 2026-06-19, 112 commit, dependabot + özellik aktivitesiyle organik bir
+  commit geçmişi (şişirilmiş-yıldız deseni DEĞİL).
+- **Ne işe yarar:** Herhangi bir genel-erişilebilir web sitesinden tasarım token setini (renk,
+  tipografi, spacing, radius, gölge) çıkarıp JSON + CSS custom properties üretiyor. Üç arayüz
+  sunuyor: bir Agent Skill (`skills.sh` üzerinden Claude/Cursor/Codex için kurulabilir), bağımsız
+  bir CLI, ve bir MCP sunucusu (`extract-design-system-mcp`). `INSPECTION_GUIDE.md` Phase 1'in
+  ("Design Tokens to Extract") neredeyse birebir otomasyonu — `DESIGN_TOKENS.md` üretimini kısmen
+  otomatikleştirebilir.
+- **Neden meşru:** Gerçek `skills/extract-design-system/SKILL.md`, gerçek CLI kaynak kodu (`src/`),
+  gerçek test paketi bağımsız doğrulamada teyit edildi.
+- **Kurulum:** `npx skills add arvindrk/extract-design-system` (skill), ya da CLI/MCP için repo'yu
+  klonlayıp `npm install`. Node 20+ ve Playwright Chromium gerektiriyor.
+- **Not:** ~4 aylık genç proje — gelecek turlar bakımın sürüp sürmediğini izlemeli.
+
+#### 79. [ilikescience/design-tokens-skill](https://github.com/ilikescience/design-tokens-skill)
+- **Yıldız:** 15 · **Fork:** 0 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** Son commit 2026-06-17, 7 commit, tek geliştirici.
+- **Ne işe yarar:** DTCG (Design Tokens Community Group) formatı hakkında uzman rehberlik veren bir
+  Claude Skill — token referansları, resolver'lar, renk-uzayı yönetimi, Terrazzo/jq/JSONata/Figma
+  token export entegrasyonu.
+- **Neden meşru:** Gerçek `SKILL.md` doğrulandı, küçük ama gerçekten bakımı yapılan bireysel proje,
+  MIT lisanslı, şişirilmiş yıldız yok.
+- **Kurulum:** `npx skills add https://github.com/ilikescience/design-tokens-skill --skill
+  design-tokens`, ya da klasörü `.claude/skills/design-tokens/` altına kopyala.
+- **Not:** Çok niş (15 yıldız) — bu şablon token'ları DTCG formatına standartlaştırırsa faydalı,
+  aksi halde atlanabilir.
+
+#### 80. [lst97/claude-code-sub-agents](https://github.com/lst97/claude-code-sub-agents)
+- **Yıldız:** 1.7k · **Fork:** 255 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** Son commit 2025-08-15 (~13 aydır bakımsız — "dondurulmuş ama sağlam" bir görüntü
+  kaydı olarak değerlendirilmeli).
+- **Ne işe yarar:** Tam-yığın geliştirme için 33 özelleşmiş subagent, bu şablonla doğrudan örtüşen
+  birkaçı dahil: `nextjs-pro`, `react-pro`, `frontend-developer`, `ui-designer`, `ux-designer`,
+  `typescript-pro`, artı çoklu-ajan orkestrasyonu için bir `agent-organizer`. Kataloğun mevcut 6
+  genel-amaçlı subagent koleksiyonundan (#3, #4, #11, #20, #43, #49) farkı, bu belirli
+  Next.js/React/TypeScript-özel ajanların derinliği.
+- **Neden meşru:** `agents/development/nextjs-pro.md` doğrudan raw içerik fetch edilerek
+  doğrulandı — gerçek, ayrıntılı YAML-frontmatter ajan tanımı, somut bir "Core Development
+  Philosophy" ve altı-fazlı SOP içeriyor (boilerplate değil). Commit geçmişi organik, çok-katkıcılı
+  bir aktivite gösteriyor (patlama-üretilmiş değil). Yıldız:fork oranı (~6.7:1) sağlıklı, şişirilmiş
+  değil.
+- **Kurulum:** Repo'yu `~/.claude/agents/` altına klonla, ya da tek tek `.md` dosyalarını kopyala.
+- **Not:** 13+ aydır güncellenmemiş — kabul etmeden önce ajan içeriğini güncel Claude Code subagent
+  konvansiyonlarına karşı gözden geçir.
+
+#### 81. [groq/groq-mcp-server](https://github.com/groq/groq-mcp-server) (resmi) + Groq API ücretsiz katmanı
+- **Yıldız:** 47 · **Fork:** 24 · **Lisans:** MIT
+- **Güncellik:** Son commit 2026-08-18, resmi Groq bot commit'leri + CI/workflow bakımı ile aktif.
+- **Ne işe yarar:** Groq'un resmi olarak bakımını yaptığı MCP sunucusu — Groq-barındırmalı
+  modelleri (görsel, TTS/STT, ultra-hızlı LLM inference, batch işleme) Claude Code'a ve diğer MCP
+  istemcilerine açıyor.
+- **Ücretsiz katman:** Kredi kartı gerekmiyor: küratörlü açık-model listesinde (Llama 3.1 8B,
+  Llama 4 Scout, Qwen3 32B, DeepSeek R1 Distill) 30.000 TPM ve günde 14.400 istek. Bu şablonun
+  klonlama işi sırasında prototipleme/tamamlayıcı içerik üretimi için kullanılabilir (ama
+  `AGENTS.md`'nin "gerçek içerik, placeholder değil" ilkesi gereği yalnızca tamamlayıcı görevlerde,
+  hedef siteden kazınan gerçek içeriğin yerine değil).
+- **Neden meşru:** Resmi `groq/` GitHub org deposu, MIT lisanslı, Groq'un kendi bot/CI'sı
+  tarafından aktif olarak bakımı yapılıyor.
+- **Kurulum:** `uvx groq-mcp` ya da `pip install groq-mcp`; ücretsiz key console.groq.com'dan
+  alınıyor; MCP istemci konfigürasyonuna ekle.
+- **Not:** Katalog sadece açık-model sunuyor (GPT/Claude/Gemini yok).
+
+### B) Doğrulanan ama EKLENMEYEN Bulgular (Tur 25)
+
+- **`dequelabs/axe-mcp-server-public`** (Deque'nin resmi Axe MCP sunucusu) — resmi ve iyi
+  inşa edilmiş, ama **ücretli** bir Axe DevTools for Web aboneliği gerektiriyor. **Eklenmedi**
+  (ücretsiz değil).
+- **`Duds/accessibility-mcp`** — axe-core/Lighthouse/WAVE MCP sunucusu, fonksiyonel olarak alakalı,
+  ama sadece 1 yıldız/2 commit — meşruiyet/bakım doğrulaması için henüz yeterli değil. **Eklenmedi**.
+- **`byzkhan/difflens`** — Claude Code hook'ları için görsel-regresyon/screenshot-diff MCP
+  sunucusu, bu şablonun görsel QA ihtiyacına fonksiyonel olarak tam uyuyor; commit geçmişi organik
+  görünüyor (Şub-Mar 2026, kademeli, insan+Claude ortak-yazarlı) ama sadece 1 yıldız/0 fork —
+  benimseme sinyali henüz çok zayıf. **Eklenmedi**, gelecek bir tur benimseme kazanıp
+  kazanmadığını izleyebilir.
+- **`Kikk79/claude-code-subagents-collection`** — `spetro511/claude-code-subagents-collection`'ın
+  0-yıldız/0-fork, bağımsız commit'i olmayan çıplak bir fork'u; zaten hariç-tutulan üst-akım
+  koleksiyonlara göre ayırt edici değeri yok. **Eklenmedi** (redundant).
+- **Çeşitli `Jpisnice/shadcn-ui-mcp-server` fork'ları** (`PrimeDX`, `MCPBro`, `mamba-mental`,
+  `punkpeye`, `heilgar`, `anillahane` hesaplarındaki `shadcn-mcp`/`shadcn-ui-mcp-server` türevleri)
+  — hepsi zaten hariç-tutulan üst-akım projenin küçük/türev fork'ları, bağımsız değer yok.
+  **Eklenmedi**.
+- **`PashaBoiko/playwright-axe-mcp`, `jbuchan/accessibility-mcp-server`,
+  `bilhasry-deriv/mcp-web-a11y`** — aramada çıktı ama bağımsız doğrulanmadı; zaten reddedilen
+  `Duds/accessibility-mcp` ve hariç-tutulan `JustasMonkev/mcp-accessibility-scanner` ile aynı
+  axe-core-via-Playwright deseninin tekrarı, raporu doğrulanmamış tekrarlarla şişirmemek için
+  öncelik verilmedi. **Eklenmedi**.
+
 ---
 
-*Son güncelleme: 2026-09-19 (Tur 24). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–24'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+*Son güncelleme: 2026-09-19 (Tur 25). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–25'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
 (`auto-star-repo.sh` hook'u), Tur 21'de `Microck/font-mcp` (font korsanlığı otomasyonu)
 şüpheli/kötü niyetli bulundu; Tur 20'de Snyk'in ToxicSkills denetimi (ClawHub/skills.sh
@@ -2533,11 +2657,13 @@ ekosisteminde %36 prompt-injection oranı) genel bir güvenlik uyarısı olarak 
 "UI/UX Pro Max" skill mirror'ları (128.9k yıldız / sadece 39 issue) şişirilmiş-yıldız deseniyle
 tespit edildi (tehlikeli hook YOK, ama güvenilmez benimseme sinyali — kurmadan önce ilgili notları
 oku). Tur 17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo GitHub kısıtlamasına
-tabi DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18-24'te tekrar doğrulandı ve
+tabi DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18-25'te tekrar doğrulandı ve
 kullanıldı. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 14'te Z.ai GLM Flash, Tur 15'te
-Vercel AI Gateway ücretsiz katmanlarının birincil kaynak doğrulaması hâlâ bekliyor (ticari domain
-engeline takılıyorlar, GitHub kısıtlaması değil) — Tur 24'te aynı proxy engeli Google Gemini ve
-Mistral AI için de doğrulandı, aynı bekleme listesine eklendi. Tur 22'de KRİTİK DÜZELTME: Tur 5'te
+Vercel AI Gateway, Tur 24-25'te Google Gemini ve Mistral AI ücretsiz katmanlarının birincil kaynak
+doğrulaması hâlâ bekliyor (ticari domain engeline takılıyorlar, GitHub kısıtlaması değil) — Tur
+25'te Gemini için üç bağımsız ikincil kaynak (tokenmix.ai, aipromptshub.co, pecollective.com)
+katmanın var olduğunu doğruladı ama Tur 21'in "birincil kaynak zorunlu" kuralı gereği yine de
+numaralı madde olarak eklenmedi. Tur 22'de KRİTİK DÜZELTME: Tur 5'te
 eklenen #21 (Cerebras Cloud API) artık YANLIŞ bilgi içeriyor — Cerebras 17 Ağustos 2026'da kalıcı
 ücretsiz katmanını kapattı; madde düzeltme notuyla güncellendi. Tur 23'te proje-özel Next.js
 16/Tailwind v4 skill boşluğu `laguagu/claude-code-nextjs-skills` (#68) ve `secondsky/claude-skills`
@@ -2555,4 +2681,13 @@ tek-binary web crawler (`us/crw` "fastCRW", #76) hem ücretli `firecrawl-mcp-ser
 asset üretimi (`MohamedAbdallah-14/prompt-to-asset`, #77) mevcut tekli-favicon maddelerinin
 ötesinde bir boşluğu doldurdu. Bu turda da alt-agent'a TAM hariç-tutma listesi (140+ madde) verme +
 ikinci bağımsız doğrulama alt-agent'ı yöntemi (Tur 19/21/23'te de kullanılan) etkili bulundu —
-duplikasyon ve doğrulanmamış istatistik sıfıra indi.*
+duplikasyon ve doğrulanmamış istatistik sıfıra indi. **Tur 25'te YENİ:** proje-özel tasarım-token
+çıkarma boşluğu iki araçla dolduruldu (`arvindrk/extract-design-system`, #78 — Skill+CLI+MCP üçlü
+arayüz; `ilikescience/design-tokens-skill`, #79 — DTCG format uzmanlığı, niş); Next.js/React/
+TypeScript-özel derinlikte bir subagent koleksiyonu eklendi (`lst97/claude-code-sub-agents`, #80 —
+13+ aydır bakımsız ama sağlam bir görüntü kaydı olarak işaretlendi); resmi Groq MCP sunucusu +
+kredi-kartsız ücretsiz açık-model API katmanı eklendi (`groq/groq-mcp-server`, #81). Tur 25'te
+DİSİPLİN NOTU: alt-agent Google Gemini'yi üç ikincil kaynakla doğrulayıp eklemeyi önerse de, Tur
+21'in birincil-kaynak-zorunlu kuralı korunarak numaralı madde olarak EKLENMEDİ — "kalite/dürüstlük >
+miktar" ilkesi burada da uygulandı; ağ erişimi açılınca gelecek bir tur `ai.google.dev`'i doğrudan
+doğrulamalı.*
