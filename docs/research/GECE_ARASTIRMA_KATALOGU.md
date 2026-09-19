@@ -1,6 +1,29 @@
-## ARAŞTIRMA DURUMU (en son Tur 26 — 2026-09-19)
+## ARAŞTIRMA DURUMU (en son Tur 27 — 2026-09-19)
 
-**Tur 26 notu (aynı gece, 2026-09-19, ~09:03 UTC / 12:03 Türkiye saati başladı):** Kesme noktasının
+**Tur 27 notu (aynı gece, 2026-09-19, ~10:04 UTC / 13:04 Türkiye saati başladı):** Kesme
+noktasının (12:00 UTC) hemen sonrasında (ama başlangıçta öncesinde) çalıştı. Oturum başında yine
+"detached HEAD" durumu görüldü (dokuzuncu kez tekrarlayan aynı desen); `git fetch` ile
+`origin/master`'ın (07d7500, Tur 26 commit'i) HEAD ile birebir aynı commit'te olduğu doğrulanıp
+`git checkout -B master origin/master` ile normale döndürüldü. Araştırma yine tek bir
+general-purpose alt-agent'a devredildi; alt-agent'a mevcut 84 benzersiz kataloglanmış repo'nun
+TAM listesi (`grep` ile başlık+link olarak çıkarılmış) + önceki turlarda reddedilen başlıca
+adayların özeti verildi, proje-özel niş MCP boşlukları (animasyon tespiti, CSS analiz, SEO/meta
+çıkarma, font/görsel format dönüştürme) öncelikli arama alanı olarak işaretlendi. Alt-agent 4 yeni
+aday buldu ve doğruladı (#85-#88) — üçü niş MCP sunucusu, biri yeni bir ücretsiz LLM API sağlayıcısı
+(NVIDIA NIM) — ve ~6 aday reddetti (redundant araçlar, platform-uyumsuz subagent koleksiyonları,
+dar-kapsamlı/kanıtsız projeler — aşağıya bak). **Tur 27'de metodoloji notu:** alt-agent yine
+`mcp__github__*` MCP araçlarının bu oturumda tek repoya (`nusygako/ai-website-cloner-template`)
+scope'lu olduğunu ve dış repo araştırması için kullanılamayacağını doğru şekilde tespit edip
+bunun yerine düz `github.com` sayfalarını `WebFetch` ile fetch etme yöntemini kullandı (Tur 17'den
+beri kurulan metodoloji, dokuzuncu kez doğrulandı). NVIDIA NIM API'nin resmi sayfalarına
+(`nvidia.com`, `docs.api.nvidia.com`) bu turda da doğrudan erişilemedi; bilgiler GitHub üzerinde
+barınan bağımsız üç kaynakla (rate-limit YAML dosyası + iki bağımsız entegrasyon projesi) çapraz
+doğrulandı ve "ikincil kaynaktan doğrulandı" etiketiyle eklendi (Tur 21'in kuralına uygun olarak
+madde numarası verildi çünkü GitHub-barındırılan birincil-benzeri kaynaklar mevcuttu, sadece
+sağlayıcının kendi resmi sayfası erişilemezdi — bu, salt ikincil-web-kaynağına dayanan Gemini/
+Mistral/OpenRouter durumundan farklı bir güven seviyesi).
+
+**Önceki durum (Tur 26, aynı gece, ~09:03 UTC / 12:03 Türkiye saati başladı):** Kesme noktasının
 (12:00 UTC) hemen öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (artık
 sekizinci kez tekrarlayan aynı desen); `git fetch` ile `origin/master`'ın (9a57999, Tur 25 commit'i)
 HEAD ile birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master` ile normale
@@ -122,7 +145,7 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 84 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 88 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
 13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
 mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
@@ -2763,6 +2786,104 @@ reddedildi (aşağıya bak).
 
 ---
 
+## Tur 27 — 2026-09-19
+
+### A) MCP Sunucuları (proje-özel, kategori D odaklı)
+
+#### 85. [Ak0096/mcp-animation-inspector](https://github.com/Ak0096/mcp-animation-inspector) — ⚠️ DÜŞÜK BENİMSEME
+- **Yıldız:** 1 · **Fork:** 0 · **Açık issue:** 0 · **Lisans:** MIT · **Güncellik:** 26 commit,
+  aktif (Playwright tabanlı)
+- **Ne işe yarar:** Gerçek bir tarayıcı açıp bir sitedeki animasyon sistemlerini (GSAP
+  timeline/ScrollTrigger, Framer Motion, CSS `@keyframes`/transition, Lottie, WebGL/Three.js,
+  Lenis/Locomotive Scroll, View Transitions/Barba.js/Swup) otomatik tespit ediyor; scroll
+  noktalarında frame yakalayıp kaynak kodu çıkarıyor ve rapor üretiyor. `navigate/discover/
+  capture/extract/describe/report` olmak üzere 6 MCP aracı var.
+- **Neden meşru:** MIT lisanslı, tek geliştirici ama gerçek/işlevsel commit geçmişi var; ToS
+  ihlali veya paylaşılan anahtar yok — tamamen yerel/tarayıcı otomasyonu.
+  `docs/research/INSPECTION_GUIDE.md`'nin Faz 4 "Animasyon kütüphanesi" ve Faz 2 "Animasyonlar"
+  boşluğuna, kataloğun önceki hiçbir maddesinin doldurmadığı özel amaçlı bir cevap.
+- **Kurulum:** `npx` ile MCP client'a eklenir, Playwright bağımlılığı otomatik kurulur. API key
+  gerekmez, yerel onay gerekir.
+- **Not:** Yıldız sayısı çok düşük (yeni/tek kişilik proje) — kullanmadan önce hızlı bir kod
+  incelemesi önerilir.
+
+#### 86. [stolinski/css-mcp](https://github.com/stolinski/css-mcp)
+- **Yıldız:** 333 · **Fork:** 11 · **Açık issue:** 0 · **Lisans:** ISC (package.json'da) ·
+  **Güncellik:** Ekim 2025'te açılmış, aktif dış katkılar (ör. tanınan bir Microsoft/.NET
+  topluluk figürü olan jamesmontemagno'dan merge edilmiş PR) mevcut
+- **Ne işe yarar:** (1) MDN API'sinden canlı CSS dokümantasyonu ve tarayıcı desteği verisi çeker,
+  (2) proje genelinde CSS dosyalarını (500 dosyaya/50MB'a kadar) tarayıp 150+ metrikle analiz
+  eder — seçici karmaşıklığı/özgüllüğü, renk paletleri, font boyutları, spacing kalıpları,
+  gereksiz/aşırı karmaşık selector tespiti. SQLite tabanlı 7 günlük TTL cache kullanıyor,
+  `node_modules` ve minify dosyalarını otomatik hariç tutuyor.
+- **Neden meşru:** Sahibi Scott Tolinski (Syntax.fm podcast'inin tanınan kurucularından) — düşük
+  commit sayısına (10 commit, hepsi tek günde) rağmen yüksek yıldız sayısı bununla açıklanıyor,
+  forklar ve dış katkılar gerçek/organik. Paylaşılan/havuzlanmış anahtar yok, tamamen yerel
+  çalışıyor. `INSPECTION_GUIDE.md`'nin Faz 1 (Design Tokens) ve Faz 4 (CSS yaklaşımı analizi)
+  ihtiyaçlarına doğrudan hizmet ediyor.
+- **Kurulum:** `claude mcp add css -- npx -y css-mcp` veya `npm install -g css-mcp`. API key
+  gerekmez.
+
+#### 87. [g-battaglia/mcp-seo](https://github.com/g-battaglia/mcp-seo) — ⚠️ ÇOK YENİ/DÜŞÜK BENİMSEME
+- **Yıldız:** 1 · **Fork:** 2 · **Açık issue:** 0 · **Lisans:** AGPL-3.0 · **Güncellik:** 4
+  commit, yeni ama tamamlanmış görünüyor
+- **Ne işe yarar:** 21 CLI komutu + 18 MCP aracıyla title/description/Open Graph/Twitter card/
+  canonical URL gibi meta etiketleri, JSON-LD/Microdata/RDFa yapılandırılmış verisini, başlık
+  hiyerarşisini, iç/dış linkleri, sitemap ve robots.txt doğrulamasını, Core Web Vitals (TTFB/FCP/
+  LCP) ve ARIA erişilebilirlik noktalarını Playwright ile render ederek çıkarıyor; sonuçları
+  Pydantic modelleri + Markdown rapor olarak veriyor.
+- **Neden meşru:** AGPL-3.0 açık kaynak, kendi barındırdığınız/yerel çalışan bir araç —
+  paylaşılan anahtar veya ToS ihlali yok. `INSPECTION_GUIDE.md`'nin Faz 4 "Technical Stack
+  Analysis" içindeki SEO/meta-tag çıkarma ihtiyacına doğrudan cevap veriyor (katalogda bu
+  kategori daha önce yoktu).
+- **Kurulum:** `pip install` ile CLI olarak veya MCP server modunda Claude Code'a eklenir.
+- **Dikkat:** Çok yeni ve düşük yıldızlı bir proje; kuruluş öncesi kodu gözden geçirin. Aynı
+  isimde başka `mcp-seo` repoları da var (sparrow84001, muningis) — karıştırmayın, bu madde
+  özellikle `g-battaglia/mcp-seo`.
+
+### B) Ücretsiz & Meşru API Sağlayıcıları
+
+#### 88. NVIDIA NIM API ([build.nvidia.com](https://build.nvidia.com)) ücretsiz katmanı (resmi) — ⚠️ İKİNCİL KAYNAKTAN DOĞRULANDI
+- **Erişim:** NVIDIA Developer Program'a ücretsiz kayıt (telefon doğrulama gerekiyor, kredi kartı
+  gerekmiyor) → `build.nvidia.com/settings/api-keys` üzerinden kişisel `nvapi-...` anahtarı.
+- **Limitler (bu sandbox'ta `nvidia.com`/`docs.api.nvidia.com`'a doğrudan erişim engelli olduğu
+  için GitHub üzerinde barınan bağımsız `api-evangelist/nvidia-nim` reposundaki rate-limit
+  verisi + birden fazla bağımsız açık kaynak entegrasyon projesiyle — xRyul/pi-nvidia-nim,
+  sour4bh/proxy-ai-nvidia-nim, diyism/cc-nim — çapraz doğrulandı):** dakikada ~40 istek (chat/
+  completions/embeddings/ranking uç noktaları), API anahtarı başına en fazla 5 eşzamanlı istek,
+  kayıtta 1000 ücretsiz çıkarım kredisi, istek başına 4096 çıktı/128K girdi token sınırı, 100'ün
+  üzerinde açık ağırlıklı model (DeepSeek, Nemotron, Kimi, MiniMax vb.) OpenAI-uyumlu tek bir
+  uç noktadan.
+- **Neden meşru:** Her kullanıcı kendi kişisel API anahtarını alıyor — havuzlanmış/paylaşılan
+  anahtar değil; NVIDIA'nın resmi geliştirici programının parçası, "değerlendirme amaçlı" olduğu
+  açıkça belirtiliyor (üretim trafiği için değil) — şeffaf bir kısıtlama, gizli bir tuzak değil.
+- **Kullanıcı notu:** Kuruluş öncesi mutlaka `build.nvidia.com`'daki resmi sayfadan güncel
+  limitleri teyit edin — bu bilgi ikincil kaynaklardan derlendi, birincil kaynağa bu ortamdan
+  erişilemedi.
+
+### C) Doğrulanan ama EKLENMEYEN Bulgular (Tur 27)
+
+- **`rafael-castelo/image-processing-mcp-server`** ve **`TheRealChickenlegs/pictor-mcp`**
+  (WebP/AVIF dönüştürme) — işlevsel/MIT lisanslı ama çok düşük benimseme (3 ve 0 yıldız) ve
+  katalogda zaten Sharp tabanlı `piephai/mcp-image-optimizer` (#46) aynı ihtiyacı karşılıyor —
+  redundant. **Eklenmedi**.
+- **`RichardDillman/seo-audit-mcp`** — 0 yıldız, tek commit, iş ilanı siteleri (job board) için
+  çok dar kapsamlı; genel amaçlı `g-battaglia/mcp-seo` (#87) daha uygun bulundu. **Eklenmedi**.
+- **`VoltAgent/awesome-codex-subagents`** (6.2k yıldız) — gerçek/sağlıklı proje ama `.toml`
+  formatında ve özellikle OpenAI Codex CLI'a özgü (model routing `gpt-5.6-*`), Claude Code
+  subagent formatıyla uyumsuz. **Eklenmedi**.
+- **`Cid-oe/awesome-agy-subagents`** — "AGY" platformuna özgü, binlerce dönüştürülmüş ajan iddiası
+  doğrulanamadı, meta-toplama niteliğinde, düşük güven. **Eklenmedi**.
+- Çeşitli yeni tasarım-token/erişilebilirlik/browser-mcp varyantları (`hupeng9995/browser-mcp`
+  ve benzerleri) — kategori zaten katalogda yoğun kapsanmış (7+ giriş), net farklılaşma yok.
+  **Eklenmedi**.
+- **Bilgi notu (doğrulama gerektirir, madde değiştirilmedi):** İkincil kaynaklar Eylül 2026
+  itibarıyla Cerebras'ın ücretsiz katmanının (zaten #21'de düzeltme notuyla işaretli) kapalı
+  kaldığını ve GitHub Models'ın (zaten #16 civarı "artık mevcut değil" notuyla işaretli) kapalı
+  olduğunu tekrar doğruluyor — yeni bir bilgi değil, sadece teyit.
+
+---
+
 *Son güncelleme: 2026-09-19 (Tur 26). Tur 26'da proje-özel MCP boşluğu üç yeni araçla dolduruldu:
 ikinci bağımsız erişilebilirlik denetim implementasyonu (`priyankark/a11y-mcp`, #82), Storybook
 tabanlı "ground truth" design-token/component çıkarma (`freema/mcp-design-system-extractor`, #83)
@@ -2820,4 +2941,11 @@ kredi-kartsız ücretsiz açık-model API katmanı eklendi (`groq/groq-mcp-serve
 DİSİPLİN NOTU: alt-agent Google Gemini'yi üç ikincil kaynakla doğrulayıp eklemeyi önerse de, Tur
 21'in birincil-kaynak-zorunlu kuralı korunarak numaralı madde olarak EKLENMEDİ — "kalite/dürüstlük >
 miktar" ilkesi burada da uygulandı; ağ erişimi açılınca gelecek bir tur `ai.google.dev`'i doğrudan
-doğrulamalı.*
+doğrulamalı. **Tur 27'de YENİ:** proje-özel boşluk üç niş MCP aracıyla daha dolduruldu —
+animasyon/hareket sistemi tespiti (`Ak0096/mcp-animation-inspector`, #85, düşük-yıldız uyarısıyla),
+CSS analiz/MDN dokümantasyon aracı (`stolinski/css-mcp`, #86, tanınan bir geliştiriciden — Syntax.fm
+kurucusu — organik yüksek yıldız), SEO/meta-etiket çıkarma (`g-battaglia/mcp-seo`, #87, çok-yeni
+uyarısıyla) — ve ilk kez NVIDIA NIM API ücretsiz katmanı (#88, kişisel anahtar, ikincil kaynaktan
+çapraz doğrulandı, birincil sayfa bu sandbox'tan erişilemedi) eklendi. Reddedilen adaylar: iki
+redundant WebP/AVIF dönüştürücü, dar kapsamlı bir SEO aracı, platform-uyumsuz iki Codex/AGY subagent
+koleksiyonu (bkz. yukarıdaki "Doğrulanan ama EKLENMEYEN" listesi).*
