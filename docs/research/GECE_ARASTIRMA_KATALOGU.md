@@ -1,6 +1,21 @@
-## ARAŞTIRMA DURUMU (en son Tur 22 — 2026-09-19)
+## ARAŞTIRMA DURUMU (en son Tur 23 — 2026-09-19)
 
-**Tur 22 notu (yeni gece, 2026-09-19, ~05:02 UTC / 08:02 Türkiye saati başladı):** Kesme noktasının
+**Tur 23 notu (yeni gece, 2026-09-19, ~06:03 UTC / 09:03 Türkiye saati başladı):** Kesme noktasının
+(12:00 UTC) çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (artık altıncı
+kez tekrarlayan aynı desen, bkz. Tur 13/17/18/19 notları); `git fetch` ile `origin/master`'ın
+(1f2985c) HEAD ile birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master`
+ile normale döndürüldü. Bu turda önce dosyanın tamamı `grep` ile taranıp mevcut 67 kaynağın başlıkları
+çıkarıldı (tekrarın önüne geçmek için), ardından araştırmanın tamamı bir general-purpose alt-agent'a
+devredildi (bağlam tasarrufu + tek odaklı arama turu) — alt-agent'a hem 67 mevcut kaynağın hem de
+önceki turlarda reddedilen adayların tam listesi verildi. Alt-agent 8 aday buldu ve doğruladı, ~10
+adayı reddetti (redundant, arşivlenmiş, artık mevcut değil, ya da 0-1 yıldız/kanıtsız); bu turda
+6'sı kataloğa eklendi (#68-#73), 2'si (elliotxx/favicon-mcp-server, capraidev/shadcn-claude-skill)
+sırasıyla redundancy ve olgunlaşmamışlık gerekçesiyle eklenmedi. **Tur 23'te yöntem notu:** alt-agent
+GitHub API'sine (`curl`/`gh`) tek-repo scope kısıtlaması nedeniyle erişemedi, ama düz `github.com`
+sayfalarını `WebFetch` ile fetch etmek yine sorunsuz çalıştı — Tur 17/21'in metodoloji notunu bir kez
+daha doğruluyor.
+
+**Önceki durum (Tur 22):** Kesme noktasının
 (12:00 UTC) öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (bkz. aşağıdaki
 git hijyeni notu, artık beşinci kez tekrarlayan aynı desen); `git fetch` + `origin/master` ile
 birebir aynı commit'te olduğu doğrulanıp `git reset --hard origin/master` ile normale döndürüldü.
@@ -60,17 +75,19 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 67 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 73 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
 13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
 mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
 güvenlik/ekosistem bulgusu (Snyk ToxicSkills denetimi) + Tur 21'de eklenen 1 font-korsanlığı-
 otomasyonu uyarısı (`Microck/font-mcp` — bkz. Tur 21) + Tur 22'de eklenen 1 "artık geçersiz ücretsiz
 katman" düzeltmesi (Cerebras, #21 — bkz. Tur 22) + Tur 22'de eklenen 1 şişirilmiş-yıldız uyarısı
-("UI/UX Pro Max" skill mirror'ları — bkz. Tur 22) + onlarca "doğrulandı ama eklenmedi" madde
-(şişirilmiş yıldız, geçersiz/tek-seferlik ya da anlamsız derecede küçük ücretsiz katman, ToS-bypass
-riski, lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme, redundant genel koleksiyon,
-yakında ücretliye geçiş sinyali vb. gerekçelerle elendi).
+("UI/UX Pro Max" skill mirror'ları — bkz. Tur 22) + Tur 23'te eklenen 1 "artık mevcut değil" uyarısı
+(Meta Llama API resmi ücretsiz katmanı, Temmuz 2026'da kapatıldı — bkz. Tur 23) + onlarca "doğrulandı
+ama eklenmedi" madde (şişirilmiş yıldız, geçersiz/tek-seferlik ya da anlamsız derecede küçük ücretsiz
+katman, ToS-bypass riski, lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme, redundant
+genel koleksiyon, arşivlenmiş/bakımsız proje, yakında ücretliye geçiş sinyali vb. gerekçelerle
+elendi).
 
 **En önemli bulgular:**
 
@@ -111,6 +128,10 @@ yakında ücretliye geçiş sinyali vb. gerekçelerle elendi).
    `AGENTS.md`'nin "pixel-perfect emulation" ve "beauty-first" ilkelerine doğrudan ölçülebilir bir
    SSIM/pixelmatch tabanlı doğrulama katmanı ekliyor; klon ile orijinal hedef sitenin ekran
    görüntülerini karşılaştırıp sayısal uyum skoru üretiyor. API key gerekmez. (Tur 19, #58)
+10. **[laguagu/claude-code-nextjs-skills](https://github.com/laguagu/claude-code-nextjs-skills)** —
+    bu şablonun tam yığınına (Next.js 16 + shadcn/ui + Vercel AI SDK) özel yazılmış, gerçek
+    `SKILL.md` dosyalarından oluşan bir koleksiyon; `AGENTS.md`'nin "bu training data'ndaki Next.js
+    değil" uyarısını doğrudan tamamlıyor. API key gerekmez. (Tur 23, #68)
 
 **Ayrıca dikkat:** Tur 8'de ve sonrasında, GitHub'da "binlerce yıldız + tek haneli issue sayısı"
 deseni gösteren çok sayıda şişirilmiş/şüpheli repo tespit edildi (`DietrichGebert/ponytail`,
@@ -2249,26 +2270,173 @@ deseni, aşağıya bak).
 
 ---
 
-*Son güncelleme: 2026-09-19 (Tur 22). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–22'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+## Tur 23 — 2026-09-19 (~06:03 UTC / 09:03 Türkiye saati başladı)
+
+Bu tur, dosyanın tamamı `grep` ile taranıp mevcut 67 kaynağın başlıkları çıkarıldıktan sonra
+başladı. Araştırmanın tamamı, hem 67 mevcut kaynağın hem de önceki turlarda reddedilen adayların
+tam listesi verilerek bir general-purpose alt-agent'a devredildi (bağlam tasarrufu). Alt-agent
+`WebFetch`/`WebSearch` ile 8 aday doğruladı, bunlardan 6'sı kataloğa eklendi (#68-#73), 2'si
+(redundancy / olgunlaşmamışlık) eklenmedi, ~10 aday da araştırma aşamasında reddedildi (aşağıya
+bak). Odak, önceki turlarda ("ücretsiz LLM API" ve "genel skill koleksiyonu" kategorilerinde
+azalan getiri, bkz. Tur 22 notu) işaret edilen niş boşluklar oldu: Next.js 16/Tailwind v4'e özel
+skill'ler, CSS→Tailwind dönüştürme, pixel-diff doğrulama, favicon/OG görsel üretimi ve hedef site
+teknoloji tespiti (tech fingerprinting).
+
+### A) Skill Koleksiyonları (Next.js 16 / Tailwind v4'e özel)
+
+#### 68. [laguagu/claude-code-nextjs-skills](https://github.com/laguagu/claude-code-nextjs-skills)
+- **Yıldız:** 64 · **Fork:** 18 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** 196 commit, aktif. Sağlıklı yıldız:fork oranı (~3.5:1), şişirilmiş-yıldız deseni
+  DEĞİL.
+- **Ne işe yarar:** Bu şablonun tam yığınına (Next.js 16 + Vercel AI SDK + shadcn/ui + bun) özel
+  yazılmış gerçek `skills/` klasörü (`skills/nextjs-shadcn/`, `skills/ai-app/` vb.) — RSC, async
+  API'ler, routing, SEO, caching konularını kapsıyor; ayrıca iki gömülü MCP sunucusu ve agent
+  tanımları içeriyor.
+- **Neden meşru:** Gerçek, link-out değil gömülü `SKILL.md` dosyaları; MIT lisanslı; Claude Code,
+  Cursor ve Copilot ile çapraz uyumlu.
+- **Kurulum:** Reponun plugin/marketplace kaydı üzerinden ya da doğrudan `skills/nextjs-shadcn/`
+  klasörünü `.claude/skills/` altına kopyalayarak. Yerel dosya kopyalama, onay gerekmez.
+- **Not:** Son commit tarihi WebFetch ile net görülemedi — Next.js 16 API detayları hızlı
+  değiştiğinden kurulum öncesi güncelliği tekrar gözden geçir.
+
+#### 69. [secondsky/claude-skills](https://github.com/secondsky/claude-skills)
+- **Yıldız:** 219 · **Fork:** 31 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** v3.9.0, en son güncelleme 2026-09-09 (bu araştırmadan sadece günler önce) — çok
+  aktif. Sağlıklı yıldız:fork oranı (~7:1).
+- **Ne işe yarar:** Cloudflare, React, **Tailwind v4**, Nuxt ve AI entegrasyonlarını kapsayan büyük
+  (145 skill) bir üretim-hazır koleksiyon; gerçek `plugins/<plugin>/skills/<skill>/SKILL.md` yapısı
+  doğrulandı, aralarında bu şablonla doğrudan örtüşen bir `tailwind-v4-shadcn` skill'i var.
+- **Neden meşru:** MIT lisanslı, gerçek dosya yapısı, çok yakın tarihli aktif bakım.
+- **Kurulum:** `npx skills add secondsky/claude-skills` (bu oturumun Supabase MCP talimatlarında da
+  aynı `npx skills` mekanizmasına referans veriliyor) veya plugin marketplace olarak ekleme.
+- **Not:** Koleksiyon genel amaçlı (145 skill) — bu şablon için sadece `tailwind-v4-shadcn` ve
+  ilgili React skill'lerini seçerek kur, tamamını körü körüne yükleme.
+
+### B) MCP Sunucuları (proje-özel: CSS→Tailwind, pixel-diff, favicon/OG, tech-fingerprint)
+
+#### 70. [CarbonoDev/tailwindcss-mcp-server](https://github.com/CarbonoDev/tailwindcss-mcp-server)
+- **Yıldız:** 39 · **Fork:** 4 · **Açık issue:** 1 · **Lisans:** MIT
+- **Güncellik:** 8 commit. Sağlıklı yıldız:fork:issue oranı (39:4:1), şişirilmiş-yıldız deseni
+  DEĞİL.
+- **Ne işe yarar:** Gerçek bir `convert_css_to_tailwind` aracı — ham/hedef siteden çıkarılan CSS'i
+  Tailwind utility class'larına (classes/inline/`@apply` formatlarında) dönüştürüyor; ayrıca
+  utility/renk/dokümantasyon araması ve React/Vue/Angular/Svelte/Laravel component şablonlama.
+  `clone-website` akışının "hedef siteden CSS çıkarma → Tailwind'e çevirme" adımına birebir uyuyor.
+- **Neden meşru:** MIT lisanslı, somut ve belgelenmiş tool şeması, sağlıklı benimseme oranı.
+- **Kurulum:** MCP sunucusu olarak ekle; `INSPECTION_GUIDE.md` Phase 1'de ("Design Tokens'ı
+  Çıkar") elde edilen hedef site CSS'ini bu araca ver.
+- **Not:** **Tailwind v4 desteği bu repoda açıkça doğrulanmadı** (v3 odaklı olabilir). Topluluk
+  fork'u `clarity-contrib/tailwindcss-mcp-server` (1 yıldız, 17 commit, MIT, orijinali kaynak
+  gösteriyor) `version: "v3"|"v4"` parametresi eklediğini iddia ediyor ama çok yeni/kanıtlanmamış
+  (1 yıldız) — önce CarbonoDev ile başla, v4 doğruluğu sorun olursa fork'u izle.
+
+#### 71. [Houseofmvps/opentechalyzer](https://github.com/Houseofmvps/opentechalyzer)
+- **Yıldız:** 4 · **Fork:** 2 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** 11 commit. Küçük ama dürüst oran (4:2:0), şişirilmiş-yıldız deseni DEĞİL.
+- **Ne işe yarar:** Ücretsiz, açık kaynak bir website teknoloji tespit aracı (Wappalyzer
+  alternatifi) — CLI, TypeScript kütüphanesi ve MCP sunucusu olarak dağıtılıyor. 55 kategoride 588
+  parmak izi (CMS, framework, analytics, ödeme, hosting/CDN) güven skoruyla tespit ediyor —
+  `/clone-website` akışının EN BAŞINDA hedef sitenin ne ile inşa edildiğini anlamak için,
+  `INSPECTION_GUIDE.md` Phase 4'ün ("Teknik Stack Analizi") otomasyonu.
+- **Neden meşru:** README'de açıkça "API key yok, kredi yok, abonelik yok" deniyor; tek opsiyonel
+  ücretli-yakın özellik (Google BigQuery'nin herkese açık HTTP Archive veri setiyle ters arama)
+  isteğe bağlı ve kullanıcının KENDİ GCP ücretsiz kotasından faturalanıyor, paylaşımlı key değil.
+- **Kurulum:** `npm install -g opentechalyzer` (CLI) veya MCP sunucusu olarak ekleyip klonlamadan
+  önce hedef URL'ye karşı çalıştırma.
+- **Not:** Küçük/yeni proje (4 yıldız) — araştırma aşamasında güvenmeden önce bilinen sitelerle
+  parmak izi doğruluğunu test et.
+
+#### 72. [Jellypod-Inc/satori-mcp-server](https://github.com/Jellypod-Inc/satori-mcp-server)
+- **Yıldız:** 11 · **Fork:** 1 · **Açık issue:** 3 · **Lisans:** MPL-2.0
+- **Güncellik:** 35 commit, aktif.
+- **Ne işe yarar:** Vercel'in Satori kütüphanesini MCP üzerinden sarıp JSX/React component'lerinden
+  PNG (OG görseli, sosyal kart, blog başlığı) üretiyor; Google Fonts entegrasyonu ve opsiyonel
+  Vercel Blob çıktısı var. Bu şablonun `public/seo/` klasörünün beklediği OG görseli üretim adımına
+  doğrudan uyuyor.
+- **Neden meşru:** TypeScript + testler, gerçek commit geçmişi, şişirilmiş-yıldız deseni yok (11
+  yıldız/1 fork küçük ama orantılı).
+- **Kurulum:** MCP sunucusu olarak yapılandır; hazır sosyal-kart şablonuna klonlanan sitenin gerçek
+  başlık/açıklamasını ver ya da kendi JSX şablonunu geç.
+- **Not:** Küçük topluluk (açık issue sayısı fork sayısından fazla — düşük bakım kapasitesi
+  sinyali olabilir); production pipeline'a bağlamadan önce açık issue'lara göz at.
+
+#### 73. [leky90/mcp-image-compare-server](https://github.com/leky90/mcp-image-compare-server) — ⚠️ KÜÇÜK/KANITLANMAMIŞ
+- **Yıldız:** 4 · **Fork:** 2 · **Açık issue:** 0 · **Lisans:** MIT
+- **Ne işe yarar:** Pixelmatch (Mapbox) + Playwright (ekran görüntüsü) + Sharp (işleme) tabanlı bir
+  pixel-perfect görsel karşılaştırma MCP sunucusu — `compare_images`, `compare_image_with_url`,
+  `compare_urls` araçları. Klonlanan sayfa ile canlı hedef URL'yi doğrudan karşılaştırabiliyor;
+  kataloğun mevcut #58 (`w01fgang/mcp-design-comparison`) ile aynı kategoride ama farklı/bağımsız
+  bir implementasyon (SSIM yerine Pixelmatch, ek olarak canlı URL karşılaştırma aracı var).
+- **Neden meşru:** Somut, çalışan bir araç — isimlendirilmiş tool şeması ve net bağımlılık yığını
+  (stub değil), TypeScript.
+- **Kurulum:** MCP sunucusu olarak npx/yerel kurulum; `compare_urls` ile klonlanan Next.js
+  sayfasını orijinal hedef URL'ye karşı diff'le.
+- **Not:** Çok küçük proje (4 yıldız), bağımsız inceleme/kullanıcı yorumu bulunamadı — CI'a
+  bağlamadan önce elle bir smoke test yap. #58 zaten kataloglandığı için bu madde birincil değil,
+  ikinci bir seçenek/yedek olarak değerlendirilmeli.
+
+### C) Doğrulanan ama EKLENMEYEN Bulgular (Tur 23)
+
+- **`elliotxx/favicon-mcp-server`** (4 yıldız, Go, MIT) — gerçek ve çalışan bir araç (SVG → ICO/PNG
+  favicon seti), ama kataloğun mevcut #55 (`dh1011/auto-favicon-mcp`) ile fonksiyonel olarak
+  örtüşüyor (tek fark: SVG-öncelikli girdi + Go implementasyonu). **Eklenmedi** (redundant) — sadece
+  SVG-öncelikli girdi özellikle gerekirse ileride değerlendirilebilir.
+- **`capraidev/shadcn-claude-skill`** (4 yıldız, 3 commit, MIT) — gerçek `SKILL.md` içeriyor
+  (shadcn/ui + Radix + Tailwind referansı, form/tablo/grafik örnekleri) ama son derece erken
+  aşamada (3 commit) — kanıtlanmamış. **Eklenmedi**, gelecek turlar benimseme kazanıp kazanmadığını
+  kontrol edebilir.
+- **`browserbase/mcp-server-browserbase`** (3.4k yıldız/369 fork, meşru ve yaygın kullanılan) —
+  ama depo Temmuz 2026'da **arşivlendi** ve README'de "güncel production servisini yansıtmıyor"
+  ibaresi var; ayrıca ücretli bulut tarayıcı servisi (Browserbase API key) gerektiriyor.
+  **Eklenmedi** (bakımsız + ücretli bağımlılık).
+- **🚨 Meta Llama API resmi ücretsiz katmanı (`llama.developer.meta.com`) — ARTIK MEVCUT DEĞİL.**
+  Meta, resmi birinci-parti Llama API'sini 6 Temmuz 2026'da kapattı; geriye sadece üçüncü parti
+  rehost'lar (Groq/DeepInfra/Together — zaten başka maddelerde kataloglanmış) kaldı. **Eklenmedi**
+  (artık mevcut değil) — GitHub Models'ın (Tur 16, 30 Temmuz 2026'da kapandı) aynı kategorisi.
+- **`undirectlookable/svgo-mcp`** — gerçek bir SVGO sarmalayıcı ama 0 yıldız/1 commit, test
+  edilmemiş/yayınlanmamış seviyesinde. **Eklenmedi**, benimseme kazanırsa gelecekte tekrar bak.
+- **`Monotype/fonts-mcp`** — resmi vendor MCP'si ama 1 yıldız/1 commit, lisans belirtilmemiş ve
+  temel amacı ÜCRETLİ MyFonts tipografilerini önermek (şablonun ihtiyacı olan ücretsiz/self-hosted
+  font kazanımıyla uyuşmuyor). **Eklenmedi.**
+- **`priyankark/lighthouse-mcp`** (208 yıldız/20 fork, meşru, sağlıklı oran) — kataloğun mevcut
+  #29/#56 (`danielsogl/lighthouse-mcp-server`, 13+ araç) ile fonksiyonel olarak redundant (bu
+  alternatif sadece 2 araç sunuyor). **Eklenmedi** — `danielsogl` projesi bakımsız hale gelirse
+  gelecek turlar bu notu hatırlamalı.
+- **`vdalhambra/siteaudit-mcp`** (5 yıldız, MIT, meşru ama dar) — kataloğun mevcut #29/#56
+  (Lighthouse) ve #33 (`JustasMonkev/mcp-accessibility-scanner`) ile örtüşüyor, ayrıca ücretli
+  hosted katmanı olan bir ticari ürüne yaslanıyor. **Eklenmedi** (redundancy).
+- **`RichardDillman/seo-audit-mcp`** — aynı doygun kategoride (SEO/erişilebilirlik denetimi),
+  derinlemesine doğrulanmadı. **Eklenmedi**, kategori zaten dolu.
+- **Apify barındırmalı Wappalyzer/tech-detector MCP sunucuları** (`rl1987`, `footage`, `clearfetch`,
+  `nerolabs`, `wyle` hesapları) — hepsi Apify'ın ücretli actor/kredi sistemi üzerinden çalışıyor,
+  gerçek bağımsız ücretsiz katman DEĞİL. **Eklenmedi**, yerine gerçekten ücretsiz olan
+  `Houseofmvps/opentechalyzer` (#71) tercih edildi.
+
+---
+
+*Son güncelleme: 2026-09-19 (Tur 23). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–23'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
 (`auto-star-repo.sh` hook'u), Tur 21'de `Microck/font-mcp` (font korsanlığı otomasyonu)
 şüpheli/kötü niyetli bulundu; Tur 20'de Snyk'in ToxicSkills denetimi (ClawHub/skills.sh
-ekosisteminde %36 prompt-injection oranı) genel bir güvenlik uyarısı olarak eklendi; **Tur 22'de
-YENİ:** "UI/UX Pro Max" skill mirror'ları (128.9k yıldız / sadece 39 issue) şişirilmiş-yıldız
-deseniyle tespit edildi (tehlikeli hook YOK, ama güvenilmez benimseme sinyali — kurmadan önce
-ilgili notları oku). Tur 17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo
-GitHub kısıtlamasına tabi DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18-22'de tekrar
-doğrulandı ve kullanıldı. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 14'te Z.ai GLM Flash,
-Tur 15'te Vercel AI Gateway ücretsiz katmanlarının birincil kaynak doğrulaması hâlâ bekliyor
-(ticari domain engeline takılıyorlar, GitHub kısıtlaması değil). **Tur 22'de KRİTİK DÜZELTME:**
-Tur 5'te eklenen #21 (Cerebras Cloud API) artık YANLIŞ bilgi içeriyor — Cerebras 17 Ağustos 2026'da
-kalıcı ücretsiz katmanını kapattı, artık kredi kartı + $5 tek seferlik deneme kredisi gerekiyor;
-madde düzeltme notuyla güncellendi, kurulum öncesi resmi sayfada MUTLAKA teyit edilmeli. **Tur
-22'de YENİ:** proje-özel font self-hosting boşluğu `majodev/google-webfonts-helper` (#65, Google
-Fonts) ve `mmastrac/webfont-dl` (#66, herhangi bir `@font-face`) ile dolduruldu; resmi Vercel Labs
-tarayıcı otomasyon CLI'ı `vercel-labs/agent-browser` (#67) eklendi. Bu turda ayrıca genel
-"ücretsiz LLM API" ve "genel skill koleksiyonu" kategorilerinde belirgin bir azalan-getiri sinyali
-gözlendi — gelecek turlar niş, şablona özgü boşluklara (asset pipeline, SEO/favicon, video
-optimizasyonu, tarayıcı test otomasyonu) odaklanmalı, genel kategorilerde tekrar arama yapmadan
-önce bu notu oku.*
+ekosisteminde %36 prompt-injection oranı) genel bir güvenlik uyarısı olarak eklendi; Tur 22'de
+"UI/UX Pro Max" skill mirror'ları (128.9k yıldız / sadece 39 issue) şişirilmiş-yıldız deseniyle
+tespit edildi (tehlikeli hook YOK, ama güvenilmez benimseme sinyali — kurmadan önce ilgili notları
+oku). Tur 17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo GitHub kısıtlamasına
+tabi DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18-23'te tekrar doğrulandı ve
+kullanıldı. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 14'te Z.ai GLM Flash, Tur 15'te
+Vercel AI Gateway ücretsiz katmanlarının birincil kaynak doğrulaması hâlâ bekliyor (ticari domain
+engeline takılıyorlar, GitHub kısıtlaması değil). Tur 22'de KRİTİK DÜZELTME: Tur 5'te eklenen #21
+(Cerebras Cloud API) artık YANLIŞ bilgi içeriyor — Cerebras 17 Ağustos 2026'da kalıcı ücretsiz
+katmanını kapattı; madde düzeltme notuyla güncellendi. **Tur 23'te YENİ:** proje-özel Next.js
+16/Tailwind v4 skill boşluğu `laguagu/claude-code-nextjs-skills` (#68) ve `secondsky/claude-skills`
+(#69) ile dolduruldu; CSS→Tailwind dönüştürme (`CarbonoDev/tailwindcss-mcp-server`, #70), hedef
+site teknoloji tespiti (`Houseofmvps/opentechalyzer`, #71), OG görsel üretimi
+(`Jellypod-Inc/satori-mcp-server`, #72) ve ikincil bir pixel-diff aracı
+(`leky90/mcp-image-compare-server`, #73) eklendi. **Tur 23'te KRİTİK GÜNCELLEME:** Meta'nın resmi
+Llama API ücretsiz katmanı 6 Temmuz 2026'da kapandı (artık mevcut değil, sadece üçüncü parti
+rehost'lar var) — bu, GitHub Models (Tur 16) ve Cerebras (Tur 22) ile aynı "sağlayıcı ücretsiz
+katmanı kapattı" kategorisine giriyor; gelecek turlar zaten kataloglanmış ücretsiz API
+sağlayıcılarının hâlâ geçerli olup olmadığını periyodik olarak yeniden teyit etmeli. Bu turda
+alt-agent'a devretme yöntemi (Tur 19/21'de de kullanılan) tekrar etkili bulundu — 67 mevcut kaynağın
+TAM listesi + reddedilen adayların listesi alt-agent'a verildiğinde duplikasyon sıfıra indi.*
