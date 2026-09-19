@@ -2412,10 +2412,120 @@ teknoloji tespiti (tech fingerprinting).
   gerçek bağımsız ücretsiz katman DEĞİL. **Eklenmedi**, yerine gerçekten ücretsiz olan
   `Houseofmvps/opentechalyzer` (#71) tercih edildi.
 
+## Tur 24 — 2026-09-19 (~07:02 UTC / 10:02 Türkiye saati başladı)
+
+Metodoloji: alt-agent'a 140+ önceki maddeden oluşan TAM hariç-tutma listesi verildi (Tur 1-23'te
+eklenen VE reddedilen her şey); alt-agentın bulduğu 4 aday, ikinci bir bağımsız doğrulama
+alt-agent'ıyla `mcp__github__search_repositories` + `get_file_contents` üzerinden yıldız/fork/issue/
+lisans/son-commit ve gerçek dosya içeriği açısından çapraz kontrol edildi — hiçbir tutarsızlık
+bulunmadı.
+
+### A) MCP Sunucuları (Design Token / Görsel QA / Çoklu-Platform Asset Üretimi — proje-özel)
+
+#### 74. [marvkr/better-design](https://github.com/marvkr/better-design)
+- **Yıldız:** 237 · **Fork:** 11 · **Açık issue:** 1 · **Lisans:** MIT
+- **Güncellik:** Son commit 2026-08-20, sağlıklı yıldız:fork:issue oranı, şişirilmiş-yıldız deseni
+  DEĞİL.
+- **Ne işe yarar:** 31 "marka kalitesinde" tasarım sistemi (Linear, Stripe, Vercel, Notion, Apple,
+  Supabase, Figma vb.) için renk/tipografi token seti ve WCAG/UI-ilke inceleme kuralları sunan bir
+  MCP sunucusu + shadcn-uyumlu component registry'si. `INSPECTION_GUIDE.md` Phase 1'de hedef
+  sitenin tokenleri belirsiz kaldığında referans paleti olarak, Phase 2'de spacing/contrast
+  sapmalarını yakalamak için `get-review-rules` aracıyla kullanılabilir. Kataloğun mevcut
+  `Jpisnice/shadcn-ui-mcp-server`'ı ile örtüşmüyor (o component kaynak kodu servis ediyor, bu ise
+  tasarım-token/tema verisi ve inceleme kuralları).
+- **Neden meşru:** MIT lisanslı, somut/belgelenmiş tool şeması (`resolve-design-system`,
+  `get-design-system-docs`, `get-ui-principle`, `resolve-icon-library`, `search-icons`), gerçek
+  `skills/better-design/SKILL.md` ve 30+ tema dizini bağımsız doğrulamada teyit edildi.
+- **Kurulum:** Tamamen yerel/hesapsız yol — `npx skills add marvkr/better-design --skill
+  better-design` sonra `npx better-design`, kayıt gerektirmiyor. Opsiyonel "remote MCP" hosted modu
+  better-design.com'dan ücretsiz API key istiyor — sıfır üçüncü-parti bağımlılık için bu modu
+  atlayıp yerel-only kullan.
+
+#### 75. [samihalawa/visual-ui-debug-agent-mcp](https://github.com/samihalawa/visual-ui-debug-agent-mcp)
+- **Yıldız:** 83 · **Fork:** 8 · **Açık issue:** 0 · **Lisans:** ISC
+- **Güncellik:** Son commit 2026-08-11, depo 2025-05-02'den beri 1 yılı aşkın sürekli aktif.
+- **Ne işe yarar:** Playwright'ı saran 29 MCP aracı — ekran görüntüsü, konsol/performans yakalama,
+  DOM inceleme, interaktif-eleman analizi, workflow doğrulama ve görsel diff. Şablonun eksik olan
+  "screenshot diffing" adımını dolduruyor: klonlanan Next.js sayfasının ekran görüntüsünü hedef
+  siteninkiyle piksel piksel karşılaştırma. Kataloğun mevcut `w01fgang/mcp-design-comparison` ve
+  `leky90/mcp-image-compare-server` ile aynı kategoride ama çok daha geniş bir araç seti (29 araç vs.
+  birkaç) sunuyor — üçüncü bağımsız seçenek olarak değerlendirilebilir.
+- **Neden meşru:** README ve kod incelemesinde postinstall script/telemetri iddiası yok, varsayılan
+  olarak yerel modda çalışıyor; kimlik bilgisi sadece opsiyonel bulut tarayıcı sağlayıcılarına
+  (Browserbase/Anchor) geçilirse gerekiyor — yerel mod hiçbir hesap istemiyor.
+- **Kurulum:** `npx -y visual-ui-debug-agent-mcp`, ardından MCP istemci konfigürasyonuna ekle;
+  opsiyonel Docker desteği de var.
+
+#### 76. [us/crw](https://github.com/us/crw) — "fastCRW", self-hosted Firecrawl alternatifi
+- **Yıldız:** 1051 · **Fork:** 84 · **Açık issue:** 12 · **Lisans:** Motor + MCP sunucusu AGPL-3.0
+  (repo-seviyesi SPDX bu şekilde tespit edildi), Python/TS SDK'ları README'ye göre MIT (ayrı LICENSE
+  dosyasıyla bağımsız doğrulanamadı — geliştirici beyanına dayanıyor).
+- **Güncellik:** Bugün (2026-09-19) dahil aktif commit geçmişi, 1043 commit, 11 açık PR.
+- **Ne işe yarar:** URL'yi temiz markdown/yapılandırılmış JSON'a çeviren bir crawler/scraper —
+  scrape/crawl/map/search/extract. `INSPECTION_GUIDE.md` Phase 1-2'nin ("hedef siteyi incele")
+  hesaplı/ücretsiz gerçekleştirilmesi için uygun: tek ~6MB binary ile tamamen self-host edilebiliyor,
+  yerel modda API key gerekmiyor, varsayılan olarak robots.txt'e uyuyor. Kataloğun mevcut
+  `firecrawl/firecrawl-mcp-server` (hosted/ücretli) ve `sadiuysal/crawl4ai-mcp-server`'a göre daha
+  hafif, tek-binary self-host alternatifi.
+- **Neden meşru:** Çoklu paket-yöneticisi kurulumu (`npm install crw-sdk`, `npx -y crw-mcp@latest
+  install`, `pip install crw`, `cargo install crw-server` — crates.io'da gerçek), çok-dilli SDK'lar,
+  aktif issue/PR trafiği, kurulum betiği tek yol değil.
+- **Kurulum:** `npx -y crw-mcp@latest install` (MCP sunucusu) veya `pip install crw` / `cargo install
+  crw-server`; self-hosted yerel mod hesap gerektirmiyor.
+
+#### 77. [MohamedAbdallah-14/prompt-to-asset](https://github.com/MohamedAbdallah-14/prompt-to-asset)
+- **Yıldız:** 21 · **Fork:** 2 · **Açık issue:** 20 (bkz. Not) · **Lisans:** MIT
+- **Güncellik:** Son commit bugün (2026-09-19), depo 2026-04-20'de oluşturuldu.
+- **Ne işe yarar:** Tek bir master görsel/prompttan tam platform asset paketi üretiyor — favicon,
+  app icon, OG görseli, splash screen (iOS/Android/PWA/Flutter/visionOS). 30+ ücretsiz-katman görsel
+  sağlayıcısı arasında yönlendirme yapıyor (Cloudflare Workers AI, NVIDIA NIM, HuggingFace
+  Inference, kayıt-gerektirmeyen Pollinations.ai HTTP) artı sıfır-API-çağrılı offline SVG üretim
+  modu. Kataloğun mevcut favicon-odaklı maddelerinden (`dh1011/auto-favicon-mcp`,
+  `elliotxx/favicon-mcp-server` — reddedildi) daha geniş: tek favicon değil, çok-platformlu tam asset
+  fan-out'u ve `public/seo/` klasörünün ihtiyaç duyduğu OG görseli üretimini de kapsıyor.
+- **Neden meşru:** "Sıfır-key" modu gerçek (offline SVG + ücretsiz-katman API yönlendirme + kayıtsız
+  fallback), MIT lisanslı, postinstall script yok, açık "telemetri yok" beyanı, kullanılırsa key'ler
+  sadece env değişkeninde kalıyor, SVG çıktısı XSS-sanitize ediliyor.
+- **Kurulum:** Önce `npx prompt-to-asset doctor` ile test et, sonra `npm i -g prompt-to-asset` veya
+  `npm i -D prompt-to-asset`; README'de Claude Desktop/Cursor/Windsurf için IDE entegrasyon adımları
+  var.
+- **Not:** 21 yıldıza karşı 20 açık issue oransal olarak yüksek görünüyor, ama incelemede bunların
+  neredeyse tamamı gerçek bug raporu değil — istenmeyen bot-açtığı promosyon/marketplace-listing
+  issue'ları ("plugin'ini talep et" registry botu, alakasız bir SaaS'ın entegrasyon teklifi,
+  marketplace-icon hatırlatma botu). Destek için issue tracker'a güvenmeden önce bunu bil.
+
+### B) Doğrulanan ama EKLENMEYEN Bulgular (Tur 24)
+
+- **`priyankark/a11y-mcp`** — axe-core tabanlı erişilebilirlik MCP sarmalayıcısı; kataloğun mevcut
+  `JustasMonkev/mcp-accessibility-scanner` ve (reddedilmiş) `priyankark/lighthouse-mcp` ile anlamlı
+  bir farklılaşma olmadan örtüşüyor. **Eklenmedi** (redundant).
+- **`aka-kika/hig-mcp`** — Apple Human Interface Guidelines / SwiftUI tasarım tokenleri; bu şablonun
+  Next.js/Tailwind/shadcn hedef platformuyla uyuşmuyor. **Eklenmedi** (yanlış platform).
+- **`SanggonBoy/PyreCrawl`** — self-hosted Firecrawl alternatifi ama sadece 16 yıldız ve inceleme
+  anında 16 gün önce oluşturulmuş — henüz yeterli track record yok. **Eklenmedi**, `us/crw` (#76)
+  tercih edildi; gelecek turlar benimseme kazanıp kazanmadığını izleyebilir.
+- **`eugenelim/agent-ready-repo`** — skill/subagent/hook marketplace'i; kataloğun zaten kapsadığı
+  çok sayıda subagent-koleksiyonu maddesiyle örtüşüyor, bu proje için ayırt edici değer yok.
+  **Eklenmedi** (redundant).
+- **Çeşitli "website klonla" Claude Code skill'leri** (`veyralabsgroup/webcloner`,
+  `luukalleman/clone-study`, `fellyph/wp-clone-to-block-theme`, `bienhoang/design-clone`,
+  `drshailesh88/ui-cloner-skill`, `wsprfme/clone-with-claude`, `ndpvt-web/copycapy`,
+  `Varalix-Digitech-Solutions/clone-team`, `Desertbetweenalembic/website-downloader`) — hepsi bu
+  şablonun kendi çekirdek `/clone-website` işlevini fonksiyonel olarak tekrarlıyor (ve zaten
+  reddedilmiş `SarthakMishra/site-cloner` ile aynı kategoride). **Eklenmedi** (proje kendi
+  işlevini zaten kapsıyor).
+- **Google Gemini API ücretsiz katmanı** — `ai.google.dev` bu oturumun ağ çıkış proxy'si tarafından
+  engellendi, resmi sayfaya karşı zorunlu birincil-kaynak doğrulaması TAMAMLANAMADI. İkincil
+  kaynaklar Google AI Studio üzerinden bir ücretsiz katman olduğunu doğruluyor ama doğrulama şartı
+  karşılanmadığı için **bu turda eklenmedi** — ağ erişimi açıkken gelecek bir turda tekrar denenmeli.
+- **Mistral AI "La Plateforme" ücretsiz katmanı** — aynı sebeple (`mistral.ai` proxy tarafından
+  engellendi) birincil-kaynak doğrulaması tamamlanamadı. **Bu turda eklenmedi**, gelecek tur takibi
+  gerekiyor.
+
 ---
 
-*Son güncelleme: 2026-09-19 (Tur 23). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
-eklenecek, Tur 1–23'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+*Son güncelleme: 2026-09-19 (Tur 24). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–24'te listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
 (ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
 (`auto-star-repo.sh` hook'u), Tur 21'de `Microck/font-mcp` (font korsanlığı otomasyonu)
 şüpheli/kötü niyetli bulundu; Tur 20'de Snyk'in ToxicSkills denetimi (ClawHub/skills.sh
@@ -2423,20 +2533,26 @@ ekosisteminde %36 prompt-injection oranı) genel bir güvenlik uyarısı olarak 
 "UI/UX Pro Max" skill mirror'ları (128.9k yıldız / sadece 39 issue) şişirilmiş-yıldız deseniyle
 tespit edildi (tehlikeli hook YOK, ama güvenilmez benimseme sinyali — kurmadan önce ilgili notları
 oku). Tur 17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo GitHub kısıtlamasına
-tabi DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18-23'te tekrar doğrulandı ve
+tabi DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) Tur 18-24'te tekrar doğrulandı ve
 kullanıldı. Tur 9'da OpenRouter, Tur 10'da Jina AI Reader, Tur 14'te Z.ai GLM Flash, Tur 15'te
 Vercel AI Gateway ücretsiz katmanlarının birincil kaynak doğrulaması hâlâ bekliyor (ticari domain
-engeline takılıyorlar, GitHub kısıtlaması değil). Tur 22'de KRİTİK DÜZELTME: Tur 5'te eklenen #21
-(Cerebras Cloud API) artık YANLIŞ bilgi içeriyor — Cerebras 17 Ağustos 2026'da kalıcı ücretsiz
-katmanını kapattı; madde düzeltme notuyla güncellendi. **Tur 23'te YENİ:** proje-özel Next.js
+engeline takılıyorlar, GitHub kısıtlaması değil) — Tur 24'te aynı proxy engeli Google Gemini ve
+Mistral AI için de doğrulandı, aynı bekleme listesine eklendi. Tur 22'de KRİTİK DÜZELTME: Tur 5'te
+eklenen #21 (Cerebras Cloud API) artık YANLIŞ bilgi içeriyor — Cerebras 17 Ağustos 2026'da kalıcı
+ücretsiz katmanını kapattı; madde düzeltme notuyla güncellendi. Tur 23'te proje-özel Next.js
 16/Tailwind v4 skill boşluğu `laguagu/claude-code-nextjs-skills` (#68) ve `secondsky/claude-skills`
 (#69) ile dolduruldu; CSS→Tailwind dönüştürme (`CarbonoDev/tailwindcss-mcp-server`, #70), hedef
 site teknoloji tespiti (`Houseofmvps/opentechalyzer`, #71), OG görsel üretimi
 (`Jellypod-Inc/satori-mcp-server`, #72) ve ikincil bir pixel-diff aracı
-(`leky90/mcp-image-compare-server`, #73) eklendi. **Tur 23'te KRİTİK GÜNCELLEME:** Meta'nın resmi
+(`leky90/mcp-image-compare-server`, #73) eklendi. Tur 23'te KRİTİK GÜNCELLEME: Meta'nın resmi
 Llama API ücretsiz katmanı 6 Temmuz 2026'da kapandı (artık mevcut değil, sadece üçüncü parti
 rehost'lar var) — bu, GitHub Models (Tur 16) ve Cerebras (Tur 22) ile aynı "sağlayıcı ücretsiz
-katmanı kapattı" kategorisine giriyor; gelecek turlar zaten kataloglanmış ücretsiz API
-sağlayıcılarının hâlâ geçerli olup olmadığını periyodik olarak yeniden teyit etmeli. Bu turda
-alt-agent'a devretme yöntemi (Tur 19/21'de de kullanılan) tekrar etkili bulundu — 67 mevcut kaynağın
-TAM listesi + reddedilen adayların listesi alt-agent'a verildiğinde duplikasyon sıfıra indi.*
+katmanı kapattı" kategorisine giriyor. **Tur 24'te YENİ:** görsel/screenshot QA boşluğu üçüncü bir
+bağımsız araçla (`samihalawa/visual-ui-debug-agent-mcp`, #75, 29 araç) güçlendirildi; tasarım-token/
+tema referansı ve WCAG inceleme kuralları (`marvkr/better-design`, #74) eklendi; ücretsiz/self-hosted
+tek-binary web crawler (`us/crw` "fastCRW", #76) hem ücretli `firecrawl-mcp-server` hem de
+`crawl4ai-mcp-server`'a hafif bir alternatif olarak eklendi; çoklu-platform icon/favicon/OG-görseli
+asset üretimi (`MohamedAbdallah-14/prompt-to-asset`, #77) mevcut tekli-favicon maddelerinin
+ötesinde bir boşluğu doldurdu. Bu turda da alt-agent'a TAM hariç-tutma listesi (140+ madde) verme +
+ikinci bağımsız doğrulama alt-agent'ı yöntemi (Tur 19/21/23'te de kullanılan) etkili bulundu —
+duplikasyon ve doğrulanmamış istatistik sıfıra indi.*
