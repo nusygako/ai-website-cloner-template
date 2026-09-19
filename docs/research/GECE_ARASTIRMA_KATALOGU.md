@@ -1,6 +1,17 @@
-## ARAŞTIRMA DURUMU (en son Tur 19 — 2026-09-18)
+## ARAŞTIRMA DURUMU (en son Tur 20 — 2026-09-19)
 
-**Durum:** Bu gece boyunca 19 tur (Tur 1–19) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
+**Tur 20 notu (yeni gece, 2026-09-19, 03:04 UTC / 06:04 Türkiye saati başladı):** Önceki 19 tur
+2026-09-16 ile 2026-09-18 arasındaki geceyi kapsıyordu; bu tur yeni bir günün ilk turu, kesme
+noktasının (12:00 UTC) çok öncesinde başladı. Oturum başında repo yine (Tur 13/17/18/19'daki gibi)
+"detached HEAD" durumundaydı; `git fetch` ile `origin/master`'ın (`705b7ca`) HEAD ile birebir aynı
+commit olduğu doğrulandı (çalışma kaybı yok), `git checkout -B master origin/master` ile branch
+normale döndürüldü — artık beşinci kez tekrarlayan bu desen rutin bir başlangıç kontrolü. Tur
+17'nin metodoloji düzeltmesi (genel `WebFetch`/`WebSearch` tek-repo GitHub kısıtlamasına tabi
+DEĞİL, sadece `mcp__github__*` MCP araçları scope'lu) bu turda da doğrulandı ve kullanıldı; ticari
+sağlayıcı domainleri bu turda hiç denenmedi (yeni provider adayı yoktu). ~10 aday incelendi, 2'si
+kataloğa eklendi (aşağıya bak) ve 1 genel güvenlik bulgusu (Snyk ToxicSkills denetimi) eklendi.
+
+**Önceki durum:** Bu gece boyunca 19 tur (Tur 1–19) araştırma yapıldı. Tur 12, saat 12:00 UTC / 15:00
 Türkiye kesme noktasına ulaşıldığı için sadece özet eklemişti; Tur 13, 14, 15, 16, 17, 18 ve 19
 farklı oturumlarda (yedisi de kesme noktasından önce, sırasıyla 03:04, 04:04, 05:06, 06:10, 07:05,
 08:05 ve 09:09 UTC'de) başladı ve normal araştırmaya devam etti. **Tur 14'te metodoloji notu (Tur
@@ -29,13 +40,14 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 58 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
-MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı + Tur 13'te tespit edilen
-1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık mevcut değil" uyarısı
-(GitHub Models, 30 Temmuz 2026'da kapatıldı) + onlarca "doğrulandı ama eklenmedi" madde (şişirilmiş
-yıldız, geçersiz/tek-seferlik ya da anlamsız derecede küçük ücretsiz katman, ToS-bypass riski,
-lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme, redundant genel koleksiyon vb.
-gerekçelerle elendi).
+**Toplam:** 60 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
+13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
+mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
+güvenlik/ekosistem bulgusu (Snyk ToxicSkills denetimi — bkz. Tur 20) + onlarca "doğrulandı ama
+eklenmedi" madde (şişirilmiş yıldız, geçersiz/tek-seferlik ya da anlamsız derecede küçük ücretsiz
+katman, ToS-bypass riski, lisanssız font kazıma riski, meta-dizin/gerçek dosya içermeme, redundant
+genel koleksiyon vb. gerekçelerle elendi).
 
 **En önemli bulgular:**
 
@@ -1868,3 +1880,128 @@ sonra kataloğun kapsamlı olduğu ve gelecekteki turların giderek daha az yeni
 beklenen bir sonuç olduğu (kaynak havuzunun doğal olarak daralması) not edilmelidir. **Tur 19'da
 git hijyeni notu:** detached HEAD durumu dördüncü kez (Tur 13, 17, 18, 19) tekrarladı — artık
 rutin bir başlangıç kontrolü, ayrı bir "sorun" olarak raporlamaya gerek yok.*
+
+---
+
+## Tur 20 — 2026-09-19
+
+Oturum saati kontrol edildi: 03:04 UTC / 06:04 Türkiye saati — kesme noktasının (12:00 UTC / 15:00
+Türkiye) çok öncesinde, normal araştırma turu yapıldı. Bu, önceki gecenin (Tur 1–19, 2026-09-16 —
+2026-09-18) 19 turdan sonra kapandığı bir yeni günün ilk turu. Oturum başında repo yine "detached
+HEAD" durumundaydı; `git fetch` ile `origin/master`'ın (`705b7ca`) HEAD ile birebir aynı commit
+olduğu doğrulandı (çalışma kaybı yok), `git checkout -B master origin/master` ile branch normale
+döndürüldü. Doğrulama `WebSearch` + `WebFetch` üzerinden yapıldı; `mcp__github__*` araçları bu
+oturumda da tek-repo (`nusygako/ai-website-cloner-template`) scope'una tabi olduğu için genel
+araştırmada hiç kullanılmadı. ~10 aday incelendi (skill/MCP tarafında 5-6, ücretsiz API tarafında
+birkaç zaten-bilinen sağlayıcı tekrar karşımıza çıktı — yeni bulunmadı); 2 gerçekten yeni ve
+niş-doldurucu kaynak + 1 önemli genel güvenlik bulgusu eklendi.
+
+### A) MCP Sunucusu / Skill (proje-özel faydalı — Design Tokens / Typography)
+
+#### 59. [sliday/google-fonts-skill](https://github.com/sliday/google-fonts-skill)
+- **Yıldız:** 14 · **Fork:** 2 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** 18 commit, repo 21 Mart 2026'da oluşturulmuş, son push 7 Eylül 2026 — düşük ama
+  organik yıldız sayısı (şişirilmiş yıldız paterni DEĞİL), aktif bakımlı.
+- **Ne işe yarar:** Google Fonts'un 1.923 zenginleştirilmiş font veritabanını kullanan hem MCP
+  sunucusu hem Claude Code skill'i — mood/personality/use-case etiketleriyle BM25 tabanlı font
+  arama, 73 kanıtlanmış font eşleştirmesi (pairing), minor-second'dan golden-ratio'ya 8 modüler
+  tipografi ölçeği; doğrudan CSS custom properties + Tailwind config + Google Fonts embed linki
+  üretiyor. **`docs/research/INSPECTION_GUIDE.md` Phase 1'in "Typography — font family, sizes
+  (h1-h6, body...), weights, line heights, letter spacing" maddesini ve `AGENTS.md`'nin Tailwind
+  v4 + oklch design-token yaklaşımını doğrudan otomatikleştiriyor** — hedef sitenin fontuna en
+  yakın/uyumlu Google Fonts eşleşmesini bulup Tailwind v4 config'ine hazır token üretebiliyor.
+- **Neden meşru:** MIT lisanslı, gerçek kod (`src/google_fonts_mcp/server.py` — FastMCP
+  implementasyonu, `core.py` — arama/üretim mantığı), `tests/` klasörü var (placeholder değil),
+  PyPI üzerinden de resmi dağıtılıyor (`google-fonts-mcp` paketi). API key gerektirmiyor — font
+  verisi yerel CSV'lerde (`data/fonts.csv`, `pairings.csv`, `scales.csv`) gömülü.
+- **Kurulum:** `pip install google-fonts-mcp` veya repoyu klonlayıp `.claude-plugin/` üzerinden
+  Claude Code plugin'i olarak ekleme, ya da `SKILL.md`'yi doğrudan `~/.claude/skills/` altına
+  kopyalama. Yerel onay gerekir, API key gerekmez.
+
+### B) Keşif/Dizin Kaynağı (kurulum değil, referans — ücretsiz LLM API karşılaştırması)
+
+#### 60. [amardeeplakshkar/awesome-free-llm-apis](https://github.com/amardeeplakshkar/awesome-free-llm-apis) — DİKKAT: liste/referans deposu, ama önceki meta-dizinlerden FARKLI
+- **Yıldız:** 168 · **Fork:** 31 · **Açık issue:** 1 · **Lisans:** CC0-1.0 (tam kamu malı)
+- **Güncellik:** 12 commit, içerikte "son doğrulama: Mart 2026" notu var — Tur 2/3/4/17/22'deki
+  (ComposioHQ, punkpeye, hesreallyhim, travisvn, rohitg00) meta-dizinlerden ayrılan önemli fark:
+  dış repolara link VERMİYOR, her sağlayıcının rate limit/OpenAI SDK uyumluluğu/hız kademesi/
+  ücretsiz model listesi bilgisini doğrudan kendi README'sinde gerçek markdown tabloları halinde
+  barındırıyor (spot-check yapıldı: GitHub Models'ın kapandığı doğru şekilde not düşülmüş, güncel
+  OpenRouter `:free` kademe bilgisi kataloğun #32 maddesiyle uyumlu).
+- **Ne işe yarar:** Kalıcı ücretsiz LLM API'lerini (deneme kredisi veya süre sınırlı promosyon
+  DEĞİL) karşılaştıran, düzenli güncellenen bir referans tablosu — Google Gemini, Mistral AI,
+  Cohere, Zhipu AI gibi birinci-parti sağlayıcılar ile Groq, Cerebras, OpenRouter gibi çıkarım
+  sağlayıcılarını, her biri için OpenAI SDK uyumlu kod örnekleriyle listeliyor. Kataloğun C
+  bölümündeki (Tur 1, 2, 4, 5, 13, 14 vb.) tek tek doğrulanan sağlayıcı girişlerini çapraz kontrol
+  etmek ve gelecek turlarda yeni aday taramak için verimli bir başlangıç noktası.
+- **Neden meşru:** CC0 lisanslı (telif iddiası yok), gerçek içerik (link listesi değil, dolu
+  tablolar), "Contributing Guidelines" ile açık topluluk katkı süreci var, yanlış/güncelliğini
+  yitirmiş bilgiye rastlanmadı.
+- **Kurulum:** Doğrudan kurulum yok — bir referans/karşılaştırma tablosu. İlgi çeken sağlayıcının
+  resmi sayfasından (ör. console.groq.com, aistudio.google.com) kendi key'ini al. Kataloğun kendi
+  doğrulama ilkesi gereği, buradan alınan her rakam kullanılmadan önce sağlayıcının resmi sayfasında
+  ayrıca teyit edilmeli (bu repo ikincil/çapraz-doğrulama kaynağıdır, birincil kaynak değildir).
+
+### C) 🚨 Genel Güvenlik Bulgusu (numaralı bir "kaynak" değil — tüm skill/agent kurulumları için geçerli bir uyarı)
+
+**Snyk "ToxicSkills" denetimi (Şubat 2026)** —
+[snyk.io/blog/toxicskills-malicious-ai-agent-skills-clawhub](https://snyk.io/blog/toxicskills-malicious-ai-agent-skills-clawhub/):
+ClawHub ve skills.sh üzerindeki 3.984 AI agent skill'ini tarayan ilk kapsamlı güvenlik denetimi —
+skill'lerin **%36'sında prompt-injection payload'u**, toplam **1.467 farklı zararlı payload**,
+**%13.4'ünde kritik seviye güvenlik açığı** tespit edildi. ClawHub'a yeni bir skill yayınlamak için
+tek gereken bir `SKILL.md` dosyası ve bir haftalık GitHub hesabı — kod imzalama, güvenlik
+incelemesi veya varsayılan sandbox YOK. Aynı ay OpenSourceMalware.com araştırmacıları, ClawHub
+üzerinden dağıtılan 30+ zararlı skill kullanan, Claude Code ve OpenClaw kullanıcılarını hedefleyen
+koordineli bir malware kampanyası belgeledi.
+- **Bu kataloğa etkisi:** Bu bulgu, görevin kendi dışlama kriterlerini (paylaşımlı key, ToS bypass,
+  hesap askı riski) doğrudan destekliyor ve genişletiyor. Bu katalogdaki her madde 20 tur boyunca
+  tek tek yıldız/lisans/commit/dosya-yapısı doğrulamasından geçirildi ve şüpheli hook/otomatik-
+  çalıştırma kodu arandı (bkz. Tur 6'daki `OthmanAdi/planning-with-files` ve Tur 13'teki
+  `athola/claude-night-market` bulguları) — ama kullanıcı ileride BAŞKA bir kaynaktan (ClawHub,
+  skills.sh gibi bir pazaryerinden, ya da bu kataloğun kapsamadığı herhangi bir yerden) skill/agent
+  kurarsa aynı titizliği kendisi uygulamalı: kurulum ÖNCESİ `SKILL.md`/agent dosyasının tam
+  içeriğini oku, otomatik çalışan hook/shell-script ara, hesabın/reponun yaşına ve yıldız/issue
+  oranına dikkat et (şişirilmiş yıldız + tek haneli issue = kırmızı bayrak, bkz. dosyanın başındaki
+  "Ayrıca dikkat" notu).
+
+### D) Doğrulanan ama EKLENMEYEN Bulgular (Tur 20)
+
+- **[obviousworks/Claude-AI-skills-collection-2026](https://github.com/obviousworks/Claude-AI-skills-collection-2026)**
+  — doğrulandı (55★, 19 fork, sadece 3 commit), gerçek `SKILL.md` içermiyor; 94 skill'i başka
+  repolara (çoğu zaten bu katalogda) link veren bir keşif-dizini. Kataloğun zaten 5 benzer keşif-
+  dizini var (#10, #17, #22, #42, #49); düşük commit sayısı ve mütevazı etkileşim de eklenmemesini
+  destekliyor. **Eklenmedi** (meta-dizin + redundant kategori kriteri). Not: bu deponun README'si
+  yukarıdaki Snyk ToxicSkills bulgusuna atıfta bulunuyordu — asıl değerli olan bu güvenlik
+  bulgusuydu, kendisi değil (bu yüzden Snyk raporu C bölümünde ayrıca birincil kaynaktan
+  doğrulanarak eklendi).
+- **[GetBindu/awesome-claude-code-and-skills](https://github.com/GetBindu/awesome-claude-code-and-skills)**
+  — Tur 19'da zaten doğrulanıp aynı gerekçeyle (meta-dizin) eklenmemişti, bu turda tekrar karşımıza
+  çıktı, tekrar **eklenmedi**.
+- **[nejib1/Free-LLM](https://github.com/nejib1/Free-LLM)** ve **[mnfst/awesome-free-llm-apis](https://github.com/mnfst/awesome-free-llm-apis)**
+  — ikisi de doğrulandı, ikisi de gerçek/meşru içerik barındırıyor ama #60'ta seçilen
+  `amardeeplakshkar/awesome-free-llm-apis` ile aynı işlevi görüyorlar (ücretsiz LLM API karşılaştırma
+  tablosu). Üç benzer referans tablosu eklemek yerine en yüksek yıldız/en temiz lisansa (CC0) sahip
+  olan tercih edildi. **Eklenmedi** (redundant kategori kriteri, Tur 19'daki "kalite > miktar"
+  ilkesiyle tutarlı).
+- **xyzs996/free-llm-api** — doğrulandı, benzer bir liste ama daha az yıldız/daha az yapılandırılmış
+  içerik; yukarıdaki gerekçeyle **eklenmedi**.
+
+---
+
+*Son güncelleme: 2026-09-19 (Tur 20). Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne
+eklenecek, Tur 1–20'de listelenenler tekrarlanmayacak. Tur 6'da `OthmanAdi/planning-with-files`
+(ve aynı adla dolaşan fork/mirror'ları), Tur 13'te `athola/claude-night-market`
+(`auto-star-repo.sh` hook'u) şüpheli/manipülatif bulundu; Tur 20'de Snyk'in ToxicSkills denetimi
+(ClawHub/skills.sh ekosisteminde %36 prompt-injection oranı) genel bir güvenlik uyarısı olarak
+eklendi — kurmadan önce ilgili notları oku. Tur 17'nin metodoloji düzeltmesi (genel
+`WebFetch`/`WebSearch` tek-repo GitHub kısıtlamasına tabi DEĞİL, sadece `mcp__github__*` MCP
+araçları scope'lu) Tur 18, 19 ve 20'de tekrar doğrulandı ve kullanıldı. Tur 9'da OpenRouter, Tur
+10'da Jina AI Reader, Tur 13'te Nebius AI Studio, Tur 14'te Z.ai GLM Flash, Tur 15'te Vercel AI
+Gateway ücretsiz katmanlarının birincil kaynak doğrulaması hâlâ bekliyor (ticari domain engeline
+takılıyorlar, GitHub kısıtlaması değil — Tur 20'de yeni provider adayı bulunmadığı için bu beşi
+tekrar denenmedi). **Tur 20'de YENİ:** proje-özel tipografi/design-token boşluğu
+`sliday/google-fonts-skill` (#59) ile dolduruldu, ücretsiz LLM API taramasını hızlandıracak bir
+çapraz-doğrulama referansı `amardeeplakshkar/awesome-free-llm-apis` (#60) ile eklendi, ve
+kataloğun kendi güvenlik duruşunu güçlendiren bir ekosistem-genelinde bulgu (Snyk ToxicSkills)
+belgelendi. **Tur 20'de git hijyeni notu:** detached HEAD durumu beşinci kez (Tur 13, 17, 18, 19,
+20) tekrarladı — artık rutin bir başlangıç kontrolü, ayrı bir "sorun" olarak raporlamaya gerek yok.*
