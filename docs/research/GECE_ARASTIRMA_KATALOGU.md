@@ -3373,3 +3373,100 @@ HEAD" sorunu görülmedi (repo doğrudan `master`'daydı) — önceki on iki tur
 adımı gerekmedi. Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–30'da
 listelenenler tekrarlanmayacak.
 
+## Tur 31 — 2026-09-22
+
+**Tur 31 notu (~11:15 UTC / 14:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC) öncesinde
+başladı. Oturum başında yine "detached HEAD" sorunu görüldü (repo `bc711f8`'de ayrık haldeydi,
+yerel `master` dalı origin'in 31 commit gerisindeydi) — `git checkout master && git merge --ff-only
+origin/master` ile düzeltildi; Tur 30'un "ilk kez düzeltme gerekmedi" gözlemi tekrarlanmadı, bu
+adımın her turda rutin bir ön kontrol olarak kalması gerektiği doğrulandı. Dosyanın tamamı (3.375
+satır) okunmadan önce mevcut 98 madde ve linkleri `grep` ile çıkarıldı, hariç-tutma listesi olarak
+kullanıldı. `gh` CLI/doğrudan GitHub API erişimi bu oturumda mevcut değildi (sadece tek-repo'ya
+scoped MCP GitHub araçları); doğrulama bunun yerine genel `WebSearch`/`WebFetch` ile yapıldı — bu
+araçların tek-repo kısıtlamasına tabi olmadığı Tur 17'den beri bilinen bir husus.
+
+Tur 30'un pending bıraktığı iki niş (CSS-in-JS tespiti, dark-mode/tema tespiti) bu turda da
+arandı, yine meşru/bağımsız bir GitHub projesi bulunamadı — CSS-in-JS için bulunan tek somut aday
+(`igorvieira/mcp-component-review`) 0 yıldız, sadece 3 commit, Figma token gerektiriyor ve zaten
+kataloglanmış pixel-diff araçlarıyla (#w01fgang/mcp-design-comparison, #leky90/mcp-image-compare-server)
+örtüşüyor — **eklenmedi**. Dark-mode tespiti için bulunan `designlang.app` markalı proje, GitHub'da
+araştırılınca kataloğun zaten Tur 8'den beri #31 olarak kayıtlı `Manavarya09/design-extract`
+projesinin kendi tanıtım sitesi olduğu tespit edildi — **duplicate, eklenmedi** (iyi bir
+metodolojik kontrol örneği: isim farklı görünse de GitHub linkine inince aynı proje çıktı). Bir
+subagent-koleksiyonu adayı (`tryalan-ai/awesome-claude-code-sub-agents`, 172★) doğrulanınca, Tur
+25'te aynı ekip (Alan AI/tryalan.ai) tarafından `supatest-ai/awesome-claude-code-sub-agents` adıyla
+zaten değerlendirilip "6 benzer genel-amaçlı koleksiyon zaten var" gerekçesiyle reddedilmiş projenin
+birebir aynısı/yeniden-adlandırılmış hali olduğu görüldü (171★ vs 172★, aynı dosya yapısı, son
+commit Eylül 2025 — 12+ ay bakımsız) — **tekrar eklenmedi**.
+
+### A) Resmi API/MCP sunucusu (yeni sağlayıcı — Cloudflare Workers AI ücretsiz katmanı)
+
+#### 99. [cloudflare/mcp](https://github.com/cloudflare/mcp)
+- **Yıldız:** 876 · **Lisans:** Apache-2.0
+- **Güncellik:** 114+ commit, resmi Cloudflare organizasyonu altında aktif geliştirme
+- **Ne işe yarar:** Cloudflare'in TÜM API'sine (Workers, KV, R2, D1, Pages, DNS, **Workers AI**, AI
+  Gateway, Vectorize, Access, Stream, Images, Firewall/Load Balancer dahil ~2.500 endpoint) token-
+  verimli erişim sağlayan resmi MCP sunucusu — "Code Mode" deseniyle agent'ın büyük OpenAPI
+  şemasını istemciye sızdırmadan JavaScript yazıp API'yi aramasını/çağırmasını sağlıyor (~1.100
+  token ile 2.500 endpoint). Workers AI aracılığıyla LLM/embedding/görsel-sınıflandırma modellerine
+  erişim de bu kapsamda.
+- **Neden meşru:** `github.com/cloudflare` resmi organizasyonu (aynı org: `cloudflare/workers-mcp`,
+  `cloudflare/workers-sdk` gibi tanınan projelerle birlikte), Apache-2.0, kimlik doğrulama OAuth
+  veya kullanıcının KENDİ Cloudflare API token'ıyla yapılıyor (paylaşımlı/havuzlanmış anahtar YOK).
+  Workers AI'ın ücretsiz katmanı (**günde 10.000 Neuron, kredi kartı gerektirmeden**, her gün
+  00:00 UTC'de sıfırlanıyor) `developers.cloudflare.com` bu sandbox'tan doğrudan erişilemese de
+  (`EGRESS_BLOCKED`), Cloudflare'in dokümantasyonunun kaynağı olan resmi `cloudflare/cloudflare-docs`
+  reposundaki `pricing.mdx` dosyası doğrudan `raw.githubusercontent.com` üzerinden okunarak birincil
+  kaynaktan doğrulandı ("Our free allocation allows anyone to use a total of 10,000 Neurons per day
+  at no charge") — Tur 21'in "birincil kaynak zorunlu" kuralı, GitHub-barındırılan birincil-benzeri
+  kanıt sayıldığı için karşılandı (Tur 27'deki NVIDIA NIM emsaliyle aynı mantık).
+  10.000 Neuron/gün kabaca 100-200 LLM yanıtı veya 1.500-15.000 embedding'e denk geliyor (bazı
+  premium modeller — Kimi K2.6/K2.7, GLM-5, DeepSeek V4 — ücretsiz katman dışında).
+- **Proje uyumu:** Kataloğun bugüne kadar listelediği ücretsiz LLM API sağlayıcılarına (OpenRouter,
+  Groq, NVIDIA NIM, Jina AI Reader, Z.ai GLM Flash, Vercel AI Gateway) yeni ve resmi bir alternatif
+  ekliyor; ayrıca aynı MCP sunucusu üzerinden R2/Images/Stream gibi asset-barındırma özellikleri de
+  `public/images/` ve `public/videos/` iş akışlarına potansiyel olarak hizmet edebilir.
+- **Kurulum:** `npx mcp-remote https://mcp.cloudflare.com/... ` (resmi barındırılan uç nokta,
+  OAuth ile) veya repoyu klonlayıp yerel çalıştırma; kullanıcının kendi Cloudflare hesabından API
+  token'ı gerekir (`dash.cloudflare.com`). Yerel onay + kişisel hesap gerekir, paylaşımlı anahtar
+  yok.
+
+### B) Doğrulanan ama EKLENMEYEN Bulgular (Tur 31)
+
+- **`igorvieira/mcp-component-review`** — 0 yıldız, sadece 3 commit, kaynak kodun büyük kısmı
+  doğrulanamadı, Figma personal access token gerektiriyor, işlevi zaten kataloglanmış pixel-diff
+  araçlarıyla örtüşüyor. **Eklenmedi.**
+- **`designlang.app` (= `Manavarya09/design-extract`)** — kataloğun zaten #31 maddesi (Tur 8'den
+  beri), sadece farklı bir pazarlama/tanıtım alan adı altında yeniden karşımıza çıktı. **Duplicate,
+  eklenmedi.**
+- **`tryalan-ai/awesome-claude-code-sub-agents`** — Tur 25'te `supatest-ai/awesome-claude-code-sub-agents`
+  adıyla zaten değerlendirilip reddedilmiş aynı şirket/aynı projenin yeniden-adlandırılmış/fork'lanmış
+  hali (172★, son commit Eylül 2025 — 12+ ay bakımsız). **Tekrar eklenmedi.**
+- **`codewithkate` "Robots Compliance Scrape Workflow MCP Server"** — sadece Glama üzerinden
+  listelenmiş, doğrulanabilir bağımsız bir GitHub deposu bulunamadı (Glama'nın kendisi de bu
+  sandbox'tan `EGRESS_BLOCKED`); kaynak kodu doğrulanamadan eklenmedi. **Eklenmedi** (gelecek bir
+  tur GitHub linkini bulursa tekrar değerlendirilebilir — proje-özel "etik scraping/robots.txt
+  uyumluluğu" niş boşluğu hâlâ dolmadı).
+- CSS-in-JS tespiti ve dark-mode/tema tespiti nişleri için üçüncü art arda turda da meşru, yeni,
+  bağımsız bir GitHub projesi bulunamadı — **pending**, gelecek turlar tekrar bakabilir.
+
+---
+
+*Son güncelleme: 2026-09-22 (Tur 31). Tur 31'de resmi Cloudflare organizasyonunun `cloudflare/mcp`
+sunucusu eklendi (#99) — Workers AI'ın ücretsiz katmanı (günde 10.000 Neuron, anahtarsız/kredi
+kartsız) `cloudflare/cloudflare-docs` resmi reposundan birincil kaynak olarak doğrulandı
+(`developers.cloudflare.com` bu sandbox'tan erişilemedi ama GitHub-barındırılan birincil-benzeri
+kanıt Tur 21 kuralını karşıladı — Tur 27'deki NVIDIA NIM emsaliyle tutarlı). İki önemli duplicate/
+tekrar-aday tespit edildi ve doğru şekilde reddedildi: `designlang.app` markası altında yeniden
+karşımıza çıkan `Manavarya09/design-extract` (zaten #31) ve Tur 25'te `supatest-ai/` adıyla
+reddedilmiş `awesome-claude-code-sub-agents`'ın `tryalan-ai/` altında yeniden-adlandırılmış hali —
+bu, alt-agent kullanılmadan doğrudan ana oturum tarafından yapılan aramalarda bile "GitHub linkine
+kadar inip çapraz kontrol et" disiplininin hâlâ kritik olduğunu gösterdi. CSS-in-JS tespiti ve
+dark-mode/tema tespiti nişleri üçüncü turdur dolmuyor (pending kalmaya devam ediyor); proje-özel
+"etik scraping/robots.txt uyumluluğu" niş boşluğu için bir aday (`codewithkate`) bulundu ama
+doğrulanabilir GitHub kaynağı olmadığı için eklenmedi. Oturum başında yine "detached HEAD" sorunu
+görüldü ve standart `git checkout master && git merge --ff-only origin/master` adımıyla düzeltildi
+— bu adımın rutin bir ön kontrol olarak her turda tekrarlanması gerektiği bir kez daha doğrulandı.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–31'de listelenenler
+tekrarlanmayacak.
+
