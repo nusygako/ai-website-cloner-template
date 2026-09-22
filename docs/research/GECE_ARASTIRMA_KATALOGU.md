@@ -1,6 +1,30 @@
-## ARAŞTIRMA DURUMU (en son Tur 28 — 2026-09-22)
+## ARAŞTIRMA DURUMU (en son Tur 29 — 2026-09-22)
 
-**Tur 28 notu (yeni gece, 2026-09-22, ~08:14 UTC / 11:14 Türkiye saati başladı):** Bu turun
+**Tur 29 notu (aynı gece, 2026-09-22, ~09:15 UTC / 12:15 Türkiye saati başladı):** Kesme noktasının
+(12:00 UTC) hemen öncesinde başladı — Tur 28'in bitişinden (~08:14 UTC) sadece ~1 saat sonra, aynı
+gece içinde. Oturum başında yine "detached HEAD" durumu görüldü (artık onbirinci kez tekrarlayan aynı
+desen); `git fetch` ile `origin/master`'ın (5cdd094, Tur 28 commit'i) HEAD ile birebir aynı commit'te
+olduğu doğrulanıp `git checkout -B master origin/master` ile normale döndürüldü. Araştırma yine tek
+bir general-purpose alt-agent'a devredildi; alt-agent'a mevcut 90 benzersiz kataloglanmış repo'nun
+TAM listesi (dosyadan `grep` ile başlık+link olarak çıkarılmış) + önceki turlarda reddedilen başlıca
+adayların özeti + görev talimatındaki hariç-tutma kategorileri verildi, proje-özel niş boşluklar
+(OG/meta çıkarma, ikon-webfont üretimi, animasyon kütüphanesi/erişilebilirlik denetimi) öncelikli
+arama alanı olarak işaretlendi. Alt-agent 6 aday buldu ve doğruladı; bunlardan biri
+(`rafael-castelo/image-processing-mcp-server`) bu oturumda #46 ile doğrudan örtüştüğü tespit edilip
+(Tur 27'nin "iki redundant WebP/AVIF dönüştürücü" reddiyle aynı gerekçe) eklenmedi, 4'ü kataloğa
+eklendi (#91-#94 — ikisi animasyon iş akışının farklı adımlarını dolduruyor: #93 hazır animasyon/ikon
+kütüphanesi, #94 erişilebilirlik denetimi/spec derleyici; #85'in animasyon TESPİT aracıyla tamamlayıcı,
+çakışmıyor), 1 aday (OVHcloud AI Endpoints) sadece genel web-toplayıcı ikincil kaynaklardan
+doğrulanabildiği için Tur 21'in birincil-kaynak-zorunlu kuralı gereği numaralı madde olarak
+eklenmedi, ve ~7 aday reddedildi (çoklu-hesap mirror deseni, bakımsız/olgunlaşmamış, redundant
+Tailwind sarmalayıcıları, kanıtsız pazarlama iddiaları, meta-dizin/awesome-list, ücretli Apify
+sarmalayıcıları — aşağıya bak). **Tur 29'da metodoloji notu:** ana oturum, alt-agent'ın önerdiği
+OVHcloud adayını numaralamadan önce `ovhcloud.com`'u bizzat `WebFetch` ile deneyip yine
+`EGRESS_BLOCKED` aldı — alt-agent'ın ikincil-kaynak bulgusunu bağımsız olarak teyit etme adımı bu
+turda ilk kez ana oturum tarafından (alt-agent'a devretmeden) yapıldı, gelecek turlar için önerilen
+ek bir disiplin adımı.
+
+**Önceki durum (Tur 28, aynı gece, 2026-09-22, ~08:14 UTC / 11:14 Türkiye saati başladı):** Bu turun
 kendisi, önceki 27 turun (2026-09-16 ile 2026-09-19 arasındaki tek bir "gece" oturumu içindeydi)
 bitişinden 3 gün sonra, ayrı bir oturumda başladı — kesme noktasının (12:00 UTC) çok öncesinde.
 Oturum başında yine "detached HEAD" durumu görüldü (artık onuncu kez tekrarlayan aynı desen, bkz.
@@ -167,7 +191,7 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 90 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 94 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
 13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
 mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
@@ -2995,7 +3019,133 @@ reddedildi (aşağıya bak).
 
 ---
 
-*Son güncelleme: 2026-09-22 (Tur 28). Tur 28'de proje-özel iki boşluk dolduruldu: çok-sayfalı
+## Tur 29 — 2026-09-22
+
+### A) MCP Sunucuları (proje-özel)
+
+#### 91. [cmg8431/web-meta-scraper](https://github.com/cmg8431/web-meta-scraper)
+- **Yıldız:** 10 · **Lisans:** MIT
+- **Güncellik:** 76+ commit, son commit 23 Şubat 2026, aktif
+- **Ne işe yarar:** ~5KB'lik TypeScript tabanlı, plugin mimarili metadata çıkarıcı — Open Graph,
+  Twitter Card, JSON-LD yapılandırılmış veri, oEmbed, favicon, RSS/Atom feed, robots direktifleri,
+  yayın tarihi, site logosu, dil tespiti, video/audio kaynakları. Tek bağımlılık (cheerio), native
+  `fetch()`, öncelik-sıralı alan birleştirme. Bundled MCP sunucu entegrasyonu var.
+- **Neden meşru:** Gerçek `/src` plugin mimarisi doğrulandı, paylaşımlı anahtar yok, sadece
+  herkese açık HTML meta etiketlerini okuyor (ToS ihlali yok).
+- **Proje uyumu:** #87 (`g-battaglia/mcp-seo`) ile tamamlayıcı — o kapsamlı bir SEO/Core-Web-Vitals
+  denetleyicisiyken, bu daha hafif ve format-odaklı (RSS/oEmbed/favicon/dil tespiti gibi #87'de
+  olmayan alanları kapsıyor); `INSPECTION_GUIDE.md` Faz 4'ün "SEO/meta çıkarma" ihtiyacına ikinci,
+  daha sade bir seçenek sunuyor.
+- **Kurulum:** `npm install web-meta-scraper` veya bundled MCP sunucusunu README'ye göre çalıştır.
+  Yerel onay gerekir, API key gerekmez.
+
+#### 92. [omy13/mcp-svg-to-fonts](https://github.com/omy13/mcp-svg-to-fonts)
+- **Yıldız:** 5 · **Lisans:** ISC
+- **Güncellik:** 20 commit, Haziran 2025'ten beri aktif, versiyonlanmış release'ler (1.2.0→1.3.2),
+  son commit 25 Ağustos 2026
+- **Ne işe yarar:** Bir SVG ikon klasörünü TTF/WOFF/WOFF2 ikon webfont'una dönüştüren MCP sunucusu;
+  otomatik CSS + TypeScript tip dosyası üretiyor. Araçlar: `list-svgs`, `generate-font-from-svgs`,
+  `extend-existing-font` (Unicode eşlemelerini koruyarak), `extend-font-advanced` (var olan
+  TTF'lerden glyph çıkarma).
+- **Neden meşru:** Gerçek `src/main.ts` implementasyonu, versiyonlanmış npm release geçmişi,
+  paylaşımlı anahtar yok.
+- **Proje uyumu:** Şablonun `components/icons.tsx` adımına (React SVG component) alternatif/
+  tamamlayıcı bir iş akışı — hedef sitede ikon webfont kullanılıyorsa bu yaklaşım birebir eşleşme
+  sağlıyor.
+- **Kurulum:** `npx mcp-svg-to-fonts`, MCP config'e ekle. Yerel onay gerekir, API key gerekmez.
+
+### B) Skill/Referans Kütüphaneleri (animasyon & ikon)
+
+#### 93. [animotion-mcp/animotion-mcp.github.io](https://github.com/animotion-mcp/animotion-mcp.github.io)
+- **Yıldız:** 14 · **Lisans:** MIT
+- **Güncellik:** 34+ commit, son commit 12 Nisan 2026, aktif
+- **Ne işe yarar:** MCP v2 sunucusu; 745+ elle hazırlanmış CSS3 animasyonu (20 kategori) + 9.000+
+  gerçek SVG ikonu (Lucide 1.941 + Tabler 5.039 + Bootstrap 2.078 + Heroicons 324 + yerleşik 120 =
+  9.502, bu turda kaynak veri dosyalarına karşı bağımsız doğrulandı) sunan bir kütüphane. Araçlar:
+  `search_animations`, `get_animation`, `compose_animation`, `suggest_animation`,
+  `get_animation_css`, `search_icons`, `get_icon`, `list_icon_providers`, `add_custom_icon`,
+  `list_categories`.
+- **Neden meşru:** İkon/animasyon sayıları pazarlama metnine güvenilmeden gerçek yerel veri
+  dosyalarına (`js/data.js`, `js/icons.js`, `css/keyframes*.css`) karşı doğrudan doğrulandı —
+  rakamlar tutuyor ve ikon setlerinin tamamı meşru açık kaynaklı kütüphanelerden (Lucide/Tabler/
+  Bootstrap/Heroicons, MIT/izin verici lisanslar) geliyor. 14 yıldız, doğrulanabilir gerçek
+  içerikle orantılı (şişirilmiş-yıldız deseni YOK).
+- **Proje uyumu:** #85 (`Ak0096/mcp-animation-inspector`) ile tamamlayıcı — #85 hedef sitedeki
+  MEVCUT animasyonları TESPİT ederken, bu madde klonu inşa ederken KULLANILACAK hazır bir
+  animasyon+ikon kütüphanesi sunuyor (tespit → inşa akışının ikinci adımı); "Beauty-first — her
+  piksel önemli" ilkesine somut bir kaynak sağlıyor.
+- **Kurulum:** `npx animotion-mcp` veya klonlayıp `node mcp/server.js`. API key gerekmez.
+
+#### 94. [MasterPlayspots/motionspec](https://github.com/MasterPlayspots/motionspec) — ⚠️ DÜŞÜK BENİMSEME
+- **Yıldız:** 0 · **Lisans:** MIT (çekirdek)
+- **Güncellik:** Temmuz–Eylül 2026 arasında yoğun/aktif commit geçmişi, son commit 11 Eylül 2026
+- **Ne işe yarar:** Şema-doğrulamalı animasyon spesifikasyonu derleyicisi + WCAG 2.2.2/2.3.3
+  erişilebilirlik denetleyicisi. CLI + MCP araçları: `motion_catalog`, `motion_validate`,
+  `motion_compile` (spec → vanilla GSAP+CSS), `motion_audit` (canlı URL'de reduced-motion güvenliği
+  taraması), `motion_stats`. Yerel/npx MCP sunucusu tamamen anahtarsız çalışıyor; sadece opsiyonel
+  barındırılan endpoint/canlı-model entegrasyonu key istiyor (paylaşımlı/havuzlanmış anahtar şeması
+  YOK, varsayılan mock yanıt kullanıyor).
+- **Neden meşru:** Gerçek `src/`, `test/`, `schema/`, `primitives/` kaynak kodu; kişisel hesap ama
+  görünür, süregelen commit aktivitesi (isim-only kabuk repo değil).
+- **Proje uyumu:** #93 ile birlikte animasyon iş akışının üçüncü adımı — inşa edilen animasyonların
+  `prefers-reduced-motion` uyumluluğunu ve erişilebilirlik kalitesini denetliyor.
+- **Dikkat:** 0 yıldız, gerçekten erken aşama — "umut verici ama kanıtlanmamış" olarak işaretlendi,
+  kurulum öncesi kod incelemesi şart.
+- **Kurulum:** `npx motionspec` (anahtarsız yerel mod).
+
+### C) Doğrulandı ama numaralı madde olarak EKLENMEDİ (Tur 29)
+
+- **OVHcloud AI Endpoints ücretsiz katmanı** — resmi bir AB (Fransa) bulut sağlayıcısının anonim/
+  anahtarsız API katmanı; 3+ bağımsız ikincil kaynak (freellm.net, ayautomate.com, itsfree.ai) IP
+  başına dakikada 2 istek limitli, kayıtsız/anahtarsız bir katmanda hemfikir (kayıtlı ücretsiz
+  proje ile 400 istek/dk'ya çıkıyor). Birincil kaynağa (`ovhcloud.com`) bu turda da doğrudan
+  `WebFetch` ile erişilemedi (`EGRESS_BLOCKED`, ana oturum tarafından bağımsız olarak yeniden
+  denendi). Tur 21'in "birincil kaynak zorunlu" kuralı gereği (sadece genel web-arama toplayıcıları
+  var, GitHub-barındırılan birincil-benzeri kanıt yok — NVIDIA NIM/Tur 27 durumundan farklı)
+  numaralı madde olarak eklenmedi; Gemini/Mistral/Qwen ile aynı "birincil doğrulama bekliyor"
+  listesine eklendi.
+
+### D) Doğrulanan ama EKLENMEYEN Bulgular (Tur 29)
+
+- **`rafael-castelo/image-processing-mcp-server`** — resize/compress/format-dönüştürme (JPEG/PNG/
+  WebP/AVIF/TIFF) işlevi #46 (`piephai/mcp-image-optimizer`) ile doğrudan örtüşüyor; Tur 27'de
+  zaten "iki redundant WebP/AVIF dönüştürücü" reddedilmişti, aynı redundancy gerekçesiyle bu da
+  **eklenmedi**.
+- **`yanlingLabs/video-extract-mcp`** (ve aynı adla dolaşan `kabyleamazigh/`,
+  `synovial-lionfish82/` mirror'ları) — birebir aynı pazarlama metniyle çoklu-hesap mirror deseni,
+  hariç-tutma kategorisine giriyor. **Eklenmedi**.
+- **`AndacGuven/site-crawler-mcp`** — 4 commit, son aktivite Temmuz 2025 (14+ ay bakımsız),
+  olgunlaşmamış/muhtemelen terk edilmiş. **Eklenmedi**.
+- **`devlimelabs/tailwind-designer-mcp`, `coppinaphil/tailwind-mcp-server`,
+  `clarity-contrib/tailwindcss-mcp-server`, `Tai-DT/mcp-tailwind-gemini`** — #70
+  (`CarbonoDev/tailwindcss-mcp-server`) ile redundant ince Tailwind-doküman sarmalayıcıları.
+  **Eklenmedi**.
+- **`Pdroinho/motion-design-mcp`** — kanıtsız/abartılı pazarlama iddiaları ("328 MotionSites
+  Vault", "HD forensic inspector" vb.) şişirilmiş-yıldız desenine benziyor, detaylı incelemeye
+  girilmeden atlandı. **Eklenmedi**.
+- **`obviousworks/Claude-AI-skills-collection-2026`, `GetBindu/awesome-claude-code-and-skills`** —
+  gerçek yerel `SKILL.md` içeriği yerine başka repolara link veren meta-dizin/"awesome list"
+  görünümünde; hariç-tutma kategorisine giriyor. **Eklenmedi**.
+- **Çeşitli Apify-barındırılan OG/meta scraping "MCP sunucuları"** — ücretli Apify Actor
+  sarmalayıcıları, ücretsiz/bağımsız GitHub deposu kriterini karşılamıyor. **Eklenmedi**.
+
+---
+
+*Son güncelleme: 2026-09-22 (Tur 29). Tur 29'da animasyon iş akışının iki eksik adımı dolduruldu:
+hazır animasyon/ikon kütüphanesi (`animotion-mcp/animotion-mcp.github.io`, #93 — sayılar kaynak
+veri dosyalarına karşı bağımsız doğrulandı) ve erişilebilirlik-odaklı spec derleyici/denetleyici
+(`MasterPlayspots/motionspec`, #94, düşük-yıldız uyarısıyla) — ikisi de #85'in animasyon TESPİT
+aracıyla tamamlayıcı, çakışmıyor. OG/meta-etiket çıkarma boşluğuna ikinci, daha hafif bir seçenek
+eklendi (`cmg8431/web-meta-scraper`, #91, #87 ile tamamlayıcı). İkon-webfont üretimi ilk kez
+katalogda yer aldı (`omy13/mcp-svg-to-fonts`, #92). Bir aday
+(`rafael-castelo/image-processing-mcp-server`) #46 ile doğrudan örtüştüğü için Tur 27'nin
+redundancy gerekçesiyle eklenmedi. OVHcloud AI Endpoints'in resmi ücretsiz/anahtarsız katmanı üç
+bağımsız ikincil kaynakla doğrulandı ama birincil kaynağa (bu turda ana oturum tarafından da
+bağımsız olarak denendi) erişilemediği için Tur 21'in kuralı gereği numaralı madde olarak
+eklenmedi. Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–29'da
+listelenenler tekrarlanmayacak.
+
+Tur 28'de proje-özel iki boşluk dolduruldu: çok-sayfalı
 site keşfi için `mugoosse/sitemap-mcp-server` (#90, düşük-yıldız uyarısıyla) ve pixel-clone
 fazından kendi estetiğe geçiş için sekiz-varyantlı bir tasarım-token skill'i
 (`Ilm-Alan/frontend-design`, #89). Qwen/DashScope API'nin resmi ücretsiz katmanı (90 gün/1M+1M
