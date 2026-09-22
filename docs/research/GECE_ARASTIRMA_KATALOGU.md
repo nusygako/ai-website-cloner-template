@@ -1,6 +1,28 @@
-## ARAŞTIRMA DURUMU (en son Tur 27 — 2026-09-19)
+## ARAŞTIRMA DURUMU (en son Tur 28 — 2026-09-22)
 
-**Tur 27 notu (aynı gece, 2026-09-19, ~10:04 UTC / 13:04 Türkiye saati başladı):** Kesme
+**Tur 28 notu (yeni gece, 2026-09-22, ~08:14 UTC / 11:14 Türkiye saati başladı):** Bu turun
+kendisi, önceki 27 turun (2026-09-16 ile 2026-09-19 arasındaki tek bir "gece" oturumu içindeydi)
+bitişinden 3 gün sonra, ayrı bir oturumda başladı — kesme noktasının (12:00 UTC) çok öncesinde.
+Oturum başında yine "detached HEAD" durumu görüldü (artık onuncu kez tekrarlayan aynı desen, bkz.
+Tur 13/17/18/19/22/23/25/26/27 notları); `git fetch` ile `origin/master`'ın (32cd1d6) HEAD ile
+birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master` ile normale
+döndürüldü. Araştırma yine tek bir general-purpose alt-agent'a devredildi; alt-agent'a mevcut 88
+benzersiz kataloglanmış repo'nun TAM listesi (dosyadan `grep` ile başlık+link olarak çıkarılmış) +
+önceki turlarda reddedilen başlıca adayların özeti + görev talimatındaki hariç-tutma kategorileri
+(paylaşımlı/havuzlanmış API key, ToS-bypass scraping, hesap-askıya-alınma riski, kanıtsız trading
+araçları) verildi, proje-özel niş boşluklar (çok-sayfalı sitemap keşfi, estetik/tasarım-sistemi
+skill'leri) öncelikli arama alanı olarak işaretlendi. Alt-agent 2 yeni aday buldu ve doğruladı
+(#89-#90 — bir estetik/tasarım-token skill'i ve bir sitemap keşif MCP sunucusu), 1 aday (Qwen/
+DashScope API) sadece ikincil kaynaklardan doğrulanabildiği için Tur 21'in birincil-kaynak-zorunlu
+kuralı gereği numaralı madde olarak eklenmedi, ve ~9 aday reddetti — bunlardan biri
+(`elliotxx/favicon-mcp-server`) Tur 23'te aynı redundancy gerekçesiyle zaten reddedilmiş bir
+tekrar-adaydı (aşağıya bak, gelecek turlar bu ismi bir daha araştırmamalı). **Tur 28'de metodoloji
+notu:** alt-agent yine `mcp__github__*` MCP araçlarının bu oturumda tek repoya
+(`nusygako/ai-website-cloner-template`) scope'lu olduğunu doğru tespit edip düz `github.com`
+sayfalarını `WebFetch` ile fetch etme yöntemini kullandı (Tur 17'den beri kurulan metodoloji,
+onuncu kez doğrulandı).
+
+**Önceki durum (Tur 27, aynı gece, 2026-09-19, ~10:04 UTC / 13:04 Türkiye saati başladı):** Kesme
 noktasının (12:00 UTC) hemen sonrasında (ama başlangıçta öncesinde) çalıştı. Oturum başında yine
 "detached HEAD" durumu görüldü (dokuzuncu kez tekrarlayan aynı desen); `git fetch` ile
 `origin/master`'ın (07d7500, Tur 26 commit'i) HEAD ile birebir aynı commit'te olduğu doğrulanıp
@@ -145,7 +167,7 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 88 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 90 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
 13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
 mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
@@ -2884,7 +2906,106 @@ reddedildi (aşağıya bak).
 
 ---
 
-*Son güncelleme: 2026-09-19 (Tur 26). Tur 26'da proje-özel MCP boşluğu üç yeni araçla dolduruldu:
+## Tur 28 — 2026-09-22
+
+### A) Skill Koleksiyonları (proje-özel)
+
+#### 89. [Ilm-Alan/frontend-design](https://github.com/Ilm-Alan/frontend-design)
+- **Yıldız:** 121 · **Fork:** 18 · **Açık issue:** 1 · **Lisans:** MIT
+- **Güncellik:** 31 commit, Ocak–Mayıs 2026 arasına yayılmış organik aktivite (patlama/burst
+  deseni yok — önceki turlarda şişirilmiş-yıldız tespiti için kullanılan kriter burada temiz çıktı)
+- **Ne işe yarar:** Sekiz "estetik çapa" (aesthetic anchor) sunan bir `SKILL.md` — her biri tam
+  bir palet+tipografi+doku token setini tek parça kilitliyor, böylece ajan bir brief için tutarlı
+  TEK bir estetik seçiyor (genel "AI-frontend" varsayılanları yerine). Claude Code, Codex ve
+  Gemini CLI ile uyumlu.
+- **Neden meşru:** Gerçek, kök dizinde detaylı token spesifikasyonlarıyla dolu bir `SKILL.md`
+  doğrulandı; 18 fork organik downstream kullanım sinyali (salt yıldız-biriktirme değil).
+- **Kurulum:** `SKILL.md` dosyasını (ve varsa referans token dosyalarını) `~/.claude/skills/`
+  ya da proje `.claude/skills/` altına kopyala. Yerel dosya kopyalama, onay gerekmez.
+- **Proje uyumu:** `AGENTS.md`'nin "Design Principles" bölümündeki "No personal aesthetic changes
+  during emulation phase — match 1:1 first, customize later" ilkesiyle birebir örtüşüyor —
+  pixel-clone fazından çıkıp kendi estetiğini oturtma adımına yapılandırılmış bir geçiş sağlıyor.
+- **Dikkat:** Yıldız:issue oranı (121:1) hafif yüksek ama çok-aylık organik commit yayılımı ve
+  fork sayısı bunu hafifletiyor; büyük çoklu-skill koleksiyonu değil, 8 varyantlı tek bir skill.
+
+### B) MCP Sunucuları (proje-özel)
+
+#### 90. [mugoosse/sitemap-mcp-server](https://github.com/mugoosse/sitemap-mcp-server) — ⚠️ DÜŞÜK BENİMSEME
+- **Yıldız:** 7 · **Lisans:** MIT
+- **Güncellik:** 12 commit, gerçek Python kaynak kodu (`src/sitemap_mcp_server/`, testler,
+  Dockerfile)
+- **Ne işe yarar:** Bir sitenin `sitemap.xml`'ini çekip ayrıştırıyor, tam URL listesi çıkarıyor,
+  hiyerarşi ağacı ve sitemap sağlık istatistikleri üretiyor.
+- **Neden meşru:** MIT lisanslı, gerçek/incelenebilir Python kaynak kodu + test dosyaları + Docker
+  desteği; paylaşımlı anahtar veya ToS ihlali yok.
+- **Proje uyumu:** `/clone-website` komutunun çok-sayfalı klonlama akışında (`<url1> [<url2> ...]`)
+  paralel builder agent'ları dağıtmadan önce tüm sayfaları önceden keşfetmeye yarıyor — kataloğun
+  önceki hiçbir maddesi bu boşluğu doldurmuyordu.
+- **Kurulum:** `pip install` veya Docker (README'ye göre). Yerel onay gerekir. API key gerekmez.
+- **Dikkat:** Düşük benimseme (7 yıldız), tek geliştirici, uzun vadeli bakım garantisi yok —
+  kurulum öncesi kod incelemesi önerilir.
+
+### C) Doğrulandı ama numaralı madde olarak EKLENMEDİ (Tur 28)
+
+- **Qwen / DashScope API (Alibaba Cloud Model Studio)** — resmi Alibaba Cloud API'si (OpenAI-SDK
+  uyumlu), Singapur/uluslararası bölgede yeni hesaplara aktivasyondan sonra 90 gün geçerli 1M
+  giriş + 1M çıkış token ücretsiz katman sunuyor (kişisel anahtar, paylaşımlı değil). **Birincil
+  kaynağa** (`alibabacloud.com`, `dashscope.console.aliyun.com`) bu sandbox'tan erişilemedi; üç
+  bağımsız ikincil kaynak (techjacksolutions.com, qwen3lm.com, inventivehq.com) rakamlarda
+  birleşiyor. Tur 21'in "birincil kaynak zorunlu" kuralı gereği **numaralı madde olarak
+  eklenmedi** — Gemini/Mistral ile aynı "birincil doğrulama bekliyor" listesine eklendi. Not: eski
+  ücretsiz "Qwen OAuth" CLI katmanı 15 Nisan 2026'da tamamen kapatıldı, artık tek ücretsiz yol bu
+  zaman-sınırlı (90 gün) Model Studio katmanı — kalıcı bir katman değil.
+
+### D) Doğrulanan ama EKLENMEYEN Bulgular (Tur 28)
+
+- **`elliotxx/favicon-mcp-server`** — zaten Tur 23'te aynı gerekçeyle (redundancy) incelenip
+  reddedilmişti; katalogda favicon üretimi için `dh1011/auto-favicon-mcp` (#55) ve
+  `MohamedAbdallah-14/prompt-to-asset` (#77) zaten var. **Tekrar eklenmedi**, gelecek turlar bu
+  ismi bir daha araştırmamalı.
+- **`freshtechbro/claudedesignskills`** (917 yıldız, "22 skill/27 plugin") — şişirilmiş-yıldız
+  deseni: tüm eklemeler ~1 aylık patlama döneminde (25 Ekim–20 Kasım 2025) esasen 2 katkıcıdan
+  geldi, buna karşın sadece 4 issue/1 PR var — oran gerçek benimsemeyle uyuşmuyor. **Eklenmedi**.
+- **`rshah515/claude-code-subagents`** (102 yıldız, "165 agent" iddiası) — repoda issue açma
+  devre dışı bırakılmış, sadece 6 commit'le 165 agent dosyası iddiası doğrulanamadı. **Eklenmedi**.
+- **`hupeng9995/browser-mcp`** ("pixel-perfect HTML/CSS clone" aracı) — 3 yıldız, 1 commit,
+  README kendi kendini "sadece öğrenme/referans amaçlı" olarak tanımlıyor — ToS/scraping riski
+  açıkça işaret ediyor, görev talimatındaki "ToS bypass" hariç-tutma kategorisine giriyor.
+  **Eklenmedi**.
+- **`noGarne/visual-regression-mcp`** — hâlâ 0 yıldız/tek commit (Tur 26'da da aynı gerekçeyle
+  atlanmıştı); kavram olarak ilgili (AI-destekli pixel-diff + yanlış-pozitif filtreleme) ama
+  olgunlaşmamış, "gelecekte tekrar bak" notu korunuyor.
+- **`Manavarya09/design-extract` fork'ları** (nepalisagun, ivangegovdve-sudo, timothybrush,
+  899ms — hepsi aynı README/açıklama) — orijinal (#31) etrafında şüpheli çoklu-hesap
+  fork-kopyalama deseni tespit edildi, hiçbiri eklenmedi; ileride bu isimlerle karşılaşan turlar
+  bilsin.
+- **`vola-trebla/tailwind-context-resolver-mcp`** — 0 yıldız, ve daha önemlisi bu şablonun asıl
+  yığını olan Tailwind v4'ü açıkça DESTEKLEMİYOR ("v4 uses a CSS-based config format and is not
+  supported"). **Eklenmedi**.
+- **`reuvenaor/figma-mcp-to-tailwind`** — repo lisansı "Private (not licensed for public use)"
+  olarak işaretli (herkese açık görünür olmasına rağmen) — ücretsiz/açık kaynak kriterini
+  karşılamıyor, ayrıca 7 yıldızla daha çok bir demo projesi. **Eklenmedi**.
+- **`Maxamed-Maxamed/google-fonts-mcp`, `qpd-v/mcp-image-downloader`,
+  `Digital-Defiance/mcp-screenshot`** — işlevsel ama çok ince (0-17 yıldız, 1-9 commit) ve
+  katalogda zaten karşılığı olan (#59, #65, Chrome DevTools MCP, Playwright MCP) araçlarla
+  redundant. **Eklenmedi**.
+- **DeepSeek API** — ücretsiz katman kalıcı değil, sadece kayıt sonrası 30 gün/5M token'lık tek
+  seferlik deneme kredisi; kategori D'de zaten yeterli sayıda benzer deneme-kredili madde var,
+  daha zayıf bir aday. **Eklenmedi**.
+
+---
+
+*Son güncelleme: 2026-09-22 (Tur 28). Tur 28'de proje-özel iki boşluk dolduruldu: çok-sayfalı
+site keşfi için `mugoosse/sitemap-mcp-server` (#90, düşük-yıldız uyarısıyla) ve pixel-clone
+fazından kendi estetiğe geçiş için sekiz-varyantlı bir tasarım-token skill'i
+(`Ilm-Alan/frontend-design`, #89). Qwen/DashScope API'nin resmi ücretsiz katmanı (90 gün/1M+1M
+token, kişisel anahtar) üç bağımsız ikincil kaynakla doğrulandı ama birincil kaynağa bu
+sandbox'tan erişilemediği için Tur 21'in kuralı gereği numaralı madde olarak eklenmedi. Önceki
+turlardan tanıdık iki desen bu turda da doğrulandı: (1) şişirilmiş-yıldız/düşük-issue oranı
+(`freshtechbro/claudedesignskills`, 917:4), (2) issue'ları kapatılmış/doğrulanamaz dosya
+iddiaları (`rshah515/claude-code-subagents`). Bir aday (`elliotxx/favicon-mcp-server`) Tur 23'te
+zaten reddedilmiş bir tekrar-adaydı — gelecek turlar için not düşüldü. Tur 26'da proje-özel MCP
+boşluğu üç yeni araçla dolduruldu:
 ikinci bağımsız erişilebilirlik denetim implementasyonu (`priyankark/a11y-mcp`, #82), Storybook
 tabanlı "ground truth" design-token/component çıkarma (`freema/mcp-design-system-extractor`, #83)
 ve düşük-benimsemeli ama proje-uyumlu ikon eşleştirme aracı (`awssat/mcp-universal-icons`, #84,
