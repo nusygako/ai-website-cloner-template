@@ -1,6 +1,33 @@
-## ARAŞTIRMA DURUMU (en son Tur 29 — 2026-09-22)
+## ARAŞTIRMA DURUMU (en son Tur 30 — 2026-09-22)
 
-**Tur 29 notu (aynı gece, 2026-09-22, ~09:15 UTC / 12:15 Türkiye saati başladı):** Kesme noktasının
+**Tur 30 notu (aynı gece, 2026-09-22, ~10:18 UTC / 13:18 Türkiye saati başladı):** Kesme noktasının
+(12:00 UTC) öncesinde başladı — Tur 29'un bitişinden (~09:15 UTC) yaklaşık 1 saat sonra, aynı gece
+içinde. Bu turda oturum başında **ilk kez** "detached HEAD" sorunu görülmedi — repo doğrudan
+`master` branch'inde, `origin/master` ile birebir aynı commit'teydi (4e29490, Tur 29 commit'i);
+önceki on iki turun aksine hiçbir düzeltme adımı gerekmedi (not: bu tek seferlik bir iyileşme mi
+yoksa kalıcı bir düzelme mi, gelecek turlar gözlemlemeli). Araştırma bu turda alt-agent'a
+devredilmeden doğrudan ana oturum tarafından yürütüldü; görev talimatındaki proje-özel niş boşluklar
+(video/GIF asset indirme-optimize etme, WCAG/erişilebilirlik otomasyonu, CSS-in-JS tespiti, font
+subsetting, dark-mode tespiti, Vercel deployment otomasyonu, RSC uyumluluk kontrolü, yeni ücretsiz
+LLM API) sırayla `WebSearch` ile tarandı. 4 aday bulundu ve `WebFetch` ile GitHub sayfaları
+üzerinden bağımsız doğrulandı (yıldız/lisans/commit tarihi/dosya yapısı kontrolü dahil), hepsi
+kataloğa eklendi (#95-#98) — üçü tam olarak görev talimatının işaret ettiği boşlukları dolduruyor
+(video düzenleme/optimize MCP, RSC sınır-görselleştirme aracı, Vercel deployment MCP), biri
+(fonttools/pyftsubset) resmi ve çok yaygın bir kütüphanenin font-subsetting özelliği olarak font
+optimizasyonu boşluğunu dolduruyor. 3 aday reddedildi (aşağıya bak: şüpheli yıldız/commit oranı,
+paylaşımlı-kimlik-bilgisi-benzeri gateway mimarisi, 0-yıldız/karmaşık-kurulum). CSS-in-JS tespiti ve
+dark-mode/tema tespiti nişleri için bu turda GitHub'da bağımsız, meşru, henüz kataloglanmamış bir
+MCP sunucusu/araç bulunamadı (mevcut sonuçlar ya genel CSS analiz kütüphaneleriydi ya da zaten
+kataloglanmış #x51xxx/coolors-mcp'ye çok yakındı) — bu iki niş "pending" olarak not düşüldü, gelecek
+turlar tekrar bakabilir. **Tur 30'da metodoloji notu:** `nganiet/mcp-vercel` (#98) son commit'i
+5 Ağustos 2025 tarihli (13+ ay güncellenmemiş) olmasına rağmen 0 açık issue, gerçek `src/` kod
+yapısı ve Tur 25'te `lst97/claude-code-sub-agents` için kurulan "bakımsız ama sağlam görüntü kaydı"
+emsaline uyduğu için açık düşük-güncellik uyarısıyla eklendi; alternatif adaylardan
+`Quegenx/vercel-mcp-server` (63 yıldız/sadece 3 commit — şüpheli oran) ve `AStheTECH/mewcp-vercel`
+(0 yıldız, kimlik bilgilerini bir "gateway" üzerinden enjekte eden mimari — paylaşımlı-anahtar
+deseniyle örtüşme riski) bu yüzden tercih edilmedi.
+
+**Önceki durum (Tur 29, aynı gece, 2026-09-22, ~09:15 UTC / 12:15 Türkiye saati başladı):** Kesme noktasının
 (12:00 UTC) hemen öncesinde başladı — Tur 28'in bitişinden (~08:14 UTC) sadece ~1 saat sonra, aynı
 gece içinde. Oturum başında yine "detached HEAD" durumu görüldü (artık onbirinci kez tekrarlayan aynı
 desen); `git fetch` ile `origin/master`'ın (5cdd094, Tur 28 commit'i) HEAD ile birebir aynı commit'te
@@ -191,7 +218,7 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 94 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 98 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
 13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
 mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
@@ -3220,3 +3247,129 @@ uyarısıyla) — ve ilk kez NVIDIA NIM API ücretsiz katmanı (#88, kişisel an
 çapraz doğrulandı, birincil sayfa bu sandbox'tan erişilemedi) eklendi. Reddedilen adaylar: iki
 redundant WebP/AVIF dönüştürücü, dar kapsamlı bir SEO aracı, platform-uyumsuz iki Codex/AGY subagent
 koleksiyonu (bkz. yukarıdaki "Doğrulanan ama EKLENMEYEN" listesi).*
+
+## Tur 30 — 2026-09-22
+
+### A) MCP Sunucuları (proje-özel niş boşluklar)
+
+#### 95. [KyaniteLabs/kinocut](https://github.com/KyaniteLabs/kinocut) (eski adıyla `mcp-video`)
+- **Yıldız:** 162 · **Lisans:** Apache-2.0
+- **Güncellik:** 1.513+ commit, en son yayınlanan sürüm 1.15.1 (31 Ağustos 2026), aktif ve
+  süregelen geliştirme (Forgejo'da barınan kanonik kaynak, GitHub genel işbirliği aynası)
+- **Ne işe yarar:** FFmpeg tabanlı, "guardrailed" (korkuluklu/denetimli) yerel video düzenleme MCP
+  sunucusu + Python kütüphanesi + `kino` CLI'ı. 196 MCP aracı / 167 CLI komutu: kırpma, birleştirme,
+  yeniden boyutlandırma, döndürme, format dönüştürme, altyazı, overlay, transkripsiyon, sahne
+  tespiti, upscaling, platform-özel (Shorts/Reels/TikTok) yeniden paketleme, "Video Receipts" ile
+  yayın-öncesi kalite kapısı.
+- **Neden meşru:** Gerçek Python paketi (`kinocut/`, `kinocut_sound/`, `tests/`, `docs/`,
+  `workflows/` klasörleri), PyPI'de yayınlı (`pip install kinocut`), açıkça "local-first, no
+  Kinocut account or API key required for the core surface" diyor — paylaşımlı/havuzlanmış
+  kimlik bilgisi YOK. `mcp-video`'dan `kinocut`'a yeniden adlandırma şeffaf şekilde belgelenmiş
+  (eski PyPI/registry adları geriye dönük uyumluluk için korunuyor, gizli mirror değil).
+- **Proje uyumu:** Görev talimatının açıkça işaret ettiği "video/GIF asset indirme ve optimize
+  etme" boşluğunu dolduruyor — hedef siteden indirilen videoları `public/videos/`'a koymadan önce
+  web için yeniden kodlamak/kırpmak/boyutlandırmak için kullanılabilir; kataloğun bugüne kadar hiçbir
+  video-düzenleme/optimize MCP'si yoktu (sadece video-analiz ve GIF-arama araçları vardı).
+- **Kurulum:** `pip install kinocut` veya `uvx --from kinocut kino`; MCP config'e ekle. Yerel
+  FFmpeg gerekir, API key gerekmez.
+
+#### 96. [foxted/rsc-boundary](https://github.com/foxted/rsc-boundary)
+- **Yıldız:** 128 · **Lisans:** MIT
+- **Güncellik:** 80 commit, en son commit 5 Eylül 2026, aktif (0 açık issue, 1 fork — organik/
+  niş bir büyüme deseni, şişirilmiş-yıldız işareti YOK)
+- **Ne işe yarar:** Next.js App Router (ve TanStack Start) uygulamalarında React Server Component
+  ile Client Component sınırlarını tarayıcıda doğrudan görselleştiren devtool — kök layout'a tek bir
+  provider eklenerek turuncu (client kök) / mavi (server bölgesi) anahat + etiket + panel sunuyor.
+  Paketler: `@rsc-boundary/core` (framework-agnostic fiber walk), `@rsc-boundary/next`,
+  `@rsc-boundary/start`.
+- **Neden meşru:** Gerçek monorepo (`packages/`, `apps/web` demo/playground, `playgrounds/`
+  adapter smoke-testleri, `config/`), npm'de yayınlı paketler, MIT lisans, tek geliştiricili ama
+  aktif (Eylül 2026'da commit, dependabot güncellemeleri, CI).
+- **Proje uyumu:** Görev talimatının açıkça işaret ettiği "React Server Component uyumluluk
+  kontrolü" boşluğunu dolduruyor — Next.js 16 App Router tabanlı bu şablonda klonlanan
+  bileşenlerin hangilerinin yanlışlıkla `"use client"` sınırını aştığını/kaçırdığını görsel olarak
+  denetlemek için kullanılabilir; kataloğun bugüne kadar hiçbir RSC-sınır aracı yoktu.
+- **Kurulum:** `npm install @rsc-boundary/next` (dev dependency), kök layout'a provider ekle. API
+  key gerekmez, tamamen yerel/geliştirme-zamanı aracı.
+
+### B) Kütüphane/Araç (font optimizasyonu — resmi ve yaygın)
+
+#### 97. [fonttools/fonttools](https://github.com/fonttools/fonttools) (`pyftsubset`)
+- **Yıldız:** 5.300+ · **Lisans:** MIT
+- **Güncellik:** 13.300+ commit, en son sürüm 4.65.0 (10 Eylül 2026), çok aktif (65 açık PR, 331
+  açık issue — büyük, olgun bir projede beklenen oranlar, şişirilmiş-yıldız deseni YOK)
+- **Ne işe yarar:** Python ile yazılmış, fontları (TrueType/OpenType/AFM/kısmen Type 1) işlemek
+  için resmi kütüphane; paketle birlikte gelen `pyftsubset` komut satırı aracı, bir font dosyasını
+  yalnızca kullanılan karakter/glyph/OpenType özelliklerine indirgeyerek (subsetting) web için
+  dosya boyutunu ciddi oranda küçültüyor.
+- **Neden meşru:** `github.com/fonttools` resmi organizasyonu, 1999'dan beri süregelen telif hakkı/
+  geliştirme, 60+ isimlendirilmiş katkıcı, PyPI'de (`pip install fonttools`) milyonlarca indirme,
+  Google Fonts dahil endüstri standardı font araç zinciri olarak yaygın kullanım.
+- **Proje uyumu:** Görev talimatının açıkça işaret ettiği "custom font subsetting" boşluğunu
+  dolduruyor — hedef siteden indirilen/self-host edilecek webfont'ları (`google-webfonts-helper`,
+  `webfont-dl` gibi zaten kataloglanmış araçlarla indirildikten SONRA) yalnızca gerçekten kullanılan
+  glyph'lere indirgemek için tamamlayıcı bir adım; kataloğun bugüne kadar font-arama/eşleştirme
+  araçları vardı (#Maxamed-Maxamed, #Monotype, #Microck) ama hiçbir subsetting/optimizasyon aracı
+  yoktu.
+- **Kurulum:** `pip install fonttools`, örnek kullanım:
+  `pyftsubset font.ttf --unicodes="U+0000-00FF" --output-file=font-subset.woff2 --flavor=woff2`.
+  API key gerekmez, tamamen yerel CLI.
+
+### C) MCP Sunucusu (proje-özel — Vercel deployment otomasyonu, düşük-güncellik uyarısıyla)
+
+#### 98. [nganiet/mcp-vercel](https://github.com/nganiet/mcp-vercel) — ⚠️ DÜŞÜK GÜNCELLİK
+- **Yıldız:** 69 · **Lisans:** MIT
+- **Güncellik:** 39 commit, son commit **5 Ağustos 2025** (13+ aydır güncellenmemiş), 0 açık issue,
+  17 fork
+- **Ne işe yarar:** Claude/Cursor gibi AI asistanları Vercel'in API'sine bağlayan MCP sunucusu;
+  11+ araç — deployment listeleme/oluşturma, proje yönetimi (oluşturma/listeleme/ortam değişkeni
+  yönetimi), domain bilgisi, ortam (environment) ve takım yönetimi.
+- **Neden meşru:** Gerçek `src/` kod yapısı (`handlers.ts`, `schema.ts`, `types.ts`, araç
+  alt-klasörleri), kullanıcının KENDİ Vercel API token'ını `VERCEL_API_TOKEN` ortam değişkeniyle
+  yerel olarak sağlaması gerekiyor (paylaşımlı/havuzlanmış anahtar YOK), MIT lisans, 0 açık issue
+  (bakımsız ama sorunlu değil).
+- **Dikkat:** 13+ ay güncellenmemiş — Tur 25'te `lst97/claude-code-sub-agents` için kurulan
+  "bakımsız ama sağlam bir görüntü kaydı" emsaliyle aynı gerekçeyle, açık düşük-güncellik uyarısıyla
+  eklendi. Kurulum öncesi Vercel API'sinin bu tarihten sonra değişip değişmediği (breaking change)
+  kontrol edilmeli. Alternatif adaylar (`Quegenx/vercel-mcp-server` — 63 yıldız/3 commit şüpheli
+  oranı; `AStheTECH/mewcp-vercel` — 0 yıldız, kimlik-bilgisi-enjeksiyon gateway mimarisi) bu
+  gerekçelerle tercih edilmedi (aşağıya bak).
+- **Proje uyumu:** Görev talimatının açıkça işaret ettiği "Vercel deployment otomasyonu" boşluğunu
+  dolduruyor — `AGENTS.md`'nin "Deployment: Vercel" hedefine doğrudan hizmet ediyor.
+- **Kurulum:** `git clone` + `npm install` + `VERCEL_API_TOKEN` ortam değişkenini kullanıcının
+  kendi Vercel hesap ayarlarından (`vercel.com/account/tokens`) aldığı token ile ayarla, MCP
+  config'e ekle. Yerel onay + kişisel API token gerekir.
+
+### D) Doğrulanan ama EKLENMEYEN Bulgular (Tur 30)
+
+- **`Quegenx/vercel-mcp-server`** — 63 yıldız fakat sadece 3 commit görünüyor; yıldız/commit oranı
+  şüpheli (dosyanın başındaki "şişirilmiş yıldız" deseniyle örtüşme riski). Detaylı adli inceleme
+  yapılmadan, temkinli olarak **eklenmedi**.
+- **`AStheTECH/mewcp-vercel`** — 0 yıldız; kimlik bilgilerini ("Vercel token'ınız") bir üçüncü
+  parti "gateway"in `X-MCP-Cred-Fields` header'ı üzerinden enjekte ettiği bir mimari kullanıyor —
+  bu, görev talimatının yasakladığı "paylaşımlı/havuzlanmış API key" deseniyle yeterince örtüşme
+  riski taşıyor. **Eklenmedi**.
+- **`azrdn/sunset`** — 0 yıldız font-subsetting web uygulaması (hb-subset sarmalayıcı); işlevsel
+  gerçek kaynak koduna sahip ama kurulum karmaşık (Bun + hb-subset + woff2 + 7zz veya Docker) ve
+  0 benimseme sinyali var. Aynı işlevi çok daha meşru/olgun bir şekilde sağlayan
+  `fonttools/fonttools` (#97) tercih edildiği için **eklenmedi** (redundant + daha zayıf).
+- **CSS-in-JS tespiti** ve **dark-mode/tema tespiti** nişleri için bu turda bağımsız, meşru,
+  henüz kataloglanmamış bir GitHub projesi bulunamadı — sonuçlar ya genel-amaçlı CSS analiz
+  kütüphaneleriydi (proje-özel MCP değil) ya da zaten kataloglanmış `x51xxx/coolors-mcp`'ye
+  (tema/renk eşleştirme) çok yakındı. **Pending** — gelecek turlar tekrar bakabilir.
+
+---
+
+*Son güncelleme: 2026-09-22 (Tur 30). Tur 30'da görev talimatının açıkça işaret ettiği dört niş
+boşluktan üçü dolduruldu: video/GIF asset optimize etme (`KyaniteLabs/kinocut`, #95 — eski adıyla
+`mcp-video`, 162 yıldız, tamamen anahtarsız), React Server Component uyumluluk kontrolü
+(`foxted/rsc-boundary`, #96, 128 yıldız, Eylül 2026'da aktif commit) ve Vercel deployment
+otomasyonu (`nganiet/mcp-vercel`, #98, düşük-güncellik uyarısıyla — iki alternatif aday şüpheli
+yıldız/commit oranı ve kimlik-bilgisi-gateway mimarisi nedeniyle reddedildi). Ayrıca resmi ve çok
+yaygın `fonttools` kütüphanesinin `pyftsubset` aracı font-subsetting boşluğunu doldurdu (#97, 5.300+
+yıldız, 10 Eylül 2026'da yeni sürüm). CSS-in-JS tespiti ve dark-mode/tema tespiti nişleri için
+meşru/yeni bir aday bulunamadı, pending bırakıldı. Bu turda **ilk kez** oturum başında "detached
+HEAD" sorunu görülmedi (repo doğrudan `master`'daydı) — önceki on iki turun aksine bir düzeltme
+adımı gerekmedi. Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–30'da
+listelenenler tekrarlanmayacak.
+
