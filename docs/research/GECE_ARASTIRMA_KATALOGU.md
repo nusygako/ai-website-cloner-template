@@ -28,9 +28,30 @@ Aşağıdaki bölümler önceki 31 turun tam detaylı geçmişini içerir.
 
 ---
 
-## ARAŞTIRMA DURUMU (en son Tur 32 — 2026-09-23)
+## ARAŞTIRMA DURUMU (en son Tur 34 — 2026-09-23)
 
-**Tur 32 notu (2026-09-23, ~03:15 UTC / 06:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+**Tur 34 notu (2026-09-23, ~05:15 UTC / 08:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+çok öncesinde başladı. Repo `master` branch'inden ayrı, "detached HEAD" durumundaydı; `git log`
+ile `origin/master`'ın HEAD ile birebir aynı commit'te (e998647, Tur 33'ün commit'i) olduğu
+doğrulandı, çalışma kaybı yok. Dosyanın tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 105
+benzersiz kaynak linki çıkarıldı, tekrarın önüne geçmek için kullanıldı (not: dosyanın en üstteki bu
+özet bloğu Tur 33'ün eklediği son bölümü yansıtacak şekilde güncellenmemiş kalmıştı — dosyanın kendisi
+zaten #105'e kadar tam ve doğruydu, sadece bu özet paragrafı bir tur geriden geliyordu; bu tur bunu da
+düzeltti). Araştırma bir general-purpose alt-agent'a devredildi; 105 mevcut kaynağın tam listesi +
+hariç-tutma kriterleri + hâlâ dolmayan niş boşluklar (dark-mode/tema tespiti — beşinci turdur
+pending) verildi. Alt-agent 2 yeni aday buldu ve `WebFetch` ile bağımsız doğruladı (#106-#107 —
+biri FFmpeg'i MCP üzerinden ajana açan video/ses işleme aracı, biri paylaşımlı-anahtar İÇERMEDİĞİNİ
+açıkça belirten ve her sağlayıcının kendi resmi kayıt sayfasına link veren küratörlü ücretsiz LLM API
+listesi), 3 adayı reddetti (bir liste deposu şüpheli "hesapsız anında key" girdisi içerdiği için
+paylaşımlı-anahtar riskiyle, bir WCAG aracı tek-günlük/0-yıldız/redundant olduğu için, birkaç Apify-
+barındırılan "MCP sunucusu" incelenebilir kaynak kodu olmadığı için). Dark-mode/tema tespiti ve etik
+scraping nişleri bu turda tekrar arandı — etik scraping nişi zaten Tur 33'te dolduruldu
+(`YawLabs/fetch-mcp`), dark-mode/tema tespiti hâlâ meşru bağımsız aday bulunamadan pending kalıyor
+(altıncı art arda tur).
+
+**Toplam:** 107 doğrulanmış kaynak (Tur 33 sonunda 105'ti, Tur 34 ile #106-#107 eklendi).
+
+**Önceki durum (Tur 32, 2026-09-23, ~03:15 UTC / 06:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
 çok öncesinde başladı. Repo `master` branch'inde, `origin/master` ile birebir aynı commit'te bulundu
 — bu turda "detached HEAD" sorunu görülmedi (Tur 30'daki tekil gözlemin ardından ikinci kez). Dosyanın
 tamamı okunmadan önce mevcut 99 benzersiz kataloglanmış repo linki `grep` ile çıkarıldı, tekrarın
@@ -3748,5 +3769,88 @@ limitiyle). 6 aday incelenip reddedildi (tekrar eden liste-repo'lar, havuzlanmı
 tespit aracı olmayan analiz repo'su, `wshobson/agents` fork'ları, tek-dosyalık gist — yukarıya bak).
 Dark-mode/tema tespiti nişi beşinci turdur pending kalıyor. Toplam kataloglanmış kaynak sayısı: 105.
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–33'te listelenenler
+tekrarlanmayacak.*
+
+---
+
+## Tur 34 — 2026-09-23
+
+### D) MCP Sunucuları
+
+#### 106. [dullroar/ffmpeg_mcp](https://github.com/dullroar/ffmpeg_mcp)
+- **Yıldız:** 0 (yeni/henüz keşfedilmemiş) · **Lisans:** MIT
+- **Güncellik:** Aktif — son commit 22 Eylül 2026 (bu turdan bir gün önce), aynı hafta içinde
+  birden fazla commit; tek-seferlik dosya dökümü değil, gerçek geliştirme geçmişi.
+- **Ne işe yarar:** FFmpeg'i MCP araçları olarak ajana açan Python sunucusu (`mcp[cli]` tabanlı) —
+  `convert_video`, `convert_audio`, `extract_audio`, `generate_thumbnail`, `compress_video`,
+  `probe` ve ham `ffmpeg_passthrough`; glob/klasör-bazlı toplu işlem desteği, hem stdio hem
+  HTTP/SSE transport.
+- **Neden meşru:** Gerçek kaynak kodu doğrulandı (`server.py`, `mcp[cli]` bağımlılığıyla
+  `requirements.txt`), çalışan Claude Desktop/Claude Code config örnekleri, `LICENSE` dosyasında
+  MIT metni mevcut. Harici servise/API key'e bağımlı değil, sadece yerel FFmpeg binary'sini
+  sarmalıyor.
+- **Kurulum:** `pip install -r requirements.txt`, ardından Claude Code MCP config'ine yerel (stdio)
+  sunucu olarak ekleme — yerel onay gerekir; host makinede FFmpeg kurulu olmalı.
+- **Proje uyumu:** `AGENTS.md`'deki `public/videos/` — hedef sitelerden indirilen video/GIF
+  asset'lerini (hero background loop'ları vb.) dönüştürme/sıkıştırma/thumbnail üretme ihtiyacını
+  dolduruyor; önceki turlarda "video/GIF işleme" boşluğu için aday bulunamamıştı (bkz. Tur 30'da
+  kısmen `KyaniteLabs/kinocut` ile dolduruldu, bu FFmpeg tabanlı alternatif/tamamlayıcı).
+- **⚠️ Dikkat:** 0 yıldız — henüz kimse tarafından değerlendirilmemiş, çok yeni bir proje. Kod
+  yapısı ve lisans gerçek/doğrulanmış olsa da, benimseme kanıtı yok; kullanmadan önce kaynak kodunu
+  gözden geçirmen önerilir.
+
+### E) Ücretsiz & Meşru API Sağlayıcıları
+
+#### 107. [xyzs996/free-llm-api](https://github.com/xyzs996/free-llm-api)
+- **Yıldız:** 9 · **Fork:** 0 · **Lisans:** MIT
+- **Güncellik:** 48 commit, veriler en son 22 Ağustos 2026'da doğrulanmış, aktif bakım.
+- **Ne işe yarar:** 26 LLM API sağlayıcısını (13'ü kalıcı ücretsiz katmanlı, kredi kartsız)
+  küratörlü bir tabloda listeliyor — Google Gemini, GroqCloud, SiliconFlow, Cohere, Mistral La
+  Plateforme, Cloudflare Workers AI vb. — her biri OpenAI-uyumlu endpoint notlarıyla ve
+  sağlayıcının kendi resmi kayıt sayfasına doğrudan linkle.
+- **Neden meşru:** Repo açıkça "hiçbir çalışan API key saklanmıyor veya dağıtılmıyor" diyor; her
+  girdi sağlayıcının kendi resmi console/docs sayfasına link veriyor; iddiaları doğrulamak için
+  sadece geçti/kaldı meta verisini kaydeden (asla key veya response body değil) bir
+  `probe-output.json` metodolojisi kullanıyor — pazarlama metnine değil, ölçülebilir kanıta
+  dayanıyor.
+- **Kurulum:** Sadece referans — kurulum gerekmez; kullanıcı listelenen sağlayıcılardan istediğini
+  seçip kendi ücretsiz API key'ini o sağlayıcının resmi sayfasından alır ve doğrudan kullanır
+  (ör. `GEMINI_API_KEY`/`GROQ_API_KEY` ortam değişkeni).
+- **Proje uyumu:** Şablonun ihtiyaç duyabileceği ikincil/yedek LLM sağlayıcılarını tek yerden
+  karşılaştırmalı görmeyi sağlıyor; zaten kataloglanmış `amardeeplakshkar/awesome-free-llm-apis` ve
+  `mnfst/awesome-free-llm-apis` listeleriyle kısmen örtüşüyor ama farklı/ek sağlayıcılar ve
+  doğrulama metodolojisi (`probe-output.json`) içeriyor.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 34)
+
+- **`ghassan-gaidi/free-llm-api-list`** — 1 yıldız, net lisans yok, "Cyrus Relay" adlı "hesapsız,
+  anında key" ifadesiyle tanımlanan bir girdi ve yüksek-dolandırıcılık-oranlı bir Telegram
+  reseller bölümü içeriyor — görev talimatının paylaşımlı/havuzlanmış anahtar dışlama kriterine
+  çok yakın. **Reddedildi.**
+- **`bryanberger/mcp-wcag-color-contrast`** — gerçek ve çalışan bir MCP sunucusu (WCAG kontrast
+  matematiği, MIT, TS/Bun) ama 4 commit'in tamamı tek günde (19 Eylül 2025) atılmış, 0 yıldız,
+  o tarihten beri hareketsiz; ayrıca zaten kataloglanmış `JustasMonkev/mcp-accessibility-scanner`
+  ile işlevsel olarak örtüşüyor. **Eklenmedi.**
+- Çeşitli Apify-barındırılan "MCP sunucuları" (robots.txt/security.txt denetleyici, kontrast
+  denetleyici) — bunlar bağımsız açık kaynaklı GitHub repoları değil, Apify platformu üzerinde
+  MCP ile açığa çıkarılan actor'lar; incelenebilir kaynak kodu yok, bu kataloğun "gerçek GitHub
+  kaynağı" ölçütünü karşılamıyor. **Eklenmedi.**
+- `Iain-Stark-GlosCity/wcag-mcp`, `ogsinh/contrast-checker-mcp` — bu turda zaman kısıtı nedeniyle
+  bağımsız doğrulanamadı, gelecek tur bakabilir.
+- Dark-mode/tema tespiti nişi altıncı art arda turdur meşru/aktif bir GitHub projesi bulunamadan
+  **pending** kalmaya devam ediyor (bu turda genel UI kütüphanesi ThemeProvider dokümantasyonu ve
+  blog yazılarının ötesinde bir şey bulunamadı).
+
+---
+
+*Son güncelleme: 2026-09-23 (Tur 34). 2 yeni kaynak eklendi (#106-#107): `dullroar/ffmpeg_mcp`
+(FFmpeg'i MCP üzerinden ajana açan video/ses işleme aracı, MIT, aktif ama henüz 0★ ile
+benimsenmemiş — dikkatli kullan) ve `xyzs996/free-llm-api` (paylaşımlı anahtar İÇERMEDİĞİNİ açıkça
+belirten, her sağlayıcının kendi resmi kayıt sayfasına link veren küratörlü 26-sağlayıcılı ücretsiz
+LLM API listesi, 9★, MIT). 3 aday incelenip reddedildi/ertelendi (şüpheli paylaşımlı-anahtar-benzeri
+liste girdisi, tek-günlük/redundant WCAG aracı, kaynak kodu incelenemeyen Apify actor'ları — yukarıya
+bak). Dark-mode/tema tespiti nişi altıncı turdur pending kalıyor. Toplam kataloglanmış kaynak
+sayısı: 107.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–34'te listelenenler
 tekrarlanmayacak.
 
