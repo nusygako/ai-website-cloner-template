@@ -4172,6 +4172,154 @@ incelenip reddedildi (iki şişirilmiş-yıldız/çoklu-mirror "kişilik" reposu
 API katmanı, resmi sayı yayınlamayan bir sağlayıcı, gerçek kod içermeyen bir overview reposu, gayri-
 resmi OpenRouter sarmalayıcıları — yukarıya bak). Bilinen açık niş boşluk kalmadı. Toplam kataloglanmış
 kaynak sayısı: 116.
-Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–36'da listelenenler
+
+---
+
+## Tur 37 — 2026-09-23
+
+**Tur notu (~10:15 UTC / 13:15 Türkiye saati başladı):** Tur 36'nın belirttiği gibi bilinen proje-özel
+niş boşluk kalmadığı için bu tur da **genel tarama moduna** devam etti. Araştırma bir general-purpose
+alt-agent'a devredildi; mevcut 116 kataloglanmış kaynağın tam listesi, bilinen reddedilen desenler
+(mirror-çiftlikleri, kapanmış ücretsiz katmanlar) ve sert hariç-tutma kriterleri verildi. Alt-agent'ın
+bulduğu 4 adayın tamamı ana oturum tarafından ikinci kez bağımsız `WebFetch` ile (repo sayfası +
+`raw.githubusercontent.com` üzerinden gerçek dosya içeriği) doğrulandı; ayrıca alt-agent'ın reddettiği
+`dembrandt/dembrandt` (3.5k★, 317 fork, **0 açık issue** — klasik şişirilmiş-yıldız deseni) bağımsız
+olarak yeniden doğrulanıp reddi onaylandı. NVIDIA NIM (`build.nvidia.com`) ve Google AI Studio/Gemini
+API ücretsiz katmanları bu oturumun ağ proxy'si tarafından da (`EGRESS_BLOCKED`) engellendi — birincil
+kaynaktan doğrulanamadığı için eklenmedi.
+
+### A) Resmi Sağlayıcı Skill Koleksiyonu
+
+#### 117. [google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills)
+- **Yıldız:** ~8.400 · **Fork:** ~1.100 · **Açık issue:** 9 · **Lisans:** Apache-2.0
+- **Güncellik:** 98 commit, son commit bu turun kendisiyle aynı gün (2026-09-23); repo 2026-01-16'da
+  oluşturulmuş.
+- **Ne işe yarar:** Google Labs'ın **Stitch** (stitch.withgoogle.com, Google'ın AI UI-tasarım aracı)
+  için resmi Agent Skills kütüphanesi — `stitch-design`, `stitch-build`, `stitch-utilities` altında 16
+  gerçek `SKILL.md` paketi; `extract-design-md`, `extract-static-html`, `code-to-design` ve özel bir
+  `shadcn-ui` build skill'i dahil, bu şablonun website-klonlama/design-token-çıkarma iş akışıyla
+  doğrudan örtüşüyor.
+- **Neden meşru:** `raw.githubusercontent.com/google-labs-code/stitch-skills/main/plugins/stitch-
+  utilities/skills/design-md/SKILL.md` doğrudan çekildi — gerçek, detaylı içerik doğrulandı (DESIGN.md
+  üretim süreci, Stitch MCP sunucusu üzerinden retrieval/analysis/synthesis adımları). `google-labs-
+  code` resmi Google Labs GitHub organizasyonu; Stitch kamuya duyurulmuş gerçek bir Google Labs ürünü.
+- **⚠️ Dikkat:** Yıldız:issue oranı (~8400:9 ≈ 933:1) yüksek ama yüksek görünürlüklü bir Google ürün
+  lansmanı için makul (Stitch ana akım basında yer aldı); repo yapısı ve içerik tutarlı, sentetik
+  büyüme belirtisi yok.
+- **Kurulum:** `npx plugins add google-labs-code/stitch-skills --scope project --target claude-code`.
+- **Proje uyumu:** `AGENTS.md`'nin design-extraction/pixel-perfect-emulation fazlarına doğrudan
+  uygulanabilir; `shadcn-ui` build skill'i şablonun kendi UI kütüphanesiyle örtüşüyor.
+
+### B) Subagent + Skill Ekosistemi ve MCP Sunucusu
+
+#### 118. [fusengine/agents](https://github.com/fusengine/agents)
+- **Yıldız:** 28 · **Fork:** 4 · **Açık issue:** 2 · **Lisans:** MIT
+- **Güncellik:** 665 commit, son commit 2026-09-17.
+- **Ne işe yarar:** Claude Code'u çerçeve-tespit eden uzman subagent'lara sahip denetimli çok-agent bir
+  geliştirme ortamına dönüştüren kapsamlı bir plugin ekosistemi — 24 plugin, 37 agent, **196 gerçek
+  `SKILL.md` dosyası**; `nextjs-expert`, `react-expert`, `shadcn-ui`, `tailwindcss`, `php-expert` gibi
+  bu şablonun tam olarak kullandığı yığınla (Next.js App Router, shadcn/ui, Tailwind v4) örtüşen
+  agent'lar içeriyor.
+- **Neden meşru:** `raw.githubusercontent.com/fusengine/agents/main/plugins/nextjs-expert/agents/
+  nextjs-expert.md` doğrudan çekildi — gerçek, detaylı bir agent tanımı doğrulandı (App Router/Server
+  Actions/Prisma 7/Better Auth/shadcn/ui odaklı, zorunlu explore→research→implement→sniper-doğrulama
+  iş akışı, component-discipline kuralları).
+- **⚠️ Dikkat:** Tek geliştirici, genç repo (Ocak 2026'da oluşturuldu), oldukça ağır/görüşlü bir kurulum
+  — context7, exa ve bir "gemini-design" MCP sunucusunu kendi API anahtarlarıyla birlikte kabloluyor;
+  tak-çıkar değil, daha çok bir çerçeve taahhüdü.
+- **Kurulum:** `/plugin marketplace add fusengine/agents` ardından
+  `/plugin install fuse-nextjs fuse-shadcn-ui fuse-tailwindcss ...` (hook/API anahtarı/MCP kurulumu
+  için ayrıca bir `setup.sh` sağlıyor).
+- **Proje uyumu:** `nextjs-expert` ve `shadcn-ui` agent'ları şablonun tech stack'iyle birebir örtüşüyor;
+  kurulum ağırlığı nedeniyle önce izole bir worktree'de denenmesi önerilir.
+
+#### 119. [YonasValentin/design-inspiration-mcp-server](https://github.com/YonasValentin/design-inspiration-mcp-server)
+- **Yıldız:** 17 · **Fork:** 3 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** repo 2026-03-01'de oluşturuldu, son commit 2026-09-22 — aktif.
+- **Ne işe yarar:** 4 araçlı bir MCP sunucusu — `design_search_images`/`design_search_references`/
+  `design_search_styles` (Serper API üzerinden Dribbble/Behance/Awwwards/Mobbin/Pinterest'te `site:`
+  filtreli arama) ve `design_extract_tokens` (canlı bir URL'den renk/tipografi/spacing/shadow çıkarmak
+  için `dembrandt` CLI'sini çağırıyor). `AGENTS.md`'nin Faz 1 görsel-denetim/tasarım-token-çıkarma
+  adımı için doğrudan kullanılabilir.
+- **Neden meşru:** Repo klonlanıp `package.json` ve README doğrulandı — küçük, dürüstçe belgelenmiş,
+  gerçek `child_process.execFile` implementasyonu var (vaporware değil).
+- **⚠️ Dikkat (önemli):** `design_extract_tokens` özelliği, bu turda **reddedilen**
+  `dembrandt/dembrandt`'a (bkz. aşağı — 3.5k★/317 fork/0 açık issue, klasik şişirilmiş-yıldız deseni)
+  bir çalışma zamanı bağımlılığı olarak dayanıyor. `dembrandt`'ın kendisi işlevsel olarak çalışıyor gibi
+  görünüyor (yıldız şişirmesi güvenilirlik/pazarlama sorunu, kötü niyet kanıtı değil) ama bu, MCP
+  sunucusunun genel güven notunu düşürüyor. Ayrıca arama araçları için Serper API anahtarı gerektiriyor
+  (ücretsiz katman: kartsız, tek seferlik 2.500 arama — üçüncü-parti bağımlılık, katalogda ayrıca yer
+  almıyor).
+- **Kurulum:** `npm install` + build sonrası
+  `claude mcp add design-inspiration -e SERPER_API_KEY=your-key -- node /path/to/dist/index.js`.
+- **Proje uyumu:** Faz 1 görsel-denetim ve tasarım-referans arama işini otomatikleştirebilir;
+  `dembrandt` bağımlılığı nedeniyle üretimde dikkatli kullanılmalı.
+
+#### 120. [shadcn-labs/skills](https://github.com/shadcn-labs/skills) — ⚠️ RESMİ shadcn/ui İLE İLİŞKİLİ DEĞİL
+- **Yıldız:** 23 · **Fork:** 3 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** repo 2026-06-15'te oluşturuldu, son commit 2026-08-23.
+- **Ne işe yarar:** "Shadcn Labs" adlı topluluk projesinin skill koleksiyonu — `launch-shadcn-registry`,
+  `icon-set-generator`, `icon-set-audit`, `tailwind-to-stylex`, `mastra-file-agents` gibi gerçek
+  `SKILL.md` paketleri.
+- **Neden meşru (ama dikkatle):** `raw.githubusercontent.com/shadcn-labs/skills/main/skills/icon-set-
+  generator/SKILL.md` doğrudan çekilip gerçek içerik doğrulandı. Ancak proje kendi sitesinde "Shadcn
+  Labs, shadcn ekosistemi sınırlarını zorlayan açık kaynak teknolojiler inşa etmeye adanmıştır...
+  **shadcn tarafından onaylanmamış veya shadcn ile ilişkili değildir**" ifadesini kullanıyor — yani isim
+  benzerliğine rağmen resmi `shadcn-ui/ui` (zaten kataloğun #37 maddesi) projesiyle HİÇBİR bağlantısı
+  yok. Karışıklığı önlemek için açıkça "gayri-resmi/topluluk" olarak etiketlendi.
+- **Kurulum:** `npx skills add shadcn-labs/skills`.
+- **Proje uyumu:** `icon-set-generator`/`icon-set-audit` şablonun `components/icons.tsx` adımına
+  yardımcı olabilir; ama resmi olmadığı için içerik kalitesi/bakımı diğer resmi girdiler kadar garanti
+  değil.
+
+### C) Not: Zaten Kataloglanmış Bir Girdiye Resmi Güncelleme (yeni madde değil)
+
+`shadcn-ui/ui` (zaten kataloğun #37 maddesi) artık kendi resmi Claude Skill'ini barındırıyor:
+`skills/shadcn/SKILL.md`. `raw.githubusercontent.com/shadcn-ui/ui/main/skills/shadcn/SKILL.md`
+doğrudan çekilip doğrulandı — proje-bağlamını (`npx shadcn@latest info --json`) okuyan, sıkı
+styling/forms/composition kurallarına sahip gerçek bir skill (semantic renk token'ları, `FieldGroup`+
+`Field` form kompozisyonu, icon boyutlandırma kısıtları). Yeni bir katalog maddesi değil (zaten listede
+olan bir repo içinde yaşıyor) ama bu şablonun shadcn/ui kullanımı için doğrudan ilgili olduğundan not
+düşüldü.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 37)
+
+- **`dembrandt/dembrandt`** — 3.5k★, 317 fork, **0 açık issue**, ~10 aylık repo. Şişirilmiş yıldız
+  deseni bağımsız olarak ikinci kez doğrulandı (`WebFetch` ile repo sayfası tekrar çekildi, aynı
+  rakamlar teyit edildi: 3.5k★/317 fork/0 issue). Araç işlevsel görünüyor (Playwright tabanlı, W3C
+  design-token formatına export ediyor) ama katalogun güven eşiğini karşılamıyor. **Eklenmedi**, ama
+  #119 maddesinde çalışma zamanı bağımlılığı olarak not düşüldü.
+- **`obviousworks/Claude-AI-skills-collection-2026`** — "resmi ve topluluk Claude Skills'lerinin
+  kürasyonu" iddiasında ama içinde **sıfır gerçek `SKILL.md` dosyası yok** — sadece diğer repolara
+  (bazıları zaten kataloglanmış) link veren bir README listesi. **Eklenmedi**, kataloğun "gerçek dosya"
+  ölçütünü karşılamıyor.
+- **`laywill/awesome-claude-code-subagents`, `djdev/awesome-claude-code-subagents`,
+  `sydnikol/awesome-claude-code-subagents`, `tryalan-ai/awesome-claude-code-sub-agents`** — hepsi
+  zaten kataloglanmış `VoltAgent/awesome-claude-code-subagents`'ın (#3) birebir aynı pazarlama metnini
+  taşıyan fork/mirror'ları. **Eklenmedi**, mirror-çoğalması deseni.
+- **NVIDIA NIM (`build.nvidia.com`) ve Google AI Studio/Gemini API ücretsiz katmanı** — arama
+  sonuçlarına göre güçlü, resmi görünen ücretsiz-katman adayları (NVIDIA: ~1000 ücretsiz kredi + 50+
+  model, kartsız; Gemini: günde 1500 istek, kartsız) ama bu oturumun ağ proxy'si `ai.google.dev` ve
+  `build.nvidia.com`'u (`EGRESS_BLOCKED`) engellediği için birincil kaynaktan bağımsız doğrulanamadı.
+  Tur 21'in "birincil kaynak zorunlu" kuralı gereği **eklenmedi** — farklı bir ağ erişimine sahip
+  gelecek bir tur bakabilir.
+
+Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebilir.
+
+---
+
+*Son güncelleme: 2026-09-23 (Tur 37). 4 yeni kaynak eklendi (#117-#120): `google-labs-code/stitch-
+skills` (Google Labs'ın resmi Stitch Agent Skills kütüphanesi, 16 SKILL.md, ~8.4k★, Apache-2.0),
+`fusengine/agents` (196 SKILL.md + 37 agent içeren kapsamlı Claude Code plugin ekosistemi, 28★, MIT),
+`YonasValentin/design-inspiration-mcp-server` (tasarım-referans arama + token-çıkarma MCP sunucusu,
+17★, MIT — reddedilen `dembrandt` CLI'sine bağımlılığı nedeniyle dikkat notuyla eklendi), ve
+`shadcn-labs/skills` (topluluk skill koleksiyonu — resmi shadcn/ui ile İLİŞKİLİ DEĞİL, açıkça
+etiketlendi). Ayrıca zaten kataloglanmış `shadcn-ui/ui`'nin yeni resmi `skills/shadcn/SKILL.md`
+skill'i not düşüldü (yeni madde değil, mevcut #37 girdisinin içinde yaşıyor). 4 aday incelenip
+reddedildi (`dembrandt/dembrandt` şişirilmiş yıldız deseni — bağımsız ikinci kez doğrulandı,
+`obviousworks/...` gerçek SKILL.md içermeyen link-listesi, 4 adet `awesome-claude-code-subagents`
+mirror'ı, NVIDIA NIM + Google Gemini API ücretsiz katmanları ağ-proxy engeli nedeniyle doğrulanamadı —
+yukarıya bak). Bilinen açık niş boşluk kalmadı. Toplam kataloglanmış kaynak sayısı: 120.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–37'de listelenenler
 tekrarlanmayacak.
 
