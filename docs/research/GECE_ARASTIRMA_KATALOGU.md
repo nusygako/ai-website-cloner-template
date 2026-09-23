@@ -1,34 +1,41 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Durdurma zamanı:** 2026-09-23, ~12:15 UTC (15:15 Türkiye saati) — görev talimatındaki 12:00 UTC
+**Durdurma zamanı:** 2026-09-23, ~12:17 UTC (15:17 Türkiye saati) — görev talimatındaki 12:00 UTC
 (15:00 Türkiye) kesme noktası bu oturum BAŞLARKEN zaten geçilmiş olduğu için bu oturum yeni arama
-YAPMADI, sadece bu özeti güncelledi. Aynı gün içinde daha erken çalışan Tur 36 (~07:15 UTC'de
-başlayıp kesme noktasından çok önce normal şekilde tamamlanmış) kataloğa dört yeni madde
-(#113-#116) eklemişti; bu oturum sadece bu özeti o turun sonucunu yansıtacak şekilde tazeledi.
+YAPMADI, sadece bu özeti güncelledi. **Not:** Bir önceki özet (bu bloğun eski hâli) yalnızca Tur 36'yı
+yansıtıyordu, ama dosyanın gövdesinde ondan sonra kesme noktasından ÖNCE tamamlanmış iki tur daha vardı
+(Tur 37: ~10:15 UTC başladı, #117-#120 ekledi; Tur 38: ~11:15 UTC başladı, #121-#125 ekledi) ve bunlar
+bu üst özete hiç yansıtılmamıştı. Bu oturum yeni arama yapmadı, sadece bu özeti dosyanın gerçek son
+durumuyla (Tur 38 sonu) eşleşecek şekilde düzeltti.
 
-**Toplam kataloglanmış kaynak sayısı:** 116 (36 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
+**Toplam kataloglanmış kaynak sayısı:** 125 (38 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
 
-**En son eklenen / öne çıkan 5 kaynak (Tur 36 + bir önceki turdan tamamlayıcı madde):**
-1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (#116, ~134.000★, MIT) — Y Combinator
-   Başkanı Garry Tan'a ait, Claude Code'u sanal bir mühendislik ekibine dönüştüren 50+ gerçek skill
-   (`/review`, `/ship`, `/qa`, `/design-review` vb.); ⚠️ katalogdaki en yüksek yıldız sayısı,
-   temkinli eklendi — büyüme paterni izlenmeli.
-2. **[cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)** (#115,
-   ~4.300★, Apache-2.0) — Cloudflare'in resmi, ürüne-özel 13+ MCP sunucusu koleksiyonu (R2, DNS
-   analytics, Zero Trust, Radar vb.), zaten kataloglanmış `cloudflare/mcp`'yi (#99) tamamlıyor.
-3. **[firebase/skills](https://github.com/firebase/skills)** (#114, 451★, Apache-2.0) — Firebase'in
-   resmi Agent Skills deposu; Firestore, Auth, Security Rules denetleyicisi gibi 13 gerçek `SKILL.md`.
-4. **[google/skills](https://github.com/google/skills)** (#113, ~20.300★, Apache-2.0) — Google'ın
+**Öne çıkan 5 kaynak (Tur 37-38'in en önemlileri + genel kataloğun en yüksek etkili resmi girdileri):**
+1. **[VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)** (#125,
+   ~34.800★, MIT) — Anthropic, Google, Microsoft, Vercel, Cloudflare gibi kaynaklara göre indekslenen
+   1000+ agent skill'lik küratörlü liste; kendi `SKILL.md`'si yok ama gelecekteki keşif için en yüksek
+   etkili girdi.
+2. **[google/skills](https://github.com/google/skills)** (#113, ~20.300★, Apache-2.0) — Google'ın
    resmi Agent Skills deposu; BigQuery, GKE, Cloud Run, Gemini API gibi 100+ gerçek `SKILL.md` paketi.
-5. **[1999AZZAR/designer-mcp](https://github.com/1999AZZAR/designer-mcp)** (#108, bir önceki turdan) —
-   kapsamlı OKLCH renk + dark-mode token üretimi yapan MCP sunucusu; projenin tasarım-token çıkarma
-   iş akışına doğrudan uyuyor.
+3. **[google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills)** (#117,
+   ~8.400★, Apache-2.0) — Google Labs'ın Stitch (AI UI-tasarım aracı) için resmi skill kütüphanesi;
+   `extract-design-md`/`extract-static-html`/`code-to-design` ve bir `shadcn-ui` build skill'i
+   içeriyor — bu şablonun tasarım-token-çıkarma iş akışıyla doğrudan örtüşüyor.
+4. **[fusengine/agents](https://github.com/fusengine/agents)** (#118, 28★, MIT) — 196 gerçek
+   `SKILL.md` + 37 agent içeren kapsamlı Claude Code plugin ekosistemi; `nextjs-expert`,
+   `shadcn-ui`, `tailwindcss` agent'ları şablonun yığınıyla birebir örtüşüyor (kurulum ağır, önce
+   izole worktree'de denenmeli).
+5. **[mongodb/agent-skills](https://github.com/mongodb/agent-skills)** (#121, 184★, Apache-2.0) —
+   MongoDB'nin resmi skill koleksiyonu; proje-özel değil ama genel amaçlı resmi sağlayıcı örneği.
 
-**Hâlâ dolmayan niş boşluklar:** Tur 36 sonunda bilinen proje-özel niş boşluk kalmadığı raporlandı;
-gelecek turlar genel tarama moduna (yeni resmi sağlayıcı skill/agent koleksiyonları, MCP sunucuları)
-devam edebilir veya büyük sağlayıcıların yeni duyurularını takip edebilir.
+**⚠️ Dikkat notu:** `garrytan/gstack` (#116, ~134.000★) hâlâ kataloğun en yüksek yıldızlı girdisi —
+temkinli eklenmişti, büyüme paterni izlenmeli.
 
-Aşağıdaki bölümler önceki 36 turun tam detaylı geçmişini içerir.
+**Hâlâ dolmayan niş boşluklar:** Tur 38 sonunda bilinen proje-özel niş boşluk kalmadığı raporlandı; iki
+aday (`monte-carlo-data/mc-agent-toolkit`, `ar27111994/penpot-mcp`) umut verici ama doğrulanamadan
+bırakıldı. Gelecek turlar bunları doğrulayabilir veya genel tarama moduna devam edebilir.
+
+Aşağıdaki bölümler önceki 38 turun tam detaylı geçmişini içerir (Tur 37 ~line 4178, Tur 38 ~line 4328).
 
 ---
 
