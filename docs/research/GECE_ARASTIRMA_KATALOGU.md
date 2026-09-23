@@ -3651,3 +3651,102 @@ uyumluluğu nişleri dördüncü turdur pending kalıyor. Toplam kataloglanmış
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–32'de listelenenler
 tekrarlanmayacak.
 
+## Tur 33 — 2026-09-23
+
+**Tur 33 notu (~04:15 UTC / 07:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC) çok
+öncesinde başladı. Repo `master` branch'inde bulundu ama yine "detached HEAD" durumundaydı —
+`git checkout master && git fetch origin master && git merge --ff-only origin/master` ile
+düzeltildi (Tur 31'in önerdiği gibi rutin ön kontrol olarak tekrarlandı — bu üçüncü turdur aynı
+sorunun görülmesi, ortamın her oturumda HEAD'i commit'e sabitlediğini gösteriyor). Dosyadan mevcut
+103 benzersiz kataloglanmış GitHub linki `grep` ile çıkarılıp tek bir general-purpose alt-agent'a
+devredildi; alt-agent'a tam liste + reddedilen adaylar + hariç-tutma kriterleri + Tur 32'nin pending
+bıraktığı niş boşlukları (CSS-in-JS tespiti, dark-mode/tema tespiti, etik scraping/robots.txt
+uyumluluğu, yeni ücretsiz LLM API sağlayıcısı) verildi. Alt-agent 3 aday buldu ve `WebFetch` ile
+bağımsız doğruladı — hepsi kataloğa eklendi (#103-#105).
+
+### Yeni eklenen kaynaklar
+
+#### 103. [daymade/claude-code-skills](https://github.com/daymade/claude-code-skills)
+- **Yıldız:** ~1.400 · **Lisans:** MIT
+- **Güncellik:** 1072+ commit, 2026 içinde düzenli commit akışı — çok aktif
+- **Ne işe yarar:** 60'tan fazla gerçek `SKILL.md` içeren geniş bir Claude Code beceri koleksiyonu
+  — geliştirme iş akışları, GitHub PR inceleme/otomasyon, araştırma, ses/video işleme ve frontend
+  görsel QA gibi alanlara yayılıyor.
+- **Neden meşru:** `raw.githubusercontent.com/daymade/claude-code-skills/main/frontend-visual-qa/
+  SKILL.md` doğrudan çekildi ve gerçek, dolu bir SKILL.md içeriği doğrulandı (YAML frontmatter +
+  detaylı "Frontend Visual QA" denetim iş akışı: kanıt seviyeleri A-D, Playwright taraması, ekran
+  görüntüsü doğrulama adımları). Ücretli bağımlılık yok, MIT lisans.
+- **Kurulum:** `git clone https://github.com/daymade/claude-code-skills` sonrası ilgili klasörleri
+  `.claude/skills/` altına kopyalama (repo kendi kurulum betiklerini de sunuyor).
+- **Proje uyumu:** `frontend-visual-qa` becerisi bu şablonun `docs/research/INSPECTION_GUIDE.md`
+  akışıyla doğrudan örtüşüyor — klonlanan sitenin canlı halini piksel-hassasiyetinde denetlemek için
+  (ekran görüntüsü + DOM + Playwright taraması ile hedef site karşılaştırması) kullanılabilir.
+
+#### 104. [YawLabs/fetch-mcp](https://github.com/YawLabs/fetch-mcp)
+- **Yıldız:** 2 (çok düşük — dürüstçe belirtiyoruz) · **Lisans:** MIT
+- **Güncellik:** Çok aktif — son commit 21 Eylül 2026, son 2 ay içinde v0.5.3→v0.8.0 arası sürüm
+  geçişleri
+- **Ne işe yarar:** HTTP istekleri için MCP sunucusu; HTML→Markdown dönüşümü, RSS/Atom/sitemap.xml
+  ayrıştırma, metadata çıkarma ve ayrı bir `fetch_robots` aracı sunuyor — bu araç sitenin robots.txt
+  dosyasını ayrıştırıp belirli path'ler için izin/ret kararı döndürüyor.
+- **Neden meşru:** Repo doğrudan incelendi — `src/`, `bin/`, `scripts/`, `SECURITY.md` gibi gerçek
+  dosya/dizin yapısı mevcut, MIT lisanslı, SSRF koruması (loopback/private IP/cloud metadata
+  engelleme) belgelenmiş. Paylaşılan/havuzlanmış API anahtarı yok, sadece yerel HTTP fetch aracı.
+- **Uyarı:** Yıldız sayısı son derece düşük (2) — Tur 32'nin `atomno-mcp/mcp-seo-audit`'i (1★)
+  reddetme gerekçesiyle tutarsız görünebilir; burada istisna yapılma nedeni dört turdur açık kalan
+  "etik scraping/robots.txt uyumluluğu" nişini tam dolduran **tek** aday olması ve belgelenmiş somut
+  güvenlik önlemleri (SSRF koruması) içermesi. Benimseme kanıtı zayıf — gelecek turlar büyüme
+  takip etmeli, güvenle "iyi benimsenmiş" denemiyoruz.
+- **Kurulum:** `npx @yawlabs/fetch-mcp` veya `npm install -g` + MCP client config'e stdio sunucusu
+  olarak ekleme (Node ≥22.19 gerekli).
+- **Proje uyumu:** Hedef siteleri klonlarken içerik/asset indirme adımlarını robots.txt kurallarına
+  uyumlu ve SSRF-güvenli şekilde yapmak için kullanılabilir — dört turdur pending kalan "etik
+  scraping" nişini dolduruyor.
+
+#### 105. OVHcloud AI Endpoints (ücretsiz anonim katman)
+- **Resmi kaynak:** [ovhcloud.com/en/public-cloud/ai-endpoints](https://www.ovhcloud.com/en/public-cloud/ai-endpoints/) ·
+  [docs.ovhcloud.com](https://docs.ovhcloud.com/en/guides/public-cloud/ai-machine-learning/ai-endpoints-capabilities)
+- **Ne işe yarar:** OpenAI-uyumlu, sunucusuz LLM/AI model API'si (Llama 3.3 70B, GPT-OSS 20B/120B,
+  Qwen 3.5/3.6, Stable Diffusion XL, NVIDIA Riva TTS vb.). Anonim kullanıcılar hesap açmadan, API
+  anahtarı olmadan model başına IP başına 2 istek/dakika ile ücretsiz kullanabiliyor; API anahtarlı
+  kullanıcılar 400 istek/dakika'ya çıkabiliyor.
+- **Neden meşru:** OVHcloud'un kendi resmi sitesi ve resmi dokümantasyonu doğrulandı; paylaşılan/
+  havuzlanmış anahtar değil — OVHcloud'un kendi altyapısı (endpoint:
+  `oai.endpoints.kepler.ai.cloud.ovh.net/v1`).
+- **Kurulum:** Herhangi bir OpenAI SDK istemcisinde `base_url` olarak yukarıdaki endpoint'i,
+  `api_key`'i boş bırakarak (anonim mod) veya OVHcloud Public Cloud projesinden alınan gerçek
+  anahtarla kullanma.
+- **Proje uyumu:** Klonlama ajanının içerik özetleme/kod üretimi gibi yardımcı LLM çağrıları için
+  ücretsiz yedek sağlayıcı olabilir; ama 2 istek/dk anonim limiti düşük — yoğun iş yükü için uygun
+  değil.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 33)
+
+- **`open-free-llm-api/awesome-freellm-apis`** — zaten kataloglanan `amardeeplakshkar` ve `mnfst`
+  listeleriyle neredeyse birebir aynı, tekrar eden liste-tipi repo. **Eklenmedi.**
+- **`tashfeenahmed/freellmapi`** — havuzlanmış/paylaşılan anahtar mantığına dayanıyor, görev
+  talimatının dışlama kriterine giriyor. **Reddedildi.**
+- **`andreipfeiffer/css-in-js`** — CSS-in-JS *analizi/karşılaştırması*, gerçek bir tespit/algılama
+  aracı değil; niş hâlâ dolmadı. **Eklenmedi.**
+- **`gensecaihq/Claude-Code-Subagents-Collection`, `chusri/claude-code-agents`,
+  `cmullison/claude-code-agents`, `aiwonglab/claude_code_agents`** — hepsi zaten kataloglanmış
+  `wshobson/agents`'ın doğrudan fork'ları/türevleri, bağımsız değer katmıyor. **Eklenmedi.**
+- **gist.github.com/ruvnet (agentic-robots.txt)** — GitHub repo değil, tek dosyalık gist;
+  doğrulanabilir sürüm geçmişi/lisans yok. **Eklenmedi.**
+- Dark-mode/tema tespiti nişi beşinci art arda turdur meşru/aktif bir GitHub projesi bulamadan
+  **pending** kalmaya devam ediyor. Etik scraping/robots.txt uyumluluğu nişi bu turda
+  `YawLabs/fetch-mcp` ile (düşük benimseme uyarısıyla) dolduruldu.
+
+---
+
+*Son güncelleme: 2026-09-23 (Tur 33). 3 yeni kaynak eklendi (#103-#105): `daymade/claude-code-skills`
+(~1.400★, 60+ SKILL.md içeren büyük ve aktif koleksiyon, `frontend-visual-qa` becerisi bu projenin
+inceleme akışıyla doğrudan örtüşüyor), `YawLabs/fetch-mcp` (sadece 2★ ile düşük benimseme uyarısıyla
+eklendi — dört turdur açık kalan "etik scraping/robots.txt uyumluluğu" nişini dolduran tek somut
+aday) ve OVHcloud AI Endpoints (resmi, anahtarsız/kredi kartsız anonim ücretsiz katman, düşük hız
+limitiyle). 6 aday incelenip reddedildi (tekrar eden liste-repo'lar, havuzlanmış-anahtar, gerçek
+tespit aracı olmayan analiz repo'su, `wshobson/agents` fork'ları, tek-dosyalık gist — yukarıya bak).
+Dark-mode/tema tespiti nişi beşinci turdur pending kalıyor. Toplam kataloglanmış kaynak sayısı: 105.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–33'te listelenenler
+tekrarlanmayacak.
+
