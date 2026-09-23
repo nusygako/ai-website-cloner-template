@@ -4323,3 +4323,121 @@ yukarıya bak). Bilinen açık niş boşluk kalmadı. Toplam kataloglanmış kay
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–37'de listelenenler
 tekrarlanmayacak.
 
+---
+
+## ARAŞTIRMA DURUMU (Tur 38 — 2026-09-23, ~11:15 UTC / 14:15 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC / 15:00 Türkiye) öncesinde başladı, dosya baştan sona okunup mevcut ~93
+kataloglanmış repo slug'ı çıkarılarak tekrar önlendi. GitHub arama API'si (`search_repositories`) ve
+`WebFetch` ile birincil kaynak (repo sayfası) doğrulaması yapıldı. Bu turda odak: resmi şirket/ekip
+skill koleksiyonları (henüz kataloglanmamış yeni "official" skill repoları).
+
+### Bu Turda Eklenen Yeni Kaynaklar (#121-#125)
+
+#### 121. [mongodb/agent-skills](https://github.com/mongodb/agent-skills)
+- **Yıldız:** 184 · **Fork:** 35 · **Açık issue:** 8 · **Lisans:** Apache-2.0
+- **Güncellik:** repo 2026-02-26'da oluşturuldu, son güncelleme 2026-09-22 — aktif (63 commit).
+- **Ne işe yarar:** MongoDB'nin resmi agent-skill koleksiyonu; `skills/` altında gerçek `SKILL.md`
+  dosyaları içeriyor, Claude Code/Cursor/Gemini CLI gibi araçlarla MongoDB şema tasarımı, sorgu
+  optimizasyonu ve Atlas entegrasyonu için kullanılıyor.
+- **Neden meşru:** Repo sayfası `WebFetch` ile doğrudan çekildi; açıklama net biçimde "Collection of
+  official MongoDB agent skills" diyor, `mongodb` GitHub organizasyonu altında (resmi org, zaten
+  yaygın tanınan bir marka).
+- **Kurulum:** `npx skills add mongodb/agent-skills` (agentskills.io standardı) veya dosyaları
+  `~/.claude/skills/` altına manuel kopyalama.
+- **Proje uyumu:** Bu şablon MongoDB kullanmıyor; genel amaçlı bir kaynak olarak kataloglandı (görev
+  talimatı proje-özel olmayan genel Claude Code güçlendirme kaynaklarını da kapsıyor).
+
+#### 122. [black-forest-labs/skills](https://github.com/black-forest-labs/skills)
+- **Yıldız:** 119 · **Fork:** 9 · **Açık issue:** 3 · **Lisans:** MIT
+- **Güncellik:** repo 2026-01-24'te oluşturuldu, son güncelleme 2026-09-17 — aktif (53 commit).
+- **Ne işe yarar:** Black Forest Labs'ın (FLUX modelinin yaratıcıları) resmi skill koleksiyonu —
+  `flux-image-best-practices`, `bfl-api`, `flux-3-generate`, `flux-3-prompt-doctor`,
+  `flux-3-cinematic-inserts`, `flux-3-keyframes-continuation`, `flux-3-audio-dialogue`,
+  `flux-3-archival-formats`, `flux-3-product-ads` gibi gerçek `SKILL.md` dosyaları; FLUX görsel/video
+  üretim API'sini agentskills.io standardıyla Claude Code'a bağlıyor.
+- **Neden meşru:** `WebFetch` ile repo sayfası doğrulandı, açıklama "Official agent skills from Black
+  Forest Labs for FLUX image and video generation" diyor; resmi BFL GitHub organizasyonu altında.
+- **Kurulum:** `npx skills add black-forest-labs/skills`.
+- **Proje uyumu:** Genel amaçlı; şablonun görsel varlık indirme/üretim ihtiyaçları olursa (örn.
+  eksik/placeholder görsellerin AI ile tamamlanması) ileride kullanılabilir. Not: BFL API kendisi
+  ücretsiz değil (kullanım bazlı ücretli), sadece skill dosyaları ücretsiz/açık kaynak.
+
+#### 123. [TheQtCompanyRnD/agent-skills](https://github.com/TheQtCompanyRnD/agent-skills)
+- **Yıldız:** 435 · **Fork:** 45 · **Açık issue:** 5 · **Lisans:** BSD-3-Clause
+- **Güncellik:** repo 2026-03-26'da oluşturuldu, son güncelleme 2026-09-23 (bugün) — çok aktif (49
+  commit).
+- **Ne işe yarar:** Qt Company'nin resmi AI mühendislik skill koleksiyonu — `qt-cpp-review`,
+  `qt-qml-review`, `qt-qml`, `qt-ui-design`, `qt-qml-docs`, `qt-cpp-docs`, `qt-qml-profiler`,
+  `qt-qml-test`, `qt-qml-test-run`, `qt-figma-token-extraction`, `qt-figma-component-generation`,
+  `qt-cmake-project` — 12 gerçek `SKILL.md`, ayrıca `mcp/qt-documentation-mcp/` altında bir MCP
+  sunucusu.
+- **Neden meşru:** `WebFetch` ile repo sayfası doğrulandı; açıklama "Official agentic skills for Qt
+  software development and quality assurance" diyor, `TheQtCompanyRnD` (Qt Company'nin resmi Ar-Ge
+  GitHub organizasyonu) altında.
+- **Kurulum:** `npx skills add TheQtCompanyRnD/agent-skills` veya seçili skill'leri manuel kopyalama.
+- **Proje uyumu:** Bu şablon Qt/C++ kullanmıyor; genel kaynak olarak kataloglandı. `qt-figma-token-
+  extraction` skill'i ilginç bir desen örneği (Figma'dan tasarım tokenı çıkarma) ama Qt'ye özgü.
+
+#### 124. [publora/skills](https://github.com/publora/skills)
+- **Yıldız:** 48 · **Fork:** 6 · **Açık issue:** 1 · **Lisans:** MIT
+- **Güncellik:** repo 2026-03-24'te oluşturuldu, son güncelleme 2026-09-23 (bugün) — aktif (47
+  commit).
+- **Ne işe yarar:** Publora'nın resmi skill koleksiyonu — LinkedIn, X, Instagram, Threads, TikTok,
+  Telegram, Bluesky ve genel `social-post` için 9 gerçek `SKILL.md`; Publora'nın kendi MCP sunucusuna
+  (`https://mcp.publora.com/mcp`, 18 araç) bağlanarak sosyal medya paylaşım/zamanlama otomasyonu
+  sağlıyor.
+- **Neden meşru:** `WebFetch` ile repo sayfası doğrulandı; açıklama "Official skills from the Publora
+  team" diyor.
+- **⚠️ Dikkat:** Skill'ler kendisi ücretsiz/MIT ama arkasındaki Publora servisi (MCP sunucusu) ücretli
+  bir SaaS olabilir — kullanmadan önce Publora'nın kendi fiyatlandırma sayfası kontrol edilmeli.
+  Ücretsiz/deneme katmanı olup olmadığı bu oturumda doğrulanmadı.
+- **Kurulum:** `npx skills add publora/skills` + Publora MCP sunucusu bağlantısı (hesap gerektirir).
+- **Proje uyumu:** Bu şablonla doğrudan ilgisi yok (sosyal medya otomasyonu); genel kaynak olarak not
+  edildi.
+
+#### 125. [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
+- **Yıldız:** ~34.800 · **Fork:** ~3.700 · **Açık issue:** 30 · **Lisans:** MIT
+- **Güncellik:** repo 2025-10-28'de oluşturuldu, son güncelleme 2026-09-23 (bugün) — çok aktif (663
+  commit, 30 açık PR).
+- **Ne işe yarar:** VoltAgent'ın (zaten kataloğun #3 maddesi `awesome-claude-code-subagents`'ın
+  sahibi) 1000+ agent skill'i kaynağına göre (Anthropic, Google, Microsoft, Vercel, Cloudflare,
+  SerpApi vb.) indeksleyen küratörlü bir liste. **Not:** #3'ten farklı bir repo — bu, subagent'lar
+  değil skill'ler için ayrı bir liste.
+- **Neden meşru:** `WebFetch` ile doğrudan doğrulandı. Bu, reddedilen `obviousworks/Claude-AI-skills-
+  collection-2026`'dan (Tur 37, sıfır gerçek dosya) FARKLI bir durum: VoltAgent bilinen/güvenilir bir
+  organizasyon (zaten #3'ün sahibi), liste her girdi için gerçek resmi kaynağa link veriyor, 663
+  commit ile aktif küratörlük yapılıyor — kataloğun zaten içerdiği diğer "awesome-list" tipi
+  girdilerle (örn. #`hesreallyhim/awesome-claude-code`) aynı kategori. Kendi başına `SKILL.md` dosyası
+  içermiyor (bu yüzden bu not düşüldü), ama bir keşif/indeks aracı olarak değerli.
+- **Kurulum:** Kurulum gerektirmiyor — bir README/indeks; ilgili skill'i bulup kendi reposundan
+  `npx skills add <owner>/<repo>` ile kurulur.
+- **Proje uyumu:** Genel keşif aracı; şablonun ileride ihtiyaç duyacağı yeni resmi skill'leri bulmak
+  için kullanılabilir.
+
+### Doğrulanan ama Tamamlanmamış / Gelecek Tur İçin Not
+
+- `monte-carlo-data/mc-agent-toolkit` (91★, data-observability skill/plugin) ve
+  `ar27111994/penpot-mcp` (26★, resmi Penpot MCP sunucusuna dayanan tasarım-sistemi skill'i) arama
+  sonuçlarında umut verici görünüyor ama bu turda `WebFetch` ile birincil kaynak doğrulaması
+  yapılamadı (zaman kısıtı) — **eklenmedi**, gelecek bir tur bakabilir.
+- `kdpa-llc/local-skills-mcp` (39★, MCP istemcileri için taşınabilir yerel skill yükleyici) da
+  incelenmeyi bekliyor.
+
+Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebilir.
+
+---
+
+*Son güncelleme: 2026-09-23 (Tur 38). 5 yeni kaynak eklendi (#121-#125): `mongodb/agent-skills`
+(MongoDB'nin resmi skill koleksiyonu, 184★, Apache-2.0), `black-forest-labs/skills` (FLUX'un
+yaratıcılarının resmi skill koleksiyonu, 119★, MIT), `TheQtCompanyRnD/agent-skills` (Qt Company'nin
+resmi skill koleksiyonu, 435★, BSD-3-Clause), `publora/skills` (Publora'nın resmi sosyal-medya
+otomasyon skill koleksiyonu, 48★, MIT — arkasındaki SaaS servisinin ücretsiz katmanı doğrulanmadı
+uyarısıyla), ve `VoltAgent/awesome-agent-skills` (VoltAgent'ın 1000+ skill'i indeksleyen küratörlü
+listesi, ~34.8k★, MIT — indeks/keşif aracı olarak not düşüldü, kendi SKILL.md dosyası yok). 2 aday
+(`monte-carlo-data/mc-agent-toolkit`, `ar27111994/penpot-mcp`) umut verici ama doğrulanamadan
+bırakıldı, gelecek tur bakabilir. Hiçbir aday güvenlik/meşruiyet gerekçesiyle reddedilmedi bu turda.
+Toplam kataloglanmış kaynak sayısı: 125.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–38'de listelenenler
+tekrarlanmayacak.
+
