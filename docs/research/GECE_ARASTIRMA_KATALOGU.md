@@ -28,9 +28,33 @@ Aşağıdaki bölümler önceki 31 turun tam detaylı geçmişini içerir.
 
 ---
 
-## ARAŞTIRMA DURUMU (en son Tur 30 — 2026-09-22)
+## ARAŞTIRMA DURUMU (en son Tur 32 — 2026-09-23)
 
-**Tur 30 notu (aynı gece, 2026-09-22, ~10:18 UTC / 13:18 Türkiye saati başladı):** Kesme noktasının
+**Tur 32 notu (2026-09-23, ~03:15 UTC / 06:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+çok öncesinde başladı. Repo `master` branch'inde, `origin/master` ile birebir aynı commit'te bulundu
+— bu turda "detached HEAD" sorunu görülmedi (Tur 30'daki tekil gözlemin ardından ikinci kez). Dosyanın
+tamamı okunmadan önce mevcut 99 benzersiz kataloglanmış repo linki `grep` ile çıkarıldı, tekrarın
+önüne geçmek için kullanıldı. Araştırma tek bir general-purpose alt-agent'a devredildi; alt-agent'a
+99 mevcut kaynağın TAM listesi + önceki turlarda reddedilen adayların özeti + görev talimatındaki
+hariç-tutma kategorileri + Tur 31'in pending bıraktığı niş boşluklar (CSS-in-JS tespiti, dark-mode/
+tema tespiti, etik scraping/robots.txt uyumluluğu) verildi. Alt-agent 3 yeni aday buldu ve `WebFetch`
+ile bağımsız doğruladı (#100-#102 — biri erişilebilirlik odaklı büyük/aktif bir skill koleksiyonu,
+biri bu projenin tam yığınına (Next.js 16 + shadcn/ui) özel yazılmış bir skill koleksiyonu, biri de
+CSS-in-JS/computed-style tespiti nişini kısmen dolduran bir MCP sunucusu — canlı tarayıcı CSS
+cascade/computed-style'ı okuyor, tarayıcı eklentisi gerektirmiyor), ve ~11 aday reddetti (arşivlenmiş/
+bakımsız, ücretli-bağımlılık, düşük-yıldız/kanıtsız benimseme, veya sadece ikincil kaynaklardan
+doğrulanabilen sağlayıcılar — aşağıya bak). CSS-in-JS tespiti nişi artık kısmen dolduruldu
+(`betson-g/browser-inspector-mcp` ile), dark-mode/tema tespiti ve etik scraping/robots.txt uyumluluğu
+nişleri dördüncü turdur hâlâ dolmuyor (`tgambet/mcp-fetch-node` adayı bulundu ama GitHub'da
+**arşivlenmiş/bakımsız** olduğu için eklenmedi). **Tur 32'de metodoloji notu:** yeni bir ücretsiz LLM
+API sağlayıcısı adayı (NVIDIA NIM / build.nvidia.com) yine sadece ikincil kaynaklardan (blog
+agregatörleri) doğrulanabildi, resmi sayfa `EGRESS_BLOCKED` idi ve GitHub-barındırılan birincil kaynak
+bulunamadı — Tur 21'in kuralı gereği numaralı madde olarak eklenmedi, pending listesine not düşüldü.
+
+**Toplam:** 102 doğrulanmış kaynak (bkz. güncel "Toplam" satırı aşağıda, Tur 32 ile 99'dan 102'ye
+çıktı).
+
+**Önceki durum (Tur 30, aynı gece, 2026-09-22, ~10:18 UTC / 13:18 Türkiye saati başladı):** Kesme noktasının
 (12:00 UTC) öncesinde başladı — Tur 29'un bitişinden (~09:15 UTC) yaklaşık 1 saat sonra, aynı gece
 içinde. Bu turda oturum başında **ilk kez** "detached HEAD" sorunu görülmedi — repo doğrudan
 `master` branch'inde, `origin/master` ile birebir aynı commit'teydi (4e29490, Tur 29 commit'i);
@@ -248,7 +272,7 @@ koleksiyonu" (`rshah515/claude-code-subagents`, `supatest-ai/awesome-claude-code
 bilerek eklenmedi çünkü kataloğun zaten 6 benzer genel-amaçlı koleksiyonu var (#3, #4, #11, #20,
 #43, #49) — "kalite/dürüstlük > miktar" ilkesi gereği redundant girdi eklenmedi.
 
-**Toplam:** 98 doğrulanmış kaynak kataloglandı (skill koleksiyonları, agent/subagent koleksiyonları,
+**Toplam:** 102 doğrulanmış kaynak kataloglandı (Tur 31'de #99, Tur 32'de #100-#102 eklendi — skill koleksiyonları, agent/subagent koleksiyonları,
 MCP sunucuları, ücretsiz API sağlayıcıları) + 1 kritik güvenlik uyarısı (kurulum-karşıtı) + Tur
 13'te tespit edilen 1 ek "manipülatif hook" uyarısı (aşağıya bak) + Tur 16'da eklenen 1 "artık
 mevcut değil" uyarısı (GitHub Models, 30 Temmuz 2026'da kapatıldı) + Tur 20'de eklenen 1 genel
@@ -3498,5 +3522,132 @@ doğrulanabilir GitHub kaynağı olmadığı için eklenmedi. Oturum başında y
 görüldü ve standart `git checkout master && git merge --ff-only origin/master` adımıyla düzeltildi
 — bu adımın rutin bir ön kontrol olarak her turda tekrarlanması gerektiği bir kez daha doğrulandı.
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–31'de listelenenler
+tekrarlanmayacak.
+
+## Tur 32 — 2026-09-23
+
+**Tur 32 notu (~03:15 UTC / 06:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC) çok
+öncesinde başladı. Repo `master` branch'inde, `origin/master` ile birebir aynı commit'te bulundu —
+"detached HEAD" sorunu görülmedi. Dosyanın tamamı okunmadan önce mevcut 99 benzersiz kataloglanmış
+repo linki `grep` ile çıkarıldı. Araştırma tek bir general-purpose alt-agent'a devredildi; alt-agent'a
+99 mevcut kaynağın TAM listesi + önceki turlarda reddedilen/incelenen adayların özeti + görev
+talimatındaki hariç-tutma kategorileri + Tur 31'in pending bıraktığı niş boşlukları (CSS-in-JS
+tespiti, dark-mode/tema tespiti, etik scraping/robots.txt uyumluluğu, yeni ücretsiz LLM API
+sağlayıcısı) verildi. Alt-agent 3 aday buldu ve `WebFetch` ile bağımsız doğruladı (gerçek dosya
+yapısı, yıldız, lisans, son commit tarihi kontrolü dahil) — hepsi kataloğa eklendi (#100-#102).
+
+### Yeni eklenen kaynaklar
+
+#### 100. [Community-Access/accessibility-agents](https://github.com/Community-Access/accessibility-agents)
+- **Yıldız:** 413 · **Lisans:** MIT
+- **Güncellik:** 373 commit, son commit 22 Eylül 2026 (bu turdan bir gün önce — çok aktif)
+- **Ne işe yarar:** WCAG 2.2 AA erişilebilirlik uyumluluğunu zorlayan büyük (108 skill) bir
+  koleksiyon. 6 "router" skill (web UI, dokümanlar, markdown, Python, GitHub) 102 uzman skill'e
+  yönlendiriyor — ARIA, klavye navigasyonu, kontrast, formlar, odak yönetimi, doküman
+  erişilebilirliği ve kural-tablosu/formül içeren bilgi-tabanı skill'leri dahil.
+- **Neden meşru:** Gerçek `skills/` dizini ve `skills/a11y-core/SKILL.md` dosyası doğrudan doğrulandı
+  (ayrıca gerçek `agents/`, `references/`, `schemas/`, `scripts/` alt klasörleri var — sadece
+  özellik vaat eden bir README değil). MIT lisans, ücretli bağımlılık yok; commit geçmişi gerçek
+  devam eden çalışmayı gösteriyor (ör. "Fix 24 high-severity dependency advisories").
+- **Kurulum:** `npm install` + `node scripts/install.mjs` ile skill'ler `~/.agents/skills` altına
+  kopyalanıyor; Claude Code / GitHub Copilot / Codex / Gemini CLI plugin marketplace girdisi olarak
+  da eklenebiliyor.
+- **Proje uyumu:** `INSPECTION_GUIDE.md`'nin Phase 2 (Component Inventory) ve Phase 4 (Technical
+  Stack) bölümlerindeki erişilebilirlik denetimi ihtiyacına, mevcut tekil `priyankark/a11y-mcp`
+  (#?) ve `JustasMonkev/mcp-accessibility-scanner` araçlarından çok daha kapsamlı/aktif bir
+  skill-tabanlı alternatif sağlıyor — redundant değil, farklı bir katman (statik skill rehberliği
+  vs. çalışma-zamanı tarama aracı).
+
+#### 101. [gocallum/nextjs16-agent-skills](https://github.com/gocallum/nextjs16-agent-skills)
+- **Yıldız:** 23 · **Lisans:** MIT
+- **Güncellik:** 23 commit, son commit 21 Ocak 2026 (Aralık 2025–Ocak 2026 arası düzenli aktivite)
+- **Ne işe yarar:** Claude Code / Copilot / Antigravity uyumlu bir skill seti — `nextjs16-skills`,
+  `shadcn-skills`'in yanı sıra `prisma-orm-v7-skills`, `ai-sdk-6-skills`, `clerk-nextjs-skills`,
+  `authjs-skills`, `mcp-server-skills`, `resend-integration-skills`, `upstash-vector-db-skills`,
+  `ba-prd-skills` içeriyor.
+- **Neden meşru:** `skills/nextjs16-skills/SKILL.MD` içeriği doğrudan doğrulandı — Next.js 16'nın
+  gerçek breaking change'lerini belgeliyor (async Request API'ler `await` gerektiriyor, `proxy.ts`
+  `middleware.ts`'in yerini alıyor, Cache Components `"use cache"` ile, Turbopack varsayılan stabil,
+  Node 20.9+ gerekiyor, parallel route'lar `default.js` gerektiriyor). `skills/shadcn-skills/SKILL.md`
+  dosyası da doğrulandı. Ücretli bağımlılık yok.
+- **Kurulum:** İlgili `skills/<isim>/SKILL.md` klasörünü/klasörlerini `~/.claude/skills/` altına
+  kopyalama, veya uyumlu marketplace üzerinden ekleme.
+- **Proje uyumu:** `AGENTS.md`'nin başındaki "Bu, bildiğin Next.js değil — training data'dan farklı
+  breaking change'lere dikkat et" uyarısını doğrudan tamamlayan, bu şablonun TAM yığınına (Next.js 16
+  + shadcn/ui) özel yazılmış bir skill koleksiyonu — `laguagu/claude-code-nextjs-skills` (#68) ile
+  benzer amaçlı ama farklı/tamamlayıcı içerik (Prisma/AI SDK/Clerk gibi ek entegrasyonlar).
+
+#### 102. [betson-g/browser-inspector-mcp](https://github.com/betson-g/browser-inspector-mcp)
+- **Yıldız:** 6 · **Lisans:** MIT
+- **Güncellik:** 23 commit, son commit 13 Haziran 2026
+- **Ne işe yarar:** Ajana canlı-tarayıcı DevTools eşdeğeri CSS görünürlüğü sağlayan MCP sunucusu:
+  `dom` (bileşen kütüphanelerinin çalışma-zamanında ürettiği gerçek class isimleri dahil render
+  edilmiş HTML), `styles` (hangi kuralın kazandığını gösteren tam CSS cascade), `diff` (önce/sonra
+  stil karşılaştırması), `screenshot` (kırpılmış element görüntüsü). Puppeteer/headless Chromium
+  veya Chrome debug port'una bağlanıyor — tarayıcı eklentisi gerekmiyor.
+- **Neden meşru:** Gerçek kaynak kod doğrulandı (`index.js`, `browser.js`, `/tools` uygulama klasörü,
+  23 commit — sadece README vaadi değil). MIT lisans, ücretli API yok.
+- **Kurulum:** `npm` ile yerel MCP sunucusu, Node 18+ ve çalışan bir yerel dev server veya Chrome
+  debug port gerektiriyor; diğer stdio MCP sunucuları gibi yerel onay gerekir.
+- **Proje uyumu:** Üç art arda turdur dolmayan "CSS-in-JS tespiti" nişini kısmen dolduruyor — bir
+  bileşen kütüphanesinin çalışma-zamanında ürettiği gerçek class isimlerini ve kazanan cascade
+  kuralını okuyarak, statik kaynağa bakıp tahmin etmek yerine hedef sitenin gerçek computed style'ını
+  yakalıyor. Not: benzer bir alternatif (`devtoolcss/chrome-inspector-mcp`, 11★, MIT, gerçek
+  CDP-tabanlı `getMatchedStyles`/`getComputedStyle` araçları) bulundu ama Chrome eklentisi kurulumu
+  gerektirdiği için redundant olmaması adına eklenmedi — betson-g'nin aracı eklenti gerektirmiyor.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 32)
+
+- **`tgambet/mcp-fetch-node`** — robots.txt'e uyan gerçek bir fetch MCP sunucusu (model tarafından
+  başlatılan isteklerde robots.txt'e saygı gösteriyor), tam olarak "etik scraping" nişini
+  dolduruyordu ama sadece 6 yıldız ve GitHub'da **arşivlenmiş/bakımsız** olarak işaretli —
+  eklenmedi. Gelecek turlar aktif bakımı süren bir robots.txt-uyumlu MCP aramaya devam etmeli.
+- **`capraidev/shadcn-claude-skill`** — gerçek bir Next.js/shadcn SKILL.md ama sadece 4 yıldız, ince
+  içerik, `gocallum/nextjs16-agent-skills` tarafından fazlasıyla aşıldı. **Eklenmedi.**
+- **`masonjames/shadcnblocks-skill`** — gerçek SKILL.md (26★, MIT) ama temel değeri (2.500+ blok)
+  ShadcnBlocks.com'un **ücretli** API anahtarı gerektiriyor (`get-api-key.sh` "requires a paid plan"
+  diyor); sadece genel bileşen bilgisi ücretsiz. Ücretli bağımlılık nedeniyle **reddedildi**.
+- **`mrKanoh/claude-wcag-accessibility-skill`** — gerçek ama ince (4 yıldız), `Community-Access/
+  accessibility-agents` eklendiği için redundant. **Eklenmedi.**
+- **`devtoolcss/chrome-inspector-mcp`** — meşru (11★, MIT, gerçek CDP araçları) ama Chrome eklentisi
+  kurulumu gerektiriyor; `betson-g/browser-inspector-mcp` ile redundant olmaması için not olarak
+  bırakıldı, eklenmedi.
+- **`atomno-mcp/mcp-seo-audit`** — gerçek, ücretsiz-katman çekirdek araçları var (`audit_site`,
+  `validate_robots`, `check_sitemap`, `build_meta`) ama sadece **1 yıldız** — bu turda güvenle
+  "meşru" denemeyecek kadar yeni/doğrulanmamış. Gelecek bir tur, daha fazla benimseme kazanınca
+  tekrar bakabilir.
+- **NVIDIA NIM (`build.nvidia.com`)** — iddia edilen cömert ücretsiz katman (91 ücretsiz model,
+  kredi kartsız) sadece ikincil blog kaynaklarından (decodethefuture.org, belski.me) doğrulanabildi;
+  resmi sayfa `EGRESS_BLOCKED`, GitHub-barındırılan birincil kaynak bulunamadı. **Pending — birincil
+  kaynak bekliyor** (not: Tur 27'de aynı sağlayıcı farklı bir doğrulama yoluyla #77 olarak zaten
+  eklenmişti — bu turki tekrar-arama gereksizdi, gelecek turlar önce mevcut kataloğu kontrol etmeli).
+- **Fireworks AI** — ikincil kaynaklara göre sadece $1'lık tek seferlik deneme kredisi, kalıcı
+  ücretsiz katman yok — **diskalifiye**.
+- **DeepInfra** — ikincil kaynaklara göre hiç ücretsiz katmanı yok — **diskalifiye**.
+- **Groq / OpenRouter / Cloudflare Workers AI / Mistral / Cohere / SambaNova** — hepsinin gerçek
+  ücretsiz katmanı var (zaten kataloğun #21/#81/#99 vb. maddelerinde birincil kaynaklarla
+  doğrulanmış) ama resmi domainleri bu sandbox'ta engelli; bu turda tekrar araştırılmadı (zaten
+  kataloglı).
+- **`JCodesMore/ai-website-cloner-template`** ve **`Mood-Global-Services/How-to-Clone-Website---
+  Claude-Skills`** — bu projenin kendi şablon konseptinin neredeyse birebir aynısı/fork'u olarak
+  karşımıza çıktı, bağımsız üçüncü parti kaynak değil — **atlandı**.
+- **`kitze/styles-debugger`** ve emotion'ın kendi devtool'u — CSS-in-JS debug araçları ama
+  tarayıcı-çalışma-zamanı görsel debugger'lar, doğrulanabilir agent/skill/MCP kaynağı değil; zaman
+  bütçesi nedeniyle derinlemesine incelenmedi — gelecek bir tur "CSS-in-JS tespiti" nişi için ayrıca
+  bakabilir.
+- Dark-mode/tema tespiti ve etik scraping/robots.txt uyumluluğu nişleri dördüncü art arda turdur
+  meşru/aktif bir GitHub projesi bulamadan **pending** kalmaya devam ediyor.
+
+---
+
+*Son güncelleme: 2026-09-23 (Tur 32). 3 yeni kaynak eklendi (#100-#102): `Community-Access/
+accessibility-agents` (413★, çok aktif, 108 skill'lik büyük erişilebilirlik koleksiyonu),
+`gocallum/nextjs16-agent-skills` (bu projenin tam yığınına — Next.js 16 + shadcn/ui — özel yazılmış
+skill koleksiyonu) ve `betson-g/browser-inspector-mcp` (CSS cascade/computed-style okuyan MCP —
+üç turdur dolmayan "CSS-in-JS tespiti" nişini kısmen dolduruyor). ~11 aday incelenip reddedildi
+(arşivlenmiş, ücretli-bağımlılık, düşük-yıldız/kanıtsız benimseme, redundant, veya sadece ikincil
+kaynaklardan doğrulanabilen — yukarıya bak). Dark-mode/tema tespiti ve etik scraping/robots.txt
+uyumluluğu nişleri dördüncü turdur pending kalıyor. Toplam kataloglanmış kaynak sayısı: 102.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–32'de listelenenler
 tekrarlanmayacak.
 
