@@ -28,9 +28,39 @@ Aşağıdaki bölümler önceki 31 turun tam detaylı geçmişini içerir.
 
 ---
 
-## ARAŞTIRMA DURUMU (en son Tur 35 — 2026-09-23)
+## ARAŞTIRMA DURUMU (en son Tur 36 — 2026-09-23)
 
-**Tur 35 notu (2026-09-23, ~06:15 UTC / 09:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+**Tur 36 notu (2026-09-23, ~07:15 UTC / 10:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (artık onüçüncü kez
+tekrarlayan aynı desen); `git fetch origin master` ile `origin/master`'ın (bc99dc9, Tur 35 commit'i)
+HEAD ile birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master` ile normale
+döndürüldü. Dosyanın tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 112 kaynaktan çıkan 111
+benzersiz GitHub repo linki çıkarıldı (#105 OVHcloud GitHub-barındırılı değil, listeye dahil değil),
+tekrarın önüne geçmek için kullanıldı. Tur 35'in notu doğruydu: bilinen tüm proje-özel niş boşluklar
+(dark-mode/tema dahil) dolmuş durumda, bu yüzden bu tur **genel tarama moduna** geçti (yeni resmi
+sağlayıcı skill/agent koleksiyonları ve MCP sunucuları). Araştırma bir general-purpose alt-agent'a
+devredildi; 111 mevcut GitHub kaynağının TAM listesi + önceki turlarda reddedilen ~25 adayın özeti +
+görev talimatındaki hariç-tutma kriterleri (paylaşımlı/havuzlanmış API key, ToS-bypass scraping,
+hesap-askıya-alınma riski, kanıtsız trading araçları) verildi. Alt-agent 4 yeni aday buldu ve
+`WebFetch` ile bağımsız doğruladı (#113-#116); ana oturum bu 4 adayın **tamamını** kendi `WebFetch`
+çağrılarıyla (GitHub repo sayfası + `raw.githubusercontent.com` üzerinden gerçek `SKILL.md`/dizin
+içeriği) ikinci kez bağımsız doğruladı — tüm rakamlar (yıldız/fork/issue/lisans) ve dosya yapıları
+tutarlıydı, tutarsızlık bulunmadı. Alt-agent ayrıca 8 adayı reddetti (iki şişirilmiş-yıldız/çoklu-
+mirror deseni gösteren "kişilik" reposu — biri 214.7k yıldıza karşı görünür issue sayısı yok, diğeri
+64.5k yıldız/0 açık issue + birden fazla organizasyon arasında zıplayan fork zinciri —, artık kapanmış
+iki ücretsiz API katmanı [GitHub Models, Cerebras], resmi sayı yayınlamayan bir API sağlayıcısı
+[Mistral], gerçek kaynak kodu içermeyen bir "overview" reposu [Vercel MCP] ve üçüncü-parti/resmi-
+olmayan OpenRouter MCP sarmalayıcıları — aşağıya bak). **Dikkat:** #116 (`garrytan/gstack`) 134k
+yıldız/371 açık issue ile katalogdaki en yüksek yıldız sayısına sahip — oran (~361:1) tipik organik
+depolardan düşük ama daha önce reddedilen "şişirilmiş yıldız" örneklerinden (ör. Tur 22'nin ~3300:1
+"UI/UX Pro Max"ı, bu turun reddettiği 214.7k-yıldız/görünür-issue-yok reposu) çok farklı — gerçek,
+kimliği doğrulanmış bir kişiye (Y Combinator Başkanı Garry Tan) ait, tek bir kanonik repo (mirror
+çoğalması yok), 371 gerçek açık issue ve bağımsız üçüncü-parti kaynaklarla (blog yazıları, entegrasyon
+repoları) doğrulandı; yine de temkinli bir uyarıyla eklendi, gelecek turlar büyüme paternini izlemeli.
+
+**Toplam:** 116 doğrulanmış kaynak (Tur 35 sonunda 112'ydi, Tur 36 ile #113-#116 eklendi).
+
+**Önceki durum (Tur 35, 2026-09-23, ~06:15 UTC / 09:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
 çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (artık onikinci kez
 tekrarlayan aynı desen); `git fetch` ile `origin/master`'ın (1ad4250, Tur 34 commit'i) HEAD ile
 birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master` ile normale
@@ -3999,6 +4029,145 @@ sıfır-issue deseni + mirror hesapları, zaten kataloglanmış design-extract'�
 kopyalayan video-extract-mcp mirror'ları, düşük-yıldız/redundant araçlar — yukarıya bak). Dark-mode/
 tema tespiti nişi yedi turdur pending kaldıktan sonra bu turda dolduruldu; bilinen açık niş boşluk
 kalmadı. Toplam kataloglanmış kaynak sayısı: 112.
-Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–35'te listelenenler
+
+---
+
+## Tur 36 — 2026-09-23
+
+**Tur notu (~07:15 UTC / 10:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC) çok öncesinde
+başladı, bilinen tüm proje-özel niş boşluklar Tur 35'te dolduğu için bu tur **genel tarama moduna**
+geçti (resmi büyük-sağlayıcı skill/agent koleksiyonları ve MCP sunucuları öncelikli arandı). Araştırma
+bir general-purpose alt-agent'a devredildi; mevcut 111 GitHub kaynağının tam listesi, reddedilen ~25
+adayın özeti ve hariç-tutma kriterleri verildi. Alt-agent'ın bulduğu 4 adayın tamamı ana oturum
+tarafından `WebFetch` ile (repo sayfası + `raw.githubusercontent.com`/`tree` görünümü üzerinden gerçek
+dosya yapısı) ikinci kez bağımsız doğrulandı — tutarsızlık bulunmadı.
+
+### A) Resmi Büyük-Sağlayıcı Skill Koleksiyonları
+
+#### 113. [google/skills](https://github.com/google/skills)
+- **Yıldız:** ~20.300 · **Fork:** ~1.700 · **Açık issue:** 19 · **Lisans:** Apache 2.0
+- **Güncellik:** 365+ commit, son commit 2026-09-22 — çok aktif, Google Cloud Next 2026'da duyuruldu.
+- **Ne işe yarar:** Google'ın RESMİ Agent Skills deposu — BigQuery, GKE, Cloud Run, AlloyDB, Bigtable,
+  Cloud SQL, Gemini API/model tuning, IAM, SecOps, Well-Architected (güvenlik/güvenilirlik/maliyet)
+  gibi 100+ gerçek `SKILL.md` paketi içeriyor; `index.json` kataloğunda 200+ giriş var.
+- **Neden meşru:** `raw.githubusercontent.com/google/skills/main/skills/cloud/bigquery-basics/
+  SKILL.md` doğrudan çekildi — gerçek, detaylı içerik doğrulandı (YAML frontmatter, gcloud/bq CLI
+  kurulumu, IAM, Terraform, MCP entegrasyon rehberliği). Ana oturum ayrıca repo sayfasını bağımsız
+  `WebFetch` ile ikinci kez doğruladı (yıldız/fork/issue/lisans/klasör yapısı tutarlı).
+- **Kurulum:** `npx skills add google/skills` (tek tek skill de seçilebilir, ör.
+  `npx skills add google/skills/bigquery-basics`); `.claude-plugin/` üzerinden plugin olarak da
+  kurulabilir.
+- **Proje uyumu:** Genel amaçlı — bu şablon Vercel'de barındırılsa da, Google Cloud/Firebase tabanlı
+  entegrasyonlar (ör. Google Fonts API, Analytics) gerektiren gelecekteki klonlar için hazır.
+
+#### 114. [firebase/skills](https://github.com/firebase/skills)
+- **Yıldız:** 451 · **Fork:** 98 · **Açık issue:** 10 (açık PR: 30 — sağlıklı, şişirilmemiş oran) ·
+  **Lisans:** Apache 2.0
+- **Güncellik:** 92+ commit, son commit 2026-09-23 (bu turun kendisiyle aynı gün — "Fix objectively
+  incorrect GraphQL schemas..." başlıklı gerçek, içerik-düzeltici bir commit).
+- **Ne işe yarar:** Firebase'in RESMİ Agent Skills deposu — Firestore, Auth, Data Connect, Cloud
+  Functions, Hosting, Crashlytics, Remote Config, Security Rules denetleyicisi gibi 13 gerçek
+  `SKILL.md` paketi; Claude Code, Codex, Cursor, Gemini CLI, Kimi, Windsurf, GitHub Copilot için 8
+  farklı kurulum yolu destekliyor.
+- **Neden meşru:** `github.com/firebase/skills/tree/main/skills` doğrudan `WebFetch` ile fetch edilip
+  13 gerçek alt-dizin (`firebase-firestore`, `firebase-auth-basics`, `firebase-security-rules-auditor`
+  vb.) doğrulandı — marketing README değil, gerçek dosya ağacı.
+- **Kurulum:** `npx skills add firebase/skills` veya
+  `gemini extensions install https://github.com/firebase/skills`.
+- **Proje uyumu:** Google'ın `google/skills`'ini (#113) tamamlayan, Firebase'e özel alt-koleksiyon;
+  şablon Firebase Auth/Firestore ile entegre edilirse doğrudan kullanılabilir.
+
+### B) MCP Sunucusu (resmi, mevcut Cloudflare girdisini tamamlayan kardeş repo)
+
+#### 115. [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)
+- **Yıldız:** ~4.300 · **Fork:** 530 · **Açık issue:** 38 · **Lisans:** Apache-2.0
+- **Güncellik:** 388 commit, 41 açık PR — aktif monorepo (Turborepo/pnpm workspace).
+- **Ne işe yarar:** Cloudflare'in RESMİ, ürüne-özel 13+ MCP sunucusu koleksiyonu (Workers
+  observability, DNS analytics, R2, Zero Trust, Radar, AutoRAG vb.) — her biri tek bir Cloudflare
+  ürünü için tipli, dar-kapsamlı araçlar sunuyor.
+- **Neden meşru:** Zaten kataloglanmış `cloudflare/mcp`'den (#99, "Code Mode" sunucusu — kod
+  yürütme yoluyla geniş API erişimi) **açıkça farklı ve tamamlayıcı** bir repo; README bu görev
+  ayrımını kendisi belirtiyor. `apps/`+`packages/` monorepo yapısı ve gerçek, taze bir commit
+  ("fix: migrate docs search to instance binding (#488)") doğrulandı. Mirror/yeniden-adlandırma
+  değil, kardeş repo.
+- **Kurulum:** Her alt-sunucu için barındırılan uzak MCP URL'sini client config'e ekleme (ör.
+  `https://observability.mcp.cloudflare.com/sse`) — yerel kurulum gerekmez; self-host talimatları
+  her alt-klasörün kendi README'sinde.
+- **Proje uyumu:** `cloudflare/mcp`'nin (#99) genel-amaçlı erişimini, ürüne-özel/tipli araçlarla
+  tamamlıyor — Cloudflare Workers/R2 üzerinde barındırılan klonlar için gözlemlenebilirlik ve DNS
+  analitiği sağlıyor.
+
+### C) Agent/Skill Koleksiyonu (topluluk, dikkatli değerlendirildi)
+
+#### 116. [garrytan/gstack](https://github.com/garrytan/gstack) — ⚠️ ALIŞILMADIK YÜKSEK YILDIZ, DİKKATLE EKLENDİ
+- **Yıldız:** ~134.000 · **Fork:** ~20.000 · **Açık issue:** 371 · **Lisans:** MIT
+- **Güncellik:** 399+ commit, son 1-2 gün içinde aktif commit.
+- **Ne işe yarar:** Y Combinator Başkanı/CEO'su Garry Tan'a ait, Claude Code'u "sanal bir mühendislik
+  ekibine" dönüştüren 50+ gerçek skill klasörü (`/review`, `/ship`, `/qa`, `/cso`, `/design-review`,
+  `/plan-ceo-review`, `/office-hours` vb.) + `agents/`, `AGENTS.md`, `ARCHITECTURE.md`.
+- **Neden meşru:** `github.com/garrytan/gstack/tree/main/review` doğrudan `WebFetch` ile fetch edilip
+  gerçek `SKILL.md` + `sections/`, `specialists/`, `checklist.md`, `design-checklist.md` dosyaları
+  doğrulandı (marketing fluff değil, çok adımlı gerçek bir review iş akışı: diff-scope-drift tespiti,
+  SQL/shell-injection/race-condition kontrol listesi). Bağımsız üçüncü-parti kaynaklarla (dev.to,
+  codecentric.de blog, `bdarbaz/claude-stack-plugin` gibi ilgisiz entegrasyon repoları) organik
+  viralliği doğrulandı.
+- **⚠️ Dikkat:** 134k yıldız katalogdaki en yüksek rakam; yıldız:issue oranı (~361:1) tipik organik
+  bir depodan düşük. Ama Tur 22'nin reddettiği "UI/UX Pro Max" (~3300:1, 39 gerçek issue) veya bu
+  turun reddettiği 214.7k-yıldız/görünür-issue-yok reposundan NİTELİKSEL OLARAK FARKLI: gerçek,
+  kimliği doğrulanmış bir kişiye ait, tek kanonik repo (mirror çoğalması yok), 371 gerçek açık issue,
+  bağımsız üçüncü-parti kapsamı var. Yine de temkinli eklendi — gelecek turlar büyüme paternini
+  izlemeli, anormal bir sıçrama görülürse yeniden değerlendirilmeli.
+- **Kurulum:** Repo klonlanıp kendi `setup` script'i çalıştırılır (skill klasörlerini
+  `~/.claude/skills/gstack/` altına symlink'liyor) veya README'deki `npx` kurulum yöntemi kullanılır.
+- **Proje uyumu:** Genel amaçlı geliştirme/QA/tasarım-inceleme iş akışı; `/design-review` skill'i
+  `AGENTS.md`'nin "beauty-first — her piksel önemli" ilkesine ek bir inceleme katmanı sağlıyor.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 36)
+
+- **`multica-ai/andrej-karpathy-skills`** (ve mirror'ları `forrestchang/andrej-karpathy-skills`,
+  `swarmclawai/andrej-karpathy-skills`) — 214.7k yıldıza karşı görünür açık-issue sayısı yok, birden
+  fazla organizasyonda aynı pazarlama metniyle mirror'lanmış — klasik şişirilmiş-yıldız/mirror-
+  çoğalması deseni. **Reddedildi**, gelecek turlar bir daha aramamalı.
+- **GSD / "Get Sh*t Done"** (`gsd-build/get-shit-done` [artık arşivlenmiş], `brAIniac-sa/GSD`,
+  `chrisdevchroma/gsd-ng`, "Open GSD" ardılı) — flagship repo 64.5k yıldız/5.4k fork'a karşı 0 açık
+  issue ve arşivlenmiş durumda, gelişim birkaç ay içinde farklı organizasyon isimleri arasında
+  zıplamış — hem şişirilmiş-yıldız hem çoklu-mirror deseni. **Eklenmedi**, tek bir kararlı kanonik
+  repo normal issue sayısıyla ortaya çıkarsa gelecek bir tur yeniden bakabilir.
+- **GitHub Models (resmi ücretsiz inference API)** — GitHub'ın kendi duyurusuyla 30 Temmuz 2026'da
+  tamamen kapatıldı (playground, katalog, API tüm kullanıcılar için kapalı). **Artık mevcut değil,
+  eklenmedi.**
+- **Cerebras ücretsiz katman** — Ağustos 2026'dan beri kartsız ücretsiz katman sona erdi, yeni
+  hesaplar artık doğrulanmış ödeme yöntemi gerektiriyor (30 gün geçerli $5 kredi). Zaten kataloglanmış
+  #21 maddesindeki Tur 22 düzeltme notuyla tutarlı — tekrar eklenmedi.
+- **Mistral La Plateforme "Experiment" ücretsiz katmanı** — kartsız ve gerçek ama somut hız limiti
+  rakamları artık sadece dashboard'da (genel yayınlanmış sayı yok), resmi GitHub/MCP kaynağı da yok.
+  Tur 21'in "birincil kaynak zorunlu" kuralı gereği eklenmedi; Mistral resmi bir MCP sunucusu
+  yayınlarsa gelecek tur bakabilir.
+- **OpenRouter MCP sarmalayıcıları** (`stabgan/openrouter-mcp-multimodal`, `physics91/openrouter-mcp`,
+  `tsilva/mcp-openrouter`, `oviron/openrouter-admin-mcp` vb.) — hepsi üçüncü-parti/gayri-resmi,
+  OpenRouter'ın kendisi de ücretsiz-katman sağlayıcısı değil (token-başına ücretli geçiş). **Eklenmedi.**
+- **`vercel/vercel-mcp-overview`** — sadece `mcp.vercel.com` barındırılan servisine işaret eden bir
+  dokümantasyon/genel-bakış reposu, kurulabilir gerçek sunucu kodu içermiyor — kataloğun "gerçek dosya"
+  ölçütünü karşılamıyor. Vercel gerçek sunucu kodunu bu repo altında açık kaynak yaparsa gelecek tur
+  bakabilir. **Eklenmedi.**
+
+Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebilir veya yeni resmi
+sağlayıcı duyurularını (Anthropic, Vercel, büyük bulut sağlayıcıları) takip edebilir.
+
+---
+
+*Son güncelleme: 2026-09-23 (Tur 36). 4 yeni kaynak eklendi (#113-#116): `google/skills` (Google'ın
+RESMİ Agent Skills deposu, 100+ SKILL.md, ~20.3k★, Apache 2.0), `firebase/skills` (Firebase'in RESMİ
+Agent Skills deposu, 13 SKILL.md, 451★, Apache 2.0, bugünün kendisiyle aynı gün taze commit),
+`cloudflare/mcp-server-cloudflare` (Cloudflare'in RESMİ, zaten kataloglanmış `cloudflare/mcp`'yi
+tamamlayan 13+ ürüne-özel MCP sunucusu koleksiyonu, ~4.3k★, Apache-2.0), ve `garrytan/gstack`
+(Y Combinator Başkanı Garry Tan'a ait 50+ gerçek skill'lik "sanal mühendislik ekibi" koleksiyonu,
+~134k★ — katalogdaki en yüksek yıldız sayısı, temkinli uyarıyla eklendi çünkü gerçek kişiye ait/tek
+kanonik repo/371 gerçek issue/bağımsız üçüncü-parti doğrulaması var, mirror-çoğalması yok). 8 aday
+incelenip reddedildi (iki şişirilmiş-yıldız/çoklu-mirror "kişilik" reposu, iki artık kapanmış ücretsiz
+API katmanı, resmi sayı yayınlamayan bir sağlayıcı, gerçek kod içermeyen bir overview reposu, gayri-
+resmi OpenRouter sarmalayıcıları — yukarıya bak). Bilinen açık niş boşluk kalmadı. Toplam kataloglanmış
+kaynak sayısı: 116.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–36'da listelenenler
 tekrarlanmayacak.
 
