@@ -1,30 +1,34 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Durdurma zamanı:** 2026-09-22, ~12:15 UTC (15:15 Türkiye saati) — görev talimatındaki 12:00 UTC
-(15:00 Türkiye) kesme noktası geçildiği için bu oturum yeni arama YAPMADI, sadece bu özeti ekledi.
-Bir önceki tur (Tur 31) kesme noktasından önce (~11:15 UTC'de) başlayıp normal şekilde tamamlanmış
-ve kataloğa son maddeyi (#99) eklemişti.
+**Durdurma zamanı:** 2026-09-23, ~12:15 UTC (15:15 Türkiye saati) — görev talimatındaki 12:00 UTC
+(15:00 Türkiye) kesme noktası bu oturum BAŞLARKEN zaten geçilmiş olduğu için bu oturum yeni arama
+YAPMADI, sadece bu özeti güncelledi. Aynı gün içinde daha erken çalışan Tur 36 (~07:15 UTC'de
+başlayıp kesme noktasından çok önce normal şekilde tamamlanmış) kataloğa dört yeni madde
+(#113-#116) eklemişti; bu oturum sadece bu özeti o turun sonucunu yansıtacak şekilde tazeledi.
 
-**Toplam kataloglanmış kaynak sayısı:** 99 (31 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
+**Toplam kataloglanmış kaynak sayısı:** 116 (36 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
 
-**En son eklenen / öne çıkan 5 kaynak (Tur 31, bu gecenin son turu):**
-1. **[cloudflare/mcp](https://github.com/cloudflare/mcp)** (#99, 876★, Apache-2.0) — Cloudflare'in
-   resmi MCP sunucusu; Workers AI üzerinden günde 10.000 Neuron ücretsiz LLM/embedding erişimi
-   (kredi kartsız), kullanıcının kendi API token'ıyla çalışıyor, paylaşımlı anahtar yok.
-2. **[nganiet/mcp-vercel](https://github.com/nganiet/mcp-vercel)** (#98, ⚠️ düşük güncellik) — Vercel
-   deployment otomasyonu için MCP sunucusu; projenin Vercel dağıtım iş akışındaki boşluğu dolduruyor.
-3. **[fonttools/fonttools](https://github.com/fonttools/fonttools)** (#97, `pyftsubset` aracı) —
-   resmi ve çok yaygın font-subsetting kütüphanesi; font optimizasyonu niş boşluğunu dolduruyor.
-4. **[foxted/rsc-boundary](https://github.com/foxted/rsc-boundary)** (#96) — React Server Components
-   sınır-görselleştirme/uyumluluk kontrol aracı.
-5. **[KyaniteLabs/kinocut](https://github.com/KyaniteLabs/kinocut)** (#95, eski adıyla `mcp-video`) —
-   video düzenleme/optimize etme MCP sunucusu.
+**En son eklenen / öne çıkan 5 kaynak (Tur 36 + bir önceki turdan tamamlayıcı madde):**
+1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (#116, ~134.000★, MIT) — Y Combinator
+   Başkanı Garry Tan'a ait, Claude Code'u sanal bir mühendislik ekibine dönüştüren 50+ gerçek skill
+   (`/review`, `/ship`, `/qa`, `/design-review` vb.); ⚠️ katalogdaki en yüksek yıldız sayısı,
+   temkinli eklendi — büyüme paterni izlenmeli.
+2. **[cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)** (#115,
+   ~4.300★, Apache-2.0) — Cloudflare'in resmi, ürüne-özel 13+ MCP sunucusu koleksiyonu (R2, DNS
+   analytics, Zero Trust, Radar vb.), zaten kataloglanmış `cloudflare/mcp`'yi (#99) tamamlıyor.
+3. **[firebase/skills](https://github.com/firebase/skills)** (#114, 451★, Apache-2.0) — Firebase'in
+   resmi Agent Skills deposu; Firestore, Auth, Security Rules denetleyicisi gibi 13 gerçek `SKILL.md`.
+4. **[google/skills](https://github.com/google/skills)** (#113, ~20.300★, Apache-2.0) — Google'ın
+   resmi Agent Skills deposu; BigQuery, GKE, Cloud Run, Gemini API gibi 100+ gerçek `SKILL.md` paketi.
+5. **[1999AZZAR/designer-mcp](https://github.com/1999AZZAR/designer-mcp)** (#108, bir önceki turdan) —
+   kapsamlı OKLCH renk + dark-mode token üretimi yapan MCP sunucusu; projenin tasarım-token çıkarma
+   iş akışına doğrudan uyuyor.
 
-**Hâlâ dolmayan niş boşluklar (gelecek turlar bakabilir):** CSS-in-JS tespiti, dark-mode/tema
-tespiti (üç turdur meşru bağımsız aday bulunamıyor), etik scraping/robots.txt uyumluluğu aracı
-(bir aday bulundu ama doğrulanabilir GitHub kaynağı yok).
+**Hâlâ dolmayan niş boşluklar:** Tur 36 sonunda bilinen proje-özel niş boşluk kalmadığı raporlandı;
+gelecek turlar genel tarama moduna (yeni resmi sağlayıcı skill/agent koleksiyonları, MCP sunucuları)
+devam edebilir veya büyük sağlayıcıların yeni duyurularını takip edebilir.
 
-Aşağıdaki bölümler önceki 31 turun tam detaylı geçmişini içerir.
+Aşağıdaki bölümler önceki 36 turun tam detaylı geçmişini içerir.
 
 ---
 
