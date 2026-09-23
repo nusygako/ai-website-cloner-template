@@ -28,9 +28,31 @@ Aşağıdaki bölümler önceki 31 turun tam detaylı geçmişini içerir.
 
 ---
 
-## ARAŞTIRMA DURUMU (en son Tur 34 — 2026-09-23)
+## ARAŞTIRMA DURUMU (en son Tur 35 — 2026-09-23)
 
-**Tur 34 notu (2026-09-23, ~05:15 UTC / 08:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+**Tur 35 notu (2026-09-23, ~06:15 UTC / 09:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (artık onikinci kez
+tekrarlayan aynı desen); `git fetch` ile `origin/master`'ın (1ad4250, Tur 34 commit'i) HEAD ile
+birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master` ile normale
+döndürüldü. Dosyanın tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 107 benzersiz kaynak
+linki + 107 başlık çıkarıldı, tekrarın önüne geçmek için kullanıldı. Araştırma bir general-purpose
+alt-agent'a devredildi; 107 mevcut kaynağın tam listesi + önceki turlarda reddedilen başlıca
+adayların özeti + görev talimatındaki hariç-tutma kriterleri + hâlâ dolmayan tek niş boşluk
+(dark-mode/tema tespiti — yedi turdur pending) öncelikli arama alanı olarak verildi. Alt-agent 5
+yeni aday buldu ve `WebFetch` ile bağımsız doğruladı (#108-#112); ana oturum bu 5 adayın **tamamını**
+kendi `WebFetch` çağrılarıyla ikinci kez bağımsız doğruladı (yıldız/lisans/kaynak-kodu-varlığı) —
+tüm rakamlar tutarlıydı, tutarsızlık bulunmadı. Alt-agent ayrıca ~10 adayı reddetti (şişirilmiş
+yıldız/sıfır-issue deseni gösteren bir repo + üç mirror/fork hesabı, zaten kataloglanmış
+`Manavarya09/design-extract`'ın üç mirror/fork'u, birbirini kopyalayan üç "video-extract-mcp"
+mirror'ı, ve birkaç düşük-yıldız/redundant araç — aşağıya bak). **Dark-mode/tema tespiti nişi bu
+turda NİHAYET dolduruldu** — hem birincil (designer-mcp, kapsamlı OKLCH+dark-mode token üretimi)
+hem tamamlayıcı ikincil bir araçla (dark-mode-screenshot, basit ekran görüntüsü karşılaştırma).
+Yeni bir niş boşluk bu turda kapatıldı: proje yapısındaki `public/videos/` klasörü için site
+videosu indirme aracı yoktu (yt-dlp-mcp ile dolduruldu).
+
+**Toplam:** 112 doğrulanmış kaynak (Tur 34 sonunda 107'ydi, Tur 35 ile #108-#112 eklendi).
+
+**Önceki durum (Tur 34, 2026-09-23, ~05:15 UTC / 08:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
 çok öncesinde başladı. Repo `master` branch'inden ayrı, "detached HEAD" durumundaydı; `git log`
 ile `origin/master`'ın HEAD ile birebir aynı commit'te (e998647, Tur 33'ün commit'i) olduğu
 doğrulandı, çalışma kaybı yok. Dosyanın tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 105
@@ -3851,6 +3873,132 @@ LLM API listesi, 9★, MIT). 3 aday incelenip reddedildi/ertelendi (şüpheli pa
 liste girdisi, tek-günlük/redundant WCAG aracı, kaynak kodu incelenemeyen Apify actor'ları — yukarıya
 bak). Dark-mode/tema tespiti nişi altıncı turdur pending kalıyor. Toplam kataloglanmış kaynak
 sayısı: 107.
-Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–34'te listelenenler
+
+---
+
+## Tur 35 — 2026-09-23
+
+**Tur notu (~06:15 UTC / 09:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC) çok öncesinde
+başladı. Araştırma bir general-purpose alt-agent'a devredildi; mevcut 107 kaynağın tam listesi,
+önceki turlarda reddedilen adayların özeti ve görev talimatındaki hariç-tutma kriterleri verildi.
+Alt-agent'ın bulduğu 5 adayın tamamı ana oturum tarafından `WebFetch` ile ikinci kez bağımsız
+doğrulandı (yıldız/lisans/kaynak-kodu-varlığı) — tutarsızlık bulunmadı.
+
+### A) MCP Sunucuları (proje-özel — design token / dark-mode / görsel doğrulama)
+
+#### 108. [1999AZZAR/designer-mcp](https://github.com/1999AZZAR/designer-mcp)
+- **Yıldız:** 14 · **Lisans:** MIT · **Güncellik:** 42 commit, gerçek `src/` altında 13 TypeScript
+  modülü + test suite (bağımsız `WebFetch` ile ikinci kez doğrulandı, tutarlı).
+- **Ne işe yarar:** Üretim kalitesinde UI tasarım MCP sunucusu, 27 araç: OKLCH token üretimi
+  (`generate_tokens` — hem `:root` hem `@media (prefers-color-scheme: dark)` + `[data-theme="dark"]`
+  varyantlarını otomatik türetiyor), WCAG 2.1 erişilebilirlik denetimi, React/Vue/HTML bileşen
+  çıktısı, vanilla CSS/SCSS/CSS Modules üretimi, anime.js hareket üretimi, 328+ marka referansı.
+- **Neden meşru:** Gerçek kaynak kodu doğrulandı (`src/`, `package.json`, `tsconfig.json`, test
+  dizini, skill submodule yapısı). Yıldız/commit oranı organik, şişirilmiş yıldız deseni yok.
+- **Kurulum:** npm paketi olarak MCP client config'e `npx` ile stdio transport üzerinden eklenir;
+  `.claude/skills/` altına skill submodule'ü de kopyalanabilir.
+- **Proje uyumu:** **Dark-mode/tema tespiti nişini dolduruyor (yedi turdur pending idi)** — projenin
+  tam olarak kullandığı Tailwind v4 oklch token yaklaşımıyla bire bir örtüşüyor;
+  `INSPECTION_GUIDE.md` Phase 1'deki "Dark mode variants" + design token çıkarma adımlarını
+  otomatikleştiriyor.
+
+#### 109. [just-every/mcp-screenshot-website-fast](https://github.com/just-every/mcp-screenshot-website-fast)
+- **Yıldız:** 110 · **Lisans:** MIT · **Güncellik:** 104 commit, CI workflow, test altyapısı, npm'de
+  `@just-every/mcp-screenshot-website-fast` olarak yayınlı (bağımsız `WebFetch` ile doğrulandı).
+- **Ne işe yarar:** Tam sayfa ekran görüntüsünü, LLM görüş sınırlamalarını (otomatik downscale ile
+  detay kaybı) aşacak şekilde 1072x1072 parçalara bölüyor; ayrıca selector-bazlı element yakalama ve
+  animasyonlu WebP screencast desteği var.
+- **Neden meşru:** `just-every` organizasyonu gerçek, birden fazla ciddi açık kaynak proje
+  yayınlıyor (Ensemble, Task, Magi, Crawl), tüm repolar izinli lisanslı; Puppeteer entegrasyonu ve
+  profesyonel geliştirme pratikleri (lint, typecheck, test) doğrulandı.
+- **Kurulum:** `npx @just-every/mcp-screenshot-website-fast` ile MCP client'a eklenir.
+- **Proje uyumu:** `/clone-website` iş akışının **pixel-perfect doğrulama** adımı — uzun sayfaların
+  tam ekran görüntüsünü AI'ya detay kaybetmeden gösterme sorununu çözüyor; mevcut listedeki
+  chrome-devtools-mcp/playwright-mcp (#12, #19) bu spesifik "vision downscaling" sorununu ele almıyor,
+  tamamlayıcı.
+
+#### 110. [jpoindexter/design-md-extractor](https://github.com/jpoindexter/design-md-extractor)
+- **Yıldız:** 63 · **Lisans:** MIT · **Güncellik:** 43 commit, derlenmiş `dist/` kodu dahil, gerçek
+  `src/`, `skill/`, `docs/`, `tests/` dizinleri (bağımsız `WebFetch` ile doğrulandı).
+- **Ne işe yarar:** Bir web sitesinin görsel sistemini (renkler, tipografi, spacing, bileşenler,
+  etkileşim durumları) çıkarıp `DESIGN.md` dosyası, design token'lar (CSS/Tailwind/JSON) ve
+  AI-hazır prompt'lar üretiyor; gerçek bir tarayıcıda çoklu viewport'ta computed style yakalıyor,
+  hover/focus durumlarını tetikliyor, bulguları güven skoruna göre sıralıyor.
+- **Neden meşru:** Tamamen yerel çalışıyor (API key gerektirmiyor), `skill/SKILL.md` içinde gerçek
+  bir Claude Code skill'i mevcut, derlenmiş kod ve kapsamlı test/dokümantasyon yapısı doğrulandı.
+- **Kurulum:** `npm run mcp` ile MCP sunucusu başlatılır veya `node dist/cli.js extract <url> --out
+  <dir>` ile CLI kullanılır; Node.js ≥18.18 ve Playwright Chromium gerektirir.
+- **Proje uyumu:** `INSPECTION_GUIDE.md` **Phase 5 (Documentation Output)** — `docs/research/
+  DESIGN_TOKENS.md` üretim adımını doğrudan otomatikleştiriyor.
+
+#### 111. [kevinwatt/yt-dlp-mcp](https://github.com/kevinwatt/yt-dlp-mcp)
+- **Yıldız:** 281 · **Lisans:** MIT · **Güncellik:** 89 commit, gerçek `src/`, `tests/`, `docs/`,
+  `.claude/skills/` entegrasyonu (bağımsız `WebFetch` ile doğrulandı).
+- **Ne işe yarar:** yt-dlp tabanlı MCP sunucusu; platform-agnostik (YouTube, Facebook, sayfa içine
+  gömülü doğrudan mp4 dahil) video/ses indirme, metadata/transcript/subtitle/yorum çekme.
+- **Neden meşru:** 281 yıldız/89 commit sağlıklı bir oran, Claude Desktop/Cursor/VS Code Copilot/
+  Windsurf/Cline için çoklu platform entegrasyon rehberleri mevcut, MIT lisanslı.
+- **Kurulum:** `npx yt-dlp-mcp` ile MCP client config'e eklenir; sistemde `yt-dlp` binary'si kurulu
+  olmalı.
+- **Proje uyumu:** `AGENTS.md`'deki `public/videos/` klasörü için önceki 107 kaynakta site
+  videolarını indiren özel bir araç yoktu; `scripts/` altındaki asset indirme script'lerine video
+  indirme yeteneği ekliyor.
+
+### B) Bağımsız CLI Aracı (MCP değil — tamamlayıcı, dark-mode nişi için ikinci seçenek)
+
+#### 112. [tomayac/dark-mode-screenshot](https://github.com/tomayac/dark-mode-screenshot)
+- **Yıldız:** 61 · **Lisans:** Apache 2.0 · **Açık issue:** 1 (birikmiş backlog yok) — bağımsız
+  `WebFetch` ile doğrulandı.
+- **Ne işe yarar:** Puppeteer tabanlı basit script; bir web sayfasının hem açık hem koyu mod ekran
+  görüntüsünü tek komutla alır.
+- **Neden meşru:** Google Chrome DevRel'den tanınan geliştirici Thomas Steiner'a ait, 28 commit,
+  README'de net kullanım talimatları, npm'de yayınlı paket.
+- **⚠️ Dikkat:** Son push 27 Şubat 2023 — 3+ yıldır güncellenmemiş ama arşivlenmemiş, tek açık issue
+  var (birikmiş sorun yok). Kritik değilse #108 (designer-mcp) tercih edilmeli; bu, basit/bağımsız
+  bir ihtiyaç için tamamlayıcı bir alternatif.
+- **Kurulum:** `npx dark-mode-screenshot -u <url> -o <output-prefix> -f` (global kurulum gerektirmez).
+- **Proje uyumu:** `INSPECTION_GUIDE.md` Phase 1'deki "Dark mode variants" + "Light mode variants"
+  ekran görüntüsü toplama adımını doğrudan otomatikleştiriyor.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 35)
+
+- **`dembrandt/dembrandt`** — 3.514 yıldız, 317 fork, ama 0 açık issue ve issue oluşturma repoda
+  kısıtlanmış — klasik şişirilmiş yıldız deseni (10 aylık repo, devasa yıldız artışına rağmen sıfır
+  topluluk etkileşimi). **Reddedildi**, gelecek turlar bir daha aramamalı.
+- **`forks-ai/dembrandt`, `zhangsan-nb/dembrandt`** — yukarıdakinin şüpheli mirror/fork hesapları,
+  aynı pazarlama metni kopyalanmış. **Reddedildi.**
+- **`nepalisagun/design-extract`, `899ms/design-extract`, `timothybrush/design-extract`** — zaten
+  kataloglanmış `Manavarya09/design-extract`'ın (#31) birebir aynı açıklamalı mirror/fork'ları.
+  **Reddedildi**, gelecek turlar bir daha aramamalı.
+- **`kabyleamazigh/video-extract-mcp`, `yanlingLabs/video-extract-mcp`,
+  `dribrahimkhalil-ui/video-extract-mcp`** — üç farklı hesapta birebir aynı açıklama metni
+  tekrarlanan şüpheli mirror deseni, orijinal kaynak belirsiz. **Reddedildi.**
+- **`AndacGuven/site-crawler-mcp`** — 6 yıldız, 4 commit; zaten kataloglanmış
+  `SarthakMishra/site-cloner` (#57) ile işlevsel olarak örtüşüyor, çok ince/kanıtsız. **Eklenmedi.**
+- **`keiver/image-tiler-mcp-server`** — 3 yıldız; `just-every/mcp-screenshot-website-fast` (#109) ile
+  aynı problemi çözüyor ama çok daha az kanıtlanmış, önceliği ikinciye verildi. **Eklenmedi.**
+- **`chazmaniandinkle/video-downloader-mcp`** — 5 yıldız/6 commit; `kevinwatt/yt-dlp-mcp` (#111) aynı
+  boşluğu çok daha olgun şekilde dolduruyor. **Eklenmedi.**
+
+**Dark-mode/tema tespiti nişi bu turda dolduruldu** (yedi turdur pending idi) — hem birincil (#108
+designer-mcp, kapsamlı OKLCH+dark-mode token üretimi) hem tamamlayıcı bir araçla (#112
+dark-mode-screenshot). Bilinen açık niş boşluk kalmadı; gelecek turlar genel tarama moduna
+dönebilir.
+
+---
+
+*Son güncelleme: 2026-09-23 (Tur 35). 5 yeni kaynak eklendi (#108-#112): `1999AZZAR/designer-mcp`
+(OKLCH + otomatik dark-mode token üretimi, 27 araçlı üretim-kalitesinde MCP, 14★, MIT — yedi turdur
+pending olan dark-mode nişini dolduruyor), `just-every/mcp-screenshot-website-fast` (uzun sayfa
+ekran görüntüsünü AI görüş sınırlaması için parçalayan MCP, 110★, MIT), `jpoindexter/
+design-md-extractor` (web sitesi görsel sistemini DESIGN.md + token'lara çıkaran CLI/GUI/MCP, 63★,
+MIT), `kevinwatt/yt-dlp-mcp` (video indirme MCP'si, `public/videos/` boşluğunu dolduruyor, 281★,
+MIT), `tomayac/dark-mode-screenshot` (basit açık/koyu mod ekran görüntüsü CLI'ı, 61★, Apache 2.0 —
+dark-mode nişi için tamamlayıcı ikinci seçenek). 7 aday incelenip reddedildi (şişirilmiş yıldız/
+sıfır-issue deseni + mirror hesapları, zaten kataloglanmış design-extract'ın mirror'ları, birbirini
+kopyalayan video-extract-mcp mirror'ları, düşük-yıldız/redundant araçlar — yukarıya bak). Dark-mode/
+tema tespiti nişi yedi turdur pending kaldıktan sonra bu turda dolduruldu; bilinen açık niş boşluk
+kalmadı. Toplam kataloglanmış kaynak sayısı: 112.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–35'te listelenenler
 tekrarlanmayacak.
 
