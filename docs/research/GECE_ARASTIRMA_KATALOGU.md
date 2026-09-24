@@ -11,12 +11,35 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 > kurulumdan önce resmi sayfada teyit etmelidir. GitHub repoları ise doğrudan fetch edilerek
 > yıldız/lisans/dosya yapısı birebir doğrulanmıştır.
 
-**Toplam kataloglanmış kaynak sayısı:** 155 (44 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
-Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 44) dosyanın sonundadır.
+**Toplam kataloglanmış kaynak sayısı:** 156 (45 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
+Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 45) dosyanın sonundadır.
 
 ---
 
-## ARAŞTIRMA DURUMU (en son Tur 44 — 2026-09-24)
+## ARAŞTIRMA DURUMU (en son Tur 45 — 2026-09-24)
+
+**Tur 45 notu (2026-09-24, ~09:03 UTC / 12:03 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+hemen öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (onyedinci kez tekrarlayan
+aynı desen); `git fetch origin master` ile `origin/master`'ın (b3451c6, Tur 44 commit'i) HEAD ile
+birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master` ile normale
+döndürüldü, çalışma kaybı yok. Dosyanın tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 155
+kaynaktan çıkan 153 benzersiz GitHub repo linki (iki `.git` varyantı normalize edilerek) tekrarın
+önüne geçmek için çıkarıldı. Araştırma bir general-purpose alt-agent'a devredildi; 153 mevcut kaynağın
+tam listesi + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent skill/agent koleksiyonu
+tarafında hiçbir yeni/redundant-olmayan aday bulamadı (bu niş Tur 36'dan beri "genel tarama modu"nda,
+kolay bulgular tükenmiş durumda); ücretsiz-LLM-API dizini tarafında 2 aday buldu
+(`mvalentsev/awesome-free-ai-coding`, `pacocartones/free-llm-api-hub`) — ikisi de otomatik/CI-tabanlı
+periyodik doğrulama (canlı API/pricing-page probe'u, tarihli "freshness" rozeti) kullanan, statik
+markdown listelerden farklı bir yöntem sunuyor. Ana oturum ikisini de kendi `WebFetch` çağrılarıyla
+bağımsız doğruladı (yıldız/fork/açık-issue/lisans rakamları alt-agent'ınkiyle birebir tutarlıydı);
+ikisi birbiriyle örtüştüğü için (aynı niş, aynı yöntem) sadece daha güçlü doğrulama yöntemine sahip
+olanı (`mvalentsev/awesome-free-ai-coding` — gerçek model API'lerini çağırıyor, sadece dokümantasyon
+sayfası değil) #156 olarak eklendi, diğeri redundancy nedeniyle eklenmedi. 3 erken-aşama/kanıtsız aday
+ve birkaç ToS-riski/pooled-key gateway adayı (görev talimatına uygun şekilde) reddedildi (aşağıya bak).
+
+**Toplam:** 156 doğrulanmış kaynak (Tur 44 sonunda 155'ti, Tur 45 ile #156 eklendi).
+
+**Önceki durum (Tur 44 — 2026-09-24):
 
 **Tur 44 notu (2026-09-24, ~08:03 UTC / 11:03 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
 öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (onaltıncı kez tekrarlayan aynı
@@ -5238,20 +5261,100 @@ Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebil
 
 ---
 
-*Son güncelleme: 2026-09-24 (Tur 44). Bu tur bir general-purpose alt-agent'a devredildi; 150 mevcut
-kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 3 güçlü aday
-buldu ve doğruladı: `vercel-labs/agent-skills` (31.5k★, MIT — Vercel'in resmi React/Next.js skill
-koleksiyonu, 9 gerçek SKILL.md), `ArnavPuri/designskills` (9★, MIT — 28 gerçek SKILL.md'den oluşan
-tasarım skill seti, dark-mode dahil) ve `mcpc-tech/dev-inspector-mcp` (47★, MIT — hesaplanmış CSS
-stili dahil tarayıcı çalışma-zamanı bağlamı sunan MCP sunucusu, Next.js desteği var). Ana oturum bu
-3 adayın tamamını kendi `WebFetch` çağrılarıyla (gerçek github.com repo sayfası + bir örnekte
-`raw.githubusercontent.com` üzerinden ham `SKILL.md` içeriği) ikinci kez bağımsız doğruladı; tüm
-rakamlar tutarlıydı, tutarsızlık bulunmadı. 3 erken-aşama/kanıtsız MCP sunucusu (css-mcp,
-mcp-seo-audit, sparrow84001/mcp-seo) meşru ama düşük-benimseme nedeniyle eklenmedi, 1 ücretsiz LLM
-API adayı (NVIDIA NIM) birincil kaynak erişilemediği için eklenmedi, 2 aday (MarwanDevSpace/
-mcp-ink-design, hupeng9995/browser-mcp, Furkiozknn/nvidia-nim-mcp) kanıtsız/redundancy gerekçesiyle
-reddedildi — yukarıdaki "Doğrulanan ama EKLENMEYEN Bulgular (Tur 44)" bölümüne bakın. Toplam
-kataloglanmış kaynak sayısı: 155.
-Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–44'te listelenenler
+## Tur 45 (2026-09-24, ~09:03 UTC / 12:03 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC) hemen öncesinde başladı. Oturum başında yine "detached HEAD" durumu
+görüldü (onyedinci kez tekrarlayan aynı desen); `git fetch origin master` ile `origin/master`'ın
+(b3451c6, Tur 44 commit'i) HEAD ile birebir aynı commit'te olduğu doğrulanıp `git checkout -B master
+origin/master` ile normale döndürüldü, çalışma kaybı yok. Dosyanın tamamı `grep -oE
+'github\.com/...'` ile taranıp mevcut 155 kaynaktan çıkan 153 benzersiz GitHub repo linki (iki `.git`
+varyantı normalize edilerek) tekrarın önüne geçmek için çıkarıldı. Araştırma bir general-purpose
+alt-agent'a devredildi; 153 mevcut kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri
+verildi. Alt-agent skill/agent koleksiyonu tarafında hiçbir yeni/redundant-olmayan aday bulamadı
+(bu niş Tur 36'dan beri genel tarama modunda, kolay bulgular tükenmiş); ücretsiz-LLM-API dizini
+tarafında 2 aday buldu ve `WebFetch` ile doğruladı. Ana oturum ikisini de kendi `WebFetch`
+çağrılarıyla ikinci kez bağımsız doğruladı — tüm rakamlar (yıldız/fork/açık-issue/lisans) tutarlıydı,
+tutarsızlık bulunmadı. İki aday birbiriyle örtüştüğü (aynı niş: CI-tabanlı otomatik doğrulamalı
+ücretsiz-LLM-API dizini) için sadece daha güçlü doğrulama yöntemine sahip olan #156 olarak eklendi,
+diğeri (`pacocartones/free-llm-api-hub`) redundancy nedeniyle eklenmedi. 3 erken-aşama/kanıtsız aday
+ve birkaç ToS-riski/pooled-key gateway/duplicate adayı görev talimatına uygun şekilde reddedildi
+(aşağıya bak).
+
+**Toplam:** 156 doğrulanmış kaynak (Tur 44 sonunda 155'ti, Tur 45 ile #156 eklendi).
+
+### D) Ücretsiz LLM API Dizini (CI-tabanlı otomatik doğrulama — statik listelerden farklı yöntem)
+
+#### 156. [mvalentsev/awesome-free-ai-coding](https://github.com/mvalentsev/awesome-free-ai-coding)
+- **Yıldız:** 30 · **Fork:** 4 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** aktif, 333 commit, oluşturulma 2026-07-19.
+- **Ne işe yarar:** Bireysel (paylaşımlı olmayan) API key gerektiren ücretsiz-katmanlı LLM API'leri ve
+  ücretsiz kodlama ajanlarının derlenmiş listesi (Google AI Studio/Gemini, Groq, NVIDIA NIM, LLM7.io,
+  Kilo Code, GitHub Copilot Free, Kiro, Google Jules, opencode, Google Antigravity, vb.) — 79 canlı
+  teklif.
+- **Neden meşru:** `WebFetch` ile github.com repo sayfası doğrulandı (30★/4 fork/0 açık issue, MIT
+  LICENSE, 333 commit — tüm rakamlar alt-agent'ın bulgusuyla birebir tutarlı). README'nin kendisi,
+  bu katalogda zaten bulunan 5+ statik markdown "awesome-free-llm-apis" listesinden farklı olarak,
+  her satırın GitHub Actions ile **haftada iki kez canlı model API'lerine istek atılarak veya
+  pricing sayfası okunarak** yeniden doğrulandığını belirtiyor; 3 kez üst üste başarısız olan veya
+  60 gün güncellenmeyen teklifler otomatik olarak arşive taşınıyor. Kendisi bir araç değil, her
+  sağlayıcının kendi resmi kayıt/API-key akışına yönlendiren bir referans dizini — paylaşımlı/
+  havuzlanmış key veya ToS riski yok.
+- **Kurulum:** Kurulum gerektirmez — referans dosyası; `README.md` okunup istenen sağlayıcının kendi
+  resmi kayıt/API-key sayfasına gidilir.
+- **Proje uyumu:** Zaten kataloglanmış statik ücretsiz-LLM-API listelerini (mnfst, open-free-llm-api,
+  amardeeplakshkar, nejib1, xyzs996) tamamlıyor — CI-probe'lu/tarihli doğrulama yöntemi sayesinde
+  "ölü link/güncel olmayan iddia" riskini statik listelerden daha iyi azaltıyor, redundant değil.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 45)
+
+- **pacocartones/free-llm-api-hub** — 48★/12 fork/60 açık issue (Hacktoberfest etiketli özellik
+  istekleri + veri-doğrulama görevleri, sağlıklı topluluk aktivitesi, kırmızı bayrak değil), MIT.
+  `WebFetch` ile doğrulandı — gerçek, tarihli (`last_verified`), şema-doğrulanmış `data/providers.json`
+  (Google Gemini/Groq girdileri `docs_url`/`env_key` ile teyit edildi). Meşru ve #156 ile aynı niş/
+  yöntemi paylaşıyor (CI-tabanlı doğrulama) ama #156'nın doğrulaması daha güçlü (gerçek model API'sini
+  çağırıyor, bu ise ağırlıklı olarak dokümantasyon sayfası diff'i yapıyor) — redundancy nedeniyle
+  ayrı madde olarak eklenmedi.
+- **ScalefreeCOM/datavault4dbt-agent-skills** — 22★/0 fork/0 issue, Apache-2.0. Gerçek, içerikli
+  SKILL.md dosyaları (dbt + Data Vault 2.0 modelleme nişi) doğrulandı ama bu şablonun tech stack'i
+  (Next.js/React) ile hiçbir ilgisi yok ve çok niş/düşük benimseme, eklenmedi.
+- **yan-labs/yan-skills** — 203★/88 fork/0 issue, MIT, 426+ commit, gerçek SKILL.md dosyaları
+  doğrulandı (rankup, backlink, opencli, autopilot, imagegen). Skillerden biri ("backlink") 492
+  hedefli toplu geri-bağlantı/link-gönderim otomasyonu (gray-hat SEO) yapıyor — görev talimatının
+  ToS-riski hariç-tutma kriterine yakın durduğu için eklenmedi.
+- **cristiannegru/awesome-free-llm-apis** — 0★/0 fork. Bireysel key kullanımı doğrulandı ama sıfır
+  benimseme, eklenmedi.
+- **chusri/claude-code-agents** — zaten kataloglanmış `wshobson/agents`'ın doğrudan fork'u (13★),
+  saf tekrar, eklenmedi.
+- **tryalan-ai/awesome-claude-code-sub-agents** — ham README kendi kopyalama talimatında
+  `supatest-ai/awesome-claude-code-agents`'a işaret ediyor; yıldız/fork/issue sayıları (173/28/1)
+  zaten kataloglanmış `supatest-ai/awesome-claude-code-sub-agents` ile birebir aynı — yeniden
+  adlandırma/tekrar, eklenmedi.
+- **SankofaForge/design-inspiration-mcp-server** — 0★/0 fork, kendi README'si zaten kataloglanmış
+  `YonasValentin/design-inspiration-mcp-server`'dan klonlanmasını söylüyor — türev/boş fork,
+  eklenmedi.
+- Paylaşımlı/havuzlanmış key kullanan "gateway/router" repoları (0xzr/freellmpool,
+  malda231125/free-llm-gateway, Corporationakht/LocalCodeCli, fhrouter/fhrouter,
+  freellms/free-llm-api-keys) — görev talimatının "paylaşımlı/havuzlanmış API key" hariç-tutma
+  kriteri gereği bilerek dokunulmadı.
+- **liarjs-skills** ve benzeri anti-bot-tespiti/fingerprint-evasion skill'leri — ToS-bypass
+  hariç-tutma kriterine yakın durduğu için değerlendirmeye alınmadı.
+
+Bilinen açık niş boşluk yok (skill/agent koleksiyonu tarafı Tur 36'dan beri tükenmiş durumda);
+gelecek turlar genel tarama moduna devam edebilir.
+
+---
+
+*Son güncelleme: 2026-09-24 (Tur 45). Bu tur bir general-purpose alt-agent'a devredildi; 153 mevcut
+kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent skill/agent
+koleksiyonu tarafında yeni/redundant-olmayan aday bulamadı; ücretsiz-LLM-API dizini tarafında 2 aday
+buldu (`mvalentsev/awesome-free-ai-coding`, `pacocartones/free-llm-api-hub`) — ikisi de CI-tabanlı
+otomatik doğrulama kullanıyor. Ana oturum ikisini de kendi `WebFetch` çağrılarıyla ikinci kez
+bağımsız doğruladı; tüm rakamlar tutarlıydı. İkisi örtüştüğü için sadece daha güçlü doğrulamaya
+sahip olan `mvalentsev/awesome-free-ai-coding` (30★, MIT — gerçek model API'lerini haftada iki kez
+probe eden, tarihli/otomatik-arşivlemeli ücretsiz-LLM-API dizini) #156 olarak eklendi. 3 erken-
+aşama/kanıtsız aday, 2 duplicate/türev fork ve birkaç pooled-key gateway/ToS-riski adayı görev
+talimatına uygun şekilde reddedildi — yukarıdaki "Doğrulanan ama EKLENMEYEN Bulgular (Tur 45)"
+bölümüne bakın. Toplam kataloglanmış kaynak sayısı: 156.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–45'te listelenenler
 tekrarlanmayacak.
 
