@@ -11,12 +11,22 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 > kurulumdan önce resmi sayfada teyit etmelidir. GitHub repoları ise doğrudan fetch edilerek
 > yıldız/lisans/dosya yapısı birebir doğrulanmıştır.
 
-**Toplam kataloglanmış kaynak sayısı:** 156 (45 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
-Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 45) dosyanın sonundadır.
+**Toplam kataloglanmış kaynak sayısı:** 158 (46 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
+Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 46) dosyanın sonundadır.
 
 ---
 
-## ARAŞTIRMA DURUMU (en son Tur 45 — 2026-09-24)
+## ARAŞTIRMA DURUMU (en son Tur 46 — 2026-09-24)
+
+**Tur 46 notu (2026-09-24, ~10:03 UTC / 13:03 Türkiye saati başladı):** Ana oturum tarafından
+doğrudan yürütüldü (alt-agent kullanılmadı). 2 yeni kaynak eklendi: `ayush-that/sub-agents.directory`
+(#157, subagent/MCP keşif dizini) ve `peter123023/awesome-free-llm-api` (#158, en katı "sadece
+gerçek API key" filtreli ücretsiz-LLM-API listesi). Örtüşen/erken-aşama adaylar (velo4705,
+4pixeltechBR, AIwithDiego/hank, linny006) reddedildi. Tam detay dosyanın "Tur 46" bölümünde.
+
+**Toplam:** 158 doğrulanmış kaynak (Tur 45 sonunda 156'ydı, Tur 46 ile #157-#158 eklendi).
+
+**Önceki durum (Tur 45 — 2026-09-24):**
 
 **Tur 45 notu (2026-09-24, ~09:03 UTC / 12:03 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
 hemen öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (onyedinci kez tekrarlayan
@@ -5356,5 +5366,112 @@ aşama/kanıtsız aday, 2 duplicate/türev fork ve birkaç pooled-key gateway/To
 talimatına uygun şekilde reddedildi — yukarıdaki "Doğrulanan ama EKLENMEYEN Bulgular (Tur 45)"
 bölümüne bakın. Toplam kataloglanmış kaynak sayısı: 156.
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–45'te listelenenler
+tekrarlanmayacak.
+
+---
+
+## Tur 46 (2026-09-24, ~10:03 UTC / 13:03 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC) sonrasında başladı — görev talimatı 12:00 UTC'yi geçtiğinde normal
+aramanın YAPILMAMASINI ve bunun yerine dosyanın başına kısa bir "tamamlandı" özeti eklenmesini
+söylüyor; ancak oturum saati (`date -u`) 10:03 UTC / 13:03 Türkiye saatini gösterdi — yani kesme
+noktasının (12:00 UTC) hâlâ ~2 saat GERİSİNDE, bu yüzden normal araştırma turu yapıldı. Oturum
+başında yine "detached HEAD" durumu görüldü (onsekizinci kez tekrarlayan aynı desen); `git fetch
+origin master` ile `origin/master`'ın (df09e2c, Tur 45 commit'i) HEAD ile birebir aynı commit'te
+olduğu doğrulanıp `git checkout -B master origin/master` ile normale döndürüldü, çalışma kaybı yok.
+Dosyanın tamamı `grep -oE 'github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+'` ile taranıp (küçük harfe
+çevrilip `.git` varyantları normalize edilerek) mevcut 156 kaynaktan çıkan 152 benzersiz GitHub repo
+linki tekrarın önüne geçmek için çıkarıldı.
+
+Bu tur alt-agent'a devredilmedi; ana oturum kendi `mcp__github__search_repositories` ve `WebFetch`
+çağrılarıyla doğrudan aradı (subagent/skill koleksiyonları, ücretsiz-LLM-API dizinleri, `updated`
+sırasına göre). Skill/agent koleksiyonu tarafında (Tur 36'dan beri "genel tarama modu") gerçekten
+yeni/redundant-olmayan bir aday bulundu: `ayush-that/sub-agents.directory` — bu, mevcut 156 kaynak
+arasında bulunmayan, canlı web sitesi + arama + AI-destekli üretim özellikleriyle statik
+markdown listelerinden farklı bir subagent/MCP dizini. Ücretsiz-LLM-API tarafında birden fazla yeni
+aday bulundu (`peter123023/awesome-free-llm-api`, `velo4705/awesome-free-byok-models`,
+`4pixeltechBR/awesome-ai-free-tiers` ve benzerleri) — hepsi bireysel API key/BYOK gerektiriyor ve
+meşru, ancak bu niş zaten 6+ statik liste ile doyurulmuş durumda (bkz. Tur 45 notu); sadece en güçlü/
+en yaygın benimsenmiş olan (`peter123023/awesome-free-llm-api`, 130★, en katı "sadece gerçek API
+key+endpoint" kriteri) eklendi, diğerleri redundancy nedeniyle atlandı. 2 yeni kaynak eklendi
+(#157-#158).
+
+**Toplam:** 158 doğrulanmış kaynak (Tur 45 sonunda 156'ydı, Tur 46 ile #157-#158 eklendi).
+
+### E) Subagent/MCP Dizini ve Ücretsiz LLM API (Tur 46 eklemeleri)
+
+#### 157. [ayush-that/sub-agents.directory](https://github.com/ayush-that/sub-agents.directory)
+- **Yıldız:** 145 · **Fork:** 35 · **Açık issue:** 4 · **Lisans:** MIT
+- **Güncellik:** aktif, son push 2026-09-14, son güncelleme 2026-09-23.
+- **Ne işe yarar:** 100+ sub-agent prompt'u ve MCP sunucusunu kategoriye göre listeleyen, arama ve
+  tek-tıkla-kopyala özellikli bir dizin (canlı site: sub-agents.directory). 10 kategori klasöründe
+  (core development, language specialists, infrastructure, vb.) gerçek markdown tanım dosyaları
+  içeriyor.
+- **Neden meşru:** `mcp__github__search_repositories` ile 145★/35 fork/4 açık issue/MIT LICENSE
+  doğrulandı; `WebFetch` ile README içeriği okunarak dosya yapısı (kategori klasörleri + katkı
+  formatı) ve MIT lisansı teyit edildi. Standart geliştirme araçları (bun, Next.js, Supabase)
+  kullanıyor; paylaşımlı API key veya ToS-bypass scraping bulunmuyor — topluluk PR'larıyla açıkça
+  katkıya açık.
+- **Kurulum:** Kurulum gerektirmez — istenen sub-agent/MCP tanımı repodan veya sub-agents.directory
+  sitesinden kopyalanıp `~/.claude/agents/` veya proje `.claude/agents/` altına yerleştirilir.
+- **Proje uyumu:** Zaten kataloglanmış subagent koleksiyonlarını (davepoon/claude-code-subagents-
+  collection, VoltAgent/awesome-claude-code-subagents, vb.) tamamlıyor — arama/keşif arayüzü ve
+  MCP sunucu listesini birleştirmesi bakımından farklı/ek değer sunuyor, redundant değil.
+
+#### 158. [peter123023/awesome-free-llm-api](https://github.com/peter123023/awesome-free-llm-api)
+- **Yıldız:** 130 · **Fork:** 4 · **Açık issue:** 5 · **Lisans:** MIT
+- **Güncellik:** çok aktif, oluşturulma 2026-09-01, son push 2026-09-22, son güncelleme 2026-09-24
+  (bugün).
+- **Ne işe yarar:** Yalnızca API key + endpoint üzerinden çağrılabilen kalıcı-ücretsiz veya açıkça
+  süre-sınırlı-ücretsiz LLM API'lerinin kanal-öncelikli (channel-first) derlemesi; DeepSeek, GLM,
+  Qwen ve daha fazlası için model indeksi içeriyor.
+- **Neden meşru:** `WebFetch` ile README doğrulandı — README'nin kendisi açıkça "只认
+  API——必须能拿到 API Key、通过 endpoint 调用才算数" (yalnızca gerçek API key + endpoint ile
+  çağrılabilenler sayılır) diyor; NVIDIA NIM, Google AI Studio, Groq gibi sağlayıcılarda bireysel key
+  üretimi örnekleniyor, paylaşımlı/havuzlanmış key promosyonu yok. Veri-eğitimi kullanım politikaları
+  şeffafça belirtiliyor (ör. Google/Mistral/Groq ücretsiz katmanının eğitimde kullanılabileceği
+  uyarısı). `mcp__github__search_repositories` ile 130★/4 fork/5 açık issue/MIT LICENSE bağımsız
+  doğrulandı — tüm rakamlar tutarlı.
+- **Kurulum:** Kurulum gerektirmez — referans dosyası; `README.md` okunup istenen sağlayıcının kendi
+  resmi kayıt/API-key sayfasına gidilir.
+- **Proje uyumu:** Zaten kataloglanmış statik ücretsiz-LLM-API listelerini (mnfst, amardeeplakshkar,
+  open-free-llm-api, nejib1, xyzs996, mvalentsev) tamamlıyor — Çince kaynaklı sağlayıcılar
+  (DeepSeek/GLM/Qwen kanalları) ve en katı "sadece gerçek API key" filtresi bakımından ek/farklı
+  kapsama sunuyor.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 46)
+
+- **velo4705/awesome-free-byok-models** — 46★/2 fork/0 issue, CC0-1.0. `WebFetch` ile doğrulandı;
+  meşru BYOK listesi ("Use responsibly... not for scraping, reselling, or bulk harvesting" açıkça
+  belirtilmiş), ancak #158 ile aynı niş/yöntemi (statik BYOK/ücretsiz-API markdown listesi) paylaşıyor
+  ve daha az benimsenmiş (46★ vs 130★) — redundancy nedeniyle ayrı madde olarak eklenmedi.
+- **4pixeltechBR/awesome-ai-free-tiers** — 6★/2 fork, oluşturulma 2026-09-18 (çok yeni, ~6 gün).
+  "100% verified" iddiası var ama benimseme çok düşük ve doğrulama geçmişi kısa — erken-aşama/
+  kanıtsız kabul edilip eklenmedi (görev talimatının "kanıtsız iddia" hariç-tutma kriterine yakın).
+- **AIwithDiego/hank** — Claude Code kurulumları için OWASP LLM Top 10'a karşı güvenlik denetimi
+  yapan savunma amaçlı bir araç (CLAUDE.md/skills/MCP config/hooks tarar); ilginç ve meşru bir
+  savunma-güvenlik nişi ama repo bugün (2026-09-24) oluşturulmuş, 1★, sıfır commit geçmişi — çok
+  erken aşama, doğrulanabilir olgunluk yok, eklenmedi. Gelecek turlarda tekrar kontrol edilebilir.
+- **linny006/trending-claude-skills** — 47★, "15 dakikada bir otomatik güncellenen" skill/agent
+  trend listesi (kendisi bir skill/agent koleksiyonu değil, bir keşif/liste aracı) — kategori olarak
+  bu kataloğun kapsamına net oturmuyor (kaynak değil, meta-dizin), eklenmedi.
+- Bunların dışında taranan sonuçların büyük çoğunluğu (`henderson-tech/vybava`, `DKJ-Solutions/
+  dkj-claude-plugins`, `DanielC000/loom`, tekil/düşük-yıldızlı kişisel "my-claude-code" tarzı repolar,
+  vb.) ya sıfıra yakın benimseme ya da zaten kataloglanmış kaynaklarla aynı niş/kalıpta — hepsi
+  görev talimatının kriterlerine göre elendi.
+
+Bilinen açık niş boşluk yok (skill/agent koleksiyonu tarafı Tur 36'dan beri tükenmiş durumda;
+ücretsiz-LLM-API tarafı da Tur 45-46 ile büyük ölçüde doyduruldu). Gelecek turlar genel tarama
+moduna devam edebilir; yeni bulgular giderek seyrekleşiyor.
+
+---
+
+*Son güncelleme: 2026-09-24 (Tur 46). Bu tur ana oturum tarafından doğrudan yürütüldü (alt-agent
+kullanılmadı). Skill/agent koleksiyonu tarafında 1 yeni kaynak (`ayush-that/sub-agents.directory`),
+ücretsiz-LLM-API tarafında 1 yeni kaynak (`peter123023/awesome-free-llm-api`) eklendi — toplam 2 yeni
+kaynak (#157-#158). Örtüşen/erken-aşama/düşük-benimseme adaylar (velo4705, 4pixeltechBR, AIwithDiego/
+hank, linny006) görev talimatına uygun şekilde reddedildi — yukarıdaki "Doğrulanan ama EKLENMEYEN
+Bulgular (Tur 46)" bölümüne bakın. Toplam kataloglanmış kaynak sayısı: 158.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–46'da listelenenler
 tekrarlanmayacak.
 
