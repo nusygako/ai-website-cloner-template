@@ -11,8 +11,8 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 > kurulumdan önce resmi sayfada teyit etmelidir. GitHub repoları ise doğrudan fetch edilerek
 > yıldız/lisans/dosya yapısı birebir doğrulanmıştır.
 
-**Toplam kataloglanmış kaynak sayısı:** 134 (39 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
-Tur 1-38'in tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 39) dosyanın sonundadır.
+**Toplam kataloglanmış kaynak sayısı:** 139 (40 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
+Tur 1-39'un tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 40) dosyanın sonundadır.
 
 ---
 
@@ -4580,5 +4580,148 @@ reddedildi; birkaç aday lisans belirsizliği veya "ücretsiz katman yok" gerek�
 bırakıldı (yukarıdaki "Doğrulanan ama EKLENMEYEN Bulgular" bölümüne bakın).
 Toplam kataloglanmış kaynak sayısı: 134.
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–39'da listelenenler
+tekrarlanmayacak.
+
+---
+
+## Tur 40 — 2026-09-24
+
+**Tur 40 notu (~04:03 UTC / 07:03 Türkiye saati başladı, kesme noktasının çok öncesinde):** Oturum
+yine "detached HEAD" durumunda başladı — bu artık on dördüncü kez tekrarlayan aynı desen. Bu kez ek
+olarak Tur 39'un commit'i (`1da228b`) **push edilmemiş** halde bulundu (`origin/master` hâlâ Tur 38'in
+commit'i `a272216`'daydı). `git merge-base --is-ancestor master HEAD` ile HEAD'in local `master`'ın
+saf ileri (fast-forward) devamı olduğu doğrulandı, `git checkout -B master` ile branch HEAD'e taşındı,
+ardından `git push` ile Tur 39 origin'e senkronize edildi — kaybolan bir çalışma yoktu, sadece bir
+önceki turun push adımı yarım kalmıştı. Ardından dosyadaki 134 kaynağın tamamının GitHub linkleri
+`grep -oE 'github\.com/...'` ile çıkarılıp tekilleştirildi (134 benzersiz link) ve bu turun aday
+taramasında tekrar kontrolü için kullanıldı. GitHub MCP sunucusunun `get_file_contents`/`search_code`
+araçları bu oturumda yalnızca `nusygako/ai-website-cloner-template` ile sınırlı olduğundan (diğer
+repolara erişim reddediliyor), önceki turların yönteminde olduğu gibi çapraz-repo doğrulama için
+`search_repositories` (yıldız/fork/lisans-harici metadata) + `WebFetch` (repo sayfası — lisans, ek
+bağlam) kombinasyonu kullanıldı.
+
+### A) Resmi ve Topluluk Plugin Marketplace'leri
+
+#### 135. [anthropics/claude-plugins-community](https://github.com/anthropics/claude-plugins-community)
+- **Yıldız:** 4.4k (4407) · **Fork:** 313 · **Açık issue:** 55 · **Lisans:** Apache-2.0
+- **Güncellik:** repo 2026-03-20'de oluşturuldu, son güncelleme 2026-09-23 — çok aktif (2.289 commit).
+- **Ne işe yarar:** Anthropic'in kendi GitHub organizasyonunda barındırdığı, Claude Cowork ve Claude
+  Code için topluluk plugin marketplace'i; `.claude-plugin/marketplace.json` üzerinden `/plugin
+  marketplace add anthropics/claude-plugins-community` ile eklenip onaylanmış topluluk plugin'lerine
+  erişim sağlıyor. Salt-okunur bir ayna — gerçek plugin gönderimi `clau.de/plugin-directory-submission`
+  üzerinden yapılıyor.
+- **Neden meşru:** `search_repositories` ile `anthropics` organizasyonuna ait olduğu doğrulandı (resmi
+  Anthropic GitHub org'u — bu şablonun kendisinin de referans aldığı aynı organizasyon); `WebFetch` ile
+  repo sayfası ikinci kez doğrulandı, Apache-2.0 lisansı ve 2000+ commit'lik gerçek/aktif geçmiş
+  teyit edildi. Sayfa içeriğindeki "tüm plugin'ler otomatik güvenlik taramasından geçti" gibi iddialar
+  README'nin kendi beyanı olup bu oturum tarafından bağımsızca doğrulanmadı — kullanıcı yine de
+  kurulum öncesi kendi değerlendirmesini yapmalı.
+- **Kurulum:** Claude Code içinde `/plugin marketplace add anthropics/claude-plugins-community`,
+  ardından `/plugin install <isim>` ile istenen plugin eklenir — yerel onay gerektirir.
+- **Proje uyumu:** Genel amaçlı, resmi bir keşif/kurulum kanalı; bu şablonun ihtiyaç duyabileceği
+  gelecekteki resmi Anthropic plugin'lerini (ör. tasarım/kod-inceleme) bulmak için birincil kaynak.
+
+#### 136. [obra/superpowers-marketplace](https://github.com/obra/superpowers-marketplace)
+- **Yıldız:** 1.3k (1273) · **Fork:** 263 · **Açık issue:** 49 · **Lisans:** MIT
+- **Güncellik:** repo 2025-10-09'da oluşturuldu, son güncelleme 2026-09-23 — aktif.
+- **Ne işe yarar:** Dört plugin içeren küratörlü bir marketplace: "Superpowers" (test/debug/işbirliği
+  becerileri), "Elements of Style" (Strunk'a dayalı yazım rehberliği), "Superpowers: Developing for
+  Claude Code" (kendi plugin'ini geliştirme kaynakları) ve "Private Journal MCP" (semantik aramalı
+  günlük tutma MCP sunucusu).
+- **Neden meşru:** `WebFetch` ile doğrulandı — gerçek MIT lisansı, 263 fork'luk aktif topluluk
+  kullanımı, `/plugin marketplace add obra/superpowers-marketplace` ile çalışan somut kurulum akışı.
+  Claude Code topluluğunda tanınan bir katkıcının (obra / Jesse Vincent) reposu.
+- **Kurulum:** `/plugin marketplace add obra/superpowers-marketplace`, ardından istenen plugin'i
+  `/plugin install` ile ekle.
+- **Proje uyumu:** "Superpowers" içindeki test/debug becerileri, bu şablonun `npm run check` akışını
+  (lint+typecheck+build) daha disiplinli çalıştırmak isteyen ajan ekipleri için doğrudan faydalı.
+
+#### 137. [trailofbits/skills-curated](https://github.com/trailofbits/skills-curated)
+- **Yıldız:** 504 · **Fork:** 34 · **Açık issue:** 20 · **Lisans:** CC-BY-SA-4.0
+- **Güncellik:** repo 2026-02-06'da oluşturuldu, son güncelleme 2026-09-23 — aktif.
+- **Ne işe yarar:** Tanınmış güvenlik araştırma şirketi Trail of Bits'in, kendi mühendislerinin
+  "rastgele GitHub plugin'leri kurmasını istemediği" gerekçesiyle oluşturduğu, topluluk tarafından
+  gözden geçirilmiş (vetted) bir Claude Code plugin marketplace'i; geliştirme, güvenlik, üretkenlik,
+  araştırma ve yazım kategorilerinde skill'ler sunuyor.
+- **Neden meşru:** `search_repositories` ve `WebFetch` ile ikinci kez doğrulandı — `trailofbits`
+  resmi GitHub organizasyonuna ait (bilinen, saygın bir güvenlik araştırma firması), lisans açıkça
+  CC-BY-SA-4.0 olarak belirtilmiş, "biz de rastgele plugin kurmuyoruz" şeffaflığı meşruiyet sinyali.
+- **Kurulum:** `/plugin marketplace add trailofbits/skills-curated`, ardından `/plugin install`.
+- **Proje uyumu:** Genel amaçlı ama güvenlik-bilinçli bir seçki; bu şablonun `security-review` skill'i
+  ile birlikte kullanılabilecek ek, bağımsızca gözden geçirilmiş bir kaynak.
+
+#### 138. [davepoon/buildwithclaude](https://github.com/davepoon/buildwithclaude)
+- **Yıldız:** 3.5k (3534) · **Fork:** 526 · **Açık issue:** 18 · **Lisans:** MIT
+- **Güncellik:** repo 2025-07-25'te oluşturuldu, son güncelleme 2026-09-24 — çok aktif (576 commit).
+- **Ne işe yarar:** Claude Skills, Agent'lar, Komutlar, Hook'lar, Plugin'ler ve Marketplace
+  koleksiyonlarını tek bir yerden aratılabilir kılan bir keşif merkezi/indeks (buildwithclaude.com web
+  arayüzü + bu repo); 20.000+ topluluk plugin'i, 4.500+ MCP sunucusu ve 1.100+ plugin marketplace'i
+  kataloglanmış durumda.
+- **Neden meşru:** `WebFetch` ile doğrulandı — gerçek MIT lisanslı repo, 526 fork'luk aktif kullanım,
+  somut ve çalışan bir web arayüzü. Kendisi bir plugin değil, bir **keşif/indeks aracı** — bu yüzden
+  daha önce eklenen `google-labs-code`/`hesreallyhim/awesome-claude-code` gibi indeks girdileriyle
+  aynı kategoride.
+- **Kurulum:** Kurulum gerektirmiyor — buildwithclaude.com üzerinden veya bu repodan istenen skill/
+  plugin/MCP bulunup kendi kurulum talimatıyla (`npx skills add ...`, `/plugin marketplace add ...`)
+  eklenir.
+- **Proje uyumu:** Genel keşif aracı; bu şablonun ihtiyaç duyabileceği niş skill'leri (ör. yeni bir
+  CSS-in-JS kütüphanesi veya CMS entegrasyonu için) hızlıca bulmak için kullanılabilir.
+
+### B) Geliştirici Aracı (DevTools / Gözlemlenebilirlik — plugin/skill değil, tamamlayıcı kategori)
+
+#### 139. [matt1398/claude-devtools](https://github.com/matt1398/claude-devtools)
+- **Yıldız:** 3.9k (3947) · **Fork:** 300 · **Açık issue:** 53 · **Lisans:** MIT
+- **Güncellik:** repo 2026-02-07'de oluşturuldu, son güncelleme 2026-09-23 — çok aktif (349 commit).
+- **Ne işe yarar:** Claude Code'un `~/.claude/` altında yerel olarak tuttuğu oturum loglarını okuyup
+  görsel bir arayüzde sunan bağımsız bir masaüstü uygulaması (macOS/Linux/Windows + Docker); tool
+  çağrılarını, token kullanımını, subagent ağaçlarını, context penceresi dağılımını ve "thinking"
+  içeriğini inceleme imkânı veriyor.
+- **Neden meşru:** `WebFetch` ile doğrulandı — gerçek MIT lisanslı, 300 fork'luk aktif kullanım,
+  349 commit'lik somut geliştirme geçmişi. API anahtarı veya ek yapılandırma **gerektirmiyor** —
+  yalnızca mevcut yerel logları okuyor, Claude Code'u sarmalamıyor/değiştirmiyor; hesap askıya
+  alınma riski taşıyan hiçbir davranışı yok.
+- **Kurulum:** Bağımsız masaüstü uygulaması olarak indirilir veya Docker container'ı olarak
+  çalıştırılır — yerel kurulum/onay gerektirir, proje deposuna dosya eklenmez.
+- **Proje uyumu:** Doğrudan proje koduna dahil edilmiyor ama bu şablonu klonlarken kullanılan Claude
+  Code oturumlarının (özellikle `/clone-website` sırasında dallanan paralel worktree ajanlarının)
+  token/context kullanımını gözlemlemek isteyen kullanıcılar için pratik bir dış araç.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 40)
+
+- **ruvnet/RuView** — Arama sonucunda **94.871 yıldız** ile ilk sırada çıktı, ancak repo açıklaması
+  ("WiFi sinyallerini gerçek-zamanlı mekânsal zekâya çeviren" bir donanım/firmware projesi) `claude`,
+  `skills`, `awesome` gibi etiketlerle ve bu denli yüksek bir yıldız sayısıyla hiç örtüşmüyor — konusu
+  Claude Code/skill/agent ekosistemiyle alakasız. Bu uyumsuzluk (alakasız içerik + anormal derecede
+  yüksek yıldız) sahte/yeniden-adlandırılmış yıldız biriktirme (star-jacking) şüphesi uyandırıyor.
+  **Kesinlikle eklenmedi** ve gelecek turlara da önerilmiyor — meşruiyet kriterine açıkça aykırı.
+- **iannuttall/claude-agents** (2043★) — Gerçek ve bir zamanlar popülerdi, ancak repo artık
+  **arşivlenmiş** (`archived: true`) durumda, yani aktif bakımı yok. Bakımsız/donmuş bir kaynağı
+  kataloğa eklemek "aktif ve güncel" kriterine uymuyor — eklenmedi.
+- `microsoft/power-platform-skills` (918★, resmi Microsoft org), `gamedev-skills/awesome-gamedev-agent-skills`
+  (1124★), `brycewang-stanford/Awesome-Journal-Skills` (1157★) ve `data-goblin/power-bi-agentic-development`
+  (933★) — hepsi gerçek ve aktif görünüyor, ancak bu şablonun (Next.js web klonlama) kapsamına
+  (Power Platform, oyun geliştirme, akademik yazım, Power BI) doğrudan uymadıkları ve bu turda
+  `WebFetch` ile birincil doğrulaması tamamlanamadığı (zaman kısıtı) için gelecek bir tura bırakıldı.
+- `ccplugins/awesome-claude-code-plugins` (952★, MIT) — gerçek görünüyor ama 241 açık issue / 952
+  yıldız oranı (yaklaşık dörtte bir) görece yüksek bir bakım-borcu sinyali; bu turda eklenmek yerine
+  gelecek bir turda issue trendi kontrol edilip karar verilecek.
+
+Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebilir.
+
+---
+
+*Son güncelleme: 2026-09-24 (Tur 40). Bu tur önce bir altyapı sorunu çözdü: Tur 39'un commit'i
+local'de vardı ama `origin/master`'a push edilmemişti (detached HEAD + fast-forward eksik push) —
+bu düzeltilip Tur 39 önce senkronize edildi. Ardından 5 yeni kaynak eklendi (#135-#139):
+`anthropics/claude-plugins-community` (4.4k★, Apache-2.0 — Anthropic'in kendi resmi org'u),
+`obra/superpowers-marketplace` (1.3k★, MIT), `trailofbits/skills-curated` (504★, CC-BY-SA-4.0 —
+Trail of Bits resmi org'u), `davepoon/buildwithclaude` (3.5k★, MIT — keşif/indeks aracı) ve
+`matt1398/claude-devtools` (3.9k★, MIT — API key gerektirmeyen bağımsız gözlemlenebilirlik aracı).
+Bir aday (`ruvnet/RuView`, 94.871★) içerik/yıldız uyumsuzluğu nedeniyle sahte-yıldız şüphesiyle
+kesin reddedildi; bir diğeri (`iannuttall/claude-agents`) arşivlenmiş olduğu için eklenmedi; birkaç
+aday proje kapsamına uymadığı veya doğrulanamadığı için gelecek tura bırakıldı (yukarıdaki
+"Doğrulanan ama EKLENMEYEN Bulgular" bölümüne bakın).
+Toplam kataloglanmış kaynak sayısı: 139.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–40'ta listelenenler
 tekrarlanmayacak.
 
