@@ -11,28 +11,37 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 > kurulumdan önce resmi sayfada teyit etmelidir. GitHub repoları ise doğrudan fetch edilerek
 > yıldız/lisans/dosya yapısı birebir doğrulanmıştır.
 
-**Toplam kataloglanmış kaynak sayısı:** 152 (43 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
-Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 43) dosyanın sonundadır.
+**Toplam kataloglanmış kaynak sayısı:** 155 (44 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
+Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 44) dosyanın sonundadır.
 
 ---
 
-## ARAŞTIRMA DURUMU (en son Tur 43 — 2026-09-24)
+## ARAŞTIRMA DURUMU (en son Tur 44 — 2026-09-24)
 
-**Tur 43 notu (2026-09-24, ~07:03 UTC / 10:03 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
-öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (onbeşinci kez tekrarlayan aynı
-desen, bkz. Tur 42 notu); `origin/master` ile HEAD'in birebir aynı commit'te (1c13985, Tur 42 commit'i)
+**Tur 44 notu (2026-09-24, ~08:03 UTC / 11:03 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (onaltıncı kez tekrarlayan aynı
+desen, bkz. Tur 43 notu); `origin/master` ile HEAD'in birebir aynı commit'te (aeb2727, Tur 43 commit'i)
 olduğu `git fetch` ile doğrulanıp `git checkout -B master origin/master` ile normale döndürüldü, çalışma
-kaybı yok. Dosyanın tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 149 kaynaktan çıkan 147
+kaybı yok. Dosyanın tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 152 kaynaktan çıkan 150
 benzersiz GitHub repo linki tekrarın önüne geçmek için çıkarıldı. Araştırma bir general-purpose
-alt-agent'a devredildi; 147 mevcut kaynağın tam listesi + önceki turlarda reddedilen adayların özeti +
-görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 3 yeni aday buldu; ana oturum bu 3 adayın
-**tamamını** kendi `WebFetch` çağrılarıyla (gerçek github.com repo sayfası — yıldız/fork/açık-issue/
-lisans/dosya yapısı) ikinci kez bağımsız doğruladı, tüm rakamlar tutarlıydı. 3 yeni kaynak eklendi
-(#150-#152: `vanzan01/claude-code-sub-agent-collective`, `mgifford/accessibility-skills`,
-`ericshang98/perfect-web-clone-skill`), ~8 aday reddedildi (zaten kataloglanmış kaynakların fork'u,
-kanıtsız/çok yeni ya da düşük-yıldız/redundant araçlar — bkz. dosyanın sonundaki "Tur 43" bölümü).
+alt-agent'a devredildi; 150 mevcut kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri
+(paylaşımlı/havuzlanmış API key, ToS-bypass scraping, hesap-askıya-alınma riski, kanıtsız trading
+araçları) verildi. Alt-agent 3 güçlü + 3 erken-aşama aday buldu; ana oturum 3 güçlü adayın **tamamını**
+kendi `WebFetch` çağrılarıyla (gerçek github.com repo sayfası + `raw.githubusercontent.com` üzerinden
+gerçek SKILL.md içeriği — yıldız/fork/açık-issue/lisans/dosya yapısı) ikinci kez bağımsız doğruladı,
+tüm rakamlar tutarlıydı. 3 yeni kaynak eklendi (#153-#155: `vercel-labs/agent-skills`,
+`ArnavPuri/designskills`, `mcpc-tech/dev-inspector-mcp`), 3 erken-aşama/kanıtsız MCP sunucusu not
+düşülüp eklenmedi, birkaç aday (bir doğrulanamayan ücretsiz LLM API adayı dahil) reddedildi/pending
+bırakıldı (bkz. dosyanın sonundaki "Tur 44" bölümü).
 
-**Toplam:** 152 doğrulanmış kaynak (Tur 42 sonunda 149'du, Tur 43 ile #150-#152 eklendi).
+**Toplam:** 155 doğrulanmış kaynak (Tur 43 sonunda 152'ydi, Tur 44 ile #153-#155 eklendi).
+
+**Önceki durum (Tur 43 — 2026-09-24):** Kesme noktasının (12:00 UTC) öncesinde başladı. Oturum başında
+yine "detached HEAD" durumu görüldü (onbeşinci kez tekrarlayan aynı desen); `git fetch` ile
+`origin/master`'ın (1c13985, Tur 42 commit'i) HEAD ile birebir aynı commit'te olduğu doğrulanıp
+`git checkout -B master origin/master` ile normale döndürüldü. 3 yeni kaynak eklendi (#150-#152:
+`vanzan01/claude-code-sub-agent-collective`, `mgifford/accessibility-skills`,
+`ericshang98/perfect-web-clone-skill`), ~8 aday reddedildi. Tam detay dosyanın "Tur 43" bölümünde.
 
 **Önceki durum (Tur 42 — 2026-09-24):** Kesme noktasının (12:00 UTC)
 çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (ondördüncüncü kez
@@ -5105,19 +5114,144 @@ Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebil
 
 ---
 
-*Son güncelleme: 2026-09-24 (Tur 43). Bu tur bir general-purpose alt-agent'a devredildi; 147 mevcut
-kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 3 yeni aday buldu
-ve doğruladı: `vanzan01/claude-code-sub-agent-collective` (523★, MIT — 30+ gerçek subagent `.md`
-dosyası, TDD disiplinini zorunlu kılan hook'lar), `mgifford/accessibility-skills` (49★, AGPL-3.0 —
-28 gerçek `SKILL.md` dosyasından oluşan WCAG/erişilebilirlik kural seti, tanınmış bağımsız yazar) ve
-`ericshang98/perfect-web-clone-skill` (181★, MIT — sekiz fazlı piksel-mükemmel klonlama disiplini
-tanımlayan tek ama kapsamlı SKILL.md). Ana oturum bu 3 adayın tamamını kendi `WebFetch` çağrılarıyla
-(gerçek github.com repo sayfası üzerinden yıldız/fork/açık-issue/lisans) ikinci kez bağımsız
-doğruladı; tüm rakamlar tutarlıydı, tutarsızlık bulunmadı. ~8 aday reddedildi (zaten kataloglanmış
-`wshobson/agents`'ın fork'u, kanıtsız/0-yıldız veya çok-düşük-yıldız ve zaten kataloglanmış
-kaynaklarla redundant birkaç dar-kapsamlı MCP sunucusu/skill, halihazırda kataloglanmış ücretsiz-LLM-
-API listeleriyle örtüşen tekrarlar — yukarıdaki "Doğrulanan ama EKLENMEYEN Bulgular (Tur 43)"
-bölümüne bakın). Toplam kataloglanmış kaynak sayısı: 152.
-Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–43'te listelenenler
+## Tur 44 (2026-09-24, ~08:03 UTC / 11:03 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC) öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü
+(onaltıncı kez tekrarlayan aynı desen); `git fetch origin master` ile `origin/master`'ın (aeb2727,
+Tur 43 commit'i) HEAD ile birebir aynı commit'te olduğu doğrulanıp `git checkout -B master
+origin/master` ile normale döndürüldü, çalışma kaybı yok. Dosyanın tamamı `grep -oE
+'github\.com/...'` ile taranıp mevcut 152 kaynaktan çıkan 150 benzersiz GitHub repo linki
+(iki `.git` varyantı normalize edilerek) tekrarın önüne geçmek için çıkarıldı. Araştırma bir
+general-purpose alt-agent'a devredildi; 150 mevcut kaynağın tam listesi + görev talimatındaki
+hariç-tutma kriterleri (paylaşımlı/havuzlanmış API key, ToS-bypass scraping, hesap-askıya-alınma
+riski, kanıtsız trading araçları) verildi. Alt-agent 3 güçlü aday + 3 erken-aşama/kanıtsız MCP
+sunucusu buldu, hepsini `WebFetch` ile github.com repo sayfaları (yıldız/fork/açık-issue/lisans/
+son-commit) ve gerekli yerlerde `raw.githubusercontent.com` üzerinden gerçek dosya içeriğiyle
+doğruladı. Ana oturum 3 güçlü adayın **tamamını** kendi `WebFetch` çağrılarıyla ikinci kez bağımsız
+doğruladı (`vercel-labs/agent-skills` için ayrıca bir `SKILL.md`'in ham içeriği de doğrudan
+`raw.githubusercontent.com` üzerinden okundu) — tüm rakamlar tutarlıydı, tutarsızlık bulunmadı.
+3 yeni kaynak eklendi (#153-#155), 3 aday (css-mcp, mcp-seo-audit, sparrow84001/mcp-seo) gerçek/meşru
+ama 0-1 yıldız/kanıtsız benimseme nedeniyle "erken aşama" notuyla eklenmedi, 1 aday (NVIDIA NIM
+ücretsiz API katmanı) `build.nvidia.com`/`developer.nvidia.com` bu turda da `EGRESS_BLOCKED` olduğu
+ve sadece ikincil web kaynaklarından doğrulanabildiği için Tur 21'in "birincil kaynak zorunlu" kuralı
+gereği numaralı madde olarak eklenmedi, 3 aday redundancy/olgunlaşmamışlık gerekçesiyle reddedildi
+(aşağıya bak).
+
+**Toplam:** 155 doğrulanmış kaynak (Tur 43 sonunda 152'ydi, Tur 44 ile #153-#155 eklendi).
+
+### A) Skill Koleksiyonu (RESMİ — Vercel, bu şablonun React/Next.js yığınıyla birebir örtüşüyor)
+
+#### 153. [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills)
+- **Yıldız:** 31.500 · **Fork:** 2.800 · **Açık issue:** 63 · **Lisans:** MIT
+- **Güncellik:** aktif, son commit 2026-08-28.
+- **Ne işe yarar:** Vercel'in resmi hesabından, gerçek `skills/<isim>/SKILL.md` dosyalarından oluşan
+  9 skill: `react-best-practices` (70 kural/8 kategori React & Next.js performans optimizasyonu),
+  `web-design-guidelines` (100+ erişilebilirlik/UX kuralı), `react-view-transitions`,
+  `composition-patterns`, `vercel-optimize` (Vercel projesi maliyet/performans/güvenilirlik denetimi),
+  `vercel-deploy-claimable`, `writing-guidelines`, `react-native-guidelines`.
+- **Neden meşru:** `WebFetch` ile github.com repo sayfası doğrulandı (31.5k★/2.8k fork/63 açık issue —
+  yüksek oran ama resmi Vercel org hesabı, mirror/kopya deseni yok); `skills/react-best-practices/
+  SKILL.md` dosyası `raw.githubusercontent.com` üzerinden doğrudan okunarak gerçek YAML frontmatter
+  (`name: vercel-react-best-practices`, `license: MIT`, `metadata.author: vercel`) ve gerçek içerik
+  (kural tabloları) teyit edildi — stub değil. Paylaşımlı API key veya ToS riski yok.
+- **Kurulum:** `npx skills add vercel-labs/agent-skills` (ya da ilgili `skills/<isim>/` klasörünü
+  `~/.claude/skills/` altına kopyalamak).
+- **Proje uyumu:** Bu şablonun tam tech stack'ine (Next.js 16 + React 19) resmi üretici tarafından
+  yazılmış performans/erişilebilirlik kuralları; zaten kataloglanmış `laguagu/claude-code-nextjs-skills`
+  ve `gocallum/nextjs16-agent-skills`'i tamamlıyor (resmi Vercel kaynağı olarak öncelikli).
+
+### B) Skill Koleksiyonu (tasarım/dark-mode nişi — ek doldurucu)
+
+#### 154. [ArnavPuri/designskills](https://github.com/ArnavPuri/designskills)
+- **Yıldız:** 9 · **Fork:** 3 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** 3 commit (küçük/yeni ama tek-seferlik değil, tam bir koleksiyon olarak yayınlanmış).
+- **Ne işe yarar:** 28 gerçek `SKILL.md` dosyasından oluşan tasarım skill seti — `dark-mode`,
+  `color-palette`, `typography`, `layout-composition`, `design-system`, `brand-identity`,
+  `critique`, `motion-design` gibi kategoriler; görsel üretim için Gemini 3.1 Flash Image entegrasyonu
+  da içeriyor (isteğe bağlı, API key gerektirir).
+- **Neden meşru:** `WebFetch` ile github.com repo sayfası doğrulandı (9★/3 fork/0 açık issue, MIT
+  LICENSE, gerçek `skills/`, `tools/`, `.claude-plugin/` dizin yapısı ve `validate-skills.sh`
+  doğrulama betiği); `skills/dark-mode/SKILL.md` içeriği alt-agent tarafından doğrudan okunup gerçek
+  YAML frontmatter + OKLCH dark-theme token/FOUC-önleme/WCAG kontrol listesi içerdiği teyit edildi.
+  Paylaşımlı key yok — görsel üretim özelliği tamamen isteğe bağlı ve kullanıcının kendi API key'ini
+  gerektiriyor.
+- **Not:** Düşük yıldız/erken-aşama bir repo, ama gerçek/işlevsel dosya yapısına sahip; gelecek turlar
+  benimseme paternini izlemeli.
+- **Kurulum:** İlgili `skills/<isim>/` klasörünü `~/.claude/skills/` altına kopyalamak.
+- **Proje uyumu:** Katalogdaki "dark-mode/tema tespiti" nişini (Tur 35'te `designer-mcp`/
+  `dark-mode-screenshot` ile dolduruldu) tasarım-kural tarafından tamamlıyor; redundant değil,
+  tamamlayıcı.
+
+### C) MCP Sunucusu (CSS-in-JS/computed-style tespiti nişi — kısmen dolduruyor)
+
+#### 155. [mcpc-tech/dev-inspector-mcp](https://github.com/mcpc-tech/dev-inspector-mcp)
+- **Yıldız:** 47 · **Fork:** 3 · **Açık issue:** 1 · **Lisans:** MIT
+- **Güncellik:** aktif, 326+ commit.
+- **Ne işe yarar:** AI ajanlarına tarayıcı çalışma-zamanı bağlamı açan MCP + ACP sunucusu — DOM
+  durumu, **hesaplanmış CSS stilleri**, kaynak kod konumu, network/console/terminal çıktısı ve
+  ekran görüntüsü yakalama; React, Vue, Svelte, SolidJS, Preact ve **Next.js** için framework desteği
+  var. npm'de `@mcpc-tech/unplugin-dev-inspector-mcp` olarak yayınlı.
+- **Neden meşru:** `WebFetch` ile github.com repo sayfası doğrulandı (47★/3 fork/1 açık issue —
+  organik oran, şişirilmiş-yıldız paterni yok, MIT LICENSE); monorepo yapısı (`packages/`), gerçek
+  kaynak kodu ve npm paketi teyit edildi. Paylaşımlı key veya ToS riski yok.
+- **Kurulum:** `npm install` sonrası Cursor/VSCode için MCP istemci konfigürasyonu (README'deki
+  örnek JSON).
+- **Proje uyumu:** Bu şablonun `INSPECTION_GUIDE.md` Phase 4 (CSS yaklaşımı analizi) boşluğunu
+  kısmen dolduruyor — hesaplanmış stilleri canlı DOM'dan okuyor, tarayıcı eklentisi gerekmiyor;
+  zaten kataloglanmış `betson-g/browser-inspector-mcp` ile aynı nişte ama Next.js'e özel destek ve
+  daha geniş çalışma-zamanı bağlamı (network/console/terminal) sunuyor, redundant değil, tamamlayıcı.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 44)
+
+- **lesleslie/css-mcp** — 1 yıldız/0 fork/0 açık issue, BSD-3-Clause, son commit 2026-09-21 (taze).
+  Gerçek Python/FastMCP kaynak kodu, testler ve dokümantasyon mevcut (~150 CSS metriği, MDN
+  dokümantasyon sorgulama, tarayıcı-uyumluluk kontrolü) — meşru ama kanıtsız/çok düşük benimseme,
+  "erken aşama" notuyla eklenmedi.
+- **atomno-mcp/mcp-seo-audit** — 1 yıldız/0 fork/0 açık issue, MIT, 18 commit. Gerçek SEO/GEO denetim
+  MCP sunucusu (78 kontrol/8 kategori, robots.txt + sitemap.xml doğrulayıcıları, JSON-LD üretici) —
+  meşru dosya yapısı (`pyproject.toml`, `Dockerfile`, testler) ama kanıtsız/çok düşük benimseme,
+  eklenmedi.
+- **sparrow84001/mcp-seo** — 0 yıldız/0 fork/0 açık issue, MIT, 49 commit. Zaten kataloglanmış
+  `g-battaglia/mcp-seo`'dan ayrı bir proje; Next.js App Router (Metadata API, `sitemap.ts`) tespiti
+  yapıyor ama sıfır topluluk benimsemesi var, eklenmedi.
+- **MarwanDevSpace/mcp-ink-design** — 0 yıldız/0 fork/0 açık issue, 15 commit. OKLCH/design-token/
+  çok-viewport ekran görüntüsü özellikleri bu projeye uygun ama sıfır benimseme, eklenmedi.
+- **hupeng9995/browser-mcp** — 3 yıldız/0 fork/0 açık issue, sadece 1 commit — tek-commit/kanıtsız,
+  eklenmedi.
+- **Furkiozknn/nvidia-nim-mcp** — 1 yıldız, MIT. Kod incelemesinde NVIDIA/Groq/Mistral/Gemini/Cerebras
+  için bireysel (paylaşımlı değil) API key kullandığı doğrulandı — mimari olarak meşru, ama zaten
+  kataloglanmış sağlayıcıların üzerine ince bir sarmalayıcı ve benimseme sıfıra yakın, ayrı bir
+  madde olarak eklenmedi.
+- **NVIDIA NIM (build.nvidia.com)** — resmi bireysel-API-key ücretsiz katman (iddia: hesap başına
+  ~1000 ücretsiz çıkarım kredisi, kredi kartı gerekmiyor, 40 istek/dk, OpenAI-uyumlu endpoint, 80+
+  model) — ancak `build.nvidia.com`, `developer.nvidia.com` ve `forums.developer.nvidia.com` bu
+  turda da `EGRESS_BLOCKED` döndürdü, bilgiler sadece bağımsız üçüncü-parti web kaynaklarından
+  derlendi. Tur 21'in "birincil kaynak zorunlu" kuralı gereği numaralı madde olarak eklenmedi;
+  Gemini/Mistral/OpenRouter/Jina ile aynı "birincil doğrulama bekliyor" pending listesine not
+  düşüldü. Cerebras'ın (#21) güncel ücretsiz-katman durumu da bu turda çelişkili ikincil kaynaklarla
+  karşılaşıldı (bazıları hâlâ kartsız 1M-token/gün katman iddia ediyor, bazıları Tur 22'nin tespit
+  ettiği $5-kredi-kartlı-deneme değişikliğini teyit ediyor) — `inference-docs.cerebras.ai` da
+  `EGRESS_BLOCKED` olduğundan bu turda düzeltme/teyit yapılmadı, mevcut Tur 22 notu geçerliliğini
+  koruyor.
+
+Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebilir.
+
+---
+
+*Son güncelleme: 2026-09-24 (Tur 44). Bu tur bir general-purpose alt-agent'a devredildi; 150 mevcut
+kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 3 güçlü aday
+buldu ve doğruladı: `vercel-labs/agent-skills` (31.5k★, MIT — Vercel'in resmi React/Next.js skill
+koleksiyonu, 9 gerçek SKILL.md), `ArnavPuri/designskills` (9★, MIT — 28 gerçek SKILL.md'den oluşan
+tasarım skill seti, dark-mode dahil) ve `mcpc-tech/dev-inspector-mcp` (47★, MIT — hesaplanmış CSS
+stili dahil tarayıcı çalışma-zamanı bağlamı sunan MCP sunucusu, Next.js desteği var). Ana oturum bu
+3 adayın tamamını kendi `WebFetch` çağrılarıyla (gerçek github.com repo sayfası + bir örnekte
+`raw.githubusercontent.com` üzerinden ham `SKILL.md` içeriği) ikinci kez bağımsız doğruladı; tüm
+rakamlar tutarlıydı, tutarsızlık bulunmadı. 3 erken-aşama/kanıtsız MCP sunucusu (css-mcp,
+mcp-seo-audit, sparrow84001/mcp-seo) meşru ama düşük-benimseme nedeniyle eklenmedi, 1 ücretsiz LLM
+API adayı (NVIDIA NIM) birincil kaynak erişilemediği için eklenmedi, 2 aday (MarwanDevSpace/
+mcp-ink-design, hupeng9995/browser-mcp, Furkiozknn/nvidia-nim-mcp) kanıtsız/redundancy gerekçesiyle
+reddedildi — yukarıdaki "Doğrulanan ama EKLENMEYEN Bulgular (Tur 44)" bölümüne bakın. Toplam
+kataloglanmış kaynak sayısı: 155.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–44'te listelenenler
 tekrarlanmayacak.
 
