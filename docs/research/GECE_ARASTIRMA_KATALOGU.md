@@ -11,12 +11,23 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 > kurulumdan önce resmi sayfada teyit etmelidir. GitHub repoları ise doğrudan fetch edilerek
 > yıldız/lisans/dosya yapısı birebir doğrulanmıştır.
 
-**Toplam kataloglanmış kaynak sayısı:** 145 (41 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
-Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 41) dosyanın sonundadır.
+**Toplam kataloglanmış kaynak sayısı:** 149 (42 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
+Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 42) dosyanın sonundadır.
 
 ---
 
-## ARAŞTIRMA DURUMU (en son Tur 36 — 2026-09-23)
+## ARAŞTIRMA DURUMU (en son Tur 42 — 2026-09-24)
+
+**Tur 42 notu (2026-09-24, ~06:04 UTC / 09:04 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (ondördüncüncü kez
+tekrarlayan aynı desen); `git checkout master && git merge --ff-only` ile normale döndürüldü, çalışma
+kaybı yok. 4 yeni kaynak eklendi (#146-#149: `dembrandt/dembrandt`, `VoltAgent/awesome-agent-skills`,
+`open-free-llm-api/awesome-freellm-apis`, `posthog/skills`), 6 aday reddedildi. Tam detay dosyanın
+sonundaki "Tur 42" bölümünde.
+
+**Toplam:** 149 doğrulanmış kaynak (Tur 41 sonunda 145'ti, Tur 42 ile #146-#149 eklendi).
+
+**Önceki durum (Tur 36 — 2026-09-23):
 
 **Tur 36 notu (2026-09-23, ~07:15 UTC / 10:15 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
 çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (artık onüçüncü kez
@@ -4850,20 +4861,141 @@ Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebil
 
 ---
 
-*Son güncelleme: 2026-09-24 (Tur 41). Bu tur bir general-purpose alt-agent'a devredildi; 139 mevcut
-kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 6 yeni aday buldu
-ve `git clone` + doğrudan dosya incelemesiyle (yalnızca README iddiası değil) bağımsız doğruladı
-(#140-#145): `stripe/ai` (~1.8k★, MIT — Stripe'ın resmi ajan-kaynak monorepo'su), `getsentry/skills`
-(~1.0k★, Apache-2.0 — Sentry'nin resmi Agent Skills koleksiyonu), `cotdp/scraper-mcp` (7★, MIT —
-context-optimize web kazıma MCP'si, `clone-website` inceleme fazına doğrudan uyuyor),
-`rshah515/claude-code-subagents` (102★, MIT — 165 subagent'lık koleksiyon),
-`web-DnA/navable-web-accessibility-mcp` (1★, MIT — yerel WCAG tarayıcı MCP'si, düşük yıldızlı ama
-doğrulanmış) ve `icons8/icons8-mcp` (14★, lisanssız barındırılan servis istemcisi — resmi Icons8
-ücretsiz PNG katmanı). Birkaç aday (kapanmış Cerebras ücretsiz katmanı, mevcut bir kaynağın neredeyse
-birebir kopyası, ücretli backend gerektiren bir VRT aracı, birkaç zaman kısıtından doğrulanamayan
-koleksiyon/ikon MCP'si) reddedildi veya gelecek tura bırakıldı (yukarıdaki "Doğrulanan ama
-EKLENMEYEN Bulgular (Tur 41)" bölümüne bakın).
-Toplam kataloglanmış kaynak sayısı: 145.
-Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–41'de listelenenler
+## Tur 42 (2026-09-24, ~06:04 UTC / 09:04 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC) çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu
+görüldü (artık ondördüncü kez tekrarlayan aynı desen); `git merge-base --is-ancestor` ile `master`
+branch'inin detached HEAD'in (Tur 41 commit'i, 90963ca) doğrudan atası olduğu doğrulanıp
+`git checkout master && git merge --ff-only` ile normale döndürüldü; `git fetch` ile `origin/master`'ın
+zaten aynı commit'te olduğu teyit edildi, çalışma kaybı yok. Dosyanın tamamı `grep -oE
+'github\.com/...'` ile taranıp mevcut 145 kaynaktan çıkan 144 benzersiz GitHub repo linki
+(iki `.git` varyantı normalize edilerek) tekrarın önüne geçmek için kullanıldı. Araştırma bir
+general-purpose alt-agent'a devredildi; 144 mevcut kaynağın tam listesi + önceki turlarda reddedilen
+adayların özeti + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 4 yeni aday buldu ve
+`git clone` + dosya incelemesiyle bağımsız doğruladı (#146-#149); ana oturum bu 4 adayın **tamamını**
+kendi `git clone` (shallow) + `mcp__github__search_repositories` (canlı yıldız/fork/açık-issue/lisans/
+arşiv-durumu) çağrılarıyla ikinci kez bağımsız doğruladı. **Not:** alt-agent'ın raporladığı bazı
+açık-issue sayıları (an be an, araştırma sırasında değişmiş olabilir) canlı API sorgusuyla farklı çıktı
+— nihai kataloglama canlı API rakamlarını esas aldı (ör. `posthog/skills` alt-agent'ta "1 açık issue"
+olarak geçmiş, canlı sorguda 89 çıktı; bu, repo açıklamasındaki "under construction" notuyla tutarlı,
+düşük/organik yıldız sayısıyla (63) birlikte şişirilmiş-yıldız riski oluşturmuyor). Alt-agent ayrıca
+6 adayı reddetti (biri ticari fontları korsan/VK-Telegram indekslerinden bulmayı hedefleyen şüpheli bir
+"Font Hunter" özelliği içeren repo — telif riski nedeniyle reddedildi; biri gerçek ama tek-commit/
+bakımsız resmi Monotype reposu; biri ücretli API key zorunlu kılan SVG aracı; biri 0-yıldız/kanıtsız
+WCAG aracı; biri anormal fork/yıldız oranı gösteren bir skill koleksiyonu; ikisi zaten kataloglanmış
+`Manavarya09/design-extract`'ın birebir kopyası — aşağıya bak).
+
+**Toplam:** 149 doğrulanmış kaynak (Tur 41 sonunda 145'ti, Tur 42 ile #146-#149 eklendi).
+
+#### 146. [dembrandt/dembrandt](https://github.com/dembrandt/dembrandt)
+- **Yıldız:** 3.522 · **Fork:** 318 · **Açık issue:** 1 · **Lisans:** MIT
+- **Güncellik:** çok aktif — oluşturulma 2025-11-22, son commit 2026-09-24 (351+ commit), npm'de
+  `dembrandt` adıyla yayınlı paket.
+- **Ne işe yarar:** Herhangi bir web sitesinin canlı DOM'undan renk (semantic/palette/CSS variable/
+  gradient), tipografi (font dosyası URL'leri dahil), spacing/border/shadow/motion ölçeklerini ve
+  breakpoint'leri tek komutla çıkarıp W3C DTCG token formatında dışa aktarıyor; CI'da preview
+  deploy'ları baseline ile karşılaştırarak "design drift" tespiti yapıyor. Dahili MCP sunucusu
+  (`mcp-server.ts`, `get_design_tokens`/`get_color_palette`/`get_typography` araçları) var.
+- **Neden meşru:** `git clone` ile doğrulandı — gerçek TypeScript kaynağı, testler (`test/mcp-*.test.ts`),
+  CHANGELOG, MIT LICENSE, `package.json` içinde `mcpName: io.github.dembrandt/dembrandt` alanı
+  mevcut. `mcp__github__search_repositories` ile yıldız/fork/lisans/arşiv-durumu canlı doğrulandı
+  (3.522★, arşivlenmemiş, fork değil). Paylaşımlı API key veya harici veri gönderimi yok, tamamen
+  hedef sitenin herkese açık DOM/CSS'ini okuyor.
+- **Kurulum:** `npx dembrandt <url>` ile CLI çıktısı, veya `dembrandt-mcp` binary'sini bir MCP
+  istemcisine (Claude Code dahil) bağlayarak.
+- **Proje uyumu:** `docs/research/DESIGN_TOKENS.md` çıkarma adımını doğrudan otomatikleştiriyor —
+  bu şablonun inceleme fazı (Phase 1) için tam isabet.
+
+#### 147. [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
+- **Yıldız:** 34.790 · **Fork:** 3.706 · **Açık issue:** 32 · **Lisans:** MIT
+- **Güncellik:** çok aktif, son commit 2026-09-24 (663+ commit).
+- **Ne işe yarar:** Zaten kataloglanmış `VoltAgent/awesome-claude-code-subagents`'tan **ayrı, bağımsız
+  bir repo** — Figma, Vercel, Cloudflare, Stripe, Sentry, Supabase, Firebase, Browserbase, Netlify,
+  HashiCorp, Hugging Face, Microsoft, Google gibi 40+ şirketin resmi SKILL.md koleksiyonlarını tek
+  yerde toplayan kürasyonlu liste (1000+ skill).
+  Not: bu repo ile zaten kataloglanmış aynı-org'daki `awesome-claude-code-subagents` konusu farklı
+  (biri subagent/persona koleksiyonu, biri resmi şirket skill'leri) — duplikasyon değil.
+- **Neden meşru:** `git clone` ile doğrulandı — gerçek MIT LICENSE, 220KB'lık README gerçek şirket
+  adları/linkleriyle organize, sponsor bölümü şeffaf beyan edilmiş. `mcp__github__search_repositories`
+  ile canlı doğrulandı (34.790★, arşivlenmemiş, fork değil), aynı güvenilir VoltAgent org hesabından.
+- **Kurulum:** İlgili şirketin skill klasörünü `.claude/skills/` altına kopyalamak veya Claude Code
+  plugin marketplace üzerinden eklemek.
+- **Proje uyumu:** "resmi şirket skill kütüphaneleri" kategorisi için tam isabet; özellikle Figma
+  skill'i tasarım/asset çıkarma iş akışına doğrudan uyar.
+
+#### 148. [open-free-llm-api/awesome-freellm-apis](https://github.com/open-free-llm-api/awesome-freellm-apis)
+- **Yıldız:** 3.255 · **Fork:** 474 · **Açık issue:** 3 · **Lisans:** MIT
+- **Güncellik:** günlük otomatik güncelleniyor, oluşturulma 2026-05-10, son güncelleme 2026-09-24.
+- **Ne işe yarar:** 40+ sağlayıcıdan 134+ ücretsiz LLM API/model'i rate limit, context window ve
+  Claude Code/Cursor/Codex için hazır tek-tık konfigürasyon snippet'leriyle listeleyen çok-dilli
+  (EN/JA/KO/ZH) dizin.
+- **Neden meşru:** `git clone` ile doğrulandı — fork değil, bağımsız org hesabı, MIT LICENSE. README'de
+  her sağlayıcı için **doğrudan kendi resmi ücretsiz-katman kayıt sayfasına** link verildiği
+  doğrulandı — paylaşımlı/havuzlanmış key veya üçüncü-parti proxy YOK, bu yüzden görev talimatının
+  "KESİNLİKLE HARİÇ TUT" maddesine takılmıyor. `mcp__github__search_repositories` ile canlı doğrulandı
+  (3.255★, arşivlenmemiş).
+- **Kurulum:** README'deki tablodan istenen sağlayıcıyı seçip o sağlayıcının resmi API key sayfasına
+  gidip `.env`'e eklemek.
+- **Proje uyumu:** Zaten kataloglanmış `amardeeplakshkar/awesome-free-llm-apis`, `mnfst/
+  awesome-free-llm-apis`, `nejib1/Free-LLM` ve `xyzs996/free-llm-api`'den bağımsız, günlük taze veri
+  sunan beşinci bir küratörlü ücretsiz-LLM listesi; klonlama ajanlarının alt-görevlerinde (görsel
+  analiz, metin çıkarma) model rotasyonu için kullanılabilir.
+
+#### 149. [posthog/skills](https://github.com/posthog/skills)
+- **Yıldız:** 63 · **Fork:** 7 · **Açık issue:** 89 · **Lisans:** MIT
+- **Güncellik:** aktif (context-mill aracıyla otomatik senkronize ediliyor, son commit 2026-09-23,
+  148+ commit); repo açıklaması kendisini "under construction" olarak işaretliyor.
+- **Ne işe yarar:** PostHog'un resmi hesabından, analytics entegrasyonu, feature flag yönetimi, hata
+  izleme ve LLM analytics için Claude Code plugin marketplace destekli resmi skill koleksiyonu.
+- **Neden meşru:** `git clone` ile doğrulandı — gerçek `skills/posthog`, `skills/team`, `skills/
+  community` dizinleri, her biri gerçek README/SKILL.md içeriyor, `.claude-plugin/marketplace.json`
+  gerçek plugin tanımları (`impersonation-toolkit`, `posthog-debugger` vb.) içeriyor. `mcp__github__
+  search_repositories` ile canlı doğrulandı (resmi `PostHog` org hesabı, arşivlenmemiş).
+- **Not:** 89 açık issue / 63 yıldız oranı yüksek görünüyor, ancak repo açıklamasının kendisi "under
+  construction" diyor ve yıldız sayısı düşük/organik — bu, Tur 22'nin reddettiği "şişirilmiş yıldız"
+  paternine (yüksek yıldız + anormal düşük issue) UYMUYOR; tam tersi, aktif iç geliştirme sürecinin
+  şeffaf bir göstergesi olarak değerlendirildi. Erken aşama bir repo olarak işaretlenmeli.
+- **Kurulum:** `/plugin marketplace add PostHog/skills` ardından ilgili skill için `/plugin install
+  <isim>@posthog-skills`.
+- **Proje uyumu:** Doğrudan bir klonlama aracı değil, ancak klonlanan sitede analytics/feature-flag
+  entegrasyonu istenirse resmi şirket skill'i örneği olarak faydalı.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 42)
+
+- **Microck/font-mcp** (9★, MIT iddiası) — Kod incelendiğinde "Font Hunter" özelliği ticari fontları
+  **VK ve Telegram korsan indeksleri** ile "open directory dorking" üzerinden bulmayı açıkça
+  hedefliyor. Telif/korsanlık riski nedeniyle **kesinlikle reddedildi**, gelecek turlara da
+  önerilmiyor.
+- **Monotype/fonts-mcp** — commit e-postası gerçekten `@monotype.com` (orijinal, resmi), ancak sadece
+  1 yıldız, tek commit (Mart 2026'dan beri güncelleme yok) ve standalone MCP değil, Claude Connectors
+  Directory'ye bağımlı bir SKILL.md — "aktif bakımlı" kriterini karşılamıyor, eklenmedi.
+- **GenWaveLLC/svgmaker-mcp** — SVGMaker.io ücretli API key zorunlu, ücretsiz değil, eklenmedi.
+- **1nc0gn30/wcag-contrast-guard** — 0 yıldız/0 fork, hiç topluluk doğrulaması yok, kanıtsız/çok yeni,
+  eklenmedi.
+- **kodustech/awesome-agent-skills** — fork sayısı (112) yıldızdan (103) fazla, anormal oran; zaten
+  eklenen `VoltAgent/awesome-agent-skills` çok daha güçlü ve doğrulanabilir bir alternatif, eklenmedi.
+- **899ms/design-extract, nepalisagun/design-extract** — zaten kataloglanmış `Manavarya09/
+  design-extract`'ın birebir kopyaları/fork'ları, eklenmedi.
+
+Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebilir.
+
+---
+
+*Son güncelleme: 2026-09-24 (Tur 42). Bu tur bir general-purpose alt-agent'a devredildi; 144 mevcut
+kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 4 yeni aday buldu
+ve `git clone` + dosya incelemesiyle bağımsız doğruladı (#146-#149): `dembrandt/dembrandt` (3.522★,
+MIT — canlı DOM'dan W3C DTCG tasarım-token çıkarma + MCP sunucusu), `VoltAgent/awesome-agent-skills`
+(34.790★, MIT — 40+ şirketin resmi skill koleksiyonlarını toplayan ayrı bir VoltAgent reposu),
+`open-free-llm-api/awesome-freellm-apis` (3.255★, MIT — 134+ ücretsiz LLM API'sini resmi kayıt
+sayfalarına link vererek listeleyen, paylaşımlı key İÇERMEYEN dizin) ve `posthog/skills` (63★, MIT —
+PostHog'un resmi, "under construction" işaretli skill koleksiyonu). Ana oturum bu 4 adayın tamamını
+`git clone` (shallow) + `mcp__github__search_repositories` ile canlı ikinci kez bağımsız doğruladı;
+bir kaynakta (`posthog/skills`) alt-agent'ın raporladığı açık-issue sayısı canlı API'den farklı çıktı,
+nihai kataloglama canlı rakamı esas aldı (bkz. yukarıdaki not). 6 aday reddedildi (korsan font indeksi
+hedefleyen şüpheli bir araç, tek-commit/bakımsız resmi Monotype reposu, ücretli-API-zorunlu bir SVG
+aracı, kanıtsız bir WCAG aracı, anormal fork/yıldız oranlı bir koleksiyon, `Manavarya09/design-extract`'ın
+iki birebir kopyası — yukarıdaki "Doğrulanan ama EKLENMEYEN Bulgular (Tur 42)" bölümüne bakın).
+Toplam kataloglanmış kaynak sayısı: 149.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–42'de listelenenler
 tekrarlanmayacak.
 
