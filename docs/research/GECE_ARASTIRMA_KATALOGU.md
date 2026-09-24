@@ -11,8 +11,8 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 > kurulumdan önce resmi sayfada teyit etmelidir. GitHub repoları ise doğrudan fetch edilerek
 > yıldız/lisans/dosya yapısı birebir doğrulanmıştır.
 
-**Toplam kataloglanmış kaynak sayısı:** 139 (40 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
-Tur 1-39'un tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 40) dosyanın sonundadır.
+**Toplam kataloglanmış kaynak sayısı:** 145 (41 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
+Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 41) dosyanın sonundadır.
 
 ---
 
@@ -4706,22 +4706,164 @@ bağlam) kombinasyonu kullanıldı.
   yıldız oranı (yaklaşık dörtte bir) görece yüksek bir bakım-borcu sinyali; bu turda eklenmek yerine
   gelecek bir turda issue trendi kontrol edilip karar verilecek.
 
+Bilinen açık niş boşluk yok; Tur 40 genel tarama moduna geçmişti, Tur 41 de aynı modda devam etti.
+
+### C) Resmi Sağlayıcı Skill Koleksiyonları ve Ek Araçlar (Tur 41)
+
+#### 140. [stripe/ai](https://github.com/stripe/ai)
+- **Yıldız:** ~1.8k · **Fork:** 348 · **Açık issue:** 28 · **Lisans:** MIT
+- **Güncellik:** repo ~2024-11'de oluşturuldu, son güncelleme 2026-09-24 civarı — çok aktif.
+- **Ne işe yarar:** Stripe'ın Stripe üzerine inşa eden AI ajanları için resmi kaynak monorepo'su;
+  10 gerçek `SKILL.md` dosyası (`stripe-best-practices`, `stripe-docs`, `stripe-pay`, `stripe-apps`,
+  `connect-recommend`, `upgrade-stripe`, `metronome` vb.) ile Claude Code, Codex, Cursor ve Grok için
+  sağlayıcı eklentileri içeriyor.
+- **Neden meşru:** `git clone` ile doğrulandı — `skills/stripe-best-practices/SKILL.md` gerçek ve
+  ayrıntılı içerik barındırıyor (API sürüm sabitleme, sandbox/test-mode rehberliği, SDK sürüm
+  tabloları, güvenlik en iyi pratikleri) — boş taslak değil. Resmi `stripe` GitHub org'una ait,
+  MIT lisanslı, aktif geliştiriliyor.
+- **Kurulum:** `npx skills add stripe/ai` veya `skills/*` klasörlerini doğrudan `.claude/skills/`
+  altına kopyala; README'de referans verilen yayınlanmış Claude Code plugin'i de kurulabilir.
+- **Proje uyumu:** Bu şablon Stripe entegrasyonu içermiyor ama ödeme akışı eklenirse (ör. bir e-ticaret
+  sitesi klonlanırken) doğrudan faydalı; ayrıca resmi vendor-skill deseninin iyi bir örneği.
+
+#### 141. [getsentry/skills](https://github.com/getsentry/skills)
+- **Yıldız:** ~1.0k · **Fork:** 52 · **Açık issue:** 5 · **Lisans:** Apache-2.0
+- **Güncellik:** repo ~2026-01'de oluşturuldu, son güncelleme 2026-08-25 — aktif (236 commit, 24 açık PR).
+- **Ne işe yarar:** Sentry mühendislik ekibinin resmi Agent Skills koleksiyonu; 30'dan fazla gerçek
+  `SKILL.md` dosyası — kod incelemesi, güvenlik incelemesi, Django erişim incelemesi, kod
+  sadeleştirme, GitHub Actions güvenlik incelemesi, sunum hazırlama, marka kuralları, PR/issue
+  triyajı gibi konularda.
+- **Neden meşru:** `git clone` ile doğrulandı — `skills/code-review/SKILL.md` gerçek ve ayrıntılı bir
+  inceleme kontrol listesi içeriyor (çalışma zamanı hataları, N+1 sorgular, ORM performansı,
+  güvenlik). Resmi `getsentry` org'una ait, Apache-2.0 lisanslı, aktif geliştiriliyor.
+- **Kurulum:** `npx skills add getsentry/skills` veya tekil `skills/<isim>/SKILL.md` klasörlerini
+  `.claude/skills/` altına kopyala.
+- **Proje uyumu:** `code-review` ve `security-review` skill'leri bu şablonun kendi `security-review`
+  skill'i ile birlikte kullanılabilir; genel kod kalitesi denetimi için ek, bağımsız bir kaynak.
+
+#### 142. [cotdp/scraper-mcp](https://github.com/cotdp/scraper-mcp)
+- **Yıldız:** 7 · **Fork:** 2 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** repo ~2025-10'da oluşturuldu, son güncelleme 2026-06-01 — küçük ama bakımlı.
+- **Ne işe yarar:** Web kazıma için context-optimize edilmiş bir MCP sunucusu (Python/uv + Node,
+  Docker'lı); sunucu tarafında CSS-selector filtreleme ve HTML→Markdown dönüşümüyle LLM token
+  kullanımını %70-90 azaltıyor. Ham HTML, Markdown, düz metin ve link-toplama modları; SPA'lar için
+  Playwright ile JS render; üç katmanlı önbellekleme; toplu URL işleme destekliyor.
+- **Neden meşru:** `WebFetch` ile doğrulandı — MIT lisanslı, gerçek `src/`, `tests/`, `docs/`,
+  Dockerfile, CONTRIBUTING.md ve ayrıntılı sürüm notları var — çalışan, bakımlı bir araç. Yıldız
+  sayısı düşük ama içerik/aktivite oranı tutarlı, şişirilmiş yıldız belirtisi yok.
+- **Kurulum:** `docker compose up` veya README'deki `uv run` komutuyla çalıştırılıp yerel bir MCP
+  sunucusu olarak kaydedilir.
+- **Proje uyumu:** Bu şablonun kendi `clone-website` skill'inin inceleme/kazıma fazına (Phase 1/4,
+  `INSPECTION_GUIDE.md`) doğrudan uyuyor — token verimliliği açısından öne çıkan bir seçenek.
+
+#### 143. [rshah515/claude-code-subagents](https://github.com/rshah515/claude-code-subagents)
+- **Yıldız:** 102 · **Fork:** 17 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** aktif, arşivlenmemiş.
+- **Ne işe yarar:** 23'ten fazla kategoriye ayrılmış 165 subagent'lık bir koleksiyon (temel geliştirme,
+  13 dil uzmanı, 13 framework uzmanı, altyapı/DevOps, QA, veritabanı, pazarlama, sektöre özel
+  ajanlar); `WORKFLOWS.md`/`WORKFLOW_CONFIG.md` ile orkestrasyon dokümantasyonu da içeriyor.
+- **Neden meşru:** `git clone` ile doğrulandı — `quality/accessibility-expert.md` tam ve ayrıntılı bir
+  subagent tanımı (Playwright MCP tool'larını içeren `tools:` frontmatter'ı, WCAG 2.1/3.0 çerçevesi,
+  ARIA rehberliği) — taslak değil. MIT lisanslı, yaş/içerik hacmine göre makul bir yıldız sayısı.
+- **Kurulum:** İlgili `<kategori>/*.md` dosyalarını `.claude/agents/` altına kopyala.
+- **Proje uyumu:** `accessibility-expert` gibi ajanlar bu şablonun erişilebilirlik denetimi ihtiyacına
+  (`priyankark/a11y-mcp`, `JustasMonkev/mcp-accessibility-scanner` gibi zaten kataloglanmış araçlarla
+  birlikte) doğrudan hizmet ediyor.
+
+#### 144. [web-DnA/navable-web-accessibility-mcp](https://github.com/web-DnA/navable-web-accessibility-mcp)
+- **Yıldız:** 1 · **Fork:** 0 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** repo ~2026-04'te oluşturuldu, son güncelleme 2026-06-29 — küçük/erken aşama.
+- **Ne işe yarar:** `@navable/mcp` — Playwright + axe-core (isteğe bağlı Pa11y/HTMLCS) ile localhost'u
+  tarayan, WCAG 2.1 A/AA ihlallerini raporlayan ve önceliklendirilmiş, ajan tarafından uygulanabilir
+  düzeltme planları üreten bir MCP sunucusu.
+- **Neden meşru:** `git clone` ile doğrulandı — gerçek TypeScript kaynağı (`src/tools/
+  run-accessibility-scan.ts`, `generate-fix-plan.ts`, `update-fix-status.ts`, WCAG/ARIA referans veri
+  dosyaları), testler ve CHANGELOG mevcut. MIT lisanslı, tamamen yerel (localhost'a karşı) çalışıyor,
+  paylaşımlı API key veya harici veri gönderimi yok.
+- **Kurulum:** `npm install -g @navable/mcp` (veya `npx`), README'ye göre yerel bir MCP sunucusu
+  olarak Claude Code/Cursor/VS Code'a kaydedilir.
+- **Not:** Yıldız sayısı çok düşük (1★) — niş/erken aşama bir araç olarak işaretlendi, geniş kabul
+  görmüş bir kaynak değil; ancak kod tabanı gerçek ve doğrulandı, meşruiyet kriterlerine uyuyor.
+- **Proje uyumu:** `INSPECTION_GUIDE.md`'nin erişilebilirlik denetimi ihtiyacına ek, yerel-çalışan bir
+  seçenek.
+
+#### 145. [icons8/icons8-mcp](https://github.com/icons8/icons8-mcp)
+- **Yıldız:** 14 · **Fork:** 1 · **Açık issue:** 0 · **Lisans:** Yok (repoda LICENSE dosyası yok —
+  barındırılan bir servise ince istemci olarak değerlendirilmeli, yeniden kullanılabilir açık kaynak
+  kod değil).
+- **Güncellik:** aktif (8 commit).
+- **Ne işe yarar:** Resmi Icons8 MCP sunucusu (`mcp.icons8.com`'da barındırılıyor, Streamable HTTP,
+  yerel kurulum gerektirmiyor); 132 stilde 420.000+ simgeye arama erişimi sağlıyor. Ücretsiz katman:
+  OAuth ile giriş, sınırsız yüksek çözünürlüklü PNG, API key veya kredi kartı gerekmiyor. SVG
+  (üretim formatı) için $15/ay ücretli plan gerekiyor.
+- **Neden meşru:** `WebFetch` ile doğrulandı — resmi `icons8` org'una ait, gerçek dokümante edilmiş
+  tool'lar (`search_icons`, `list_categories`, `list_platforms`, `get_icon_png_url`, kilitli
+  `get_icon_svg`), açıkça belirtilmiş ücretsiz katman limitleri — paylaşımlı key veya ToS-bypass
+  riski yok.
+- **Kurulum:** Herhangi bir MCP istemcisini `https://mcp.icons8.com/mcp/` adresine yönlendir; ilk
+  bağlantıda OAuth ile giriş yap.
+- **Proje uyumu:** `public/images/`'e ikon indirme ve `src/components/icons.tsx`'e ekleme akışına
+  (zaten kataloglanmış `awssat/mcp-universal-icons` ile birlikte) ücretsiz PNG katmanıyla ek bir
+  seçenek; SVG için ücretli plan gerektiğini not et.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 40)
+
+- **ruvnet/RuView** — Arama sonucunda **94.871 yıldız** ile ilk sırada çıktı, ancak repo açıklaması
+  ("WiFi sinyallerini gerçek-zamanlı mekânsal zekâya çeviren" bir donanım/firmware projesi) `claude`,
+  `skills`, `awesome` gibi etiketlerle ve bu denli yüksek bir yıldız sayısıyla hiç örtüşmüyor — konusu
+  Claude Code/skill/agent ekosistemiyle alakasız. Bu uyumsuzluk (alakasız içerik + anormal derecede
+  yüksek yıldız) sahte/yeniden-adlandırılmış yıldız biriktirme (star-jacking) şüphesi uyandırıyor.
+  **Kesinlikle eklenmedi** ve gelecek turlara da önerilmiyor — meşruiyet kriterine açıkça aykırı.
+- **iannuttall/claude-agents** (2043★) — Gerçek ve bir zamanlar popülerdi, ancak repo artık
+  **arşivlenmiş** (`archived: true`) durumda, yani aktif bakımı yok. Bakımsız/donmuş bir kaynağı
+  kataloğa eklemek "aktif ve güncel" kriterine uymuyor — eklenmedi.
+- `microsoft/power-platform-skills` (918★, resmi Microsoft org), `gamedev-skills/awesome-gamedev-agent-skills`
+  (1124★), `brycewang-stanford/Awesome-Journal-Skills` (1157★) ve `data-goblin/power-bi-agentic-development`
+  (933★) — hepsi gerçek ve aktif görünüyor, ancak bu şablonun (Next.js web klonlama) kapsamına
+  (Power Platform, oyun geliştirme, akademik yazım, Power BI) doğrudan uymadıkları ve bu turda
+  `WebFetch` ile birincil doğrulaması tamamlanamadığı (zaman kısıtı) için gelecek bir tura bırakıldı.
+- `ccplugins/awesome-claude-code-plugins` (952★, MIT) — gerçek görünüyor ama 241 açık issue / 952
+  yıldız oranı (yaklaşık dörtte bir) görece yüksek bir bakım-borcu sinyali; bu turda eklenmek yerine
+  gelecek bir turda issue trendi kontrol edilip karar verilecek.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 41)
+
+- **Cerebras ücretsiz katmanı** — 2026 ortası itibarıyla zaman-sınırlı $5 kredi için doğrulanmış bir
+  ödeme yöntemi istiyor; artık gerçek bir kredi-kartsız ücretsiz katman değil, bu yüzden bağımsız bir
+  girdi olarak önerilmedi.
+- **SankofaForge/design-inspiration-mcp-server** — zaten kataloglanmış `YonasValentin/
+  design-inspiration-mcp-server`'ın neredeyse birebir kopyası (aynı konsept/Awwwards kazıma); yeterince
+  farklı bir yeni kaynak değil, eklenmedi.
+- `chusri/claude-code-agents`, `tryalan-ai/awesome-claude-code-sub-agents`,
+  `GetBindu/awesome-claude-code-and-skills`, `obviousworks/Claude-AI-skills-collection-2026` — zaman
+  kısıtı nedeniyle bağımsız doğrulanamadı; zaten kataloglanmış VoltAgent/0xfurai/davepoon
+  koleksiyonlarıyla büyük örtüşme gösteriyor gibi görünüyor — şişirilmiş yıldız veya ince kopya riski
+  almamak için atlandı.
+- **abecms/visualq-mcp** — açıklama bir VRT platformu için "44 tool" vadediyor ama ücretli bir VisualQ
+  backend hesabı gerektiriyor görünüyor; açıkça ücretsiz/bağımsız bir araç değil, tam doğrulama
+  yapılmadan atlandı.
+- `devstroop/icons-mcp`, `agentic-ph/icon-mcp`, `johndavedecano/icon-mcp` — makul ikon-arama MCP
+  sunucuları olabilir ama mevcut zamanda arşiv/taslak riskine karşı bağımsız doğrulanamadı; bu niş
+  zaten kataloglanmış `awssat/mcp-universal-icons` ile iyi karşılanıyor.
+
 Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebilir.
 
 ---
 
-*Son güncelleme: 2026-09-24 (Tur 40). Bu tur önce bir altyapı sorunu çözdü: Tur 39'un commit'i
-local'de vardı ama `origin/master`'a push edilmemişti (detached HEAD + fast-forward eksik push) —
-bu düzeltilip Tur 39 önce senkronize edildi. Ardından 5 yeni kaynak eklendi (#135-#139):
-`anthropics/claude-plugins-community` (4.4k★, Apache-2.0 — Anthropic'in kendi resmi org'u),
-`obra/superpowers-marketplace` (1.3k★, MIT), `trailofbits/skills-curated` (504★, CC-BY-SA-4.0 —
-Trail of Bits resmi org'u), `davepoon/buildwithclaude` (3.5k★, MIT — keşif/indeks aracı) ve
-`matt1398/claude-devtools` (3.9k★, MIT — API key gerektirmeyen bağımsız gözlemlenebilirlik aracı).
-Bir aday (`ruvnet/RuView`, 94.871★) içerik/yıldız uyumsuzluğu nedeniyle sahte-yıldız şüphesiyle
-kesin reddedildi; bir diğeri (`iannuttall/claude-agents`) arşivlenmiş olduğu için eklenmedi; birkaç
-aday proje kapsamına uymadığı veya doğrulanamadığı için gelecek tura bırakıldı (yukarıdaki
-"Doğrulanan ama EKLENMEYEN Bulgular" bölümüne bakın).
-Toplam kataloglanmış kaynak sayısı: 139.
-Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–40'ta listelenenler
+*Son güncelleme: 2026-09-24 (Tur 41). Bu tur bir general-purpose alt-agent'a devredildi; 139 mevcut
+kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 6 yeni aday buldu
+ve `git clone` + doğrudan dosya incelemesiyle (yalnızca README iddiası değil) bağımsız doğruladı
+(#140-#145): `stripe/ai` (~1.8k★, MIT — Stripe'ın resmi ajan-kaynak monorepo'su), `getsentry/skills`
+(~1.0k★, Apache-2.0 — Sentry'nin resmi Agent Skills koleksiyonu), `cotdp/scraper-mcp` (7★, MIT —
+context-optimize web kazıma MCP'si, `clone-website` inceleme fazına doğrudan uyuyor),
+`rshah515/claude-code-subagents` (102★, MIT — 165 subagent'lık koleksiyon),
+`web-DnA/navable-web-accessibility-mcp` (1★, MIT — yerel WCAG tarayıcı MCP'si, düşük yıldızlı ama
+doğrulanmış) ve `icons8/icons8-mcp` (14★, lisanssız barındırılan servis istemcisi — resmi Icons8
+ücretsiz PNG katmanı). Birkaç aday (kapanmış Cerebras ücretsiz katmanı, mevcut bir kaynağın neredeyse
+birebir kopyası, ücretli backend gerektiren bir VRT aracı, birkaç zaman kısıtından doğrulanamayan
+koleksiyon/ikon MCP'si) reddedildi veya gelecek tura bırakıldı (yukarıdaki "Doğrulanan ama
+EKLENMEYEN Bulgular (Tur 41)" bölümüne bakın).
+Toplam kataloglanmış kaynak sayısı: 145.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–41'de listelenenler
 tekrarlanmayacak.
 
