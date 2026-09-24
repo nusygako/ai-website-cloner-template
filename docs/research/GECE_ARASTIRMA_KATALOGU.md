@@ -11,21 +11,35 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 > kurulumdan önce resmi sayfada teyit etmelidir. GitHub repoları ise doğrudan fetch edilerek
 > yıldız/lisans/dosya yapısı birebir doğrulanmıştır.
 
-**Toplam kataloglanmış kaynak sayısı:** 149 (42 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
-Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 42) dosyanın sonundadır.
+**Toplam kataloglanmış kaynak sayısı:** 152 (43 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
+Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 43) dosyanın sonundadır.
 
 ---
 
-## ARAŞTIRMA DURUMU (en son Tur 42 — 2026-09-24)
+## ARAŞTIRMA DURUMU (en son Tur 43 — 2026-09-24)
 
-**Tur 42 notu (2026-09-24, ~06:04 UTC / 09:04 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+**Tur 43 notu (2026-09-24, ~07:03 UTC / 10:03 Türkiye saati başladı):** Kesme noktasının (12:00 UTC)
+öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (onbeşinci kez tekrarlayan aynı
+desen, bkz. Tur 42 notu); `origin/master` ile HEAD'in birebir aynı commit'te (1c13985, Tur 42 commit'i)
+olduğu `git fetch` ile doğrulanıp `git checkout -B master origin/master` ile normale döndürüldü, çalışma
+kaybı yok. Dosyanın tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 149 kaynaktan çıkan 147
+benzersiz GitHub repo linki tekrarın önüne geçmek için çıkarıldı. Araştırma bir general-purpose
+alt-agent'a devredildi; 147 mevcut kaynağın tam listesi + önceki turlarda reddedilen adayların özeti +
+görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 3 yeni aday buldu; ana oturum bu 3 adayın
+**tamamını** kendi `WebFetch` çağrılarıyla (gerçek github.com repo sayfası — yıldız/fork/açık-issue/
+lisans/dosya yapısı) ikinci kez bağımsız doğruladı, tüm rakamlar tutarlıydı. 3 yeni kaynak eklendi
+(#150-#152: `vanzan01/claude-code-sub-agent-collective`, `mgifford/accessibility-skills`,
+`ericshang98/perfect-web-clone-skill`), ~8 aday reddedildi (zaten kataloglanmış kaynakların fork'u,
+kanıtsız/çok yeni ya da düşük-yıldız/redundant araçlar — bkz. dosyanın sonundaki "Tur 43" bölümü).
+
+**Toplam:** 152 doğrulanmış kaynak (Tur 42 sonunda 149'du, Tur 43 ile #150-#152 eklendi).
+
+**Önceki durum (Tur 42 — 2026-09-24):** Kesme noktasının (12:00 UTC)
 çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü (ondördüncüncü kez
 tekrarlayan aynı desen); `git checkout master && git merge --ff-only` ile normale döndürüldü, çalışma
 kaybı yok. 4 yeni kaynak eklendi (#146-#149: `dembrandt/dembrandt`, `VoltAgent/awesome-agent-skills`,
 `open-free-llm-api/awesome-freellm-apis`, `posthog/skills`), 6 aday reddedildi. Tam detay dosyanın
-sonundaki "Tur 42" bölümünde.
-
-**Toplam:** 149 doğrulanmış kaynak (Tur 41 sonunda 145'ti, Tur 42 ile #146-#149 eklendi).
+"Tur 42" bölümünde.
 
 **Önceki durum (Tur 36 — 2026-09-23):
 
@@ -4981,21 +4995,129 @@ Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebil
 
 ---
 
-*Son güncelleme: 2026-09-24 (Tur 42). Bu tur bir general-purpose alt-agent'a devredildi; 144 mevcut
-kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 4 yeni aday buldu
-ve `git clone` + dosya incelemesiyle bağımsız doğruladı (#146-#149): `dembrandt/dembrandt` (3.522★,
-MIT — canlı DOM'dan W3C DTCG tasarım-token çıkarma + MCP sunucusu), `VoltAgent/awesome-agent-skills`
-(34.790★, MIT — 40+ şirketin resmi skill koleksiyonlarını toplayan ayrı bir VoltAgent reposu),
-`open-free-llm-api/awesome-freellm-apis` (3.255★, MIT — 134+ ücretsiz LLM API'sini resmi kayıt
-sayfalarına link vererek listeleyen, paylaşımlı key İÇERMEYEN dizin) ve `posthog/skills` (63★, MIT —
-PostHog'un resmi, "under construction" işaretli skill koleksiyonu). Ana oturum bu 4 adayın tamamını
-`git clone` (shallow) + `mcp__github__search_repositories` ile canlı ikinci kez bağımsız doğruladı;
-bir kaynakta (`posthog/skills`) alt-agent'ın raporladığı açık-issue sayısı canlı API'den farklı çıktı,
-nihai kataloglama canlı rakamı esas aldı (bkz. yukarıdaki not). 6 aday reddedildi (korsan font indeksi
-hedefleyen şüpheli bir araç, tek-commit/bakımsız resmi Monotype reposu, ücretli-API-zorunlu bir SVG
-aracı, kanıtsız bir WCAG aracı, anormal fork/yıldız oranlı bir koleksiyon, `Manavarya09/design-extract`'ın
-iki birebir kopyası — yukarıdaki "Doğrulanan ama EKLENMEYEN Bulgular (Tur 42)" bölümüne bakın).
-Toplam kataloglanmış kaynak sayısı: 149.
-Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–42'de listelenenler
+## Tur 43 (2026-09-24, ~07:03 UTC / 10:03 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC) öncesinde başladı. Oturum başında yine "detached HEAD" durumu görüldü
+(onbeşinci kez tekrarlayan aynı desen); `git fetch` ile `origin/master`'ın (1c13985, Tur 42 commit'i)
+HEAD ile birebir aynı commit'te olduğu doğrulanıp `git checkout -B master origin/master` ile normale
+döndürüldü, çalışma kaybı yok. Dosyanın tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 149
+kaynaktan çıkan 147 benzersiz GitHub repo linki tekrarın önüne geçmek için çıkarıldı. Araştırma bir
+general-purpose alt-agent'a devredildi; 147 mevcut kaynağın tam listesi + önceki turlarda reddedilen
+adayların özeti + görev talimatındaki hariç-tutma kriterleri (paylaşımlı/havuzlanmış API key,
+ToS-bypass scraping, hesap-askıya-alınma riski, kanıtsız trading araçları) verildi. Alt-agent 3 yeni
+aday buldu; ana oturum bu 3 adayın **tamamını** kendi `WebFetch` çağrılarıyla (gerçek github.com repo
+sayfası üzerinden yıldız/fork/açık-issue/lisans doğrulaması) ikinci kez bağımsız doğruladı — tüm
+rakamlar alt-agent'ın raporuyla tutarlıydı, tutarsızlık bulunmadı. Alt-agent ayrıca ~8 adayı reddetti
+(zaten kataloglanmış `wshobson/agents`'ın bir fork'u, kanıtsız/0-yıldız veya çok-düşük-yıldız ve
+zaten kataloglanmış kaynaklarla redundant birkaç dar-kapsamlı MCP sunucusu/skill, halihazırda
+kataloglanmış ücretsiz-LLM-API listeleriyle örtüşen tekrarlar — aşağıya bak).
+
+**Toplam:** 152 doğrulanmış kaynak (Tur 42 sonunda 149'du, Tur 43 ile #150-#152 eklendi).
+
+### A) Agent / Subagent Koleksiyonu
+
+#### 150. [vanzan01/claude-code-sub-agent-collective](https://github.com/vanzan01/claude-code-sub-agent-collective)
+- **Yıldız:** 523 · **Fork:** 59 · **Açık issue:** 5 · **Lisans:** MIT
+- **Güncellik:** aktif, 151+ commit.
+- **Ne işe yarar:** npm ile kurulabilen, "hub-and-spoke" koordinasyon modeliyle çalışan 30+ gerçek
+  `.claude/agents/*.md` subagent'ı (`prd-research-agent.md`, `task-orchestrator.md`,
+  `component-implementation-agent.md`, `feature-implementation-agent.md`,
+  `testing-implementation-agent.md`, `quality-agent.md` vb.); hook'lar üzerinden Test-Driven
+  Development (RED→GREEN→REFACTOR) disiplinini zorunlu kılan bir `CLAUDE.md` davranış kuralı seti ve
+  `/van` yönlendirme komutu içeriyor.
+- **Neden meşru:** `WebFetch` ile github.com sayfası doğrudan doğrulandı — 523 yıldız/59 fork/5 açık
+  issue (organik oran, şişirilmiş-yıldız paterni yok), MIT LICENSE, gerçek `CHANGELOG.md` ve
+  `USER-GUIDE.md`, kurulum yapısında `agents/` altında listelenen spesifik dosya adları (30+ dosya)
+  teyit edildi. Paylaşımlı API key veya ToS-bypass riski yok.
+- **Kurulum:** `npx claude-code-collective init` (ayrıca `--minimal`, `--testing-only`,
+  `--hooks-only`, `--interactive` seçenekleri mevcut); Node 16+ gerektirir, kurulum sonrası Claude
+  Code yeniden başlatılmalı.
+- **Proje uyumu:** Genel-amaçlı ama TDD/kalite kapılarına vurgusu bu şablonun "beauty-first, her
+  piksel önemli" ve `npm run check` disiplinine paralel; özellikle `task-orchestrator`/`quality-agent`
+  çok-ajanlı worktree iş akışına uyarlanabilir.
+
+### B) Skill Koleksiyonu (erişilebilirlik denetimi — inceleme/QA fazı)
+
+#### 151. [mgifford/accessibility-skills](https://github.com/mgifford/accessibility-skills)
+- **Yıldız:** 49 · **Fork:** 2 · **Açık issue:** 0 · **Lisans:** AGPL-3.0
+- **Güncellik:** çok taze — son commit 9 gün önce (78 commit).
+- **Ne işe yarar:** WCAG/erişilebilirlik kurallarını ajan-uygulanabilir talimatlara çeviren 28 gerçek
+  `SKILL.md` dosyası — `axe-rules`, `aria-live-regions`, `color-contrast`, `forms`, `image-alt-text`,
+  `keyboard`, `light-dark-mode`, `tables`, `navigation`, `ci-cd`, `charts-graphs` gibi konuları
+  kapsıyor. Yazarı Mike Gifford (Fixated.ca), tanınmış bir erişilebilirlik uzmanı; içerik onun kamuya
+  açık `ACCESSIBILITY.md` kaynağının yapılandırılmış hali.
+- **Neden meşru:** `WebFetch` ile github.com sayfası doğrudan doğrulandı — `skills/` klasörü altında
+  28+ gerçek `SKILL.md` alt-dizini, AGPL-3.0 LICENSE, kimliği bilinen/doğrulanabilir bir yazar, yakın
+  tarihli Dependabot-birleştirilmiş commit aktif bakım gösteriyor. Paylaşımlı key yok, ToS riski yok.
+- **Kurulum:** İlgili skill klasörünü (ör. `skills/color-contrast/`, `skills/forms/`) `.claude/skills/`
+  altına kopyalamak, ya da tüm repoyu bir skill kaynağı olarak sembolik bağlamak.
+- **Proje uyumu:** `docs/research/INSPECTION_GUIDE.md`'nin Phase 1 (erişilebilirlik durumları dahil)
+  ve genel kalite kapısına doğrudan katkı; zaten kataloglanmış tekil-amaçlı erişilebilirlik
+  araçlarından (#JustasMonkev/mcp-accessibility-scanner, #priyankark/a11y-mcp) farklı olarak kural
+  tabanlı, çok geniş kapsamlı bir SKILL.md seti sunuyor — redundant değil, tamamlayıcı.
+
+### C) Skill (klonlama iş akışıyla birebir örtüşen)
+
+#### 152. [ericshang98/perfect-web-clone-skill](https://github.com/ericshang98/perfect-web-clone-skill)
+- **Yıldız:** 181 · **Fork:** 16 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** son commit 2026-08-22.
+- **Ne işe yarar:** Tek ama kapsamlı bir `SKILL.md` ("perfect-web-clone") — sekiz fazlı, kapılı bir
+  piksel-mükemmel klonlama disiplini tanımlıyor: capture integrity → structural completeness →
+  functional interaction parity (gerçek carousel/menü/tab davranışı, sadece görsel benzerlik değil)
+  → bölüm-bazlı görsel fark analizi → onarım döngüsü → terminal durum
+  (`ready_for_user_review` / `failed_with_residuals`). Ölçüm için ayrı bir companion repo
+  (`ericshang98/Perfect-Web-Clone`, `pwc` aracı) ile birlikte çalışıyor.
+- **Neden meşru:** `WebFetch` ile hem github.com repo sayfası hem SKILL.md içeriği doğrudan
+  doğrulandı — gerçek frontmatter ve detaylı bir "execution contract" (stub değil), MIT LICENSE.
+  **Not/dikkat:** 181 yıldıza karşı sadece 6 commit — düşük commit sayısı, ama Tur 22/36'nın
+  reddettiği "şişirilmiş yıldız" paterninden (binlerce yıldız + neredeyse sıfır issue/aktivite)
+  farklı: küçük ölçekli, MIT lisanslı, tek-dosyalık gerçek bir skill için makul bir organik-keşif
+  eğrisi olabilir; yine de gelecek turlar büyüme/commit paternini izlemeli.
+- **Kurulum:** `SKILL.md` dosyasını `.claude/skills/perfect-web-clone/` altına kopyalamak; ölçüm için
+  isteğe bağlı olarak companion `pwc` aracını (`ericshang98/Perfect-Web-Clone`) kurmak.
+- **Proje uyumu:** Bu şablonun `/clone-website` skill'inin QA/kapı tasarımına doğrudan ilham
+  kaynağı olabilir; zaten kataloglanmış `SarthakMishra/site-cloner` (MCP aracı) ve
+  `w01fgang/mcp-design-comparison` (SSIM doğrulama) ile aynı hedefe farklı bir açıdan (disiplin/
+  süreç tanımı olarak) katkıda bulunuyor, redundant değil.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 43)
+
+- **chusri/claude-code-agents** — zaten kataloglanmış `wshobson/agents`'ın fork'u, içerik birebir
+  örtüşüyor, eklenmedi.
+- **yossefbelal1/website-reverse-engineering** — 0 yıldız, doğrulanabilir benimseme/bakım sinyali yok,
+  çok yeni, eklenmedi.
+- **mrKanoh/claude-wcag-accessibility-skill** — sadece 4 yıldız, eklenen `mgifford/accessibility-skills`
+  ile önemli ölçüde redundant, eklenmedi.
+- **Evilander/claude-design-mcp** — sadece 3 yıldız, çok erken aşama, gelecek turlar için not düşüldü
+  ama şimdilik eklenmedi.
+- **Nitish2620/shadcn-mcp-app, anillahane/shadcn-ui-mcp-server, thoiruddin/dotcms-shadcn-mcp-server** —
+  zaten kataloglanmış `Jpisnice/shadcn-ui-mcp-server`'ın düşük-emek/türev fork'ları, eklenmedi.
+- **agentic-ph/icon-mcp, hustcc/mcp-icon, devstroop/icons-mcp, johndavedecano/icon-mcp,
+  Leee62/pickapicon-mcp** — ikon-arama nişi zaten kataloglanmış kaynaklarla (`awssat/mcp-universal-icons`,
+  `better-auth/better-icons`, `icons8/icons8-mcp`) iyi kapsanıyor, net bir farklılaşma yok, eklenmedi.
+- Yüzeye çıkan ücretsiz-LLM-API liste depoları (amardeeplakshkar, mnfst, open-free-llm-api, nejib1
+  varyantları) — hepsi zaten kataloglanmış; önceden reddedilen ticari sağlayıcıların (OpenRouter,
+  Gemini, Groq, Cloudflare Workers AI, Mistral, Cohere, SambaNova) durumunu değiştiren yeni birincil
+  kaynak kanıtı bulunamadı, ticari domainler büyük ölçüde erişilemez durumda (EGRESS_BLOCKED beklenen),
+  bu yüzden görev talimatına uygun olarak dokunulmadı.
+
+Bilinen açık niş boşluk yok; gelecek turlar genel tarama moduna devam edebilir.
+
+---
+
+*Son güncelleme: 2026-09-24 (Tur 43). Bu tur bir general-purpose alt-agent'a devredildi; 147 mevcut
+kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri verildi. Alt-agent 3 yeni aday buldu
+ve doğruladı: `vanzan01/claude-code-sub-agent-collective` (523★, MIT — 30+ gerçek subagent `.md`
+dosyası, TDD disiplinini zorunlu kılan hook'lar), `mgifford/accessibility-skills` (49★, AGPL-3.0 —
+28 gerçek `SKILL.md` dosyasından oluşan WCAG/erişilebilirlik kural seti, tanınmış bağımsız yazar) ve
+`ericshang98/perfect-web-clone-skill` (181★, MIT — sekiz fazlı piksel-mükemmel klonlama disiplini
+tanımlayan tek ama kapsamlı SKILL.md). Ana oturum bu 3 adayın tamamını kendi `WebFetch` çağrılarıyla
+(gerçek github.com repo sayfası üzerinden yıldız/fork/açık-issue/lisans) ikinci kez bağımsız
+doğruladı; tüm rakamlar tutarlıydı, tutarsızlık bulunmadı. ~8 aday reddedildi (zaten kataloglanmış
+`wshobson/agents`'ın fork'u, kanıtsız/0-yıldız veya çok-düşük-yıldız ve zaten kataloglanmış
+kaynaklarla redundant birkaç dar-kapsamlı MCP sunucusu/skill, halihazırda kataloglanmış ücretsiz-LLM-
+API listeleriyle örtüşen tekrarlar — yukarıdaki "Doğrulanan ama EKLENMEYEN Bulgular (Tur 43)"
+bölümüne bakın). Toplam kataloglanmış kaynak sayısı: 152.
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–43'te listelenenler
 tekrarlanmayacak.
 
