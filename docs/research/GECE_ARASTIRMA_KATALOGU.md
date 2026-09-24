@@ -11,12 +11,28 @@ trading araçları bilerek DIŞLANMIŞTIR.**
 > kurulumdan önce resmi sayfada teyit etmelidir. GitHub repoları ise doğrudan fetch edilerek
 > yıldız/lisans/dosya yapısı birebir doğrulanmıştır.
 
-**Toplam kataloglanmış kaynak sayısı:** 158 (46 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
-Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 46) dosyanın sonundadır.
+**Toplam kataloglanmış kaynak sayısı:** 159 (47 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana).
+Tur 1-40'ın tam dökümü aşağıda kronolojik olarak yer alır; en yeni tur (Tur 47) dosyanın sonundadır.
 
 ---
 
-## ARAŞTIRMA DURUMU (en son Tur 46 — 2026-09-24)
+## ARAŞTIRMA DURUMU (en son Tur 47 — 2026-09-24)
+
+**Tur 47 notu (2026-09-24, ~11:04 UTC / 14:04 Türkiye saati başladı):** Araştırma bir general-purpose
+alt-agent'a devredildi, tek kabul edilen aday ana oturum tarafından bağımsız `WebFetch` ile yeniden
+doğrulandı. 1 yeni kaynak eklendi: `Jane-xiaoer/claude-skill-web-clone` (#159, bu şablonun
+website-klonlama amacıyla doğrudan örtüşen bir metodoloji skill'i — kurulum için yol-adaptasyonu
+gerekiyor, bkz. detay). Örtüşen/erken-aşama/liste-toplayıcı adaylar (andreasskyt, ghassan-gaidi,
+tryalan-ai, netresearch, BehiSecc, muhammadsuheer, design-extract fork'ları) reddedildi. Tam detay
+dosyanın "Tur 47" bölümünde.
+
+**Toplam:** 159 doğrulanmış kaynak (Tur 46 sonunda 158'di, Tur 47 ile #159 eklendi).
+
+**Gözlem (Tur 47):** Bu, kataloğun 9. gününde 47. turu. Yeni bulgular giderek seyrekleşiyor (Tur 44:
+birkaç yeni, Tur 45: 1, Tur 46: 2, Tur 47: 1). Alan Tur 36'dan beri "genel tarama modu"nda. Görevin
+sıklığını azaltmak veya durdurmak kullanıcı tarafından değerlendirilebilir.
+
+**Önceki durum (Tur 46 — 2026-09-24):**
 
 **Tur 46 notu (2026-09-24, ~10:03 UTC / 13:03 Türkiye saati başladı):** Ana oturum tarafından
 doğrudan yürütüldü (alt-agent kullanılmadı). 2 yeni kaynak eklendi: `ayush-that/sub-agents.directory`
@@ -5466,12 +5482,91 @@ moduna devam edebilir; yeni bulgular giderek seyrekleşiyor.
 
 ---
 
-*Son güncelleme: 2026-09-24 (Tur 46). Bu tur ana oturum tarafından doğrudan yürütüldü (alt-agent
-kullanılmadı). Skill/agent koleksiyonu tarafında 1 yeni kaynak (`ayush-that/sub-agents.directory`),
-ücretsiz-LLM-API tarafında 1 yeni kaynak (`peter123023/awesome-free-llm-api`) eklendi — toplam 2 yeni
-kaynak (#157-#158). Örtüşen/erken-aşama/düşük-benimseme adaylar (velo4705, 4pixeltechBR, AIwithDiego/
-hank, linny006) görev talimatına uygun şekilde reddedildi — yukarıdaki "Doğrulanan ama EKLENMEYEN
-Bulgular (Tur 46)" bölümüne bakın. Toplam kataloglanmış kaynak sayısı: 158.
-Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–46'da listelenenler
+## Tur 47 — 2026-09-24
+
+Kesme noktasının (12:00 UTC) öncesinde başladı (~11:04 UTC / 14:04 Türkiye saati). Dosyanın tamamı
+`grep -oE 'github\.com/...'` ile taranıp mevcut 158 kaynaktan çıkan 154 benzersiz GitHub repo linki
+tekrarın önüne geçmek için çıkarıldı. Araştırma bir general-purpose alt-agent'a devredildi; 154 mevcut
+kaynağın tam listesi + görev talimatındaki hariç-tutma kriterleri verildi, "son 1-2 haftada oluşturulmuş/
+güncellenmiş" taze bölgeye odaklanması ve zayıf/redundant adayları raporlamaması istendi. Ana oturum,
+alt-agentin tek kabul ettiği adayı kendi `WebFetch` çağrılarıyla bağımsız doğruladı (yıldız/fork/lisans/
+SKILL.md içeriği alt-agentinkiyle birebir tutarlıydı). 1 yeni kaynak eklendi (#159).
+
+### F) Skill Koleksiyonu — Website Cloning Metodolojisi (Tur 47 eklemesi)
+
+#### 159. [Jane-xiaoer/claude-skill-web-clone](https://github.com/Jane-xiaoer/claude-skill-web-clone)
+- **Yıldız:** 1.000 · **Fork:** 123 · **Açık issue:** 0 · **Lisans:** MIT
+- **Güncellik:** son commit ana branch'te (v1.6.0, "feat(static-mirror): 1:1 statik mirror yeteneği
+  eklendi"), repo 2026-05-28'de oluşturulmuş.
+- **Ne işe yarar:** "Gerçek kaynak önce, AI'nin tahmin ettiği koddan asla kopyalama" ilkesine dayanan,
+  website klonlama/reprodüksiyon için sistemli bir karar-ağacı metodolojisi: proje iskeleti kurma →
+  GitHub'da gerçek kaynak arama → tarayıcı keşfi ile teknoloji tespiti → L1-L6 karmaşıklık
+  değerlendirmesi → rota haritalama → içerik değişimi. Statik HTML, React/Vue/Next ve WebGL/Canvas
+  ağırlıklı siteler için ayrı teknikler içeriyor; amiral örnek olarak bir WebGL "mermer" demosunun
+  gerçek kaynağa karşı doğrulanmadan asla uygulanmaması gerektiğini gösteren vaka çalışması var.
+- **Neden meşru:** `WebFetch` ile repo sayfası bağımsız doğrulandı — 1.000★/123 fork/0 açık issue/MIT
+  LICENSE (raw LICENSE dosyasında "MIT License / Copyright (c) 2026 Jane" teyit edildi). Kök dizinde
+  gerçek `SKILL.md` dosyası `raw.githubusercontent.com/Jane-xiaoer/claude-skill-web-clone/main/SKILL.md`
+  üzerinden doğrudan okunup geçerli YAML frontmatter (`name: web-clone`, `version: "1.6.0"`) ve tam
+  metodoloji içeriği teyit edildi. Ayrıca `README.md`, `LICENSE`, `references/` (ters mühendislik
+  rehberleri, efekt çıkarma notları, WebGL vaka çalışması) ve `scripts/` (`recon-site.mjs`,
+  `mirror-site.mjs`, `route-crawl.mjs`, görsel-fark/etkileşim probe'ları) dizinleri görüldü. Paylaşımlı
+  API key, ToS-bypass scraping veya hesap-askıya-alma riski yok; açıkça ücretsiz (MIT).
+- **Kurulum / DİKKAT:** Kurulum tam "kopyala-yapıştır" değil — bootstrap script'i yazarın kişisel
+  makine yoluna (`/Users/jane/.shared-skills/web-clone/scripts/init-clone.mjs`) ve kişisel proje
+  dizini kuralına (`~/projects/website-clones/`) referans veriyor, bu yüzden kullanılmadan önce yol
+  adaptasyonu gerekiyor. Asıl değer metodoloji/karar-ağacı ve `scripts/` altındaki keşif/mirror
+  script'lerinde — bunlar `SKILL.md`'den okunup projeye özgü yollarla elle uyarlanmalı.
+- **Proje uyumu:** Bu şablonun ana amacıyla (`/clone-website` skill'i, `docs/research/INSPECTION_GUIDE.md`)
+  doğrudan örtüşüyor — zaten kataloglanmış `sarthakmishra/site-cloner` ve `ericshang98/perfect-web-clone-skill`
+  gibi klonlama araçlarını tamamlayan, farklı bir metodolojik yaklaşım (kaynak-önce karar ağacı +
+  L1-L6 karmaşıklık sınıflandırması) sunuyor.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 47)
+
+- **andreasskyt/claude-website-cloner-skill** — gerçek `website-cloner/SKILL.md` doğrulandı, ancak
+  0★/1 commit — sıfıra yakın benimseme, eklenmedi.
+- **ghassan-gaidi/free-llm-api-list** — meşru bireysel-key ücretsiz-tier içeriği, ancak sadece 1★ —
+  sıfıra yakın benimseme, eklenmedi.
+- **tryalan-ai/awesome-claude-code-sub-agents** — gerçek agent `.md` dosyaları doğrulandı (173★, MIT),
+  ancak son commit 2025-09-19 (bir yıldan fazla güncel değil) ve zaten kataloglanmış birçok benzer
+  "awesome-claude-code-subagents" koleksiyonuyla (VoltAgent, robotmice, neatnerdprime, supatest-ai)
+  aynı türde, redundancy nedeniyle eklenmedi.
+- **netresearch/claude-code-marketplace** — 60★/MIT/aktif, ancak dosya ağacı incelemesinde gerçek
+  `SKILL.md` dosyası yok, sadece dış repolara işaret eden bir `marketplace.json` var — "repoda gerçek
+  SKILL.md" kriterini karşılamıyor, eklenmedi.
+- **BehiSecc/awesome-claude-skills** — 10,2k★, güncel, ancak kendi skill dosyaları olmayan saf bir
+  link-toplayıcı "awesome list" — zaten kataloglanmış awesome-list'lerle (hesreallyhim, travisvn,
+  ComposioHQ) redundant, eklenmedi.
+- **muhammadsuheer/nextjs-docs-mcp** — meşru, çalışan bir Next.js 16 dokümantasyon MCP sunucusu (3
+  gerçek araç doğrulandı), ancak sadece 5★ — sıfıra yakın benimseme, eklenmedi.
+- **Manavarya09/design-extract**'in çeşitli neredeyse-birebir fork'ları (899ms, timothybrush,
+  nepalisagun, ivangegovdve-sudo) — orijinali zaten kataloglanmış, fork'lar bağımsız yeni kaynak
+  sayılmaz.
+- Çeşitli görsel-regresyon/piksel-fark MCP repoları (diffyard, odiff, Visual-Regression-Tracker,
+  pixel-diff) — genel amaçlı görsel-fark araçları, MCP-native değil veya projenin akışıyla net
+  örtüşmüyor, taze/doğrulanabilir/redundant-olmayan benimseme sinyali yok — eklenmedi.
+
+Bu tur da önceki turların gözlemini doğruluyor: alan büyük ölçüde doymuş durumda — taze görünen
+sonuçların çoğu ya zaten kataloglanmış projelerin fork/rebrand'i, ya gerçek skill dosyası olmayan
+liste-toplayıcıları, ya da ihmal edilebilir yıldız sayısına sahipti.
+
+---
+
+*Son güncelleme: 2026-09-24 (Tur 47). Araştırma bir general-purpose alt-agent'a devredildi, tek
+kabul edilen aday (`Jane-xiaoer/claude-skill-web-clone`) ana oturum tarafından bağımsız `WebFetch`
+ile yeniden doğrulandı. Skill koleksiyonu tarafında 1 yeni kaynak eklendi (#159) — bu şablonun
+website-klonlama amacıyla doğrudan örtüşen, kurulum için yol-adaptasyonu gerektiren bir metodoloji
+skill'i. Örtüşen/erken-aşama/düşük-benimseme/liste-toplayıcı adaylar (andreasskyt, ghassan-gaidi,
+tryalan-ai, netresearch, BehiSecc, muhammadsuheer, design-extract fork'ları, görsel-fark MCP'leri)
+görev talimatına uygun şekilde reddedildi — yukarıdaki "Doğrulanan ama EKLENMEYEN Bulgular (Tur 47)"
+bölümüne bakın. Toplam kataloglanmış kaynak sayısı: 159.
+
+**Not (Tur 47 gözlemi):** Bu, kataloğun 9. gününde 47. turu — alan Tur 36'dan beri "genel tarama
+modu"nda ve yeni bulgular giderek seyrekleşiyor (Tur 44: birkaç yeni, Tur 45: 1 yeni, Tur 46: 2 yeni,
+Tur 47: 1 yeni — çoğu aday redundant/erken-aşama/düşük-benimseme nedeniyle eleniyor). Görevin değeri
+düşüyor gibi görünüyor; kullanıcı turun sıklığını azaltmayı veya görevi durdurmayı değerlendirebilir.
+
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–47'de listelenenler
 tekrarlanmayacak.
 
