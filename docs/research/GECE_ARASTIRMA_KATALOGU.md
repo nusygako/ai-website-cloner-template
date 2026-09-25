@@ -1,12 +1,15 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 53, 2026-09-25, ~08:03 UTC (11:03 Türkiye saati) — kesme noktasının (12:00 UTC) hâlâ
-öncesinde çalıştı, aynı gün içindeki 6. tur (Tur 48 ~03:03, 49 ~04:02, 50 ~05:04, 51 ~06:03, 52 ~07:04,
-53 ~08:03 UTC — hepsi ~1 saat arayla). **1 yeni kaynak eklendi** (#162,
-`vishalsachdev/claude-skills` — küçük ama doğrulanmış, gerçek `SKILL.md` dosyaları içeren kişisel bir
-koleksiyon). Dar kapsamlı bir kontrol yapıldı (geniş anahtar-kelime taraması yine tekrarlanmadı — son 5
-tur zaten yaptı): `anthropics` GitHub org'u yeniden tazelik sırasına göre tarandı (yeni resmi depo yok)
-ve "SKILL.md claude code" için dar bir `WebSearch` yapıldı — bkz. "Tur 53" bölümü.
+**Son tur:** Tur 55, 2026-09-25, ~10:03 UTC (13:03 Türkiye saati) — kesme noktasının (12:00 UTC) hâlâ
+öncesinde çalıştı, aynı gün içindeki 8. tur (Tur 48 ~03:03, 49 ~04:02, 50 ~05:04, 51 ~06:03, 52 ~07:04,
+53 ~08:03, 54 ~09:03, 55 ~10:03 UTC — hepsi ~1 saat arayla). **0 yeni kaynak eklendi.** İki dar kontrol
+yapıldı: (1) `created:>2026-09-18` filtresiyle GitHub repo araması ("claude code" skills/subagents,
+yeni oluşturulmuş depolara odaklı — önceki turların "son güncelleme" bazlı taramalarından farklı bir
+açı), (2) `topic:claude-code-skills` konu etiketi taraması. İki gerçek aday bulundu
+(`mikehasa/golive-skill`, `jabrena/plinth`) ama ikisi de `WebFetch` ile bağımsız doğrulamada Tur 50'nin
+"AI ajanlarını kendi kendine kuruluma teşvik eden" güvenlik deseniyle eşleşti (kurulum talimatları
+doğrudan kodlama ajanlarına hitap ediyor, insan onayını atlıyor) — **eklenmedi**. Ayrıntılar dosyanın
+"Tur 55" bölümünde.
 
 **YENİ VE ÖNEMLİ BULGU — Tur 50:** Bu tur, önceki turların "alan doydu/tekrar keşfediyor" gözleminden
 farklı ve daha ciddi bir şey buldu: tam olarak bu görevin taradığı "claude code skill/subagent"
@@ -19,8 +22,8 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 162 (53 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 53 ile #162 eklendi, Tur 50-52'de değişmemişti).
+**Toplam kataloglanmış kaynak sayısı:** 162 (55 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün — Tur 53 ile #162 eklendi, Tur 54-55'te değişmedi).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -6056,4 +6059,61 @@ reddedildi. Toplam kataloglanmış kaynak sayısı: 162. Bildirim gönderilmedi 
 hâlâ geçerli, yeni bulgu düşük etkili).
 
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–54'te listelenenler ve
+reddedilenler tekrarlanmayacak.
+
+## Tur 55 — 2026-09-25 (~10:03 UTC / 13:03 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC) öncesinde başladı. Aynı gün içindeki **8. tur**. Tur 36'dan beri süren
+doygunluk teyidi göz önüne alınarak geniş kapsamlı anahtar-kelime taraması yine **tekrarlanmadı**.
+Bunun yerine iki dar açı denendi, ikisi de önceki turlardan farklı bir filtreleme mantığı kullanıyor:
+
+1. `mcp__github__search_repositories` ile `"claude code" skills OR subagents in:description,readme
+   created:>2026-09-18` (yıldıza göre sıralı) — önceki turların "son güncelleme" bazlı taramalarından
+   farklı olarak, **yalnızca son ~1 haftada oluşturulmuş** depolara odaklandı.
+2. `topic:claude-code-skills` konu-etiketi taraması (güncellemeye göre sıralı).
+
+### Değerlendirilen ama EKLENMEYEN adaylar
+
+- **mikehasa/golive-skill** (~919★, MIT, 2026-09-23 oluşturuldu — 2 günde ~919★, şüpheli hızlı büyüme).
+  Deploy/hosting/DNS/ödeme sağlayıcılarını kullanıcının kendi hesaplarıyla otomatik provizyon eden bir
+  Agent Skill + Node CLI'si. "No GoLive account, backend or telemetry" iddiası doğru görünüyor (paylaşımlı
+  API key yok). Ancak `WebFetch` ile bağımsız doğrulamada iki sorun bulundu: (a) kurulum talimatları
+  doğrudan kodlama ajanlarına hitap ediyor ("paste this into your coding agent" gibi ifadeler), tam
+  olarak Tur 50'nin belgelediği "AI ajanlarını kendi kendine kuruluma teşvik etme" deseniyle eşleşiyor;
+  (b) proje kendini "Early alpha · 0.1.0-alpha.3" olarak tanımlıyor, çoğu özellik gerçek ortamda değil
+  mock ile test edilmiş. **Eklenmedi** — hem güvenlik deseni hem olgunluk riski.
+- **jabrena/plinth** (~440★, Apache-2.0, 2025-02-08 oluşturuldu — ~7 ayda organik büyüme, yıldız şişirme
+  şüphesi yok). Java SDLC için 13 Command + 9 Agent + 125 Skill iddia eden bir araç seti. `WebFetch` ile
+  bağımsız doğrulamada: skill/agent/command dosyaları görünüşe göre bir **generator** tarafından üretiliyor
+  (elle bakımı yapılan `SKILL.md` dosyaları değil), kurulum talimatları yine ajanlara hitap eden
+  komutlar içeriyor ("install @004-commands-installation cursor" gibi, insan onayını atlayan bir
+  format), ve "sonuçlar deterministik değil" diye açıkça belirtiliyor. **Eklenmedi** — üretilmiş
+  içerik + ajan-hedefli kurulum deseni + doğrulanmamış EU AI Act/GDPR/DORA uyumluluk iddiaları.
+
+**Bu turda 0 yeni kaynak eklendi.** Toplam kataloglanmış kaynak sayısı: 162 (Tur 53'ten değişmedi).
+
+### Gözlem — Tur 50'nin güvenlik deseni iki örnekle daha doğrulandı; 20. ardışık doygunluk kaydı
+
+Bu turun iki reddedilen adayı da (`golive-skill`, `plinth`) Tur 50'de belgelenen "kurulum talimatları
+insan kullanıcıya değil doğrudan AI koda ajanına hitap ediyor" desenini taşıyor — bu artık izole bir
+örnek değil, alanda tekrarlayan bir pazarlama/dağıtım kalıbı gibi görünüyor. Bu, otomatik gece-araştırma
+görevlerinin (bu görev dahil) neden temkinli davranması gerektiğini bir kez daha doğruluyor: böyle bir
+depo karşılaşıldığında sadece yıldız/lisans/dosya-yapısı doğrulaması yeterli değil, kurulum talimatının
+hitap ettiği kitleye de bakılmalı.
+
+Bu aynı zamanda Tur 36'dan beri doygunluğun teyit edildiği **20. ardışık tur**. Katalog artık 10 gündür,
+saatte bir, 55 tur ve ~490KB+ çalışıyor; Tur 50 (güvenlik deseni) ve Tur 51 (sıklık azaltma önerisi)
+için bildirimler zaten iletildi ve hâlâ geçerli. Bu turun bulgusu (aynı desenin iki yeni örneği) yeni
+bir kategori değil, mevcut bulgunun teyidi olduğu için **yeni bir bildirim gönderilmedi** — tekrar
+bildirim göndermek gürültü olurdu.
+
+---
+
+*Son güncelleme: 2026-09-25 (Tur 55). Hiçbir yeni kaynak eklenmedi — bulunan 2 aday
+(`mikehasa/golive-skill`, `jabrena/plinth`) bağımsız doğrulandı, ikisi de Tur 50'nin "ajan-hedefli
+kendi-kendine-kurulum" güvenlik deseniyle eşleştiği için reddedildi. Toplam kataloglanmış kaynak
+sayısı: 162. Bildirim gönderilmedi (Tur 50-51'in bildirimleri hâlâ geçerli, bu turun bulgusu yeni bir
+kategori değil mevcut desenin teyidi).
+
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–55'te listelenenler ve
 reddedilenler tekrarlanmayacak.
