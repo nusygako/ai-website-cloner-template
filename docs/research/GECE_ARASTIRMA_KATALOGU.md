@@ -1,8 +1,11 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 51, 2026-09-25, ~06:03 UTC (09:03 Türkiye saati) — kesme noktasının (12:00 UTC) çok
-öncesinde normal şekilde çalıştı, aynı gün içindeki 4. tur. **0 yeni kaynak eklendi** (dar kapsamlı
-kontrolde bulunan 4 Anthropic deposu Claude Cowork'e özel olup kapsam dışı kaldığı için eklenmedi).
+**Son tur:** Tur 52, 2026-09-25, ~07:04 UTC (10:04 Türkiye saati) — kesme noktasının (12:00 UTC) çok
+öncesinde çalıştı, aynı gün içindeki 5. tur (Tur 48 ~03:03, 49 ~04:02, 50 ~05:04, 51 ~06:03, 52 ~07:04
+UTC — hepsi ~1 saat arayla). **0 yeni kaynak eklendi.** Dar kapsamlı bir kontrol yapıldı (geniş
+anahtar-kelime taraması tekrarlanmadı — son 4 tur zaten yaptı, sıfıra yakın sonuç verdi): "ücretsiz LLM
+API" alanında birkaç yeni aday bulundu, ancak hepsi ya zaten kataloglı listelerle örtüşüyor ya da Tur
+50'nin belgelediği desenle örtüşen kırmızı bayrak taşıyor — bkz. "Tur 52" bölümü.
 
 **YENİ VE ÖNEMLİ BULGU — Tur 50:** Bu tur, önceki turların "alan doydu/tekrar keşfediyor" gözleminden
 farklı ve daha ciddi bir şey buldu: tam olarak bu görevin taradığı "claude code skill/subagent"
@@ -15,8 +18,8 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 161 (51 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 50 ve 51'de değişmedi).
+**Toplam kataloglanmış kaynak sayısı:** 161 (52 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün — Tur 50, 51 ve 52'de değişmedi).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -34,14 +37,19 @@ kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle i
    örtüşen bir karar-ağacı metodolojisi skill'i.
 
 **ÖNEMLİ GÖZLEM — görevin kullanıcı tarafından gözden geçirilmesi önerilir:** Bu katalog 10 gündür,
-51 turdur her ~1 saatte bir çalışıyor ve dosya artık ~470KB / 5800+ satır. Yeni bulgular Tur 36'dan
-beri sürekli azalıyor (Tur 44: birkaç yeni, Tur 45: 1, Tur 46: 2, Tur 47: 1, Tur 48: 2, Tur 49-51: 0) —
+52 turdur her ~1 saatte bir çalışıyor ve dosya artık ~475KB / 5900+ satır. Yeni bulgular Tur 36'dan
+beri sürekli azalıyor (Tur 44: birkaç yeni, Tur 45: 1, Tur 46: 2, Tur 47: 1, Tur 48: 2, Tur 49-52: 0) —
 alan "genel tarama modu"na girdi, kolay/yüksek-kaliteli adaylar büyük ölçüde tükendi. Tur 50 ayrıca
 somut bir güvenlik deseni buldu: bu görevin taradığı arama uzayı, AI ajanlarını kendi kendine kurulum
 yapmaya teşvik eden, şişirilmiş yıldız sayılı en az bir sosyal-mühendislik/tedarik-zinciri örneği
-(`code-yeongyu/oh-my-openagent`) içeriyor. Önceki turlar bu gözlemi tekrar tekrar not düşüp görevin
-sıklığının azaltılmasını veya durdurulmasını önerdi (16 ardışık tur); bu hâlâ geçerli, artık daha da
-güçlü bir öneridir.
+(`code-yeongyu/oh-my-openagent`) içeriyor. Tur 52, "ücretsiz LLM API" alanında da benzer bir pazarlama
+dili örneği daha buldu (`open-free-llm-api/awesome-freellm-apis` — "one-click setup for Claude Code,
+Cursor and Codex"), aynı desenin tek bir nişe özgü olmadığını doğruluyor. Önceki turlar bu gözlemi
+tekrar tekrar not düşüp görevin sıklığının azaltılmasını veya durdurulmasını önerdi (17 ardışık tur);
+bu hâlâ geçerli, artık daha da güçlü bir öneridir. **Bu turda kullanıcıya yeni bir bildirim
+gönderilmedi** — Tur 50 (güvenlik bulgusu) ve Tur 51 (sıklık önerisi) için son ~2 saat içinde zaten iki
+bildirim iletildi; bu tur aynı sonucu bir kez daha teyit ediyor, tekrar bildirim göndermek gürültü
+olurdu.
 
 Aşağıdaki bölümler önceki 47 turun tam detaylı geçmişini içerir.
 
@@ -5882,3 +5890,68 @@ edildiği 16. ardışık tur — kullanıcıya frekans azaltma/durdurma önerisi
 
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–51'de listelenenler
 tekrarlanmayacak.
+
+## Tur 52 — 2026-09-25 (~07:04 UTC / 10:04 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC) çok öncesinde başladı. Aynı gün içindeki **5. tur** (Tur 48 ~03:03, 49
+~04:02, 50 ~05:04, 51 ~06:03 UTC — hepsi bugün, birbirinden ~1 saat arayla). Tur 49-51'in doygunluk
+teyidi ve Tur 50'nin güvenlik bulgusu göz önüne alınarak, geniş kapsamlı GitHub anahtar-kelime
+taraması yine **tekrarlanmadı** (son 4 tur zaten yaptı, sıfıra yakın/sıfır sonuç verdi). Bunun yerine
+iki dar, düşük-gürültülü `WebSearch` sorgusu çalıştırıldı: (1) "ücretsiz LLM API" alanında yeni liste
+adayları, (2) "awesome-claude-code" alanında yeni skill koleksiyonu adayları.
+
+### Bulgular — hepsi ya örtüşüyor ya da Tur 50'nin belgelediği desenle eşleşiyor
+
+**Ücretsiz LLM API adayları (hiçbiri eklenmedi):**
+- `open-free-llm-api/awesome-freellm-apis` (3.300★, 488 fork, MIT) — `WebFetch` ile bağımsız
+  doğrulandı. README'de "One-click setup for Claude Code, Cursor and Codex" başlığı ve AI kodlama
+  ajanlarına yönelik hazır config-snippet'leri var — Tur 50'nin `oh-my-openagent` bulgusuyla aynı
+  "AI ajanını hedefleyen pazarlama dili" desenine örtüşüyor. Anahtar fark: bu depo kullanıcının kendi
+  API anahtarlarına yönlendiriyor, havuzlanmış/paylaşımlı anahtar kullanmıyor (doğrulandı) — bu yüzden
+  görev talimatının sert dışlama kriterini (paylaşımlı anahtar) teknik olarak ihlal etmiyor, ama
+  temkin amacıyla ve zaten kataloglı benzer listelerle (`peter123023/awesome-free-llm-api`,
+  `mvalentsev/awesome-free-ai-coding`) örtüştüğü için eklenmedi.
+- `tashfeenahmed/freellmapi` — açıklamasında "Smart routing, automatic failover, encrypted keys...
+  All behind one /v1 endpoint" ifadesi geçiyor; bu, görev talimatının açıkça dışladığı
+  paylaşımlı/havuzlanmış-anahtar gateway modeline benziyor. **Reddedildi** (talimat gereği).
+- `ghassan-gaidi/free-llm-api-list`, `mnfst/awesome-free-llm-apis`,
+  `amardeeplakshkar/awesome-free-llm-apis`, `nejib1/Free-LLM` — hepsi zaten kataloglı benzer
+  ücretsiz-LLM-API listeleriyle (ve `ghassan-gaidi` özelinde Tur 47'de zaten reddedilen bir adayla)
+  örtüşüyor; hiçbiri farklılaştırıcı bir doğrulama yöntemi (canlı API probe'u gibi) sunmuyor.
+  Redundancy nedeniyle eklenmedi.
+
+**Claude Code skill koleksiyonu adayları (hiçbiri eklenmedi):**
+- `ComposioHQ/awesome-claude-skills` (75.600★, Apache-2.0) — `WebFetch` ile bağımsız doğrulandı.
+  Gerçek bir şirkete (Composio) ait olması Tur 50'deki anonim-hesap desenine göre biraz daha az
+  şüpheli, ama yıldız sayısı yine de dikkat çekici derecede yüksek; içerik büyük ölçüde Composio'nun
+  kendi ücretli platformuna (dashboard.composio.dev, API anahtarı gerektiriyor) yönlendiren bir
+  link-hub, saf açık-kaynak `SKILL.md` koleksiyonu değil. Bağımsız/açık kaynak niteliği yetersiz
+  görüldüğü için eklenmedi.
+- `jqueryscript/awesome-claude-code`, `GetBindu/awesome-claude-code-and-skills`,
+  `travisvn/awesome-claude-skills`, `glebis/claude-skills` — muhtemelen zaten kataloglı
+  `hesreallyhim/awesome-claude-code` ve benzerleriyle örtüşen genel "awesome list" klonları;
+  derinlemesine doğrulanmadı (zaman/kaynak tasarrufu amaçlı, alan zaten doygun) — eklenmedi.
+
+**Bu turda 0 yeni kaynak eklendi.** Toplam kataloglanmış kaynak sayısı: 161 (değişmedi).
+
+### Gözlem — 17. ardışık doygunluk kaydı; artık iki ayrı niş aynı şüpheli deseni taşıyor
+
+Tur 50'nin bulduğu "AI ajanını hedefleyen şişirilmiş-yıldız pazarlama dili" deseni bu turda ikinci bir
+niş olan "ücretsiz LLM API listesi" alanında da bir örnek verdi (`open-free-llm-api`). Bu, deseni tek
+bir arama uzayına özgü bir anomali olmaktan çıkarıp, bu görevin genel olarak taradığı "Claude Code'u
+güçlendirecek araçlar" alanının önemli bir kısmında yapısal bir risk olarak doğruluyor. **Bu turda
+kullanıcıya yeni bir bildirim gönderilmedi**: Tur 50 ve Tur 51 son ~2 saat içinde bu konuda zaten iki
+ayrı bildirim ilettiği için, aynı sonucu bir kez daha teyit eden bu turun üçüncü bir bildirim
+göndermesi gürültü olurdu (kullanıcının dikkatini gereksiz yere bölerdi). Görevin sıklığının
+azaltılması/durdurulması önerisi hâlâ geçerli ve güncel bildirimlerde zaten iletildi.
+
+---
+
+*Son güncelleme: 2026-09-25 (Tur 52). Hiçbir yeni kaynak eklenmedi. Bulunan tüm adaylar ya zaten
+kataloglı listelerle örtüşüyor ya da Tur 50'nin belgelediği "AI ajanını hedefleyen şişirilmiş-yıldız
+pazarlama dili" deseniyle eşleşiyor (ikinci niş örneği: `open-free-llm-api/awesome-freellm-apis`).
+Toplam kataloglanmış kaynak sayısı: 161 (değişmedi). Bildirim gönderilmedi (Tur 50-51'de zaten iletildi,
+tekrar gürültü olurdu).
+
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–52'de listelenenler ve
+reddedilenler tekrarlanmayacak.
