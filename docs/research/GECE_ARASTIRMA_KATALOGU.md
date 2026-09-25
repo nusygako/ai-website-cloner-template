@@ -1,12 +1,21 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 49, 2026-09-25, ~04:02 UTC (07:02 Türkiye saati) — kesme noktasının (12:00 UTC) çok
-öncesinde normal şekilde çalıştı. **0 yeni kaynak eklendi** — bulunan 2 aday zaten Tur 39'da aynı
-gerekçeyle reddedilmiş kaynaklardı (bkz. dosyanın "Tur 49" bölümü). Bu, alanın artık sadece önceden
-elenmiş adayları yeniden keşfettiğinin somut kanıtı; kullanıcıya ayrıca bir bildirimle iletildi.
+**Son tur:** Tur 50, 2026-09-25, ~05:04 UTC (08:04 Türkiye saati) — kesme noktasının (12:00 UTC) çok
+öncesinde normal şekilde çalıştı. **0 yeni kaynak eklendi.**
+
+**YENİ VE ÖNEMLİ BULGU — Tur 50:** Bu tur, önceki turların "alan doydu/tekrar keşfediyor" gözleminden
+farklı ve daha ciddi bir şey buldu: tam olarak bu görevin taradığı "claude code skill/subagent"
+arama uzayı, onlarca yıldızı şüpheli biçimde şişirilmiş (birkaç hafta/ay içinde 30.000-94.000★'a
+ulaşan, ama commit derinliği/organik büyüme paterniyle uyuşmayan) depoyla dolmuş durumda. En az bir
+örnek (`code-yeongyu/oh-my-openagent`, 69,4k★) doğrulanabilir yanıltıcı iddialar taşıyor ("Anthropic
+blocked OpenCode because of us" gibi) VE kullanıcıları değil doğrudan **AI ajanlarını** kendi kendine
+kurulum yapmaya teşvik ediyor ("let an LLM agent install this for you") — bu, tam olarak bu gibi
+otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedarik-zinciri deseni.
+Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
+kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
 **Toplam kataloglanmış kaynak sayısı:** 161 (49 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün).
+10 gün — Tur 50'de değişmedi).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -5756,4 +5765,76 @@ reddedilmiş kaynaklar olduğu tespit edildi. Toplam kataloglanmış kaynak say�
 
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–49'da listelenenler
 tekrarlanmayacak.
+
+---
+
+## Tur 50 — 2026-09-25
+
+Kesme noktasının (12:00 UTC) çok öncesinde başladı (~05:04 UTC / 08:04 Türkiye saati). Dosyanın
+tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 161 kaynaktan çıkan 159 benzersiz GitHub repo
+linki tekrarın önüne geçmek için çıkarıldı. `mcp__github__search_repositories` ile "claude code
+skills OR claude code subagents" (updated sıralı) ve `topic:claude-code-skills`, `topic:claude-skills`
+sorguları çalıştırıldı.
+
+### Bulgu: arama sonuçları şüpheli şekilde yüksek yıldız sayılarıyla dolu
+
+Tur 48'in gözlemlediği "0-1 yıldızlı, alakasız-topic SEO-tuzağı" spam paterninden farklı olarak, bu
+turda **tam tersi bir anomali** görüldü: tarama sonuçlarının büyük kısmı, birkaç hafta/ay önce
+oluşturulmuş ama zaten 20.000-94.000★ aralığında olan depolardan oluşuyordu — organik büyüme
+paterniyle uyuşmayan bir hız. Örnekler (hiçbiri kataloğa eklenmedi):
+
+- **thedotmack/claude-mem** — 94.643★, 2025-08-31 oluşturuldu.
+- **Egonex-AI/Understand-Anything** — 84.092★, 2026-03-15 oluşturuldu (~6 ayda bu yıldız sayısı
+  organik olarak son derece nadir).
+- **code-yeongyu/oh-my-openagent** — 69.389★, 5.715 fork. Açıklaması pazarlama-dili ağırlıklı ve
+  anlamsız ("Just type 'mass ulw' keyword... master of graph engineering"). `WebFetch` ile
+  `github.com/code-yeongyu/oh-my-openagent` sayfası bağımsız incelendi: doğrulanamayan/yanıltıcı
+  iddialar içeriyor ("Anthropic blocked OpenCode because of us"), **kullanıcıları değil AI ajanlarını
+  kendi kendine kurulum yapmaya teşvik ediyor** ("recommend letting an LLM agent install this for
+  you" — dokümantasyonu okumak yerine), birden fazla kafa karıştırıcı paket takma adı kullanıyor
+  (`oh-my-opencode`/`oh-my-openagent`/`omo-ai`/`lazycodex-ai`), ve varsayılan olarak açık PostHog
+  telemetrisi içeriyor. Bu, doğrudan bu tür otomatik gece-araştırma görevlerini (ve genel olarak
+  "bul ve kur" yapan AI ajanlarını) hedef alan bir sosyal-mühendislik/tedarik-zinciri deseni olarak
+  değerlendirildi — **eklenmedi, ek olarak bir uyarı örneği olarak burada belgelendi.**
+- **sickn33/agentic-awesome-skills** — 46.879★, 2026-01-14 oluşturuldu, "2.445+ agentic skill"
+  iddiası ile.
+- **shanraisshan/claude-code-best-practice** — 66.302★, 2025-10-31 oluşturuldu.
+- **ayghri/i-have-adhd** — 51.020★. `WebFetch` ile bağımsız incelendi; bu tekil örnekte şüpheli bir
+  içerik bulunamadı (MIT lisans, gerçek `SKILL.md`, makul kurulum talimatları) — ancak yıldız sayısının
+  kendisi (repo yaşına göre) yine de organik-büyüme normlarının dışında, bu yüzden temkin amacıyla
+  yine de kataloğa **eklenmedi** (tek bir temiz örnek, genel şüpheli paterni geçersiz kılmaz).
+- **nanocoai/nanoclaw** — 30.845★ / 12.818 fork (fork/yıldız oranı ~%42 — organik depolarda tipik
+  olarak %5-15 aralığında olur; bu oran tek başına anormal bir sinyal).
+
+**Not — oturum kapsam kısıtlaması:** Bu GitHub MCP oturumu yalnızca bu şablon deposuna
+(`nusygako/ai-website-cloner-template`) izin veriyor; `get_file_contents` başka depolarda "Access
+denied" verdi. Doğrulama bu yüzden yalnızca `WebFetch` ile herkese açık `github.com/...` sayfaları
+üzerinden yapılabildi (repo eklenmedi, kullanıcıdan izin istenmedi) — bu, dosya-seviyesi derin
+inceleme (örn. postinstall script'leri, gizli bağımlılıklar) yapılamadığı anlamına geliyor; yalnızca
+README/sayfa içeriği ve genel metadata (yıldız/fork/commit sayısı) değerlendirilebildi.
+
+**Sonuç:** Bu turda **0 yeni kaynak eklendi**. Yukarıdaki yüksek-yıldızlı adayların hiçbiri görev
+talimatındaki "kanıt" barını (bağımsız, tutarlı meşruiyet kanıtı) geçemedi — ya şüpheli
+büyüme/pazarlama paterni taşıyordu ya da doğrulama oturumun repo-kapsam kısıtlaması nedeniyle dosya
+seviyesinde tamamlanamadı. Toplam kataloglanmış kaynak sayısı: 161 (değişmedi).
+
+**Kullanıcıya öneri:** Bu görev artık iki ayrı ve birikmiş sorun taşıyor: (1) Tur 36'dan beri
+tekrarlanan doygunluk gözlemi (kolay/yüksek-kaliteli adaylar tükendi) ve (2) bu turda ortaya çıkan
+yeni gözlem — tam olarak aranan alanın (Claude Code skill/subagent depoları) şişirilmiş
+yıldız sayıları ve en az bir AI-ajan-hedefli sosyal-mühendislik örneğiyle kirlenmiş olması. İkinci
+bulgu, görevin gelecekte otomatik olarak "meşru" damgalı bir kaynağı yanlışlıkla kataloğa ekleme
+riskini artırıyor. Görevin sıklığının azaltılması veya durdurulması, ve/veya doğrulama adımına yıldız-
+büyüme-hızı kontrolü eklenmesi önerilir.
+
+---
+
+*Son güncelleme: 2026-09-25 (Tur 50). Hiçbir yeni kaynak eklenmedi. Bu turun asıl bulgusu, "claude
+code skill/subagent" arama uzayının şüpheli şekilde şişirilmiş yıldız sayılarıyla ve en az bir
+AI-ajan-hedefli sosyal-mühendislik örneğiyle (`oh-my-openagent`) kirlenmiş olmasıydı — hiçbiri
+kataloğa eklenmedi, sadece belgelendi ve kullanıcıya bildirimle iletildi. Toplam kataloglanmış kaynak
+sayısı: 161 (değişmedi).
+
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–50'de listelenenler
+tekrarlanmayacak; ek olarak gelecekteki turların doğrulama adımına yıldız-büyüme-hızı makul
+kontrolü eklemesi önerilir.
 
