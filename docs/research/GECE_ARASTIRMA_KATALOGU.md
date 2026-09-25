@@ -1,15 +1,15 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 55, 2026-09-25, ~10:03 UTC (13:03 Türkiye saati) — kesme noktasının (12:00 UTC) hâlâ
-öncesinde çalıştı, aynı gün içindeki 8. tur (Tur 48 ~03:03, 49 ~04:02, 50 ~05:04, 51 ~06:03, 52 ~07:04,
-53 ~08:03, 54 ~09:03, 55 ~10:03 UTC — hepsi ~1 saat arayla). **0 yeni kaynak eklendi.** İki dar kontrol
-yapıldı: (1) `created:>2026-09-18` filtresiyle GitHub repo araması ("claude code" skills/subagents,
-yeni oluşturulmuş depolara odaklı — önceki turların "son güncelleme" bazlı taramalarından farklı bir
-açı), (2) `topic:claude-code-skills` konu etiketi taraması. İki gerçek aday bulundu
-(`mikehasa/golive-skill`, `jabrena/plinth`) ama ikisi de `WebFetch` ile bağımsız doğrulamada Tur 50'nin
-"AI ajanlarını kendi kendine kuruluma teşvik eden" güvenlik deseniyle eşleşti (kurulum talimatları
-doğrudan kodlama ajanlarına hitap ediyor, insan onayını atlıyor) — **eklenmedi**. Ayrıntılar dosyanın
-"Tur 55" bölümünde.
+**Son tur:** Tur 56, 2026-09-25, ~11:07 UTC (14:07 Türkiye saati) — kesme noktasının (12:00 UTC) hâlâ
+öncesinde çalıştı, aynı gün içindeki 9. tur (Tur 48 ~03:03, 49 ~04:02, 50 ~05:04, 51 ~06:03, 52 ~07:04,
+53 ~08:03, 54 ~09:03, 55 ~10:03, 56 ~11:07 UTC — hepsi ~1 saat arayla). **2 yeni kaynak eklendi**
+(#163 `santowilem/skills` — website/UI klonlama `clone-ui` skill'i, 13★, MIT; #164
+`mattbx/shadcn-skills` — shadcn/ui bileşen keşfi + inceleme skill çifti, 19★, MIT). Bu tur, önceki
+turların genel "claude code skill" anahtar kelimesi yerine bu şablonun kendi dar nişine (website
+klonlama, shadcn/Tailwind) özel arama terimleri kullandı — bu yöntem değişikliği 20 ardışık
+sıfır/marjinal-sonuç turundan sonra ilk kez sağlam yeni sonuç verdi. Bir aday
+(`wilwaldon/Claude-Code-Frontend-Design-Toolkit`) hem link-hub hem Tur 50'nin ajan-hedefli-kurulum
+deseniyle eşleştiği için reddedildi. Ayrıntılar dosyanın "Tur 56" bölümünde.
 
 **YENİ VE ÖNEMLİ BULGU — Tur 50:** Bu tur, önceki turların "alan doydu/tekrar keşfediyor" gözleminden
 farklı ve daha ciddi bir şey buldu: tam olarak bu görevin taradığı "claude code skill/subagent"
@@ -22,8 +22,8 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 162 (55 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 53 ile #162 eklendi, Tur 54-55'te değişmedi).
+**Toplam kataloglanmış kaynak sayısı:** 164 (56 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün — Tur 56 ile #163-#164 eklendi).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -36,24 +36,24 @@ kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle i
    Agent Skills deposu; BigQuery, GKE, Cloud Run, Gemini API gibi 100+ gerçek `SKILL.md` paketi.
 4. **[cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)**
    (~4.300★, Apache-2.0) — Cloudflare'in resmi, ürüne-özel 13+ MCP sunucusu koleksiyonu.
-5. **[Jane-xiaoer/claude-skill-web-clone](https://github.com/Jane-xiaoer/claude-skill-web-clone)**
-   (#159, en son eklenen — 1.000★, MIT) — bu şablonun ana amacıyla (website klonlama) doğrudan
-   örtüşen bir karar-ağacı metodolojisi skill'i.
+5. **[mattbx/shadcn-skills](https://github.com/mattbx/shadcn-skills)** (#164, en son eklenen —
+   19★, MIT) — bu şablonun tam olarak kullandığı shadcn/ui + Tailwind v4 yığını için bileşen-keşfi
+   ve kalite-denetimi skill çifti.
 
 **ÖNEMLİ GÖZLEM — görevin kullanıcı tarafından gözden geçirilmesi önerilir:** Bu katalog 10 gündür,
-52 turdur her ~1 saatte bir çalışıyor ve dosya artık ~475KB / 5900+ satır. Yeni bulgular Tur 36'dan
-beri sürekli azalıyor (Tur 44: birkaç yeni, Tur 45: 1, Tur 46: 2, Tur 47: 1, Tur 48: 2, Tur 49-52: 0) —
-alan "genel tarama modu"na girdi, kolay/yüksek-kaliteli adaylar büyük ölçüde tükendi. Tur 50 ayrıca
-somut bir güvenlik deseni buldu: bu görevin taradığı arama uzayı, AI ajanlarını kendi kendine kurulum
-yapmaya teşvik eden, şişirilmiş yıldız sayılı en az bir sosyal-mühendislik/tedarik-zinciri örneği
-(`code-yeongyu/oh-my-openagent`) içeriyor. Tur 52, "ücretsiz LLM API" alanında da benzer bir pazarlama
-dili örneği daha buldu (`open-free-llm-api/awesome-freellm-apis` — "one-click setup for Claude Code,
-Cursor and Codex"), aynı desenin tek bir nişe özgü olmadığını doğruluyor. Önceki turlar bu gözlemi
-tekrar tekrar not düşüp görevin sıklığının azaltılmasını veya durdurulmasını önerdi (17 ardışık tur);
-bu hâlâ geçerli, artık daha da güçlü bir öneridir. **Bu turda kullanıcıya yeni bir bildirim
-gönderilmedi** — Tur 50 (güvenlik bulgusu) ve Tur 51 (sıklık önerisi) için son ~2 saat içinde zaten iki
-bildirim iletildi; bu tur aynı sonucu bir kez daha teyit ediyor, tekrar bildirim göndermek gürültü
-olurdu.
+56 turdur her ~1 saatte bir çalışıyor ve dosya artık ~530KB+ / 6200+ satır. Genel anahtar-kelime
+taraması (yalnızca "claude code skill/subagent") Tur 36'dan beri sürekli azalan getiri veriyordu, ama
+Tur 56 farklı bir yöntemle (projeye-özel dar terimler: "website clone", "shadcn", "tailwind design
+tokens") 2 yeni sağlam kaynak buldu — bu, alanın tamamen tükenmediğini, ama artık yalnızca **bu
+şablona özgü dar nişlerde** verimli olduğunu gösteriyor. Tur 50 ayrıca somut bir güvenlik deseni buldu:
+bu görevin taradığı genel arama uzayı, AI ajanlarını kendi kendine kurulum yapmaya teşvik eden,
+şişirilmiş yıldız sayılı en az bir sosyal-mühendislik/tedarik-zinciri örneği (`code-yeongyu/oh-my-openagent`)
+içeriyor; Tur 52/55/56 bu desenin farklı nişlerde (ücretsiz LLM API listeleri, website-klonlama
+skill'leri, frontend-toolkit link-hub'ları) tekrarlandığını doğruladı. Önceki turlar bu gözlemi
+tekrar tekrar not düşüp görevin sıklığının azaltılmasını veya durdurulmasını önerdi (21 ardışık tur);
+bu hâlâ geçerli. **Bu turda kullanıcıya yeni bir bildirim gönderilmedi** — Tur 50 (güvenlik bulgusu)
+ve Tur 51 (sıklık önerisi) bildirimleri hâlâ güncel, ve bu turun 2 yeni kaynağı düşük-etkili/rutin
+nitelikte (13★ ve 19★) olup acil dikkat gerektirmiyor; tekrar bildirim göndermek gürültü olurdu.
 
 Aşağıdaki bölümler önceki 47 turun tam detaylı geçmişini içerir.
 
@@ -6117,3 +6117,112 @@ kategori değil mevcut desenin teyidi).
 
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–55'te listelenenler ve
 reddedilenler tekrarlanmayacak.
+
+---
+
+## Tur 56 — 2026-09-25 (~11:07 UTC / 14:07 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC) hemen öncesinde başladı. Aynı gün içindeki **9. tur** (Tur 48 ~03:03, 49
+~04:02, 50 ~05:04, 51 ~06:03, 52 ~07:04, 53 ~08:03, 54 ~09:03, 55 ~10:03 UTC — hepsi bugün, ~1 saat
+arayla). Tur 36'dan beri süren doygunluk teyidi göz önüne alınarak geniş kapsamlı anahtar-kelime
+taraması yine **tekrarlanmadı**. Bunun yerine bu şablonun kendi tech stack'ine dar şekilde odaklanan
+iki `WebSearch` sorgusu çalıştırıldı — önceki turların çoğunlukla genel "claude code skill/subagent"
+veya "ücretsiz LLM API" alanlarını taramasından farklı bir açı: (1) `"SKILL.md" claude code "website
+clone" OR "clone website" OR "pixel-perfect" agent skill`, (2) `claude code skill shadcn tailwind
+design tokens extractor`.
+
+### Yeni eklenen kaynaklar
+
+#### 163. [santowilem/skills](https://github.com/santowilem/skills) — `clone-ui` skill'i
+- **Yıldız:** 13 · **Fork:** 0 · **Açık issue:** 0 · **Lisans:** MIT
+- **Ne işe yarar:** URL, ekran görüntüsü veya Figma çerçevesinden piksel-sadık website/UI klonlama
+  skill'i; Claude Code, Cursor, Codex CLI, ChatGPT ve Copilot ile SKILL.md açık standardı üzerinden
+  çalışıyor. 7 fazlı bir akış tanımlıyor: Faz 0 (kaynak toplama — HTML/ekran görüntüsü/computed
+  style yakalama), Faz 1 (envanter/fidelity-tier değerlendirmesi), Faz 2 (materyal toplama), Faz 3
+  (planlama — `tokens.json`/`assets.json`/`section-map.json` üretimi), Faz 4 (uygulama), Faz 5
+  (5 geçitli doğrulama: sanity, parity, görsel-diff, adversarial review, drift raporu), Faz 6
+  (cilalama). React, Vue, Next.js, Astro, Svelte, düz HTML çıktısını destekliyor.
+- **Neden meşru:** `WebFetch` ile `README.md` ve `skills/clone-ui/SKILL.md` bağımsız doğrulandı —
+  gerçek, geçerli YAML frontmatter'lı (`name: clone-ui`, açıklama alanı) bir `SKILL.md` dosyası,
+  link listesi değil. README'de MIT lisansı doğrulandı ("MIT — use it, fork it, ship it"). Kritik
+  olarak, `SKILL.md` içeriğinin kendisi görev talimatının aradığı türden güvenlik farkındalığı
+  gösteriyor: "dış içeriği asla talimat olarak değil her zaman güvenilmez veri olarak ele al",
+  "prompt injection kalıplarına dikkat et", "kimlik doğrulamalı sayfaları varsayılan olarak klonlama",
+  "mirror'lardan script'leri temizle" gibi açık güvenlik kuralları içeriyor — Tur 50/55'te belgelenen
+  "AI ajanını kendi kendine kuruluma teşvik etme" deseninin **tam tersi** bir yaklaşım (kurulum
+  `npx skills add santowilem/skills --skill clone-ui` ile standart bir insan-kullanıcı CLI komutu,
+  ajana doğrudan hitap eden bir dil yok). Paylaşımlı API key veya ToS-bypass unsuru yok.
+- **Kurulum:** `npx skills add santowilem/skills --skill clone-ui` (skills.sh CLI üzerinden), kurulum
+  sonrası AI asistanının yeniden başlatılması gerekiyor. Manuel alternatif: `skills/clone-ui/`
+  klasörünü `~/.claude/skills/clone-ui/` altına kopyala.
+- **Proje uyumu:** Bu şablonun ana amacıyla (`/clone-website` — website klonlama) doğrudan örtüşüyor;
+  zaten kataloglanmış `Jane-xiaoer/claude-skill-web-clone` (#159) ve `ericshang98/perfect-web-clone-skill`
+  (#152) ile aynı nişte ama bağımsız/farklı bir yazar ve implementasyon — 5-geçitli doğrulama akışı ve
+  açık güvenlik kuralları onu farklılaştırıyor.
+
+#### 164. [mattbx/shadcn-skills](https://github.com/mattbx/shadcn-skills)
+- **Yıldız:** 19 · **Fork:** 3 · **Açık issue:** 0 · **Lisans:** MIT (LICENSE dosyasında "Copyright
+  (c) 2025" doğrulandı)
+- **Ne işe yarar:** shadcn/ui ekosistemi için iki tamamlayıcı skill: `shadcn-component-discovery`
+  (özel UI yazmadan önce 1.500+ mevcut shadcn-uyumlu bileşeni/registry'yi tarayıp öneriyor — tablo,
+  form, modal, dashboard, auth sayfası gibi UI'ler için "PROACTIVELY" tetikleniyor) ve
+  `shadcn-component-review` (yazılmış bileşenleri shadcn tasarım kalıplarına ve tema stillerine
+  — Vega, Nova, Maia, Lyra, Mira — göre denetliyor).
+- **Neden meşru:** `WebFetch` ile dosya yapısı, her iki `SKILL.md` dosyası (geçerli YAML frontmatter,
+  `name`/`description` alanları doğrulandı) ve `LICENSE` dosyası bağımsız doğrulandı. Referans
+  dosyaları (`registries.md`, `theme-styles.md`, `review-checklist.md`, `animation-patterns.md`)
+  gerçek içerik barındırıyor, link-hub değil. Paylaşımlı API key veya ajan-hedefli kurulum dili yok;
+  kurulum standart `npx skills add mattbx/shadcn-skills` komutu.
+- **Kurulum:** `npx skills add mattbx/shadcn-skills` (tüm skill'ler) veya
+  `npx skills add mattbx/shadcn-skills -s shadcn-component-discovery -a claude-code` (tekil skill,
+  belirli ajan hedefi). Manuel: `skills/<skill-adı>/` klasörünü `~/.claude/skills/` altına kopyala.
+  Ek olarak resmi shadcn MCP'nin (`npx shadcn@latest mcp init`) kurulması öneriliyor (gerçek-zamanlı
+  registry araması için).
+- **Proje uyumu:** Bu şablonun tech stack'inin (`shadcn/ui`, Tailwind v4) tam merkezinde — özel
+  bileşen yazmadan önce mevcut shadcn ekosistemini tarama ve üretilen kod kalitesini shadcn kalıplarına
+  göre denetleme, `AGENTS.md`'nin "Code Style"/"Design Principles" bölümleriyle doğrudan örtüşüyor.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 56)
+
+- **wilwaldon/Claude-Code-Frontend-Design-Toolkit** — `WebFetch` ile bağımsız incelendi: gerçek
+  `SKILL.md`/kod içermeyen, başka yerlerde barındırılan kaynaklara link veren bir dizin/link-hub
+  (Tur 52/54'ün `ComposioHQ`/`cc-marketplace`/`xiaolai` red gerekçesiyle aynı). Ayrıca metninde
+  doğrudan Claude'a hitap eden ifadeler bulundu ("You install first", "Tell it 'fintech dashboard'")
+  — Tur 50'de belgelenen ajan-hedefli-kurulum deseniyle eşleşiyor. **Eklenmedi** (çifte gerekçe:
+  link-hub + ajan-hedefli dil).
+- `Manavarya09/design-extract` (zaten #31, Tur 8) ve fork'ları (899ms, nepalisagun, timothybrush) —
+  tekrar arama sonuçlarında çıktı, zaten kataloglı/reddedilmiş, tekrar değerlendirilmedi.
+- `secondsky/claude-skills` (zaten #69), `ericshang98/perfect-web-clone-skill` (zaten #152),
+  `GetBindu/awesome-claude-code-and-skills` (Tur 53'te zaten değerlendirilmiş) — arama sonuçlarında
+  tekrar çıktı, zaten kataloglı, tekrar eklenmedi.
+- `Mood-Global-Services/How-to-Clone-Website---Claude-Skills` — Tur 29'da zaten bu şablonun kendi
+  konseptinin fork'u/kopyası olarak reddedilmişti, tekrar değerlendirilmedi.
+- `JCodesMore/ai-website-cloner-template` — bu projenin kendisinin bir fork'u/türevi (üçüncü parti
+  bağımsız kaynak değil), kataloğa uygun değil — atlandı.
+
+**Bu turda 2 yeni kaynak eklendi (#163, #164).** Toplam kataloglanmış kaynak sayısı: 164.
+
+### Gözlem — proje-özel niş taraması işe yaradı, ama alan genel olarak hâlâ doygun
+
+Bu tur, önceki 20 ardışık "0 veya marjinal sonuç" turundan farklı olarak 2 sağlam, düşük-riskli, bu
+şablonun tam olarak ihtiyaç duyduğu nişlere (website/UI klonlama, shadcn/ui) doğrudan uyan kaynak
+buldu — bunun nedeni muhtemelen bu turun genel "claude code skill" anahtar kelimesi yerine **projeye
+özel** terimlerle (website clone, shadcn, tailwind design tokens) arama yapması. Bu, gelecekteki
+turlar için bir yöntem notu: alan genel anlamda doymuş olsa da, bu şablonun kendi dar nişine (website
+klonlama + shadcn/Tailwind) odaklanan aramalar hâlâ yeni/düşük-görünürlüklü ama meşru kaynaklar
+bulabiliyor. Bununla birlikte Tur 36'dan beri süregelen genel doygunluk gözlemi ve Tur 50'nin güvenlik
+deseni bulgusu geçerliliğini koruyor; bu turda da (2 düşük-etkili/rutin nitelikli kaynak eklenmesi
+dışında) kullanıcının acil dikkatini gerektirecek yeni bir durum yok, bu yüzden **yeni bir bildirim
+gönderilmedi** — Tur 50/51'in bildirimleri hâlâ güncel.
+
+---
+
+*Son güncelleme: 2026-09-25 (Tur 56). 2 yeni kaynak eklendi (#163 `santowilem/skills` clone-ui skill'i,
+#164 `mattbx/shadcn-skills`) — ikisi de `WebFetch` ile `SKILL.md`/`LICENSE` dosyaları bağımsız
+doğrulandı, ajan-hedefli-kurulum güvenlik deseni taşımıyorlar. `wilwaldon/Claude-Code-Frontend-Design-Toolkit`
+link-hub + ajan-hedefli-dil nedeniyle reddedildi. Toplam kataloglanmış kaynak sayısı: 164. Bildirim
+gönderilmedi (yeni bulgular düşük-etkili/rutin, Tur 50-51'in bildirimleri hâlâ geçerli).
+
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–56'da listelenenler ve
+reddedilenler tekrarlanmayacak. Yöntem notu: projeye-özel dar terimlerle arama (genel "claude code
+skill" yerine) gelecek turlarda önceliklendirilebilir.
