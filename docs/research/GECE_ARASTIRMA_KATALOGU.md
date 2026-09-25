@@ -1,13 +1,12 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Durdurma zamanı:** 2026-09-24, ~12:05 UTC (15:05 Türkiye saati) — görev talimatındaki 12:00 UTC
-(15:00 Türkiye) kesme noktası bu oturum BAŞLARKEN zaten geçilmişti, bu yüzden bu oturum yeni arama
-YAPMADI, sadece bu özeti güncelledi. Aynı gün içinde daha erken çalışan Tur 47 (~11:04 UTC'de
-başlayıp kesme noktasından önce normal şekilde tamamlanmış) kataloğa bir yeni madde (#159) eklemişti;
-bu oturum sadece bu özeti o turun sonucunu yansıtacak şekilde tazeledi.
+**Son tur:** Tur 49, 2026-09-25, ~04:02 UTC (07:02 Türkiye saati) — kesme noktasının (12:00 UTC) çok
+öncesinde normal şekilde çalıştı. **0 yeni kaynak eklendi** — bulunan 2 aday zaten Tur 39'da aynı
+gerekçeyle reddedilmiş kaynaklardı (bkz. dosyanın "Tur 49" bölümü). Bu, alanın artık sadece önceden
+elenmiş adayları yeniden keşfettiğinin somut kanıtı; kullanıcıya ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 159 (47 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-9 gün).
+**Toplam kataloglanmış kaynak sayısı:** 161 (49 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -5715,5 +5714,46 @@ skill'i, #161 `free-search-mcp` anahtarsız araştırma MCP sunucusu) — ikisi 
 sonucu) adaylar görev talimatına uygun şekilde reddedildi. Toplam kataloglanmış kaynak sayısı: 161.
 
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–48'de listelenenler
+tekrarlanmayacak.
+
+---
+
+## Tur 49 — 2026-09-25
+
+Kesme noktasının (12:00 UTC) çok öncesinde başladı (~04:02 UTC / 07:02 Türkiye saati) — Tur 48'in
+bitişinden (~03:03 UTC) sadece ~1 saat sonra, aynı gün içinde. Dosyanın tamamı `grep -oE
+'github\.com/...'` ile taranıp mevcut 161 kaynaktan çıkan 157 benzersiz GitHub repo linki tekrarın
+önüne geçmek için çıkarıldı. Araştırma bir general-purpose alt-agent'a devredildi; 157 mevcut kaynağın
+tam listesi + görev talimatındaki hariç-tutma kriterleri verildi, resmi kurumsal skill koleksiyonlarına
+ve website-klonlamaya özel yeni araçlara öncelik verilmesi istendi.
+
+Alt-agent 2 aday buldu (`supabase/agent-skills`, `neondatabase/agent-skills`), ana oturum ikisini de
+kendi `WebFetch` çağrılarıyla bağımsız doğruladı (yıldız/fork/lisans/SKILL.md içeriği tutarlıydı:
+supabase/agent-skills 2.700★/211 fork/MIT, neondatabase/agent-skills 90★/19 fork/5 açık issue/
+Apache-2.0). **Ancak ikisi de eklenmedi** — dosya araması sırasında `neondatabase/agent-skills`'in
+zaten **Tur 39'da** aynı gerekçeyle değerlendirilip reddedildiği bulundu (satır ~4670: zaten kataloglı
+`planetscale/database-skills` ile işlevsel olarak örtüşüyor, ve bu şablon projesinin bir veritabanı
+katmanı yok). Aynı gerekçe `supabase/agent-skills` için de geçerli: proje kod tabanında (`grep -ri
+supabase`) hiçbir Supabase kullanımı yok, sadece bu katalog dosyasında geçiyor; ikinci bir DB-sağlayıcı-
+özel skill paketi eklemek projenin ihtiyaçlarıyla örtüşmüyor. **Bu turda 0 yeni kaynak eklendi.**
+
+**Toplam:** 161 doğrulanmış kaynak (Tur 48'den değişmedi).
+
+**Gözlem (Tur 49 — 10. kez tekrarlanan aynı uyarı):** Bu, kataloğun 10. gününde 49. turu (saatte bir
+çalışıyor). Bu tur, saturasyonun daha da ilerlediğinin somut bir kanıtı: alt-agent'ın bulduğu tek iki
+aday, 10 tur önce (Tur 39) zaten aynı projeye-uygunsuzluk gerekçesiyle reddedilmiş kaynaklardı — yani
+alan artık sadece önceden-elenmiş adayları yeniden keşfediyor, gerçekten yeni bir şey bulamıyor. Tur
+36'dan beri (13 turdur) her tur bu gözlemi tekrarlayıp kullanıcının sıklığı azaltmasını veya görevi
+durdurmasını önerdi; bu artık rutin bir not değil, kullanıcının dikkatine sunulması gereken bir
+durum — bu turdan itibaren bu gözlem ayrıca kullanıcıya doğrudan bir bildirimle iletildi.
+
+---
+
+*Son güncelleme: 2026-09-25 (Tur 49). Hiçbir yeni kaynak eklenmedi — bulunan 2 aday
+(`supabase/agent-skills`, `neondatabase/agent-skills`) bağımsız doğrulandı ama Tur 39'da aynı
+gerekçeyle (projenin veritabanı katmanı yok, `planetscale/database-skills` ile redundant) zaten
+reddedilmiş kaynaklar olduğu tespit edildi. Toplam kataloglanmış kaynak sayısı: 161 (değişmedi).
+
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–49'da listelenenler
 tekrarlanmayacak.
 
