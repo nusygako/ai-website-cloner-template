@@ -1,7 +1,8 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 50, 2026-09-25, ~05:04 UTC (08:04 Türkiye saati) — kesme noktasının (12:00 UTC) çok
-öncesinde normal şekilde çalıştı. **0 yeni kaynak eklendi.**
+**Son tur:** Tur 51, 2026-09-25, ~06:03 UTC (09:03 Türkiye saati) — kesme noktasının (12:00 UTC) çok
+öncesinde normal şekilde çalıştı, aynı gün içindeki 4. tur. **0 yeni kaynak eklendi** (dar kapsamlı
+kontrolde bulunan 4 Anthropic deposu Claude Cowork'e özel olup kapsam dışı kaldığı için eklenmedi).
 
 **YENİ VE ÖNEMLİ BULGU — Tur 50:** Bu tur, önceki turların "alan doydu/tekrar keşfediyor" gözleminden
 farklı ve daha ciddi bir şey buldu: tam olarak bu görevin taradığı "claude code skill/subagent"
@@ -14,8 +15,8 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 161 (49 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 50'de değişmedi).
+**Toplam kataloglanmış kaynak sayısı:** 161 (51 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün — Tur 50 ve 51'de değişmedi).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -32,12 +33,15 @@ kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle i
    (#159, en son eklenen — 1.000★, MIT) — bu şablonun ana amacıyla (website klonlama) doğrudan
    örtüşen bir karar-ağacı metodolojisi skill'i.
 
-**ÖNEMLİ GÖZLEM — görevin kullanıcı tarafından gözden geçirilmesi önerilir:** Bu katalog 9 gündür,
-47+ turdur her ~1 saatte bir çalışıyor ve dosya artık ~450KB / 5500+ satır. Yeni bulgular Tur 36'dan
-beri sürekli azalıyor (Tur 44: birkaç yeni, Tur 45: 1, Tur 46: 2, Tur 47: 1) — alan "genel tarama
-modu"na girdi, kolay/yüksek-kaliteli adaylar byük ölçüde tükendi. Önceki turlar da bu gözlemi tekrar
-tekrar not düşüp görevin sıklığının azaltılmasını veya durdurulmasının değerlendirilmesini önerdi;
-bu hâlâ geçerli bir öneridir.
+**ÖNEMLİ GÖZLEM — görevin kullanıcı tarafından gözden geçirilmesi önerilir:** Bu katalog 10 gündür,
+51 turdur her ~1 saatte bir çalışıyor ve dosya artık ~470KB / 5800+ satır. Yeni bulgular Tur 36'dan
+beri sürekli azalıyor (Tur 44: birkaç yeni, Tur 45: 1, Tur 46: 2, Tur 47: 1, Tur 48: 2, Tur 49-51: 0) —
+alan "genel tarama modu"na girdi, kolay/yüksek-kaliteli adaylar büyük ölçüde tükendi. Tur 50 ayrıca
+somut bir güvenlik deseni buldu: bu görevin taradığı arama uzayı, AI ajanlarını kendi kendine kurulum
+yapmaya teşvik eden, şişirilmiş yıldız sayılı en az bir sosyal-mühendislik/tedarik-zinciri örneği
+(`code-yeongyu/oh-my-openagent`) içeriyor. Önceki turlar bu gözlemi tekrar tekrar not düşüp görevin
+sıklığının azaltılmasını veya durdurulmasını önerdi (16 ardışık tur); bu hâlâ geçerli, artık daha da
+güçlü bir öneridir.
 
 Aşağıdaki bölümler önceki 47 turun tam detaylı geçmişini içerir.
 
@@ -5838,3 +5842,43 @@ Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–50'd
 tekrarlanmayacak; ek olarak gelecekteki turların doğrulama adımına yıldız-büyüme-hızı makul
 kontrolü eklemesi önerilir.
 
+## Tur 51 — 2026-09-25 (~06:03 UTC / 09:03 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC) çok öncesinde başladı. Bu, aynı gün içindeki **4. tur** (Tur 48 ~03:03,
+Tur 49 ~04:02, Tur 50 ~05:04 UTC — hepsi bugün, birbirinden ~1 saat arayla). Tur 48-50'nin doygunluk
+bulgusu ve Tur 50'nin güvenlik bulgusu (`oh-my-openagent` — AI ajanlarını hedef alan şişirilmiş-yıldız
+sosyal-mühendislik deseni) göz önüne alınarak, bu turda geniş kapsamlı yeni bir GitHub anahtar kelime
+taraması **tekrarlanmadı** (son 3 turun hepsi bunu zaten yaptı ve sıfıra yakın/sıfır yeni sonuç buldu;
+tekrarı kaynak israfı olurdu). Bunun yerine dar kapsamlı, düşük-gürültülü bir kontrol yapıldı: `WebFetch`
+ile `github.com/orgs/anthropics/repositories` resmi organizasyon sayfası tazelik sırasına göre tarandı.
+
+### Bulgu — yeni resmi Anthropic deposu yok (proje kapsamında)
+
+Taramada görünen depolar: `skills`, `claude-code`, `claude-plugins-official` (üçü de zaten kataloglı —
+sırasıyla #4, Tur 1 #1, #52), ve üç Cowork-odaklı dikey eklenti paketi: `claude-for-legal`,
+`claude-for-financial-advisors`, `knowledge-work-plugins`, artı `launch-your-agent`. Bu dördü
+**eklenmedi** — hepsi Claude Cowork/Managed Agent ürünlerine özel (hukuk, finansal danışmanlık,
+bilgi-işçisi iş akışları, agent lansmanı), görev talimatının hedefi olan "Claude Code'u güçlendirecek"
+kapsamıyla örtüşmüyor ve bu şablonun web-klonlama tech stack'iyle hiçbir ilgisi yok.
+
+**Bu turda 0 yeni kaynak eklendi.** Toplam kataloglanmış kaynak sayısı: 161 (değişmedi).
+
+### Gözlem — 16. ardışık doygunluk kaydı, sıklık artık kullanıcı kararı gerektiriyor
+
+Bu, Tur 36'dan beri doygunluğun tekrar teyit edildiği **16. ardışık tur**. Katalog artık 10 gündür,
+saatte bir çalışıyor, 51 tur ve ~470KB. Tur 50 somut bir güvenlik deseni belgeledi ve kullanıcıya
+bildirim önerdi/iletti; bu tur o bulguyu değiştirmiyor, sadece doğruluyor. Görev talimatının kendisi bu
+kararı veremez (frekans/durdurma kullanıcı tarafından ayarlanan zamanlanmış görev yapılandırmasının bir
+parçası, bu oturumun içinden değiştirilemiyor) — bu yüzden bu oturum, dosyaya not düşmenin ötesinde,
+kullanıcıya doğrudan bir bildirimle durumu iletiyor.
+
+---
+
+*Son güncelleme: 2026-09-25 (Tur 51). Hiçbir yeni kaynak eklenmedi — dar kapsamlı resmi-organizasyon
+kontrolünde bulunan 4 depo (`claude-for-legal`, `claude-for-financial-advisors`,
+`knowledge-work-plugins`, `launch-your-agent`) Claude Cowork'e özel olup Claude Code kapsamı dışında
+kaldığı için eklenmedi. Toplam kataloglanmış kaynak sayısı: 161 (değişmedi). Bu, doygunluğun teyit
+edildiği 16. ardışık tur — kullanıcıya frekans azaltma/durdurma önerisiyle birlikte bildirim gönderildi.
+
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–51'de listelenenler
+tekrarlanmayacak.
