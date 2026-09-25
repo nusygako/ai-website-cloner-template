@@ -5607,3 +5607,113 @@ düşüyor gibi görünüyor; kullanıcı turun sıklığını azaltmayı veya g
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–47'de listelenenler
 tekrarlanmayacak.
 
+---
+
+## Tur 48 — 2026-09-25
+
+Kesme noktasının (12:00 UTC) öncesinde başladı (~03:03 UTC / 06:03 Türkiye saati) — kataloğun 10.
+gününün ilk turu. Dosyanın tamamı `grep -oE 'github\.com/...'` ile taranıp mevcut 159 kaynaktan çıkan
+~180 benzersiz GitHub repo linki tekrarın önüne geçmek için çıkarıldı. `mcp__github__search_repositories`
+ile üç niş tazelik taraması yapıldı ("claude code skill", "claude code subagents", "free llm api key",
+hepsi `pushed:>2026-09-10/15` filtresiyle, en son güncellenene göre sıralı). Bu oturumda GitHub MCP
+sunucusunun repo kapsamı yalnızca bu şablon reposuyla sınırlı olduğundan (`get_file_contents` başka
+repolarda "Access denied" verdi), aday doğrulaması önceki turlardaki gibi `WebFetch` ile
+`raw.githubusercontent.com` üzerinden bağımsız yapıldı.
+
+**Genel gözlem:** Tarama sonuçlarının büyük kısmı, gerçek "claude-code"/"subagents" konusuyla hiçbir
+ilgisi olmayan onlarca alakasız GitHub topic etiketiyle (`civ4`, `modbus`, `pcap`, `rocketmq`,
+`tcp-ip`, `openclaw`, `moltbot`, `clawdbot`, `smpl` vb.) doldurulmuş, çoğu 0-1 yıldızlı, otomatik/toplu
+üretilmiş görünen "SEO-tuzağı" repolardan oluşuyordu — bu, alanın Tur 36'dan beri doymuş olmasının yanı
+sıra, arama sonuçlarının giderek düşük kaliteli/spam içerikle kirlendiğine işaret ediyor. Yine de iki
+gerçek, iyi benimsenmiş ve talimattaki hariç-tutma kriterlerinin hiçbirine takılmayan yeni kaynak
+bulundu.
+
+### A) Skill — Yazım Kalitesi / AI-Yazım Tespiti (proje-özel değil, genel amaçlı içerik üretimi)
+
+#### 160. [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing)
+- **Yıldız:** ~4.700 · **Fork:** 407 · **Açık issue:** 39 · **Lisans:** MIT
+- **Güncellik:** aktif — 450+ commit, ana branch üzerinde sık güncelleme; bugün (2026-09-25) dahil
+  `updated_at` sürekli tazeleniyor.
+- **Ne işe yarar:** İçerikteki "AI-izm" kalıplarını (klişe geçişler, chatbot artefaktları, belirsiz
+  atıflar, aşırı em-dash kullanımı vb.) P0/P1/P2 önem seviyelerine göre tespit edip insan sesine yakın
+  şekilde yeniden yazan bir yazım-kalitesi skill'i. Üç mod sunuyor: rewrite (varsayılan), detect-only,
+  edit-in-place. Kod bloklarını, alıntıları, tabloları ve URL'leri koruyarak düzenliyor; casual/
+  professional/technical/warm/blunt gibi ses profilleri var.
+- **Neden meşru:** `WebFetch` ile `README.md`, `SKILL.md` ve `LICENSE` bağımsız doğrulandı. `LICENSE`
+  dosyasında tam metin "MIT License / Copyright (c) 2026 Conor Bronsdon" olarak teyit edildi. `SKILL.md`
+  geçerli YAML frontmatter içeriyor (`name: avoid-ai-writing`, `version: 3.36.0`). Tespit motoru
+  "deterministic engine with zero external dependencies" — tamamen yerelde (Node.js ≥18 veya tarayıcıda)
+  çalışıyor, hiçbir dış API çağrısı veya paylaşımlı/havuzlanmış anahtar yok. Dokümantasyon dürüstçe kendi
+  sınırını da belirtiyor: AI-tespit araçlarının ana-dili İngilizce olmayan yazarlarda %60'ın üzerinde
+  yanlış-pozitif oranına sahip olabileceği uyarısı var — kanıtsız/abartılı bir "kesin AI tespiti" iddiası
+  yok, tam tersine dürüst bir "sinyal, kanıt değil" çerçevesi sunuluyor.
+- **Kurulum:** `git clone https://github.com/conorbronsdon/avoid-ai-writing ~/.claude/skills/avoid-ai-writing`
+  — tek komutla dosya kopyalama, ek onay/derleme gerekmiyor. Alternatif olarak tek-dosya
+  `dist/avoid-ai-writing.md` kopyalanabilir veya `npm install avoid-ai-writing-detector` ile CLI/kütüphane
+  olarak kullanılabilir.
+- **Proje uyumu:** Bu şablonun doğrudan tech stack'iyle örtüşmüyor, ama şablonun ürettiği README/dokümantasyon
+  ve `docs/research/` çıktıları gibi AI-üretimi metinlerin kalitesini artırmak için genel-amaçlı, düşük
+  riskli bir katkı; kataloğun şimdiye kadarki ağırlıklı web-klonlama/tasarım-token odağını tamamlayan
+  farklı bir niş.
+
+### B) MCP Sunucusu — Ücretsiz/Anahtarsız Web Arama (araştırma/keşif fazı)
+
+#### 161. [sweetcornna/free-search-mcp](https://github.com/sweetcornna/free-search-mcp)
+- **Yıldız:** 85 · **Fork:** 8 · **Açık issue:** 1 · **Lisans:** MIT
+- **Güncellik:** son commit 2026-09-24 (bu turdan bir gün önce), aktif geliştirme.
+- **Ne işe yarar:** API anahtarı gerektirmeden web araması, doküman getirme ve içerik okuma sağlayan bir
+  MCP sunucusu; `search()`, `research()`, `fetch()`, `paper_graph()` dahil 11 araç sunuyor, 73 arama
+  motoru/veri kaynağını paralel tarayıp bulanık başlık eşleştirme + host normalizasyonuyla tekilleştiriyor,
+  sonuçları LLM-tüketimine uygun Markdown olarak döndürüyor. Akademik makale, finans, haber, görsel ve
+  yazılım-kayıt (registry) gibi özel arama kategorileri de var.
+- **Neden meşru:** `WebFetch` ile `README.md` bağımsız doğrulandı — sistem tamamen anahtarsız HTTP arama
+  motorları ve veri API'leri üzerinden çalışıyor; `brave_api`, `serper`, `tavily`, `google_cse`,
+  `github_code` gibi yalnızca 5 motor opsiyonel ek kimlik bilgisi istiyor ama bunlar olmadan da sunucu tam
+  işlevsel çalışıyor (adı geçtiğinde anahtarsız alternatifini öneren bir hata mesajı veriyor). Paylaşımlı/
+  havuzlanmış bir anahtar promosyonu yok, platform ToS'unu bypass eden bir scraping tekniği belgelenmemiş
+  — genel web arama motorlarının halka açık, anahtarsız uç noktalarını kullanıyor. `search_repositories`
+  ile 85★/8 fork/1 açık issue bağımsız doğrulandı.
+- **Kurulum:** Claude Code için resmi plugin marketplace akışı: `/plugin marketplace add sweetcornna/free-search-mcp`
+  ardından `/plugin install free-search@free-search-mcp`. Alternatif manuel kayıt: `claude mcp add search -s user -- uvx free-search-mcp`.
+  Konfigürasyon `~/.config/search-mcp/.env` altında, hiçbir ayar zorunlu değil — varsayılanlarla
+  kurulumsuz çalışıyor. Tarayıcı-render'lı motorlar için opsiyonel `uvx --from free-search-mcp playwright install chromium`.
+- **Proje uyumu:** `INSPECTION_GUIDE.md` Phase 4 (Teknik Yığın Analizi) ve genel hedef-site
+  araştırması için kullanılabilecek, anahtarsız/ücretsiz bir genel-amaçlı araştırma aracı — şimdiye kadar
+  kataloglanan tasarım/asset-odaklı MCP sunucularını tamamlayan farklı bir niş (genel web araştırması).
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 48)
+
+- **Dicklesworthstone/skillranker** — 119★, Rust CLI, oturum bağlamına göre agent skill'lerini
+  sıralıyor; ancak çalışması için ücretli "TypeSafe API key" gerektiriyor (dokümantasyonda açıkça
+  belirtilmiş) — görev talimatının "ücretsiz" kriterini karşılamıyor, eklenmedi.
+- **minetechnic2012-lang/claude-ops-inspector** — 120★ görünüyor ama açıklaması ("Subagent Verification
+  for Claude AI Code Networks 2026") belirsiz/pazarlama-dili ağırlıklı, ana dili HTML olan bir repo için
+  "doğrulama" iddiası şüpheli — gerçek `SKILL.md`/`agents/*.md` içeriği doğrulanamadı, temkinli
+  davranılıp eklenmedi.
+- **JakeSelby/agent-harness** — 18★'e karşılık 168 açık issue gibi tutarsız bir oran taşıyor (organik
+  kullanım paternine uymuyor) — şüpheli benimseme sinyali, eklenmedi.
+- Taranan sonuçların ezici çoğunluğu (`sergsrgsg/rock-star-skills`, `salvageable-mutualfund57/
+  caveman-distillate`, `Myracoagulable91/paid-ads-skills-spain`, ve benzeri onlarca repo) — "claude-code"
+  konusuyla alakasız, birbirinden kopya gibi görünen düzinelerce alakasız GitHub topic etiketiyle
+  (`civ4-mod`, `modbus`, `pcap`, `rocketmq`, `tcp-client` vb.) dolu, 0-1 yıldızlı, muhtemelen otomatik/
+  toplu üretilmiş "SEO-tuzağı" repolardı — hiçbiri gerçek/doğrulanabilir bir skill veya agent koleksiyonu
+  içermiyordu, hepsi elendi.
+- Zaten kataloglanmış `open-free-llm-api/awesome-freellm-apis` (#158) dışında, "ücretsiz LLM API"
+  taramasında yeni/bağımsız/yeterince benimsenmiş bir aday çıkmadı (RAG uygulamaları, kripto-haber
+  API'leri, satranç-analiz araçları gibi konu-dışı sonuçlar hariç tutuldu).
+
+Bu tur, alanın doymuşluğunun yanı sıra yeni bir gözlem ekliyor: GitHub'daki genel "claude-code" arama
+sonuçları, artan oranda alakasız-topic-etiketli düşük-kaliteli/spam repolarla kirleniyor — bu, gelecek
+turlarda ham arama sonuçlarının filtrelenmesini daha da zorlaştırabilir.
+
+---
+
+*Son güncelleme: 2026-09-25 (Tur 48). İki yeni kaynak eklendi (#160 `avoid-ai-writing` yazım-kalitesi
+skill'i, #161 `free-search-mcp` anahtarsız araştırma MCP sunucusu) — ikisi de `WebFetch` ile
+`raw.githubusercontent.com` üzerinden bağımsız doğrulandı. Ücretli-API gerektiren (skillranker),
+şüpheli benimseme paterni taşıyan (claude-ops-inspector, agent-harness) ve konu-dışı/spam (çoğu tarama
+sonucu) adaylar görev talimatına uygun şekilde reddedildi. Toplam kataloglanmış kaynak sayısı: 161.
+
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–48'de listelenenler
+tekrarlanmayacak.
+
