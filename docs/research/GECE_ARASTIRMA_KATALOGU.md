@@ -1,15 +1,23 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 56, 2026-09-25, ~11:07 UTC (14:07 Türkiye saati) — kesme noktasının (12:00 UTC) hâlâ
-öncesinde çalıştı, aynı gün içindeki 9. tur (Tur 48 ~03:03, 49 ~04:02, 50 ~05:04, 51 ~06:03, 52 ~07:04,
-53 ~08:03, 54 ~09:03, 55 ~10:03, 56 ~11:07 UTC — hepsi ~1 saat arayla). **2 yeni kaynak eklendi**
-(#163 `santowilem/skills` — website/UI klonlama `clone-ui` skill'i, 13★, MIT; #164
-`mattbx/shadcn-skills` — shadcn/ui bileşen keşfi + inceleme skill çifti, 19★, MIT). Bu tur, önceki
-turların genel "claude code skill" anahtar kelimesi yerine bu şablonun kendi dar nişine (website
-klonlama, shadcn/Tailwind) özel arama terimleri kullandı — bu yöntem değişikliği 20 ardışık
-sıfır/marjinal-sonuç turundan sonra ilk kez sağlam yeni sonuç verdi. Bir aday
-(`wilwaldon/Claude-Code-Frontend-Design-Toolkit`) hem link-hub hem Tur 50'nin ajan-hedefli-kurulum
-deseniyle eşleştiği için reddedildi. Ayrıntılar dosyanın "Tur 56" bölümünde.
+**Son tur:** Tur 57, 2026-09-26, ~03:10 UTC (06:10 Türkiye saati) — kesme noktasının (12:00 UTC) çok
+öncesinde çalıştı. **2 yeni kaynak eklendi** (#165 `SpillwaveSolutions/parallel-worktrees` —
+`AGENTS.md`'nin kendi "her teammate kendi worktree'sinde çalışsın" talimatını otomatikleştiren skill,
+15★, MIT; #166 `wsimmonds/claude-nextjs-skills` — Vercel'in resmi eval'inde ölçülmüş, React 19/
+Next.js 15-16 breaking-change farkındalık skill'i, 108★/22 fork, MIT). Bu tur, Tur 56'nın "projeye
+özel dar terimler" yöntemini bir adım öteye taşıyıp doğrudan `AGENTS.md`'nin KENDİ metnini hedef aldı
+(worktree-orkestrasyon talimatı, "npm run check" komutu, "This is NOT the Next.js you know" uyarısı)
+— 3 nişten 2'si sağlam sonuç verdi, 1'i (lint/typecheck/build kapısı) gerçek ama kanıtsız/çok-yeni bir
+adayla (`Paldom/node-skills`, 1★) beklemede bırakıldı. Ayrıntılar dosyanın "Tur 57" bölümünde.
+
+**Önceki tur (Tur 56, 2026-09-25, ~11:07 UTC / 14:07 Türkiye saati):** 2 yeni kaynak eklendi (#163
+`santowilem/skills` — website/UI klonlama `clone-ui` skill'i, 13★, MIT; #164 `mattbx/shadcn-skills` —
+shadcn/ui bileşen keşfi + inceleme skill çifti, 19★, MIT). Bu tur, önceki turların genel "claude code
+skill" anahtar kelimesi yerine bu şablonun kendi dar nişine (website klonlama, shadcn/Tailwind) özel
+arama terimleri kullandı — bu yöntem değişikliği 20 ardışık sıfır/marjinal-sonuç turundan sonra ilk
+kez sağlam yeni sonuç verdi. Bir aday (`wilwaldon/Claude-Code-Frontend-Design-Toolkit`) hem link-hub
+hem Tur 50'nin ajan-hedefli-kurulum deseniyle eşleştiği için reddedildi. Ayrıntılar dosyanın "Tur 56"
+bölümünde.
 
 **YENİ VE ÖNEMLİ BULGU — Tur 50:** Bu tur, önceki turların "alan doydu/tekrar keşfediyor" gözleminden
 farklı ve daha ciddi bir şey buldu: tam olarak bu görevin taradığı "claude code skill/subagent"
@@ -22,8 +30,8 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 164 (56 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 56 ile #163-#164 eklendi).
+**Toplam kataloglanmış kaynak sayısı:** 166 (57 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün — Tur 57 ile #165-#166 eklendi).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -6226,3 +6234,151 @@ gönderilmedi (yeni bulgular düşük-etkili/rutin, Tur 50-51'in bildirimleri h�
 Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–56'da listelenenler ve
 reddedilenler tekrarlanmayacak. Yöntem notu: projeye-özel dar terimlerle arama (genel "claude code
 skill" yerine) gelecek turlarda önceliklendirilebilir.
+
+---
+
+## Tur 57 — 2026-09-26 (~03:03 UTC / 06:03 Türkiye saati başladı)
+
+Kesme noktasının (12:00 UTC) çok öncesinde başladı. Oturum başında yine "detached HEAD" durumu
+görüldü (artık yirmi birinci kez tekrarlayan aynı desen); `git fetch origin master` ile
+`origin/master`'ın (7926341, Tur 56 commit'i) HEAD ile birebir aynı commit'te olduğu doğrulanıp
+`git checkout -B master origin/master` ile normale döndürüldü, çalışma kaybı yok.
+
+Tur 56'nın yöntem notu izlendi: genel "claude code skill/subagent" taraması yine **tekrarlanmadı**
+(Tur 36'dan beri 21. ardışık doygunluk teyidi). Bunun yerine, `AGENTS.md`'nin kendi metninde açıkça
+talep ettiği ama hâlâ bir skill/araçla karşılanmamış üç dar niş hedeflendi: (1) bu dosyanın
+"MOST IMPORTANT NOTES" bölümünün talep ettiği **git worktree tabanlı çok-agent orkestrasyon**
+(*"ALWAYS have each teammate work in their own worktree branch and merge everyone's work at the
+end"*), (2) `npm run check` (lint+typecheck+build) kapısını otomatikleştiren bir skill/MCP, (3)
+`gocallum/nextjs16-agent-skills` ve `laguagu/claude-code-nextjs-skills`'ten (ikisi de zaten kataloglı)
+bağımsız, React 19/Next.js 15-16 breaking-change/training-cutoff farkındalığına özel bir skill.
+Araştırma bir general-purpose alt-agent'a devredildi; alt-agent'a 162 mevcut kaynağın TAM listesi
+(`owner/repo` normalize edilmiş) + görev talimatındaki hariç-tutma kriterleri + üç niş verildi.
+Alt-agent'ın bulduğu 2 güçlü adayın **her ikisi** ana oturum tarafından kendi `WebFetch` çağrılarıyla
+(gerçek `github.com` repo sayfası + `raw.githubusercontent.com` üzerinden gerçek `SKILL.md` içeriği)
+ikinci kez bağımsız doğrulandı, tutarsızlık bulunmadı.
+
+### Yeni eklenen kaynaklar
+
+#### 165. [SpillwaveSolutions/parallel-worktrees](https://github.com/SpillwaveSolutions/parallel-worktrees)
+- **Yıldız:** 15 · **Fork:** 0 · **Açık issue:** 9 · **Lisans:** MIT
+- **Ne işe yarar:** `AGENTS.md`'nin kendi "MOST IMPORTANT NOTES" bölümünün talep ettiği tam işi yapan
+  bir skill: birden fazla Claude Code agent'ını izole `git worktree`'lerde paralel çalıştırıp
+  sonuçları birleştirme. `.worktrees/` oluşturma/listeleme/temizleme, `.claude/agents/*.md` üzerinden
+  özel subagent tipleri, dört paralelleştirme deseni (paralel özellik implementasyonu,
+  explore-plan-code-commit, TDD paralel, çift doğrulama), `.agent-status/`/`.agent-tasks/`/
+  `RESULTS.md` ile durum-makinesi tabanlı arka-plan agent mimarisi (RUNNING→COMPLETE/FAILED), üç
+  orkestrasyon deseni (delegate-and-continue, fan-out/fan-in, pipeline-with-dependencies), bir
+  `sync-worktrees.sh` birleştirme script'i (`--status`/`--merge`/`--interactive`), ve dürüst bir
+  tuzak tablosu (branch-zaten-checkout'lu, port çakışması, eksik bağımlılıklar) + dürüst bir maliyet
+  uyarısı (çok-agent iş akışlarında token kullanımı ~15x artıyor, subagent'lar subagent doğuramıyor).
+- **Neden meşru:** `WebFetch` ile `SKILL.md`'nin (geçerli YAML frontmatter, `name: parallel-worktrees`)
+  gerçek ve kapsamlı içeriği bağımsız doğrulandı — link-hub değil. Yıldız:issue oranı (15:9) sıra dışı
+  değil, şişirilmiş-yıldız deseniyle örtüşmüyor. Ajan-hedefli kendi-kendine-kurulum dili yok (README'nin
+  "Claude Code'a kurulu skill'leri listelemesini iste" önerisi normal bir doğrulama adımı, Tur 50'nin
+  belgelediği enjeksiyon deseniyle karıştırılmamalı).
+- **Kurulum:** Skilz Universal Installer ile `skilz install SpillwaveSolutions_parallel-worktrees/parallel-worktrees`,
+  veya manuel: repoyu `~/.claude/skills/parallel-worktrees/` altına kopyala.
+- **Proje uyumu:** `AGENTS.md`'nin "ALWAYS have each teammate work in their own worktree branch and
+  merge everyone's work at the end" talimatını elle yapmak yerine script/skill ile otomatikleştiriyor
+  — bu kataloğun 56 turdur kapatamadığı, ama projenin kendi metninde açıkça var olan bir niş boşluğu.
+
+#### 166. [wsimmonds/claude-nextjs-skills](https://github.com/wsimmonds/claude-nextjs-skills)
+- **Yıldız:** 108 · **Fork:** 22 · **Açık issue:** 0 · **Lisans:** MIT · **Commit sayısı:** 5 (küçük/
+  genç repo)
+- **Ne işe yarar:** React 19/Next.js 15-16'nın training-data'dan farklı breaking change'lerine karşı
+  bilinç kazandıran ~9-10 gerçek `SKILL.md` dosyası (nextjs-dynamic-routes-params,
+  nextjs-server-client-components, nextjs-client-cookie-pattern, vercel-ai-sdk, navigasyon ve
+  anti-pattern skill'leri dahil). `nextjs-dynamic-routes-params/SKILL.md` bağımsız doğrulandı:
+  "CRITICAL: In Next.js 15+, `params` is a Promise and must be awaited!" uyarısını, Next.js
+  14-ve-öncesi (senkron `params`) ile 15+ (asenkron `params: Promise<...>`, `await params`)
+  arasındaki YANLIŞ/DOĞRU kod örnekleriyle açıkça öğretiyor — `AGENTS.md`'nin "This is NOT the
+  Next.js you know... Heed deprecation notices" uyarısına birebir karşılık geliyor.
+- **Neden meşru:** Vercel'in resmi Next.js eval benchmark'ında ölçülmüş, dürüst bir self-rapor içeriyor
+  (Claude Haiku 4.5: skill'siz %32 → skilli %78; Claude Sonnet 4.5: %32 → %76) ve kendi kendine
+  eleştirel bir soru soruyor ("Does this translate into improved real world code or is Claude now
+  just optimised to better pass evals?") — pazarlama abartısı değil, ölçülü bir sunum. `gocallum/
+  nextjs16-agent-skills` (#?) ve `laguagu/claude-code-nextjs-skills` (#68) ile aynı nişte ama bağımsız
+  yazar/implementasyon, spesifik olarak "eski training data deseni ❌ vs yeni API ✅" karşılaştırma
+  formatına odaklanıyor (diğer ikisi daha genel yığın kılavuzu). Ajan-hedefli kurulum dili yok.
+  **Dikkat (kendi kuralımız gereği not düşülür):** 108 yıldız / 0 açık issue / sadece 5 commit oranı
+  tek başına dikkatli bakılması gereken bir örnek, ama 22 fork (~%20) — Tur 36'nın `garrytan/gstack`
+  değerlendirmesindeki gibi — organik ilgiye işaret ediyor, tipik şişirilmiş-yıldız/mirror-çoğalması
+  desenlerinden (yüzlerce/binlerce yıldıza karşı tek-hane fork) farklı; gerçek `SKILL.md` içeriğinin
+  doğrudan doğrulanması (marketing metni değil) ana güven kaynağı.
+- **Kurulum:** Repoyu klonla, ilgili skill klasörlerini `~/.claude/skills/` altına kopyala (resmi bir
+  CLI installer'ı yok, manuel kopyalama).
+- **Proje uyumu:** Bu şablonun `AGENTS.md`'sinin en üstündeki "This is NOT the Next.js you know"
+  uyarısına doğrudan, ölçülebilir (eval-doğrulanmış) bir çözüm katmanı ekliyor.
+
+### Doğrulanan ama EKLENMEYEN Bulgular (Tur 57)
+
+- **nwiizo/ccswarm** — https://github.com/nwiizo/ccswarm — 153★/15 fork/0 açık issue, MIT. Gerçek,
+  git-worktree tabanlı çok-agent orkestrasyon yapıyor ama bir Claude Code skill/plugin/`SKILL.md`
+  değil; Claude Code/Codex'i alt-süreç olarak çağıran bağımsız bir Rust CLI aracı (`--worktree`/
+  `--agent`/`--session-id` bayraklarıyla planner/reviewer/coder/QA rollerini koordine ediyor). Görev
+  talimatının kapsamı "skill koleksiyonları" ve "agent/subagent koleksiyonları" olduğu için, bu
+  şablonun kendisinin İÇİNDE çalışan bir skill olmayan harici bir orkestratör aracı olarak
+  **eklenmedi** — ama meşru ve alakalı olduğu için burada not düşülüyor, gelecek bir tur "harici
+  orkestrasyon araçları" kategorisi açmaya karar verirse yeniden değerlendirilebilir.
+- **Paldom/node-skills** — https://github.com/Paldom/node-skills — lint/typecheck/build kapısı
+  nişini tam hedefleyen 8 gerçek `SKILL.md` (node-lint, node-typescript, node-testing, node-ci vb.)
+  içeriyor, `node-typescript/SKILL.md` bağımsız doğrulandı (`tsc --noEmit` CI kapısı, "strictification
+  is a ratchet, not a flip" kademeli katılaştırma stratejisi) — içerik gerçek ve isabetli. Ama sadece
+  1 yıldız, 0 fork, 11 toplam commit — kataloğun önceki turlarda tutarlı şekilde uyguladığı "0-1
+  yıldız/kanıtsız benimseme" reddetme kuralına (bkz. Tur 34'ün WCAG aracı reddi, Tur 35'in 0-yıldız
+  mirror reddi vb.) göre **eklenmedi**. Olgunlaştığında (yıldız/fork/kullanım kanıtı biriktiğinde)
+  gelecek bir tur yeniden değerlendirebilir — bu nedenle "kesin reddedildi" değil "beklemede" olarak
+  not düşülüyor.
+- **vercel-labs/next-skills** — artık kullanımdan kaldırılmış/taşınmış: README, skill'lerin sürüm
+  uyumluluğu için doğrudan `vercel/next.js` deposunun (`canary/skills` altında) içine taşındığını ve
+  referans bilginin artık `next dev`'in ürettiği `AGENTS.md`/`CLAUDE.md` + `node_modules/next/dist/docs/`
+  üzerinden otomatik sunulduğunu belirtiyor — **tam olarak bu şablonun `AGENTS.md`'sinin zaten
+  dayandığı mekanizma**. Yeni bir kaynak olarak eklenecek bir şey yok (Next.js'in kendisi zaten bunu
+  yapıyor), ama bu ekosistem-konsolidasyonu sinyali not düşülüyor: Vercel bu nişi ayrı bir üçüncü-parti
+  skill olarak değil doğrudan Next.js'in içine gömmüş.
+- **thongdn-it/react-agent-skills** (4★, nextjs skill'i genel best-practice, breaking-change içeriği
+  değil — niş dışı) ve **martinbouvet2000-tech/claude-code-stage-4** (0★/0 fork/0 issue, proje-
+  scaffolding/gate aracı, breaking-change farkındalığı değil, ayrıca ajan-hedefli-kurulum diline yakın
+  "ask Claude Code to..." ifadesi taşıyor) — niş dışı/kanıtsız gerekçesiyle reddedildi.
+- **no-problem-dev/claude-gate**, **Jott2121/agent-gate** — lint/typecheck değil farklı doğrulama
+  alanları (iOS ekran görüntü kanıtı, hash-zincirli attestation ledger'ı); ikisinin de README'si
+  doğrudan agent'a hitap eden dil içeriyor ("across all directories/sessions", "Now your agent can
+  call verify_gate(...) before it tells you it is finished") — Tur 50'nin belgelediği ajan-hedefli-
+  kurulum deseniyle örtüşüyor, **kesinlikle eklenmedi**.
+- **skill-tools/skill-tools-plugin** — `SKILL.md` dosyalarının kendisini lint'liyor, proje kodunu
+  değil — niş dışı, eklenmedi.
+
+**Bu turda 2 yeni kaynak eklendi (#165, #166).** Toplam kataloglanmış kaynak sayısı: 166.
+
+### Gözlem — `AGENTS.md`'nin kendi metnine gömülü niş boşlukları hedeflemek yine işe yaradı
+
+Tur 56 gibi bu tur da genel anahtar-kelime taraması yerine dar, projeye-özel hedefleme kullandı — ama
+bu kez hedefleme kaynağı bu ŞABLONUN KENDİ `AGENTS.md` metniydi (worktree-orkestrasyon talimatı,
+"npm run check" komutu, "This is NOT the Next.js you know" uyarısı). Bu yöntem 2/3 nişte sağlam,
+düşük-riskli, gerçek sonuç verdi (yalnızca lint/typecheck/build nişi kanıtsız/çok-yeni bir adayla
+sonuçlandı, beklemede bırakıldı). Bu, gelecek turlar için somut bir yöntem notu: alan genel olarak
+doymuş olsa da, `AGENTS.md`'nin kendi metnini satır satır tarayıp "bu talimatı otomatikleştiren bir
+araç var mı?" sorusunu sormak hâlâ verimli bir arama stratejisi.
+
+Bununla birlikte Tur 36'dan beri süregelen genel doygunluk gözlemi ve Tur 50'nin güvenlik deseni
+bulgusu geçerliliğini koruyor. **Bu turda kullanıcıya yeni bir bildirim gönderilmedi** — iki yeni
+kaynak (özellikle #165, projenin kendi orkestrasyon talimatını otomatikleştiriyor) faydalı ama acil
+dikkat gerektirmeyen, rutin nitelikte bulgular; Tur 50 (güvenlik deseni) ve Tur 51 (sıklık azaltma
+önerisi) bildirimleri hâlâ güncel ve tekrar bildirim göndermek gürültü olurdu.
+
+---
+
+*Son güncelleme: 2026-09-26 (Tur 57). 2 yeni kaynak eklendi (#165 `SpillwaveSolutions/parallel-worktrees`
+— `AGENTS.md`'nin kendi worktree-orkestrasyon talimatını otomatikleştiren skill; #166
+`wsimmonds/claude-nextjs-skills` — eval-doğrulanmış React 19/Next.js 15-16 breaking-change farkındalık
+skill'i) — ikisi de `WebFetch` ile gerçek `SKILL.md` içeriği bağımsız doğrulandı. `Paldom/node-skills`
+(lint/typecheck/build nişini tam hedefliyor ama 1★/11 commit — kanıtsız) beklemede bırakıldı;
+`nwiizo/ccswarm` (harici orkestratör CLI, skill değil) kapsam-dışı olarak not düşüldü. Toplam
+kataloglanmış kaynak sayısı: 166. Bildirim gönderilmedi (bulgular faydalı ama rutin, Tur 50-51'in
+bildirimleri hâlâ geçerli).
+
+Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–57'de listelenenler ve
+reddedilenler tekrarlanmayacak. Yöntem notu: `AGENTS.md`'nin kendi metnini satır satır tarayıp
+otomatikleştirilebilecek talimatlar aramak gelecek turlarda önceliklendirilebilir; `Paldom/node-skills`
+olgunlaştığında (yıldız/fork birikince) yeniden değerlendirilebilir.
