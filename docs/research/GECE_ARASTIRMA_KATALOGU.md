@@ -6522,3 +6522,58 @@ yeni gelişme yok — tekrar bildirim gürültü olurdu). Cron hâlâ günde ~10
 ama Tur 58'in bildirimi yakın zamanlı olduğu için tekrar bildirim gönderilmedi. Bir aday
 (`coco-research/coco`) lisans belirsizliği nedeniyle eklenmeden bırakıldı. Sonraki turlarda bu dosya
 okunup üstüne eklenecek; Tur 1-59'da listelenenler ve reddedilenler tekrarlanmayacak.
+
+---
+
+## Tur 60 (2026-09-26, ~06:03 UTC / 09:03 Türkiye saati)
+
+### Yöntem değişikliği: bu oturumun GitHub erişimi tek repoya kilitli
+
+`mcp__github__search_code` / `search_repositories` gibi repo-parametresi almayan araçlar bu oturumda
+açıkça **sadece `nusygako/ai-website-cloner-template` ile sınırlı** olduğu ve bunları kapsam dışına
+kullanmamam gerektiği belirtildi (önceki turların çoğu — örn. Tur 58-59'daki `filename:`/`path:`
+kod aramaları — görünüşe göre GitHub-genelinde arama yapabiliyordu). Bu tur bunun yerine tamamen
+`WebSearch`/`WebFetch` kullandı. Sonuç, en azından bu turda pratikte fark etmedi (aşağıya bak) ama
+gelecekte GitHub'ın kendi arama/filtre sözdizimini (`filename:`, `path:`, `stars:>N`) kullanan
+turların bu daralmış izinle karşılaşabileceği not edilir.
+
+### Bu turun araması
+
+Üç `WebSearch` sorgusu çalıştırıldı:
+1. `"claude code" skills collection github new September 2026`
+2. `awesome-claude-code-agents github stars 2026`
+3. `free LLM API tier no credit card announced September 2026`
+
+**Sonuç: bulunan HER aday zaten kataloglanmış/değerlendirilmiş.** Skill/agent tarafında: VoltAgent
+(#3, #125/#147 — kabul edildi), `obra/superpowers` (#2 — kabul edildi, ~287k yıldızı zaten Tur ~2'de
+doğrulanmış ve Jesse Vincent/Anthropic marketplace bağlantısıyla meşrulaştırılmış, WebSearch özetinin
+"280k★" rakamı tutarlı), `hesreallyhim/awesome-claude-code` (#22 — kabul, liste deposu olarak
+işaretli), `rohitg00/awesome-claude-code-toolkit` (#49 — kabul), `ComposioHQ/awesome-claude-skills`
+(#10 — kabul, liste deposu), `GetBindu`, `obviousworks/Claude-AI-skills-collection-2026`,
+`alirezarezvani/claude-skills`, `jqueryscript/awesome-claude-code`, `cooler333/cool-claude-code`,
+`navin4078/awesome-claude-code-agents` — hepsi Tur 1-53 arasında incelenip reddedilmiş ("gerçek
+SKILL.md içermeyen link-listesi" kategorisi). API sağlayıcı tarafında: arama sonucu "7 Eylül 2026"
+tarihli bir güncelleme Cerebras'ın ücretsiz katmanının bittiğini, GitHub Models'ın kapandığını ve
+SambaNova'da ödeme hatası alındığını belirtiyor — üçü de zaten dosyada doğru şekilde "artık mevcut
+değil" olarak işaretli (Tur 16, 22 ve ilgili notlar). **Yeni/bağımsız hiçbir kaynak bulunamadı.**
+
+### Cron zamanlama sorunu — üçüncü kez bağımsız doğrulandı, hâlâ DEĞİŞMEDİ
+
+`list_triggers` tekrar çağrıldı: `trig_01BxvTHj8GmXqRx1LqLGosHh`, `cron_expression: "0 3-12 * * *"`,
+`enabled: true`, `next_run_at: 2026-09-26T07:01:50Z` (yaklaşık bir saat sonrası — saatlik örüntü
+teyit edildi), `last_fired_at: 2026-09-26T06:03:24Z`. Tur 58/59'un bulgusu üçüncü kez doğrulandı,
+hâlâ düzeltilmemiş. Tur 59'un gerekçesiyle aynı nedenle (Tur 58'in bildirimi yakın zamanlı, yeni/
+eyleme geçirilebilir bir gelişme yok) **bu turda da tekrar bildirim gönderilmedi**.
+
+**Bu turda 0 yeni kaynak eklendi.** Toplam kataloglanmış kaynak sayısı değişmedi: 166.
+
+---
+
+*Son güncelleme: 2026-09-26 (Tur 60). Yeni kaynak eklenmedi (0/166 → 166). Arama uzayı üçüncü ardışık
+turda da tamamen doygun bulundu — üç farklı WebSearch sorgusunun döndürdüğü her aday zaten
+kataloglanmış veya reddedilmişti. Cron zamanlama sorunu (`0 3-12 * * *`) üçüncü kez bağımsız
+doğrulandı, hâlâ düzeltilmemiş; Tur 58'in bildirimi güncelliğini koruduğu için tekrar bildirim
+gönderilmedi. Yeni not: bu oturumun GitHub MCP erişimi tek repoya (bu şablon) kilitliydi, araştırma
+bunun yerine `WebSearch`/`WebFetch` ile yapıldı — sonucu değiştirmedi ama gelecekteki turlar için
+yöntem notu olarak kayda geçirildi. Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur 1-60'ta
+listelenenler ve reddedilenler tekrarlanmayacak.
