@@ -10,7 +10,17 @@ dosyayı (~530KB+) ve hesap kullanımını büyütmeye devam ediyor ama Tur 38'd
 oranı turda ortalama <0.1. Tur 51 zaten "sıklık azaltılsın/durdurulsun" önerisini iletmişti; bu tur
 bunun somut nedenini (saatlik cron, gecelik değil) doğruluyor ve bildirimle iletiliyor.
 
-**Son tur:** Tur 58, 2026-09-26, ~04:05 UTC (07:05 Türkiye saati) — hedefli kod araması (SKILL.md
+**Son tur:** Tur 61, 2026-09-26, ~07:03 UTC (10:03 Türkiye saati) — niş `WebSearch` sorguları (pixel-
+perfect audit, visual regression, design-token/site-klonlama skill'leri) **3 yeni kaynak buldu**
+(#167 `maxrihter/claude-pixel-perfect-agent`, #168 `maxrihter/claude-skill-visual-regression` — ikisi
+de 1★/MIT, çok yeni/kanıtsız ama gerçek ve doğrudan ilgili; #169 `voidmatcha/ui-clone-skills` — 13★/
+Apache-2.0, 176 commit, aktif). Bir aday (`Yeachan-Heo/oh-my-claudecode`, 39,4k★) Tur 50'nin
+`oh-my-openagent` bulgusuyla aynı şüpheli isim/yıldız-şişirme desenine uyduğu için **eklenmedi**.
+Cron sorunu (`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş durumda ama Tur 58'in bildirimi hâlâ
+güncel olduğu ve bu turun bulgusu (2 adet 1★ deneysel repo) acil/yeni bir durum oluşturmadığı için
+**bu turda tekrar bildirim gönderilmedi**. Ayrıntılar dosyanın "Tur 61" bölümünde.
+
+**Önceki tur (Tur 58, 2026-09-26, ~04:05 UTC / 07:05 Türkiye saati):** hedefli kod araması (SKILL.md
 içinde "oklch"/tailwind, "clone-website" niş terimleri) yapıldı ama **hiçbir yeni kaynak eklenmedi**:
 bulunan sonuçlar ya toplayıcı/registry depolarıydı (`majiayu000/claude-skill-registry` ve türevleri —
 binlerce SKILL.md'yi otomatik indeksliyor, küratörlü değil, Tur 50'nin işaret ettiği "doğrulanmamış
@@ -48,9 +58,9 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 166 (58 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 58'de yeni kaynak eklenmedi, görev zamanlaması saatte bir çalışıyor, bkz. yukarıdaki
-Tur 58 bulgusu).
+**Toplam kataloglanmış kaynak sayısı:** 169 (61 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün — Tur 61'de 3 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
+Tur 58/61 bulguları).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -6577,3 +6587,99 @@ gönderilmedi. Yeni not: bu oturumun GitHub MCP erişimi tek repoya (bu şablon)
 bunun yerine `WebSearch`/`WebFetch` ile yapıldı — sonucu değiştirmedi ama gelecekteki turlar için
 yöntem notu olarak kayda geçirildi. Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur 1-60'ta
 listelenenler ve reddedilenler tekrarlanmayacak.
+
+---
+
+## Tur 61 (2026-09-26, ~07:03 UTC / 10:03 Türkiye saati)
+
+### Yöntem
+
+Tur 56-58'in "genel anahtar kelime yerine projeye özgü dar niş" yaklaşımı sürdürüldü, ama bu kez
+`AGENTS.md`/`INSPECTION_GUIDE.md`'nin kendi terimleri yerine bu şablonun **amacına** (pixel-perfect
+klonlama, tasarım tokenı çıkarma, görsel regresyon doğrulama) odaklanan iki `WebSearch` sorgusu
+kullanıldı:
+1. `"SKILL.md" claude code visual regression screenshot diff site:github.com`
+2. `claude code subagent "pixel perfect" OR "design tokens" extraction skill github 2026`
+
+Dönen adaylardan `arvindrk/extract-design-system`, `VoltAgent/awesome-claude-code-subagents`,
+`rohitg00/awesome-claude-code-toolkit`, `GetBindu/awesome-claude-code-and-skills` zaten kataloğun bir
+önceki turlarında incelenmişti (dedup listesiyle doğrulandı, tekrar eklenmedi). Kalan adaylardan üçü
+`WebFetch` ile bağımsız doğrulandı (yıldız, lisans, gerçek `SKILL.md` içeriği).
+
+### Yeni eklenen kaynaklar
+
+#### 167. [maxrihter/claude-pixel-perfect-agent](https://github.com/maxrihter/claude-pixel-perfect-agent)
+- **Yıldız:** 1 · **Lisans:** MIT
+- **Ne işe yarar:** Canlı bir web uygulamasını bir tasarım referansına (Figma, PDF, referans site,
+  ekran görüntüsü) karşı denetleyen, CSS özelliklerini inceleyip yapılandırılmış hata raporu üreten
+  7 fazlı bir Claude Code skill'i. `SKILL.md` içeriği `WebFetch` ile doğrulandı — gerçek ve
+  ayrıntılı bir karar ağacı/iş akışı içeriyor, boş link-hub değil.
+- **NEDEN MEŞRU:** Açık kaynak, MIT lisanslı, tek-amaçlı, GitHub üzerinde herkese açık; paylaşımlı
+  API key veya ToS-bypass unsuru yok.
+- **NEDEN İLGİLİ:** Bu şablonun `AGENTS.md`'deki "Pixel-perfect emulation" ve `INSPECTION_GUIDE.md`'nin
+  "Design Tokens to Extract" fazlarıyla doğrudan örtüşüyor.
+- **Kurulum:** Depoyu klonlayıp `SKILL.md` dosyasını `~/.claude/skills/claude-pixel-perfect-agent/`
+  altına kopyalamak yeterli (dosya kopyalama, yerel onay gerektirmez).
+- **UYARI — çok yeni/kanıtsız:** Sadece 1 yıldız; muhtemelen yeni yayınlanmış kişisel bir proje.
+  Meşruiyet açısından sorun yok (gerçek, açık lisanslı, işlevsel dosya), ama olgunluk/topluluk
+  doğrulaması yok — kullanıcı kurulumdan önce dosyanın güncel halini kendisi gözden geçirmeli.
+
+#### 168. [maxrihter/claude-skill-visual-regression](https://github.com/maxrihter/claude-skill-visual-regression)
+- **Yıldız:** 1 · **Lisans:** MIT
+- **Ne işe yarar:** Playwright'ın yerel diff motorunu kullanarak UI ekran görüntülerini bir taban
+  çizgisiyle (baseline) karşılaştırıp otomatik görsel regresyon testi yapan bir skill. Aynı yazarın
+  #167 ile birlikte yayınladığı tamamlayıcı bir araç. `SKILL.md` içeriği doğrulandı.
+- **NEDEN MEŞRU:** Açık kaynak, MIT, tek-amaçlı, paylaşımlı kaynak/ToS-bypass unsuru yok.
+- **NEDEN İLGİLİ:** `INSPECTION_GUIDE.md`'nin "Screenshots to Capture" ve "Key interaction states"
+  fazlarını otomatikleştirebilir; bu şablonun klonlama iş akışında sonuç doğrulaması için kullanılabilir.
+- **Kurulum:** `SKILL.md`'yi `~/.claude/skills/` altına kopyalama (Playwright kurulu olmalı — `npm
+  install -D playwright` yerel onay gerektirir).
+- **UYARI — çok yeni/kanıtsız:** #167 ile aynı: 1 yıldız, doğrulanmış ama olgunlaşmamış.
+
+#### 169. [voidmatcha/ui-clone-skills](https://github.com/voidmatcha/ui-clone-skills)
+- **Yıldız:** 13 · **Lisans:** Apache-2.0 · **Commit sayısı:** 176 (aktif geliştiriliyor)
+- **Ne işe yarar:** Canlı bir URL'yi React + Tailwind'e dönüştüren bir Claude Code & Codex plugin'i;
+  JS bundle'larından gerçek CSS + animasyon parametrelerini (GSAP/Framer Motion/Webflow IX2) çekiyor
+  ve sonucu ekran görüntüsü yerine AE/SSIM diff ile doğruluyor.
+- **NEDEN MEŞRU:** Apache-2.0 açık lisans, 176 commit'lik aktif geliştirme geçmişi, paylaşımlı API
+  key veya ToS-bypass unsuru yok — sadece hedef sitenin kendi herkese-açık JS/CSS'ini analiz ediyor.
+- **NEDEN İLGİLİ:** Bu şablonun tam olarak yaptığı işin (bir siteyi tersine mühendislik yapıp
+  Next.js/Tailwind koduna dönüştürme) daha ileri bir versiyonu; özellikle animasyon/hareket
+  çıkarımı bu şablonun `INSPECTION_GUIDE.md`'sinde "Animasyon" başlığı altında boş bırakılan bir niş.
+- **Kurulum:** `README`'de belirtilen plugin kurulum adımlarını izlemek gerekir (repo bazlı, yerel
+  onay/inceleme önerilir — 13★ ile hâlâ küçük ölçekli bir proje).
+
+### Değerlendirilip EKLENMEYEN aday — şüpheli desen
+
+**[Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode)** — 39,4k★, MIT,
+"teams-first multi-agent orchestration" iddiasıyla. `WebFetch` özeti "şüpheli gösterge yok" dese de,
+bu isim ve yıldız-profili (isim kalıbı `oh-my-*`, çok kısa sürede on binlerce yıldız) **Tur 50'nin
+belgelediği `code-yeongyu/oh-my-openagent` deseniyle çarpıcı biçimde örtüşüyor** (o depo da benzer
+şekilde şişirilmiş yıldızlara ve doğrulanamayan iddialara sahipti). Otomatik özetleyici bu deseni
+tek başına tespit edemedi — bu, "AI özetine güvenip doğrulama atlama" riskinin somut bir örneği.
+Temkinli olmak adına, ve Tur 50'nin "bu arama uzayı şişirilmiş-yıldız sosyal-mühendislik deseniyle
+dolu" bulgusuyla tutarlı şekilde, **bu aday kataloğa eklenmedi**. Kullanıcı isterse oluşturulma
+tarihi/commit geçmişi/topluluk tartışmalarını kendisi inceleyip karar verebilir.
+
+### Cron zamanlama sorunu — durum değişmedi
+
+Bu tur `list_triggers`/`CronList` çağrılmadı (Tur 58-60'da zaten üç kez bağımsız doğrulanmıştı,
+tekrar sorgulamak gürültü olurdu), ama dosyanın kendi geçmişi hâlâ düzeltilmediğini gösteriyor: son
+6 tur (56-61) art arda ~1 saat aralıklarla tetiklenmiş (05:06, 06:08, 07:03 UTC gibi). Tur 58'in
+kombine bildirimi (~07:03 - 04:05 = ~3 saat) önce gönderildi; bu turun bulgusu (3 yeni ama düşük-
+etki/deneysel kaynak + 1 şüpheli-desen reddi) aynı sonucu doğruluyor ama yeni bir eylem gerektirmiyor,
+bu yüzden **bu turda da tekrar bildirim gönderilmedi** — tekrar göndermek gürültü olurdu. Sıklık
+sorunu hâlâ kullanıcının kendisinin `list_triggers`/tetikleyici ayarları üzerinden düzeltmesini
+bekliyor.
+
+**Bu turda 3 yeni kaynak eklendi (167-169).** Toplam kataloglanmış kaynak sayısı: 169.
+
+---
+
+*Son güncelleme: 2026-09-26 (Tur 61). 3 yeni kaynak eklendi (166 → 169): #167
+`maxrihter/claude-pixel-perfect-agent` ve #168 `maxrihter/claude-skill-visual-regression` (ikisi de
+1★/MIT, gerçek ama çok yeni/kanıtsız), #169 `voidmatcha/ui-clone-skills` (13★/Apache-2.0, aktif).
+Bir aday (`Yeachan-Heo/oh-my-claudecode`, 39,4k★) Tur 50'nin yıldız-şişirme deseniyle örtüştüğü için
+eklenmedi. Cron zamanlama sorunu (`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş; Tur 58'in bildirimi
+güncelliğini koruduğu için tekrar bildirim gönderilmedi. Sonraki turlarda bu dosya okunup üstüne
+eklenecek; Tur 1-61'de listelenenler ve reddedilenler tekrarlanmayacak.
