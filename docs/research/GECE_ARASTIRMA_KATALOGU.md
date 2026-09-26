@@ -1,16 +1,21 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 63, 2026-09-26, ~09:03 UTC (12:03 Türkiye saati) — dar niş araştırması (ekran
-görüntüsünden renk paleti/tasarım-token çıkarımı, yazı tipi eşleştirme) bir alt-agent'a devredildi,
-sonuçlar bağımsız `WebFetch` ile doğrulandı. **3 yeni kaynak buldu** (#171 `OneWave-AI/claude-skills`
-`color-palette-extractor` alt-skill'i, 306★/MIT; #172 `meodai/skill.color-expert`, 594★/CC-BY-4.0,
-derin OKLCH renk-bilimi referansı; #173 `wondelai/skills` `web-typography` alt-skill'i, 2,3k★/MIT).
-Bir aday (`wilwaldon/Claude-Code-Video-Toolkit`) gerçek skill dosyası içermediği için reddedildi.
-Oturum başında yerel `origin/master` ref'i bayattı (uzak sunucu zaten Tur 62 commit'indeydi) — `git
-fetch` + hızlı-ileri ile düzeltildi, kayıp yok. Cron sorunu (`0 3-12 * * *`, saatte bir) hâlâ
-düzeltilmemiş ama Tur 58'in bildirimi hâlâ güncel olduğu ve bu turun bulgusu (3 orta-etkili kaynak,
-yeni risk yok) acil bir durum oluşturmadığı için **bu turda tekrar bildirim gönderilmedi**. Ayrıntılar
-dosyanın "Tur 63" bölümünde.
+**Son tur:** Tur 64, 2026-09-26, ~10:03 UTC (13:03 Türkiye saati) — dar niş araştırması bu kez proje
+yığınına birebir odaklandı (shadcn/ui + Tailwind v4 + Next.js App Router skill/subagent'ları,
+`WebSearch` ile iki hedefli sorgu). **0 yeni kaynak eklendi** — dönen HER aday zaten kataloğun bir
+maddesiyle birebir örtüşüyor: `shadcn-ui/ui` resmi skill'i (#37), `VoltAgent/awesome-claude-code-
+subagents` (#3), `secondsky/claude-skills` (#69), `jezweb/claude-skills` (#61) ve daha önce ince/
+sınırlı bulunup reddedilen `capraidev/shadcn-claude-skill` ile `masonjames/shadcnblocks-skill`
+(ücretli API key gerektiriyor). Bu, tam olarak bu şablonun yığınına (shadcn/Tailwind v4/Next.js)
+odaklanan aramanın da artık doygun olduğunu gösteriyor — Tur 56-63'ün "dar niş" stratejisiyle
+bulunanların (#164 `mattbx/shadcn-skills` dahil) zaten bu boşluğu kapattığını doğruluyor. Cron sorunu
+(`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş; bu turun bulgusu (0 yeni kaynak, yeni risk yok) yeni
+bir durum oluşturmadığından **bu turda da tekrar bildirim gönderilmedi** — Tur 50/58 bildirimleri
+hâlâ güncel. Ayrıntılar dosyanın "Tur 64" bölümünde.
+
+**Önceki tur (Tur 63, 2026-09-26, ~09:03 UTC):** 3 yeni kaynak eklendi (#171-173: `OneWave-AI/claude-
+skills` color-palette-extractor, `meodai/skill.color-expert`, `wondelai/skills` web-typography).
+Ayrıntılar dosyanın "Tur 63" bölümünde.
 
 **Önceki tur (Tur 62, 2026-09-26, ~08:03 UTC):** 1 yeni kaynak eklendi (#170
 `lackeyjb/playwright-skill`, 3,2k★/MIT). İki aday eklenmedi (`AgriciDaniel/claude-seo` — şişirilmiş-
@@ -26,11 +31,11 @@ kaynak-tüketimi sorunu oluşturuyor: doygunlaşmış bir arama uzayında günde
 oturumu çalıştırmak, dosyayı (~600KB+) ve hesap kullanımını büyütmeye devam ediyor ama Tur 38'den
 beri yeni sağlam kaynak oranı turda ortalama <0.1-1. Tur 51/58 zaten "sıklık azaltılsın/durdurulsun"
 önerisini bildirimle iletti; bu hâlâ kullanıcının kendisinin `list_triggers`/tetikleyici ayarları
-üzerinden düzeltmesini bekliyor — Tur 59-62 art arda aynı sonucu doğruladı ama tekrar bildirim
+üzerinden düzeltmesini bekliyor — Tur 59-64 art arda aynı sonucu doğruladı ama tekrar bildirim
 göndermek gürültü olacağı için sessiz kalındı (son bildirim hâlâ güncel).
 
 Tur 39-57 arasının tam ayrıntılı özeti (kronolojik) dosyanın ilerleyen "Tur N" bölümlerinde korunuyor;
-üstteki özet yalnızca en güncel 2 turu ve hâlâ çözülmemiş 2 standing bulguyu (Tur 50 güvenlik, Tur 58
+üstteki özet yalnızca en güncel 3 turu ve hâlâ çözülmemiş 2 standing bulguyu (Tur 50 güvenlik, Tur 58
 zamanlama) öne çıkarmak için kısaltıldı — hiçbir kayıt silinmedi.
 
 **YENİ VE ÖNEMLİ BULGU — Tur 50:** Bu tur, önceki turların "alan doydu/tekrar keşfediyor" gözleminden
@@ -44,9 +49,9 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 173 (63 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 63'te 3 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
-Tur 58/63 bulguları).
+**Toplam kataloglanmış kaynak sayısı:** 173 (64 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün — Tur 64'te 0 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
+Tur 58/64 bulguları).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -64,23 +69,24 @@ Tur 58/63 bulguları).
    ve kalite-denetimi skill çifti.
 
 **ÖNEMLİ GÖZLEM — görevin kullanıcı tarafından gözden geçirilmesi önerilir:** Bu katalog 10 gündür,
-63 turdur her ~1 saatte bir çalışıyor ve dosya artık ~650KB+ / 6800+ satır. Genel anahtar-kelime
+64 turdur her ~1 saatte bir çalışıyor ve dosya artık ~650KB+ / 6900+ satır. Genel anahtar-kelime
 taraması (yalnızca "claude code skill/subagent") Tur 36'dan beri sürekli azalan getiri veriyor; Tur
 56-63 arası proje-özel dar niş terimleriyle (website clone, shadcn, tailwind, playwright, favicon/
 asset-pipeline, renk/tipografi) turda ortalama 1-3 yeni kaynak bulmaya devam etti, yani alan tamamen
-tükenmedi ama
-artık yalnızca **bu şablona özgü dar nişlerde** verimli. Tur 50 ayrıca somut bir güvenlik deseni buldu:
-bu görevin taradığı genel arama uzayı, AI ajanlarını kendi kendine kurulum yapmaya teşvik eden,
-şişirilmiş yıldız sayılı sosyal-mühendislik/tedarik-zinciri örnekleriyle dolu (`code-yeongyu/oh-my-openagent`,
-`Yeachan-Heo/oh-my-claudecode`); Tur 52/55/56/62 bu desenin farklı nişlerde (ücretsiz LLM API
-listeleri, website-klonlama skill'leri, frontend-toolkit link-hub'ları, SEO skill koleksiyonları)
-tekrarlandığını doğruladı — Tur 62'nin `AgriciDaniel/claude-seo` reddi bu desenin 6. bağımsız örneği.
-Önceki turlar bu gözlemi tekrar tekrar not düşüp görevin sıklığının azaltılmasını veya durdurulmasını
-önerdi (27+ ardışık tur); bu hâlâ geçerli ve kullanıcının `list_triggers`/tetikleyici ayarlarını
-gözden geçirmesini bekliyor. **Bu turda kullanıcıya yeni bir bildirim gönderilmedi** — Tur 50
-(güvenlik bulgusu) ve Tur 58 (sıklık/cron bulgusu) bildirimleri hâlâ güncel, ve bu turun bulgusu
-(1 düşük-etkili yeni kaynak + 2 ret, aynı zaten-bilinen desenlerin tekrarı) acil/yeni bir durum
-oluşturmuyor; tekrar bildirim göndermek gürültü olurdu.
+tükenmedi ama artık yalnızca **bu şablona özgü dar nişlerde** verimli — Tur 64 bu nişin de (shadcn/
+Tailwind v4/Next.js App Router) artık kendi içinde doyduğunu doğruladı: hedefli arama HİÇBİR yeni
+aday bulamadı, dönenlerin tamamı zaten kataloglı/değerlendirilmişti. Tur 50 ayrıca somut bir güvenlik
+deseni buldu: bu görevin taradığı genel arama uzayı, AI ajanlarını kendi kendine kurulum yapmaya
+teşvik eden, şişirilmiş yıldız sayılı sosyal-mühendislik/tedarik-zinciri örnekleriyle dolu
+(`code-yeongyu/oh-my-openagent`, `Yeachan-Heo/oh-my-claudecode`); Tur 52/55/56/62 bu desenin farklı
+nişlerde (ücretsiz LLM API listeleri, website-klonlama skill'leri, frontend-toolkit link-hub'ları,
+SEO skill koleksiyonları) tekrarlandığını doğruladı — Tur 62'nin `AgriciDaniel/claude-seo` reddi bu
+desenin 6. bağımsız örneği. Önceki turlar bu gözlemi tekrar tekrar not düşüp görevin sıklığının
+azaltılmasını veya durdurulmasını önerdi (28+ ardışık tur); bu hâlâ geçerli ve kullanıcının
+`list_triggers`/tetikleyici ayarlarını gözden geçirmesini bekliyor. **Bu turda kullanıcıya yeni bir
+bildirim gönderilmedi** — Tur 50 (güvenlik bulgusu) ve Tur 58 (sıklık/cron bulgusu) bildirimleri hâlâ
+güncel, ve bu turun bulgusu (0 yeni kaynak, proje-yığını nişinin de doygunlaştığının teyidi) acil/yeni
+bir durum oluşturmuyor; tekrar bildirim göndermek gürültü olurdu.
 
 Aşağıdaki bölümler önceki 47 turun tam detaylı geçmişini içerir.
 
@@ -6855,3 +6861,59 @@ gerçek `SKILL.md` içeriği doğrulandı, şişirilmiş-yıldız deseniyle ört
 zamanlama sorunu (`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş; Tur 58'in bildirimi güncelliğini
 koruduğu için tekrar bildirim gönderilmedi. Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur
 1-63'te listelenenler ve reddedilenler tekrarlanmayacak.
+
+## Tur 64 (2026-09-26, ~10:03 UTC / 13:03 Türkiye saati)
+
+Kesme noktasından (12:00 UTC) önce başladı. Aynı günün **9. turu** (Tur 56 ~02:03'ten beri, saatte
+bir). Dosya önce okundu (173 kayıt, Tur 1-63 arası kataloglanan/reddedilen tüm adaylar not edildi).
+Tur 56-63'ün "genel arama doygun, proje-özel dar niş verimli" stratejisi izlendi: bu turda niş olarak
+şablonun asıl teknoloji yığını (`AGENTS.md`: shadcn/ui, Tailwind CSS v4, Next.js App Router) seçildi,
+çünkü bu tam olarak Tur 56/58/63'te başarılı olan yaklaşımın devamı.
+
+### Arama ve doğrulama
+
+İki hedefli `WebSearch` sorgusu çalıştırıldı: (1) `"claude code" skill shadcn ui OR "tailwind v4"
+github SKILL.md`, (2) `"claude code" subagent OR skill "next.js app router" github`. Dönen adaylar
+dosyanın mevcut 173 kaydına karşı `grep` ile çapraz kontrol edildi:
+
+- **`shadcn-ui/ui` resmi skill'i** — zaten kataloğun **#37** maddesi (shadcn/ui'nin kendi resmi
+  `skills/shadcn/SKILL.md`'si, Tur 30'da eklendi).
+- **`VoltAgent/awesome-claude-code-subagents`** — zaten kataloğun **#3** maddesi (Tur 1'den beri).
+- **`secondsky/claude-skills`** (Tailwind v4 + shadcn + Vite/React kurulum skill'i) — zaten
+  kataloğun **#69** maddesi (Tur 15).
+- **`jezweb/claude-skills`** (aynı `tailwind-v4-shadcn` skill'inin bir başka dağıtımı) — zaten
+  kataloğun **#61** maddesi (Tur 15).
+- **`capraidev/shadcn-claude-skill`** — Tur 15/20'de zaten değerlendirilmiş ve **eklenmemiş** (4
+  yıldız, çok ince kapsam).
+- **`masonjames/shadcnblocks-skill`** — Tur 15/20'de zaten değerlendirilmiş ve **eklenmemiş** (asıl
+  değeri olan 2.500+ blok erişimi ShadcnBlocks.com'un ücretli API key'ine bağlı).
+- **VoltAgent/awesome-claude-code-subagents içindeki `nextjs-developer.md`** — ayrı bir kaynak değil,
+  zaten kataloglı #3'ün bir alt-dosyası.
+
+**Sonuç: bu turda 0 yeni kaynak eklendi.** İki hedefli sorgunun döndürdüğü HER aday zaten kataloğun
+bir maddesiyle birebir örtüşüyor ya da daha önce ince/kapsam-dışı bulunup reddedilmişti. Bu, Tur
+56-63'te verimli olan "proje-yığınına özel dar niş" stratejisinin bile artık bu spesifik yığın
+(shadcn/Tailwind v4/Next.js App Router) için tükendiğini gösteriyor — muhtemelen çünkü bu tam olarak
+en popüler/en çok aranan Claude Code niş kombinasyonlarından biri ve Tur 1-63 arasında zaten defalarca
+tarandı (#3, #37, #61, #69, #164 `mattbx/shadcn-skills` dahil).
+
+### Cron zamanlama sorunu — durum hâlâ değişmedi
+
+Bu tur `list_triggers`/`CronList` tekrar çağrılmadı; dosyanın kendi geçmişi hâlâ saatlik tetiklemeyi
+gösteriyor (Tur 63 → 64 arası ~1 saat, 09:03 → 10:03 UTC — 9. ardışık saatlik tetikleme bugün). Bu
+turun bulgusu (0 yeni kaynak, hiçbir yeni güvenlik/zamanlama sorunu yok) yeni bir eylem gerektirmiyor,
+bu yüzden **bu turda da tekrar bildirim gönderilmedi** — Tur 50 (güvenlik) ve Tur 58 (zamanlama)
+bildirimleri hâlâ güncel. Sıklık sorunu hâlâ kullanıcının kendisinin tetikleyici ayarları üzerinden
+düzeltmesini bekliyor; bu artık 7. ardışık tur (58-64) aynı öneriyi tekrarlıyor.
+
+**Bu turda 0 yeni kaynak eklendi.** Toplam kataloglanmış kaynak sayısı: 173 (değişmedi).
+
+---
+
+*Son güncelleme: 2026-09-26 (Tur 64). 0 yeni kaynak eklendi — proje yığınına özel hedefli arama
+(shadcn/ui, Tailwind v4, Next.js App Router) yapıldı ama dönen tüm adaylar zaten kataloglıydı (#3,
+#37, #61, #69) veya daha önce reddedilmişti (`capraidev/shadcn-claude-skill`,
+`masonjames/shadcnblocks-skill`). Cron zamanlama sorunu (`0 3-12 * * *`, saatte bir) hâlâ
+düzeltilmemiş; Tur 58'in bildirimi güncelliğini koruduğu için tekrar bildirim gönderilmedi. Sonraki
+turlarda bu dosya okunup üstüne eklenecek; Tur 1-64'te listelenenler ve reddedilenler
+tekrarlanmayacak.
