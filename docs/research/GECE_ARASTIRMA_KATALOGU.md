@@ -1,51 +1,37 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**YENİ VE ÖNEMLİ BULGU — Tur 58 (zamanlama/kaynak tüketimi):** Bu turda görevin kendi tetikleyici
-yapılandırması (`list_triggers`) doğrulandı: cron ifadesi `0 3-12 * * *` — yani "gece araştırması"
-adı gecede BİR kez çalışacağını ima etse de, görev aslında **her gün 03:00–12:00 UTC arasında SAATTE
-BİR, günde ~10 kez** çalışıyor. Bu, 57 turun neden yalnızca ~10 günde birikmiş olduğunu açıklıyor ve
-Tur 36'dan beri belgelenen "azalan getiri" gözlemiyle birleşince önemli bir kaynak-tüketimi sorunu
-oluşturuyor: doygunlaşmış bir arama uzayında günde 10 kez tam bir araştırma oturumu çalıştırmak,
-dosyayı (~530KB+) ve hesap kullanımını büyütmeye devam ediyor ama Tur 38'den beri yeni sağlam kaynak
-oranı turda ortalama <0.1. Tur 51 zaten "sıklık azaltılsın/durdurulsun" önerisini iletmişti; bu tur
-bunun somut nedenini (saatlik cron, gecelik değil) doğruluyor ve bildirimle iletiliyor.
+**Son tur:** Tur 62, 2026-09-26, ~08:03 UTC (11:03 Türkiye saati) — niş `WebSearch` sorguları
+(Playwright test-otomasyon skill'leri, favicon/webmanifest üretici skill'ler, image-optimization
+skill'leri) **1 yeni kaynak buldu** (#170 `lackeyjb/playwright-skill` — 3,2k★/MIT, ~11 aylık organik
+commit geçmişi, gerçek `SKILL.md`, doğrudan `INSPECTION_GUIDE.md`'nin ekran görüntüsü/etkileşim-durumu
+fazlarıyla ilgili). İki aday **eklenmedi**: `AgriciDaniel/claude-seo` (17,7k★ ama depo yalnızca ~16
+gün önce oluşturulmuş — Tur 50'nin belgelediği şişirilmiş-yıldız deseniyle birebir örtüşen 5. örnek)
+ve `alonw0/web-asset-generator` (507★, gerçek/meşru ama zaten kataloglanmış #61
+`jezweb/claude-skills`'in `favicon-gen` alt-skill'iyle işlevsel olarak örtüşüyor). Cron sorunu
+(`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş ama Tur 58'in bildirimi hâlâ güncel olduğu ve bu
+turun bulgusu (1 düşük-etki kaynak + 2 ret) yeni/acil bir durum oluşturmadığı için **bu turda tekrar
+bildirim gönderilmedi**. Ayrıntılar dosyanın "Tur 62" bölümünde.
 
-**Son tur:** Tur 61, 2026-09-26, ~07:03 UTC (10:03 Türkiye saati) — niş `WebSearch` sorguları (pixel-
-perfect audit, visual regression, design-token/site-klonlama skill'leri) **3 yeni kaynak buldu**
-(#167 `maxrihter/claude-pixel-perfect-agent`, #168 `maxrihter/claude-skill-visual-regression` — ikisi
-de 1★/MIT, çok yeni/kanıtsız ama gerçek ve doğrudan ilgili; #169 `voidmatcha/ui-clone-skills` — 13★/
-Apache-2.0, 176 commit, aktif). Bir aday (`Yeachan-Heo/oh-my-claudecode`, 39,4k★) Tur 50'nin
-`oh-my-openagent` bulgusuyla aynı şüpheli isim/yıldız-şişirme desenine uyduğu için **eklenmedi**.
-Cron sorunu (`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş durumda ama Tur 58'in bildirimi hâlâ
-güncel olduğu ve bu turun bulgusu (2 adet 1★ deneysel repo) acil/yeni bir durum oluşturmadığı için
-**bu turda tekrar bildirim gönderilmedi**. Ayrıntılar dosyanın "Tur 61" bölümünde.
+**Önceki tur (Tur 61, 2026-09-26, ~07:03 UTC):** 3 yeni kaynak eklendi (#167-169: iki adet 1★/MIT
+pixel-perfect/visual-regression skill'i + #169 `voidmatcha/ui-clone-skills`, 13★/Apache-2.0). Bir
+aday (`Yeachan-Heo/oh-my-claudecode`, 39,4k★) şişirilmiş-yıldız deseniyle eşleştiği için eklenmedi.
+Ayrıntılar dosyanın "Tur 61" bölümünde.
 
-**Önceki tur (Tur 58, 2026-09-26, ~04:05 UTC / 07:05 Türkiye saati):** hedefli kod araması (SKILL.md
-içinde "oklch"/tailwind, "clone-website" niş terimleri) yapıldı ama **hiçbir yeni kaynak eklenmedi**:
-bulunan sonuçlar ya toplayıcı/registry depolarıydı (`majiayu000/claude-skill-registry` ve türevleri —
-binlerce SKILL.md'yi otomatik indeksliyor, küratörlü değil, Tur 50'nin işaret ettiği "doğrulanmamış
-toplu içerik" deseniyle örtüşüyor, eklenmedi) ya da bu şablonun kendi `clone-website` skill'inin
-başka kullanıcılar tarafından çatallanmış kopyalarıydı (`JCodesMore/ai-website-cloner-template` dahil)
-— yeni/bağımsız bir kaynak değil. Ayrıntılar dosyanın "Tur 58" bölümünde.
+**YENİ VE ÖNEMLİ BULGU — Tur 58 (zamanlama/kaynak tüketimi, HÂLÂ ÇÖZÜLMEDİ):** Görevin kendi
+tetikleyici yapılandırması (`list_triggers`) doğrulandı: cron ifadesi `0 3-12 * * *` — yani "gece
+araştırması" adı gecede BİR kez çalışacağını ima etse de, görev aslında **her gün 03:00–12:00 UTC
+arasında SAATTE BİR, günde ~10 kez** çalışıyor. Bu, 61+ turun neden yalnızca ~10 günde birikmiş
+olduğunu açıklıyor ve Tur 36'dan beri belgelenen "azalan getiri" gözlemiyle birleşince önemli bir
+kaynak-tüketimi sorunu oluşturuyor: doygunlaşmış bir arama uzayında günde ~10 kez tam bir araştırma
+oturumu çalıştırmak, dosyayı (~600KB+) ve hesap kullanımını büyütmeye devam ediyor ama Tur 38'den
+beri yeni sağlam kaynak oranı turda ortalama <0.1-1. Tur 51/58 zaten "sıklık azaltılsın/durdurulsun"
+önerisini bildirimle iletti; bu hâlâ kullanıcının kendisinin `list_triggers`/tetikleyici ayarları
+üzerinden düzeltmesini bekliyor — Tur 59-62 art arda aynı sonucu doğruladı ama tekrar bildirim
+göndermek gürültü olacağı için sessiz kalındı (son bildirim hâlâ güncel).
 
-**Önceki tur (Tur 57, 2026-09-26, ~03:10 UTC / 06:10 Türkiye saati):** kesme noktasının (12:00 UTC) çok
-öncesinde çalıştı. **2 yeni kaynak eklendi** (#165 `SpillwaveSolutions/parallel-worktrees` —
-`AGENTS.md`'nin kendi "her teammate kendi worktree'sinde çalışsın" talimatını otomatikleştiren skill,
-15★, MIT; #166 `wsimmonds/claude-nextjs-skills` — Vercel'in resmi eval'inde ölçülmüş, React 19/
-Next.js 15-16 breaking-change farkındalık skill'i, 108★/22 fork, MIT). Bu tur, Tur 56'nın "projeye
-özel dar terimler" yöntemini bir adım öteye taşıyıp doğrudan `AGENTS.md`'nin KENDİ metnini hedef aldı
-(worktree-orkestrasyon talimatı, "npm run check" komutu, "This is NOT the Next.js you know" uyarısı)
-— 3 nişten 2'si sağlam sonuç verdi, 1'i (lint/typecheck/build kapısı) gerçek ama kanıtsız/çok-yeni bir
-adayla (`Paldom/node-skills`, 1★) beklemede bırakıldı. Ayrıntılar dosyanın "Tur 57" bölümünde.
-
-**Önceki tur (Tur 56, 2026-09-25, ~11:07 UTC / 14:07 Türkiye saati):** 2 yeni kaynak eklendi (#163
-`santowilem/skills` — website/UI klonlama `clone-ui` skill'i, 13★, MIT; #164 `mattbx/shadcn-skills` —
-shadcn/ui bileşen keşfi + inceleme skill çifti, 19★, MIT). Bu tur, önceki turların genel "claude code
-skill" anahtar kelimesi yerine bu şablonun kendi dar nişine (website klonlama, shadcn/Tailwind) özel
-arama terimleri kullandı — bu yöntem değişikliği 20 ardışık sıfır/marjinal-sonuç turundan sonra ilk
-kez sağlam yeni sonuç verdi. Bir aday (`wilwaldon/Claude-Code-Frontend-Design-Toolkit`) hem link-hub
-hem Tur 50'nin ajan-hedefli-kurulum deseniyle eşleştiği için reddedildi. Ayrıntılar dosyanın "Tur 56"
-bölümünde.
+Tur 39-57 arasının tam ayrıntılı özeti (kronolojik) dosyanın ilerleyen "Tur N" bölümlerinde korunuyor;
+üstteki özet yalnızca en güncel 2 turu ve hâlâ çözülmemiş 2 standing bulguyu (Tur 50 güvenlik, Tur 58
+zamanlama) öne çıkarmak için kısaltıldı — hiçbir kayıt silinmedi.
 
 **YENİ VE ÖNEMLİ BULGU — Tur 50:** Bu tur, önceki turların "alan doydu/tekrar keşfediyor" gözleminden
 farklı ve daha ciddi bir şey buldu: tam olarak bu görevin taradığı "claude code skill/subagent"
@@ -58,9 +44,9 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 169 (61 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 61'de 3 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
-Tur 58/61 bulguları).
+**Toplam kataloglanmış kaynak sayısı:** 170 (62 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün — Tur 62'de 1 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
+Tur 58/62 bulguları).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -78,19 +64,22 @@ Tur 58/61 bulguları).
    ve kalite-denetimi skill çifti.
 
 **ÖNEMLİ GÖZLEM — görevin kullanıcı tarafından gözden geçirilmesi önerilir:** Bu katalog 10 gündür,
-56 turdur her ~1 saatte bir çalışıyor ve dosya artık ~530KB+ / 6200+ satır. Genel anahtar-kelime
-taraması (yalnızca "claude code skill/subagent") Tur 36'dan beri sürekli azalan getiri veriyordu, ama
-Tur 56 farklı bir yöntemle (projeye-özel dar terimler: "website clone", "shadcn", "tailwind design
-tokens") 2 yeni sağlam kaynak buldu — bu, alanın tamamen tükenmediğini, ama artık yalnızca **bu
-şablona özgü dar nişlerde** verimli olduğunu gösteriyor. Tur 50 ayrıca somut bir güvenlik deseni buldu:
+62 turdur her ~1 saatte bir çalışıyor ve dosya artık ~600KB+ / 6700+ satır. Genel anahtar-kelime
+taraması (yalnızca "claude code skill/subagent") Tur 36'dan beri sürekli azalan getiri veriyor; Tur
+56-62 arası proje-özel dar niş terimleriyle (website clone, shadcn, tailwind, playwright, favicon/
+asset-pipeline) turda ortalama 1-3 yeni kaynak bulmaya devam etti, yani alan tamamen tükenmedi ama
+artık yalnızca **bu şablona özgü dar nişlerde** verimli. Tur 50 ayrıca somut bir güvenlik deseni buldu:
 bu görevin taradığı genel arama uzayı, AI ajanlarını kendi kendine kurulum yapmaya teşvik eden,
-şişirilmiş yıldız sayılı en az bir sosyal-mühendislik/tedarik-zinciri örneği (`code-yeongyu/oh-my-openagent`)
-içeriyor; Tur 52/55/56 bu desenin farklı nişlerde (ücretsiz LLM API listeleri, website-klonlama
-skill'leri, frontend-toolkit link-hub'ları) tekrarlandığını doğruladı. Önceki turlar bu gözlemi
-tekrar tekrar not düşüp görevin sıklığının azaltılmasını veya durdurulmasını önerdi (21 ardışık tur);
-bu hâlâ geçerli. **Bu turda kullanıcıya yeni bir bildirim gönderilmedi** — Tur 50 (güvenlik bulgusu)
-ve Tur 51 (sıklık önerisi) bildirimleri hâlâ güncel, ve bu turun 2 yeni kaynağı düşük-etkili/rutin
-nitelikte (13★ ve 19★) olup acil dikkat gerektirmiyor; tekrar bildirim göndermek gürültü olurdu.
+şişirilmiş yıldız sayılı sosyal-mühendislik/tedarik-zinciri örnekleriyle dolu (`code-yeongyu/oh-my-openagent`,
+`Yeachan-Heo/oh-my-claudecode`); Tur 52/55/56/62 bu desenin farklı nişlerde (ücretsiz LLM API
+listeleri, website-klonlama skill'leri, frontend-toolkit link-hub'ları, SEO skill koleksiyonları)
+tekrarlandığını doğruladı — Tur 62'nin `AgriciDaniel/claude-seo` reddi bu desenin 6. bağımsız örneği.
+Önceki turlar bu gözlemi tekrar tekrar not düşüp görevin sıklığının azaltılmasını veya durdurulmasını
+önerdi (27+ ardışık tur); bu hâlâ geçerli ve kullanıcının `list_triggers`/tetikleyici ayarlarını
+gözden geçirmesini bekliyor. **Bu turda kullanıcıya yeni bir bildirim gönderilmedi** — Tur 50
+(güvenlik bulgusu) ve Tur 58 (sıklık/cron bulgusu) bildirimleri hâlâ güncel, ve bu turun bulgusu
+(1 düşük-etkili yeni kaynak + 2 ret, aynı zaten-bilinen desenlerin tekrarı) acil/yeni bir durum
+oluşturmuyor; tekrar bildirim göndermek gürültü olurdu.
 
 Aşağıdaki bölümler önceki 47 turun tam detaylı geçmişini içerir.
 
@@ -6683,3 +6672,82 @@ Bir aday (`Yeachan-Heo/oh-my-claudecode`, 39,4k★) Tur 50'nin yıldız-şişirm
 eklenmedi. Cron zamanlama sorunu (`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş; Tur 58'in bildirimi
 güncelliğini koruduğu için tekrar bildirim gönderilmedi. Sonraki turlarda bu dosya okunup üstüne
 eklenecek; Tur 1-61'de listelenenler ve reddedilenler tekrarlanmayacak.
+
+---
+
+## Tur 62 (2026-09-26, ~08:03 UTC / 11:03 Türkiye saati)
+
+Oturum başında yine "detached HEAD" durumu görüldü (tekrarlayan aynı zararsız desen); `git fetch
+origin master` ile `origin/master`'ın (`9dbbc62`, Tur 61 commit'i) canlı uzak sunucuda HEAD ile
+birebir aynı commit'te olduğu `git ls-remote` ile doğrulandı — yalnızca yerel takip referansı
+bayattı, çalışma kaybı yok. Kesme noktasının (12:00 UTC) çok öncesinde çalıştı, normal arama yapıldı.
+
+Bu tur, önceki turların genel taramasından farklı olarak doğrudan bu şablonun `AGENTS.md`'sindeki
+`public/seo/` (favicon, OG image, webmanifest), `public/videos/`+`public/images/` (asset indirme/
+optimizasyon) ve `INSPECTION_GUIDE.md`'nin ekran görüntüsü/etkileşim-durumu fazlarını hedef alan 3
+niş `WebSearch` sorgusu çalıştırdı. Bulunan adaylar `WebFetch` ile GitHub sayfalarından (yıldız,
+lisans, gerçek `SKILL.md` varlığı, commit tarihleri) doğrulandı; `api.github.com` yine 403 döndürdü
+(bilinen proxy kısıtlaması), düz `github.com/<owner>/<repo>` HTML sayfaları kullanıldı.
+
+### Yeni eklenen kaynak
+
+#### 170. [lackeyjb/playwright-skill](https://github.com/lackeyjb/playwright-skill)
+- **Yıldız:** 3,2k · **Lisans:** MIT
+- **Güncellik:** İlk commit 2025-10-19 (v3.0.0 ilk sürüm), en son commit 2026-08-14 — ~10 aylık
+  organik commit geçmişi (24+ commit, sürüm artışlarıyla), yıldız/yaş oranı (3,2k★ / ~11 ay) makul ve
+  Tur 50'nin şişirilmiş-yıldız deseniyle (haftalar içinde on binlerce yıldız) uyuşmuyor.
+- **Ne işe yarar:** Kodlama ajanları için genel amaçlı bir Playwright otomasyon skill'i — `SKILL.md`
+  gerekli API referansını yalnızca ihtiyaç duyulduğunda yüklüyor, ajanların kendi özel tarayıcı
+  otomasyon betiklerini (sayfa testi, çok adımlı iş akışları) canlı görünürlükle yazıp çalıştırmasını
+  sağlıyor.
+- **NEDEN MEŞRU:** MIT lisanslı, açık kaynak, gerçek `skills/playwright-skill/SKILL.md` dosyası
+  doğrulandı, paylaşımlı API key veya ToS-bypass unsuru yok, organik büyüme paterni.
+- **NEDEN İLGİLİ:** `INSPECTION_GUIDE.md`'nin "Screenshots to Capture" ve "Key interaction states"
+  fazlarını ve `CLAUDE.md`'nin "start the dev server and use the feature in a browser before
+  reporting complete" talimatını otomatikleştirebilir; Tur 4'teki `microsoft/playwright-mcp` (#19,
+  etkileşim/otomasyon) ile tamamlayıcı, çakışmıyor.
+- **Kurulum:** `npx skills add https://github.com/lackeyjb/playwright-skill` veya depoyu klonlayıp
+  `SKILL.md`'yi `~/.claude/skills/` altına kopyalama. Playwright kurulu olmalı (`npm install -D
+  playwright`) — yerel onay gerekir, API key gerekmez.
+
+### Değerlendirilip EKLENMEYEN adaylar
+
+**[AgriciDaniel/claude-seo](https://github.com/AgriciDaniel/claude-seo)** — 17,7k★, MIT, 26 sub-skill
++ 19 sub-agent iddiasıyla (gerçek dosya yapısı doğrulandı: `skills/`, `agents/`, `extensions/`
+dizinleri gerçekten mevcut, placeholder değil). Ancak commit geçmişi incelendiğinde depo yalnızca
+**~2026-09-10'da oluşturulmuş** (en eski görünen commit) ve **16 günde 17.700★'a ulaşmış** — bu, Tur
+50'nin belgelediği "birkaç hafta içinde on binlerce yıldıza ulaşan, commit derinliğiyle uyuşmayan"
+şişirilmiş-yıldız deseninin **6. bağımsız örneği** (önceki 5'i: `code-yeongyu/oh-my-openagent`,
+`Yeachan-Heo/oh-my-claudecode`, ve Tur 52/55/56'nın ücretsiz-LLM-API/website-klonlama/frontend-toolkit
+nişlerindeki örnekler). Dosya yapısının gerçek olması meşruiyeti kurtarmıyor — böylesine anormal bir
+yıldız hızı, kullanıcıyı yanıltıcı biçimde güvenilir gösterebilir. **Temkinli olmak adına eklenmedi.**
+
+**[alonw0/web-asset-generator](https://github.com/alonw0/web-asset-generator)** — 507★, MIT, gerçek
+`skills/web-asset-generator/SKILL.md` doğrulandı (logo/metin/emoji'den favicon+app icon+sosyal medya
+görseli üretiyor), organik büyüme (Ekim 2025-Ocak 2026 arası, dış katkıcı PR'ı dahil) — meşruiyet
+açısından sorun yok. Ancak zaten kataloglanmış **#61 `jezweb/claude-skills`**'in `design-assets`
+plugin'i altındaki `favicon-gen` alt-skill'i (favicon.svg/.ico, apple-touch-icon, web manifest) ve
+`image-processing` alt-skill'i (OG card görseli, format dönüşümü) ile işlevsel olarak örtüşüyor —
+aynı ihtiyacı zaten karşılayan bir kaynak var. Kataloğun kendi büyüme/gürültü sorunu göz önüne
+alınarak, örtüşen ikinci bir kaynak eklemek yerine bu not düşüldü. **Eklenmedi**, ama kullanıcı
+metin/emoji tabanlı basit bir alternatif isterse linki burada duruyor.
+
+### Cron zamanlama sorunu — durum hâlâ değişmedi
+
+Bu tur `list_triggers`/`CronList` tekrar çağrılmadı (Tur 58-61'de dört kez bağımsız doğrulanmıştı).
+Dosyanın kendi geçmişi hâlâ saatlik tetiklemeyi gösteriyor (Tur 61 → 62 arası ~1 saat, 07:03 → 08:03
+UTC). Bu turun bulgusu (1 düşük-etkili yeni kaynak + zaten bilinen şişirilmiş-yıldız deseninin bir
+tekrarı) yeni bir eylem gerektirmiyor, bu yüzden **bu turda da tekrar bildirim gönderilmedi**. Sıklık
+sorunu hâlâ kullanıcının kendisinin tetikleyici ayarları üzerinden düzeltmesini bekliyor.
+
+**Bu turda 1 yeni kaynak eklendi (#170).** Toplam kataloglanmış kaynak sayısı: 170.
+
+---
+
+*Son güncelleme: 2026-09-26 (Tur 62). 1 yeni kaynak eklendi (169 → 170): #170
+`lackeyjb/playwright-skill` (3,2k★/MIT, organik ~11 aylık geçmiş, doğrulanmış `SKILL.md`). İki aday
+reddedildi: `AgriciDaniel/claude-seo` (17,7k★ ama 16 günlük depo — şişirilmiş-yıldız deseninin 6.
+örneği) ve `alonw0/web-asset-generator` (meşru ama zaten kataloglanmış #61'in alt-skill'leriyle
+örtüşüyor). Cron zamanlama sorunu (`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş; Tur 58'in bildirimi
+güncelliğini koruduğu için tekrar bildirim gönderilmedi. Sonraki turlarda bu dosya okunup üstüne
+eklenecek; Tur 1-62'de listelenenler ve reddedilenler tekrarlanmayacak.
