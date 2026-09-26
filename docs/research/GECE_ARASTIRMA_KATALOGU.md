@@ -1,6 +1,24 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 57, 2026-09-26, ~03:10 UTC (06:10 Türkiye saati) — kesme noktasının (12:00 UTC) çok
+**YENİ VE ÖNEMLİ BULGU — Tur 58 (zamanlama/kaynak tüketimi):** Bu turda görevin kendi tetikleyici
+yapılandırması (`list_triggers`) doğrulandı: cron ifadesi `0 3-12 * * *` — yani "gece araştırması"
+adı gecede BİR kez çalışacağını ima etse de, görev aslında **her gün 03:00–12:00 UTC arasında SAATTE
+BİR, günde ~10 kez** çalışıyor. Bu, 57 turun neden yalnızca ~10 günde birikmiş olduğunu açıklıyor ve
+Tur 36'dan beri belgelenen "azalan getiri" gözlemiyle birleşince önemli bir kaynak-tüketimi sorunu
+oluşturuyor: doygunlaşmış bir arama uzayında günde 10 kez tam bir araştırma oturumu çalıştırmak,
+dosyayı (~530KB+) ve hesap kullanımını büyütmeye devam ediyor ama Tur 38'den beri yeni sağlam kaynak
+oranı turda ortalama <0.1. Tur 51 zaten "sıklık azaltılsın/durdurulsun" önerisini iletmişti; bu tur
+bunun somut nedenini (saatlik cron, gecelik değil) doğruluyor ve bildirimle iletiliyor.
+
+**Son tur:** Tur 58, 2026-09-26, ~04:05 UTC (07:05 Türkiye saati) — hedefli kod araması (SKILL.md
+içinde "oklch"/tailwind, "clone-website" niş terimleri) yapıldı ama **hiçbir yeni kaynak eklenmedi**:
+bulunan sonuçlar ya toplayıcı/registry depolarıydı (`majiayu000/claude-skill-registry` ve türevleri —
+binlerce SKILL.md'yi otomatik indeksliyor, küratörlü değil, Tur 50'nin işaret ettiği "doğrulanmamış
+toplu içerik" deseniyle örtüşüyor, eklenmedi) ya da bu şablonun kendi `clone-website` skill'inin
+başka kullanıcılar tarafından çatallanmış kopyalarıydı (`JCodesMore/ai-website-cloner-template` dahil)
+— yeni/bağımsız bir kaynak değil. Ayrıntılar dosyanın "Tur 58" bölümünde.
+
+**Önceki tur (Tur 57, 2026-09-26, ~03:10 UTC / 06:10 Türkiye saati):** kesme noktasının (12:00 UTC) çok
 öncesinde çalıştı. **2 yeni kaynak eklendi** (#165 `SpillwaveSolutions/parallel-worktrees` —
 `AGENTS.md`'nin kendi "her teammate kendi worktree'sinde çalışsın" talimatını otomatikleştiren skill,
 15★, MIT; #166 `wsimmonds/claude-nextjs-skills` — Vercel'in resmi eval'inde ölçülmüş, React 19/
@@ -30,8 +48,9 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 166 (57 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 57 ile #165-#166 eklendi).
+**Toplam kataloglanmış kaynak sayısı:** 166 (58 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün — Tur 58'de yeni kaynak eklenmedi, görev zamanlaması saatte bir çalışıyor, bkz. yukarıdaki
+Tur 58 bulgusu).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -6382,3 +6401,65 @@ Sonraki turlarda bu dosya okunup yeni kaynaklar üstüne eklenecek, Tur 1–57'd
 reddedilenler tekrarlanmayacak. Yöntem notu: `AGENTS.md`'nin kendi metnini satır satır tarayıp
 otomatikleştirilebilecek talimatlar aramak gelecek turlarda önceliklendirilebilir; `Paldom/node-skills`
 olgunlaştığında (yıldız/fork birikince) yeniden değerlendirilebilir.
+
+---
+
+## Tur 58 (2026-09-26, ~04:05 UTC / 07:05 Türkiye saati)
+
+### Zamanlama bulgusu — görev "gece" değil, günde ~10 kez çalışıyor
+
+`list_triggers` ile bu görevin kendi tetikleyici tanımı doğrulandı:
+
+```
+cron_expression: "0 3-12 * * *"
+```
+
+Bu, her gün 03:00–12:00 UTC arasında **saat başı** (günde 10 kez) çalışacağı anlamına geliyor —
+"Gece Araştırması" ismi tek seferlik gecelik bir tarama izlenimi verse de. 2026-09-16'dan bu yana
+(10 gün) 58 tur birikmiş olması bu saatlik programla tutarlı (bazı günler kesme noktasından sonra
+erken sonlanmış olabilir). Tur 36'dan beri belgelenen azalan-getiri gözlemiyle birleştiğinde: aynı
+doymuş arama uzayını günde 10 kez tam bir oturum çalıştırmak (her seferinde GitHub API/arama
+çağrıları + ~530KB'lık dosyanın okunması/güncellenmesi) hesap kaynaklarını, doygun bir alanda
+neredeyse hiç yeni sonuç üretmeden tüketiyor. Tur 51 zaten sıklığın azaltılmasını/durdurulmasını
+önermişti (21 ardışık tur boyunca tekrarlandı) — bu tur bunun somut, doğrulanmış nedenini ortaya
+koyuyor ve bir bildirimle kullanıcıya iletiliyor.
+
+**Öneri (değişiklik yapılmadı, yalnızca belgelendi):** cron ifadesi örn. `0 3 * * *` (günde 1 kez,
+03:00 UTC) olarak güncellenebilir ya da görev tamamen durdurulabilir — katalog zaten 166 kaynakla
+doygun durumda ve kalan potansiyel yalnızca bu şablona özgü dar nişlerde (bkz. Tur 56-57 yöntemi).
+Bu oturum, kullanıcı onayı olmadan kendi tetikleyicisini değiştirmedi/silmedi; karar kullanıcıya
+bırakıldı.
+
+### Bu turun araması
+
+Hedefli kod araması yapıldı (genel "claude code skill" yerine, doygunluk nedeniyle daha dar terimler):
+
+- `filename:SKILL.md "oklch" tailwind` → 8608 sonuç, ama ilk sayfa tamamen toplayıcı/registry
+  depolarından oluşuyor (`majiayu000/claude-skill-registry`, `majiayu000/claude-skill-registry-data`,
+  `pproenca/dot-skills`, `anton-abyzov/vskill` vb.) — bunlar binlerce SKILL.md dosyasını otomatik
+  tarayıp indeksleyen araçlar, tek tek küratörlü/doğrulanmış kaynaklar değil. Tur 50'nin belgelediği
+  "doğrulanmamış toplu içerik" deseniyle örtüştükleri için **hiçbiri eklenmedi**.
+- `filename:SKILL.md "reverse-engineer" website clone` → 504 sonuç. İlk sayfadaki isabetler ya aynı
+  registry toplayıcılarıydı ya da bu ŞABLONUN KENDİ `clone-website` skill'inin başka kullanıcılar
+  tarafından çatallanmış/kopyalanmış halleriydi (`JCodesMore/ai-website-cloner-template`,
+  `yournextstore/yournextstore`) — bunlar yeni/bağımsız bir kaynak değil, bu projenin kendi
+  içeriğinin yansımaları. **Eklenmedi.**
+- `topic:claude-code` + "image extraction" / `"design tokens" oklch tailwind` repository aramaları
+  → 0 sonuç.
+
+**Bu turda 0 yeni kaynak eklendi.** Toplam kataloglanmış kaynak sayısı değişmedi: 166.
+
+Tur 50 (güvenlik deseni: şişirilmiş yıldızlı, ajan-hedefli-kurulum dili taşıyan depolar) ve Tur 51
+(sıklık azaltma önerisi) bulguları geçerliliğini koruyor; bu turun zamanlama bulgusu bunları
+güçlendiriyor. **Bu turda kullanıcıya bildirim gönderildi** (zamanlama bulgusu + birikmiş öneriler
+tek bildirimde birleştirildi, çünkü somut ve eyleme geçirilebilir yeni bilgi içeriyor: gerçek cron
+programı).
+
+---
+
+*Son güncelleme: 2026-09-26 (Tur 58). Yeni kaynak eklenmedi (0/166 → 166). Bu turun asıl bulgusu
+içerik değil süreçle ilgili: görevin cron programı `0 3-12 * * *` (günde ~10 kez), "gece" adının
+ima ettiği gibi gecelik değil. Bu, Tur 51'in sıklık-azaltma önerisini somut veriyle destekliyor ve
+kullanıcıya bildirildi. Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur 1-58'de listelenenler
+ve reddedilenler (özellikle registry/toplayıcı depoları ve bu şablonun kendi çatallanmış kopyaları)
+tekrarlanmayacak.
