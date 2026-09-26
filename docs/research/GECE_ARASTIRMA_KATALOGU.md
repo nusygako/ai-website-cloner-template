@@ -1,26 +1,25 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 64, 2026-09-26, ~10:03 UTC (13:03 Türkiye saati) — dar niş araştırması bu kez proje
-yığınına birebir odaklandı (shadcn/ui + Tailwind v4 + Next.js App Router skill/subagent'ları,
-`WebSearch` ile iki hedefli sorgu). **0 yeni kaynak eklendi** — dönen HER aday zaten kataloğun bir
-maddesiyle birebir örtüşüyor: `shadcn-ui/ui` resmi skill'i (#37), `VoltAgent/awesome-claude-code-
-subagents` (#3), `secondsky/claude-skills` (#69), `jezweb/claude-skills` (#61) ve daha önce ince/
-sınırlı bulunup reddedilen `capraidev/shadcn-claude-skill` ile `masonjames/shadcnblocks-skill`
-(ücretli API key gerektiriyor). Bu, tam olarak bu şablonun yığınına (shadcn/Tailwind v4/Next.js)
-odaklanan aramanın da artık doygun olduğunu gösteriyor — Tur 56-63'ün "dar niş" stratejisiyle
-bulunanların (#164 `mattbx/shadcn-skills` dahil) zaten bu boşluğu kapattığını doğruluyor. Cron sorunu
-(`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş; bu turun bulgusu (0 yeni kaynak, yeni risk yok) yeni
-bir durum oluşturmadığından **bu turda da tekrar bildirim gönderilmedi** — Tur 50/58 bildirimleri
-hâlâ güncel. Ayrıntılar dosyanın "Tur 64" bölümünde.
+**Son tur:** Tur 65, 2026-09-26, ~11:03 UTC (14:03 Türkiye saati) — Tur 56-64'ün denediği tüm dar
+nişler (shadcn, Tailwind v4, playwright, favicon/SEO, renk/tipografi, API sağlayıcıları, video-indirme)
+dosya içi `grep` ile teyit edilip atlandı; bunun yerine daha önce hiç denenmemiş, gerçekten taze bir
+niş seçildi: bu şablonun tam olarak kullandığı **Next.js 16'ya özel** (App Router'ın ötesinde, sürüme
+özgü breaking-change'lere odaklanan) skill koleksiyonları. **2 yeni kaynak eklendi** (#174-175:
+`laguagu/claude-code-nextjs-skills` — 67★/MIT, `nextjs-shadcn` dahil 24 skill; `gocallum/nextjs16-
+agent-skills` — 23★/README'de MIT beyanı, `nextjs16-skills`+`shadcn-skills` dahil). İkisi de
+`raw.githubusercontent.com` üzerinden gerçek `SKILL.md` içerikleriyle doğrulandı, yıldız sayıları
+makul/organik (Tur 50'nin şişirilmiş-yıldız deseniyle uyuşmuyor). Cron sorunu (`0 3-12 * * *`, saatte
+bir) hâlâ düzeltilmedi — bu bugünün 10. ardışık saatlik çalıştırması; bu turun bulgusu (2 yeni kaynak,
+yeni risk yok) acil değil, bu yüzden **bu turda da tekrar bildirim gönderilmedi** — Tur 50/58
+bildirimleri hâlâ güncel. Ayrıntılar dosyanın "Tur 65" bölümünde.
+
+**Önceki tur (Tur 64, 2026-09-26, ~10:03 UTC):** 0 yeni kaynak — şablonun ana yığınına (shadcn/
+Tailwind v4/Next.js App Router) odaklanan arama tamamen doygun bulundu. Ayrıntılar dosyanın "Tur 64"
+bölümünde.
 
 **Önceki tur (Tur 63, 2026-09-26, ~09:03 UTC):** 3 yeni kaynak eklendi (#171-173: `OneWave-AI/claude-
 skills` color-palette-extractor, `meodai/skill.color-expert`, `wondelai/skills` web-typography).
 Ayrıntılar dosyanın "Tur 63" bölümünde.
-
-**Önceki tur (Tur 62, 2026-09-26, ~08:03 UTC):** 1 yeni kaynak eklendi (#170
-`lackeyjb/playwright-skill`, 3,2k★/MIT). İki aday eklenmedi (`AgriciDaniel/claude-seo` — şişirilmiş-
-yıldız deseninin 6. örneği; `alonw0/web-asset-generator` — zaten kataloglanmış #61 ile örtüşüyor).
-Ayrıntılar dosyanın "Tur 62" bölümünde.
 
 **YENİ VE ÖNEMLİ BULGU — Tur 58 (zamanlama/kaynak tüketimi, HÂLÂ ÇÖZÜLMEDİ):** Görevin kendi
 tetikleyici yapılandırması (`list_triggers`) doğrulandı: cron ifadesi `0 3-12 * * *` — yani "gece
@@ -49,9 +48,9 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 173 (64 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 64'te 0 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
-Tur 58/64 bulguları).
+**Toplam kataloglanmış kaynak sayısı:** 175 (65 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+10 gün — Tur 65'te 2 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
+Tur 58/65 bulguları).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -75,7 +74,12 @@ taraması (yalnızca "claude code skill/subagent") Tur 36'dan beri sürekli azal
 asset-pipeline, renk/tipografi) turda ortalama 1-3 yeni kaynak bulmaya devam etti, yani alan tamamen
 tükenmedi ama artık yalnızca **bu şablona özgü dar nişlerde** verimli — Tur 64 bu nişin de (shadcn/
 Tailwind v4/Next.js App Router) artık kendi içinde doyduğunu doğruladı: hedefli arama HİÇBİR yeni
-aday bulamadı, dönenlerin tamamı zaten kataloglı/değerlendirilmişti. Tur 50 ayrıca somut bir güvenlik
+aday bulamadı, dönenlerin tamamı zaten kataloglı/değerlendirilmişti. Tur 65 ise tamamen denenmemiş
+bir alt-niş (Next.js 16'ya özgü, sürüm-spesifik breaking-change skill'leri) ile 2 yeni kaynak buldu —
+bu, alanın "sıfıra" değil ama net bir azalan-getiriye ulaştığını gösteriyor: her turda değil, birkaç
+turda bir, gerçekten denenmemiş bir alt-niş bulunduğunda 1-3 kaynak çıkıyor. Bu da Tur 58'in asıl
+noktasını (günde ~10 tam-oturum çalıştırmanın getiri oranına göre aşırı sık olduğu) değiştirmiyor.
+Tur 50 ayrıca somut bir güvenlik
 deseni buldu: bu görevin taradığı genel arama uzayı, AI ajanlarını kendi kendine kurulum yapmaya
 teşvik eden, şişirilmiş yıldız sayılı sosyal-mühendislik/tedarik-zinciri örnekleriyle dolu
 (`code-yeongyu/oh-my-openagent`, `Yeachan-Heo/oh-my-claudecode`); Tur 52/55/56/62 bu desenin farklı
@@ -6917,3 +6921,108 @@ düzeltmesini bekliyor; bu artık 7. ardışık tur (58-64) aynı öneriyi tekra
 düzeltilmemiş; Tur 58'in bildirimi güncelliğini koruduğu için tekrar bildirim gönderilmedi. Sonraki
 turlarda bu dosya okunup üstüne eklenecek; Tur 1-64'te listelenenler ve reddedilenler
 tekrarlanmayacak.
+
+## Tur 65 (2026-09-26, ~11:03 UTC / 14:03 Türkiye saati)
+
+Kesme noktasından (12:00 UTC) önce başladı — bugünün 10. ardışık saatlik çalıştırması (Tur 56'dan
+beri, `0 3-12 * * *` cron'u hâlâ düzeltilmedi). Dosya önce okundu (175 satırlık `wc -l` yerine 6923
+satır / 173 kayıt; Tur 1-64'te kataloglanan ve reddedilen her şey not edildi). `list_triggers` tekrar
+çağrılarak cron doğrulandı: `trig_01BxvTHj8GmXqRx1LqLGosHh`, `cron_expression: "0 3-12 * * *"`,
+`next_run_at: 2026-09-26T12:01:50Z` — Tur 58/64'ün tespiti hâlâ aynen geçerli, kullanıcı henüz
+düzeltmemiş.
+
+### Strateji: tamamen denenmemiş bir alt-niş
+
+Tur 56-64'ün denediği TÜM dar nişler (`grep` ile dosya içinde teyit edildi) zaten kataloglı: shadcn/
+Tailwind v4/Next.js App Router (Tur 64, 0 yeni), playwright (Tur 62), favicon/SEO/webmanifest (Tur
+9/23/45/50 civarı, en az 6 ayrı bulgu), renk/tipografi (Tur 63), ücretsiz LLM API sağlayıcıları
+(10'dan fazla ayrı bölüm — #A-E kategorileri), video/asset indirme (`yt-dlp-mcp` #111), plugin
+marketplace'leri (resmi Anthropic marketplace dahil, birden fazla giriş). Bunların hiçbirini tekrar
+aramak yerine, bu turda `AGENTS.md`'nin en üstündeki uyarı cümlesi ("This is NOT the Next.js you
+know... APIs, conventions, and file structure may all differ") temel alınarak **Next.js 16'ya özgü,
+sürüm-spesifik breaking-change'lere odaklanan** skill koleksiyonları arandı — bu tam olarak App
+Router genelinden farklı, daha dar ve daha yeni bir niş (Next.js 16, bu görevin geçmiş turlarında
+"App Router" genel terimiyle arandı ama "Next.js 16" sürüm-spesifik terimiyle hiç aranmadı).
+
+Tek bir hedefli `WebSearch` sorgusu çalıştırıldı: `"claude code" skill OR subagent "next.js 16"
+github SKILL.md 2026`. Dönen adaylar arasından 3'ü öne çıktı ve doğrulandı:
+
+- **`laguagu/claude-code-nextjs-skills`** — `mcp__github__search_repositories` ile temel meta veri
+  doğrulandı (67★, 18 fork, oluşturulma 2026-01-11, son güncelleme 2026-09-25 — dün, aktif bakımlı).
+  GitHub üçüncü-taraf depo kapsamı bu oturumda da `api.github.com`'u 403 ile engelledi (Tur 63'te
+  belgelenen bilinen proxy kısıtlaması); bunun yerine `WebFetch` ile hem `github.com` repo sayfası
+  hem `raw.githubusercontent.com/.../LICENSE` (gerçek MIT metni doğrulandı) hem de
+  `raw.githubusercontent.com/.../skills/nextjs-shadcn/SKILL.md` (gerçek, önemli ölçüde ayrıntılı içerik
+  — Next.js 16 async params/server actions/caching, `shadcn info --json`, `@shadcn/lint` — stub değil)
+  bağımsız olarak doğrulandı.
+- **`gocallum/nextjs16-agent-skills`** — 23★/7 fork, oluşturulma 2025-12-20, son güncelleme
+  2026-08-20. `LICENSE`/`LICENSE.md` dosyası kök dizinde bulunamadı (404), ama README'nin "## License"
+  bölümü açıkça "MIT" diyor — bu küçük bir şeffaflık eksikliği olarak not edildi (ayrı dosya yok,
+  yalnızca README beyanı), reddi gerektirecek bir MEŞRULUK sorunu değil. `skills/shadcn-skills/
+  SKILL.md` raw içerik olarak doğrulandı — gerçek, Next.js 16 + pnpm + Zod form + dark-mode + MCP
+  entegrasyonu kapsayan somut içerik.
+- **`wsimmonds/claude-nextjs-skills`** — 108★/22 fork — **eklenmedi**: repo açıklaması kendisini net
+  biçimde "a proof of concept" olarak tanımlıyor (nextjs.org/evals puanlarını artırmak için deneysel);
+  içerik/kapsam derinliği diğer ikisiyle karşılaştırıldığında doğrulanamadı, "kanıtlanmış/olgun" eşiğini
+  aşmıyor.
+
+Üçünün de yıldız sayısı (67, 23, 108) Tur 50'nin işaret ettiği "haftalar içinde on binlerce yıldız"
+şişirme deseniyle örtüşmüyor — organik/makul büyüme. Hiçbiri paylaşımlı API key veya ToS-bypass
+gerektirmiyor; ikisi de standart `npx skills add` / plugin-marketplace kurulum yöntemi kullanıyor.
+
+### Yeni eklenen kaynaklar
+
+#### 174. [laguagu/claude-code-nextjs-skills](https://github.com/laguagu/claude-code-nextjs-skills)
+- **Yıldız:** 67 · **Fork:** 18 · **Lisans:** MIT
+- **Ne işe yarar:** 24 skill + 2 agent'lık bir koleksiyon; en alakalısı `nextjs-shadcn` (Next.js 16 +
+  shadcn/ui, minimal/kasıtlı tasarım ilkeleri, async params/server actions/caching örnekleri,
+  `/_next/mcp` endpoint'i, `@shadcn/lint` entegrasyonu). Ayrıca `ai-sdk-7`, `nextjs-seo`,
+  `postgres-semantic-search`, `skill-creator` gibi tamamlayıcı skill'ler içeriyor.
+- **NEDEN MEŞRU:** MIT lisanslı (`LICENSE` dosyası `raw.githubusercontent.com` üzerinden doğrulandı),
+  `nextjs-shadcn/SKILL.md` gerçek ve ayrıntılı (stub değil, somut kod örnekleri ve CLI komutları
+  içeriyor), yıldız/yaş oranı makul (67★, ~8 aylık depo), paylaşımlı API key veya ToS-bypass yok, dün
+  (2026-09-25) güncellenmiş aktif bakım.
+- **NEDEN İLGİLİ:** Bu şablonun `AGENTS.md`'sinin en üst uyarısıyla (Next.js 16'nın eğitim verisinden
+  farklı, breaking-change'ler içerdiği) ve tam olarak kullanılan yığınla (shadcn/ui + Next.js App
+  Router) birebir örtüşüyor — 64 turdur "App Router" genel terimiyle aranan ama "Next.js 16"
+  sürüm-spesifikliğiyle hiç aranmamış bir niş.
+- **Kurulum:** `/plugin marketplace add laguagu/claude-code-nextjs-skills` ardından
+  `/plugin install claude-code-nextjs-skills@laguagu` (veya ilgili `skills/nextjs-shadcn/` alt-
+  dizinini `~/.claude/skills/` altına kopyalama) — yerel onay gerekir, API key gerekmez.
+
+#### 175. [gocallum/nextjs16-agent-skills](https://github.com/gocallum/nextjs16-agent-skills)
+- **Yıldız:** 23 · **Fork:** 7 · **Lisans:** MIT (yalnızca README beyanı — ayrı `LICENSE` dosyası
+  bulunamadı, şeffaflık notu olarak kaydedildi)
+- **Ne işe yarar:** Next.js 16 migration, Prisma ORM 7 ve AI SDK v6 için agent-skill seti;
+  `nextjs16-skills`, `shadcn-skills`, `clerk-nextjs-skills`, `authjs-skills`, `mcp-server-skills` gibi
+  11 alt-skill içeriyor. `shadcn-skills/SKILL.md` içeriği pnpm kurulum komutları, Zod'lu form
+  örneği, tema sağlayıcı kurulumu ve dark-mode desenlerini kapsıyor (doğrulandı, stub değil).
+- **NEDEN MEŞRU:** Gerçek `SKILL.md` içeriği raw fetch ile doğrulandı, yıldız/yaş oranı makul (23★,
+  ~9 aylık depo, organik), paylaşımlı API key veya ToS-bypass yok. Tek eksik: kök dizinde ayrı bir
+  `LICENSE` dosyası yok, yalnızca README'de "MIT" beyanı var — kullanıcı kuruluma güvenmeden önce bunu
+  not etmeli.
+- **NEDEN İLGİLİ:** #174 ile aynı taze niş (Next.js 16 sürüm-spesifik + shadcn/ui); farklı bir yazarın
+  bağımsız doğrulaması olarak #174'ü tamamlıyor, aynı `shadcn-skills` işlevini farklı bir kapsamda
+  (Prisma ORM 7, Clerk/Auth.js gibi ek entegrasyonlarla) sunuyor.
+- **Kurulum:** Repoyu klonlayıp ilgili `skills/<isim>-skills/` alt-dizinini `~/.claude/skills/` altına
+  kopyalama (resmi plugin-marketplace kaydı bulunamadı, yalnızca dosya kopyalama yöntemi doğrulandı)
+  — yerel onay gerekir, API key gerekmez.
+
+### Cron zamanlama sorunu — durum hâlâ değişmedi
+
+`list_triggers` bu tur tekrar çağrıldı ve teyit edildi: cron hâlâ `0 3-12 * * *` (saatte bir,
+03:00-12:00 UTC arası, günde ~10 kez). Bu, bugünün 10. ardışık saatlik çalıştırması. Bu turun bulgusu
+(2 yeni kaynak, hiçbir yeni güvenlik riski) yeni bir eylem gerektirmiyor, bu yüzden **bu turda da
+tekrar bildirim gönderilmedi** — Tur 50 (güvenlik) ve Tur 58 (zamanlama) bildirimleri hâlâ güncel.
+Sıklık sorunu hâlâ kullanıcının kendisinin tetikleyici ayarları üzerinden düzeltmesini bekliyor; bu
+artık 8. ardışık tur (58-65) aynı öneriyi tekrarlıyor.
+
+**Bu turda 2 yeni kaynak eklendi (#174-175).** Toplam kataloglanmış kaynak sayısı: 175.
+
+---
+
+*Son güncelleme: 2026-09-26 (Tur 65). 2 yeni kaynak eklendi (#174-175, Next.js 16'ya özgü skill
+koleksiyonları — Tur 56-64'ün denediği nişlerin dışında, tamamen taze bir alt-niş). Cron zamanlama
+sorunu (`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş; Tur 58'in bildirimi güncelliğini koruduğu için
+tekrar bildirim gönderilmedi. Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur 1-65'te
+listelenenler ve reddedilenler (`wsimmonds/claude-nextjs-skills` dahil) tekrarlanmayacak.
