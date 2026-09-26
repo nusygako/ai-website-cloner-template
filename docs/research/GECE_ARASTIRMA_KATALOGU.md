@@ -1,6 +1,14 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 65, 2026-09-26, ~11:03 UTC (14:03 Türkiye saati) — Tur 56-64'ün denediği tüm dar
+**Son tur:** Tur 66, 2026-09-26, ~12:03 UTC (15:03 Türkiye saati) — görev talimatına göre Türkiye
+saati 15:00'i geçtiği için bu turda normal arama YAPILMADI; yalnızca bu özet güncellendi. **0 yeni
+kaynak eklendi**, toplam hâlâ 175. Öne çıkan 5 kaynak ve iki standing bulgu (Tur 50 güvenlik, Tur 58
+zamanlama/sıklık) aşağıda değişmeden korundu; ikisi de hâlâ geçerli ve kullanıcının `list_triggers`
+üzerinden gözden geçirmesini bekliyor. Bu turda yeni bir push bildirimi gönderilmedi çünkü Tur 50/58
+bildirimleri hâlâ güncel ve bu turun tek bulgusu ("kesinti saatine ulaşıldı, arama atlandı") acil/yeni
+bir durum oluşturmuyor.
+
+**Önceki tur (Tur 65, 2026-09-26, ~11:03 UTC, 14:03 Türkiye saati):** Tur 56-64'ün denediği tüm dar
 nişler (shadcn, Tailwind v4, playwright, favicon/SEO, renk/tipografi, API sağlayıcıları, video-indirme)
 dosya içi `grep` ile teyit edilip atlandı; bunun yerine daha önce hiç denenmemiş, gerçekten taze bir
 niş seçildi: bu şablonun tam olarak kullandığı **Next.js 16'ya özel** (App Router'ın ötesinde, sürüme
