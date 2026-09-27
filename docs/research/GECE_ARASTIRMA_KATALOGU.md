@@ -1,6 +1,25 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 69, 2026-09-27, ~05:02 UTC (08:02 Türkiye saati) — kesme saatinin (12:00 UTC/15:00
+**Son tur:** Tur 71, 2026-09-27, ~07:03 UTC (10:03 Türkiye saati) — kesme saatinin (12:00 UTC/15:00
+Türkiye) çok öncesinde. Bu tur, dosya-içi `grep` ile favicon/OG-image/visual-regression nişlerini
+tekrar kontrol etti: hepsi zaten kataloglı veya değerlendirilip reddedilmiş (#55, #68-73, "Tur 9",
+"Tur 23" bölümlerine bakınız) — **0 yeni kaynak eklendi**, doygun alanı zorlamak yerine dürüstçe boş
+bırakıldı.
+
+Bu tur ayrıca görevin kendi zamanlama yapılandırmasını `list_triggers` ile bağımsız olarak doğruladı:
+tetikleyici (`trig_01BxvTHj8GmXqRx1LqLGosHh`, 2026-09-14'te oluşturuldu — bugün 13. günü) hâlâ
+`0 3-12 * * *` (UTC 03:00–12:00 arası SAATTE BİR, günde 10 kez) olarak ayarlı ve etkin durumda;
+sıradaki çalışma 08:01 UTC'de. Bu, Tur 58'in (2026-09-26 04:06 UTC, ~27 saat önce) ve Tur 50'nin
+(2026-09-25 05:07 UTC, ~2 gün önce) bildirdiği sorunun hâlâ düzeltilmediğini teyit ediyor: görev
+13 gündür/71 turdur saatte bir tam oturum çalıştırıyor, dosya ~591KB/7442 satıra ulaştı, ve Tur
+36'dan beri yeni-kaynak oranı turda ortalama <0.5. **Son bildirimin üzerinden 27+ saat geçtiği ve
+sorun hâlâ çözülmediği için bu tur kullanıcıya taze bir bildirim gönderildi** — önceki turların
+"tekrar bildirim gürültü olur" kararının aksine, geçen süre ve sorunun kalıcılığı yeni bir
+hatırlatmayı haklı çıkarıyor. Önerilen düzeltme: `update_trigger` ile `cron_expression`'ı günde
+bir kez (ör. `"0 3 * * *"`) olacak şekilde değiştirmek, ya da görev artık amacına ulaştıysa
+tetikleyiciyi devre dışı bırakmak.
+
+**Önceki tur (Tur 69, 2026-09-27, ~05:02 UTC / 08:02 Türkiye saati) — kesme saatinin (12:00 UTC/15:00
 Türkiye) çok öncesinde, bugünün 3. çalıştırması (Tur 67 ~03:02 UTC, Tur 68 ~04:03 UTC'deydi — cron
 hâlâ saatte bir çalışıyor, aşağıya bak). Bu tur, bu şablonun tam yığınına özel iki dar niş tarandı:
 (1) **Vercel deployment'a özel** Claude Code skill/agent'ları (bu şablon Vercel'e deploy ediyor) ve
@@ -59,9 +78,9 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 179 (69 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-11 gün — Tur 69'da 1 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
-Tur 58/69 bulguları).
+**Toplam kataloglanmış kaynak sayısı:** 179 (71 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+13 gün — Tur 71'de 0 yeni kaynak eklendi (doygun niş yeniden kontrol edildi), görev zamanlaması hâlâ
+saatte bir çalışıyor, bkz. yukarıdaki Tur 58/71 bulguları).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
