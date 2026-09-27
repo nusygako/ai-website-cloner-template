@@ -7359,3 +7359,84 @@ doğruluyor. SVG ikon çıkarma nişinde hiçbir meşru aday bulunamadı; 4 aday
 bildirim gönderilmedi. Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur 1-69'da listelenenler ve
 reddedilenler (`jezweb/claude-skills` icon-set-generator, `jeremylongshore/claude-code-plugins-plus-
 skills`, `vci-nguyenhiep/tc-dev-uat-gitops`, `svgnew/plugin` dahil) tekrarlanmayacak.
+
+## Tur 70 — 2026-09-27 (~06:03 UTC / 09:03 Türkiye saati)
+
+### Yöntem — bu oturumun GitHub erişimi de tek repoya kilitli, cross-repo arama yasak
+
+Bu oturumun sistem talimatı, `mcp__github__` araçlarının bu şablon deposuyla (`nusygako/ai-website-
+cloner-template`) sınırlı olduğunu ve "repo argümanı almayan arama/listeleme araçlarının" (örn.
+`search_repositories`, `search_code`) bu kapsamın dışına çıkmak için kullanılmaması gerektiğini açıkça
+belirtiyor. Bu, Tur 50/59'da belgelenen kısıtlamayla aynı, ama bu turda daha da açık: cross-repo GitHub
+arama araçları hiç çağrılmadı. Bunun yerine tamamen `WebSearch` + `WebFetch` (herkese açık
+`github.com`/`raw.githubusercontent.com` sayfaları) ile çalışıldı.
+
+### Denenen niş — proje-özel boşluk taraması (video, pixel-diff, animasyon) hâlâ doygun
+
+`grep` ile dosyanın tamamı önceden tarandı: video/ffmpeg (#95 `kinocut` ile dolu), pixel-diff/görsel
+regresyon (#40 civarı birden fazla girdiyle dolu), animasyon-tespit (#85 `mcp-animation-inspector` ile
+dolu) nişlerinin hepsinin zaten kataloglı olduğu doğrulandı — bunlarda tekrar arama yapılmadı (kaynak
+israfı olurdu).
+
+### Yeni eklenen kaynak
+
+#### 180. [motiondivision/ai-kit](https://github.com/motiondivision/ai-kit) — "Motion AI Kit" (`plugins/motion`)
+- **Yıldız (ai-kit deposu):** 11 · **Fork:** 1 — düşük, ama Tur 40/57'nin "resmi-sağlayıcı-düşük-
+  yıldız" desenine uyuyor: meşruiyet yıldız sayısından değil, resmi bağlantıdan geliyor.
+- **Resmiyet kanıtı:** `github.com/motiondivision/motion` (Motion/eski adıyla Framer Motion — **33,7k
+  yıldız**, MIT lisanslı, React animasyon kütüphanesinin resmi deposu) kendi README'sinde doğrudan bu
+  aracı işaret ediyor: "Agent skill: `npx motion-ai` installs the free, MIT-licensed `/motion` skill...
+  Source on GitHub" ve `motiondivision/ai-kit`'e link veriyor. Yani ana kütüphanenin kendi bakımcıları
+  tarafından resmi olarak duyurulmuş bir araç.
+- **Dosya doğrulaması:** Depo kök dizininde SKILL.md yoktu (ilk bakışta "cursor-plugin-template'den
+  üretilmiş" göründü) — bu yüzden dizin ağacı adım adım incelendi: `plugins/motion/skills/motion/
+  SKILL.md` bulundu ve `raw.githubusercontent.com` üzerinden doğrudan içeriği çekildi: gerçek YAML
+  frontmatter (`name: motion`, ayrıntılı `description`, `argument-hint`) + çok sayfalı, somut alt-
+  rehberler içeren (best-practices, codex/doc-arama, CSS spring üretimi, MotionScore performans
+  denetimi, geçiş-eğrisi önizleyici, sürüm yükseltme rehberi) bir skill — stub değil. Aynı klasörde
+  ayrıca bir `agents/` alt dizini de var (bu turda içeriği tek tek doğrulanmadı, sadece varlığı
+  görüldü).
+- **Ne işe yarar:** Framer Motion/Motion ve düz CSS animasyonları yazarken/denetlerken kullanılan bir
+  Claude Code skill'i: doğru animasyon pratikleri (React/Vue/vanilla JS), CSS `linear()` spring/bounce
+  üretimi, kod ve çalışma-zamanı performans denetimi (jank tespiti), ve `framer-motion` → `motion`
+  sürüm yükseltme rehberliği.
+- **NEDEN MEŞRU:** Paylaşımlı/havuzlanmış API anahtarı YOK — temel özellikler anahtarsız çalışıyor;
+  yalnızca isteğe bağlı "Motion+" özellikleri (performans denetim metodolojisinin genişletilmiş hali,
+  450+ örnek arama) kişisel hesap girişi gerektiriyor, bu da paylaşımlı-anahtar riski taşımıyor. MIT
+  lisanslı, kurulumu tek npm komutu (`npx motion-ai`), resmi bakımcı tarafından duyurulmuş.
+- **NEDEN İLGİLİ:** `INSPECTION_GUIDE.md` Faz 4'ün "Animasyon kütüphanesi — Framer Motion, GSAP, CSS
+  transitions only" maddesiyle birebir örtüşüyor; zaten kataloglı #85 (`mcp-animation-inspector`, hedef
+  sitedeki animasyonu *tespit* eden araç) ile tamamlayıcı çift oluşturuyor — #85 "ne var" sorusunu,
+  #180 ise "onu Motion/CSS'te nasıl doğru şekilde yeniden üretirim" sorusunu cevaplıyor. Bu şablon
+  React/Next.js tabanlı olduğu için hedef sitede Framer Motion/Motion kullanılıyorsa doğrudan
+  uygulanabilir.
+- **Kurulum:** `npx motion-ai` (proje kökünde veya global) — Claude Code, Cursor, Amp, OpenCode, Gemini
+  CLI, Copilot için MCP'yi otomatik kuruyor; MCP sunucularının bazı ajanlarda elle etkinleştirilmesi
+  gerekebiliyor (dokümantasyonda belirtiliyor). Ek API anahtarı gerekmez.
+
+### Cron zamanlama sorunu — artık DEĞİŞMEDİ değil, kullanıcıya YENİDEN bildirim gönderiliyor
+
+Tur 58'in ilk bildiriminden bu yana (2026-09-26 ~04:05 UTC) tam bir günden fazla (~26 saat) geçti ve
+cron ifadesi (`0 3-12 * * *`, günde ~10 kez) hâlâ değişmemiş durumda — bu süre zarfında görev ~20 kez
+daha tetiklenmiş olmalı. Tur 58-69 arasında bilinçli olarak "gürültü olur" gerekçesiyle tekrar bildirim
+gönderilmedi, çünkü yeni/eyleme geçirilebilir bir gelişme yoktu. Ama artık durum değişti: (1) tam bir
+gün geçti ve kullanıcı hâlâ harekete geçmemiş olabilir (bildirimi görmemiş olabilir), (2) bu turun
+kendisi de dahil olmak üzere alan artık o kadar doygun ki tek bir yeni kaynak bulmak çok adımlı,
+derinlemesine dosya-ağacı taraması gerektirdi (yukarıdaki #180) — sıradan bir arama artık neredeyse
+hiçbir şey bulmuyor. Bu iki neden birleşince, **bu tur kullanıcıya taze bir hatırlatma bildirimi
+gönderiyor** (Tur 58'den sonraki ilk yeniden-bildirim, ~26 saat sonra) — tekrarlayan günlük hatırlatma
+değil, günün sonunda hâlâ çözülmemiş, kaynak israf eden bir yapılandırma sorunu için tek seferlik bir
+"hâlâ duruyor" uyarısı.
+
+**Bu turda 1 yeni kaynak eklendi (#180).** Toplam kataloglanmış kaynak sayısı: 180.
+
+---
+
+*Son güncelleme: 2026-09-27 (Tur 70). 1 yeni kaynak eklendi (#180, `motiondivision/ai-kit` — Motion/
+Framer Motion'ın resmi AI Kit'i, ana kütüphanenin 33,7k-yıldızlı resmi deposundan doğrudan bağlantılı,
+`plugins/motion/skills/motion/SKILL.md` dosya-seviyesinde doğrulandı). Video/pixel-diff/animasyon-tespit
+nişlerinde tekrar arama yapılmadı (zaten dolu). Cron zamanlama sorunu (`0 3-12 * * *`) Tur 58'den beri
+~26 saattir çözülmemiş; bu tur kullanıcıya taze bir hatırlatma bildirimi gönderdi (push notification) —
+öneri değişmedi: cron'u günde 1 kez (`0 3 * * *`) olarak güncellemek ya da görevi durdurmak, çünkü
+katalog 180 kaynakla kapsamlı doygunluğa ulaştı. Sonraki turlarda bu dosya okunup üstüne eklenecek;
+Tur 1-70'de listelenenler tekrarlanmayacak.
