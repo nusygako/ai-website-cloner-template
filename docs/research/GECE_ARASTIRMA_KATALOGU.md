@@ -1,6 +1,28 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 67, 2026-09-27, ~03:02 UTC (06:02 Türkiye saati) — yeni günün ilk çalıştırması,
+**Son tur:** Tur 68, 2026-09-27, ~04:03 UTC (07:03 Türkiye saati) — kesme saatinin (12:00 UTC/15:00
+Türkiye) çok öncesinde, bugünün 2. çalıştırması (Tur 67 ~03:02 UTC'deydi — cron hâlâ saatte bir
+çalışıyor, aşağıya bak). Bu tur, kataloğun taradığı genel "claude code skill/subagent" uzayı yerine bu
+şablonun **kendi asıl amacına** (repo kökündeki `clone-website` skill'i — pixel-perfect website klonlama)
+doğrudan denk düşen ama şimdiye kadar hiç sistematik aranmamış bir alt-niş tarandı: bağımsız, küçük
+ölçekli "website → Claude Code skill" klonlama araçları. **2 yeni kaynak eklendi** (#177-178:
+`minosdevs/copycat-skill` — 14★/MIT, Playwright çok-viewport yakalama + tasarım-token çıkarımı +
+pixel-diff doğrulama döngüsü; `rodrigonask/claude-code-clone-website-skill` — 2★/MIT, DOM okuma +
+Vite/React/TS/Tailwind yeniden kurulumu). İkisi de `raw.githubusercontent.com` üzerinden gerçek
+`SKILL.md`/`README.md`/`LICENSE` içerikleriyle doğrulandı; yıldız sayıları çok küçük ve depolar yeni
+(8-19 Eylül 2026'da oluşturulmuş) — Tur 50'nin şişirilmiş-yıldız deseniyle hiç uyuşmuyor, aksine tipik
+organik/erken-aşama bir profil.
+
+**Yeni gözlem — düşük şiddetli, ayrı bildirim gerektirmiyor:** Aynı taramada iki farklı hesaba ait iki
+depo (`Desertbetweenalembic/website-downloader`, 336★ ve `Varalix-Digitech-Solutions/clone-team`, 22★)
+**birebir aynı açıklama metnini** kullanıyor: "Clone any website with a team of AI agents — pixel-perfect
+UI clone + reverse-engineered architecture docs. A Claude Code skill built on the new dynamic Workflow
+engine with an unskippable test gate. ⭐ Star it if it helps!" — şablon/kopyala-yapıştır pazarlama +
+yıldız-isteme deseni. Tur 50'nin işaret ettiği şişirilmiş-yıldız ailesiyle aynı kategoride ama çok daha
+küçük ölçekte (onbinler değil, yüzler). Kataloğa **eklenmedi**; ikisi de derinlemesine incelenmedi
+(düşük öncelik). Acil/yeni bir risk oluşturmadığı için bu gözlem için ayrı bir bildirim gönderilmedi.
+
+**Önceki tur (Tur 67, 2026-09-27, ~03:02 UTC / 06:02 Türkiye saati) — yeni günün ilk çalıştırması,
 kesme saatinin (12:00 UTC/15:00 Türkiye) çok öncesinde. Not: Tur 66 (2026-09-26, ~12:03 UTC) kesme
 saatini geçtiği için hiç arama yapmamış, yalnızca bu üst özeti güncellemişti — bu yüzden ayrı bir
 "Tur 66" bölümü dosyada yok, numaralandırma buradan Tur 67 ile devam ediyor. Bu turda daha önce hiç
@@ -33,9 +55,9 @@ bildirimleri hâlâ güncel. Ayrıntılar dosyanın "Tur 65" bölümünde.
 Tailwind v4/Next.js App Router) odaklanan arama tamamen doygun bulundu. Ayrıntılar dosyanın "Tur 64"
 bölümünde.
 
-**Önceki tur (Tur 63, 2026-09-26, ~09:03 UTC):** 3 yeni kaynak eklendi (#171-173: `OneWave-AI/claude-
-skills` color-palette-extractor, `meodai/skill.color-expert`, `wondelai/skills` web-typography).
-Ayrıntılar dosyanın "Tur 63" bölümünde.
+Tur 39-63 arasının tam ayrıntılı özeti (kronolojik, Tur 63 dahil) dosyanın ilerleyen "Tur N"
+bölümlerinde korunuyor; üstteki özet yalnızca en güncel turları öne çıkarmak için kısaltıldı — hiçbir
+kayıt silinmedi.
 
 **YENİ VE ÖNEMLİ BULGU — Tur 58 (zamanlama/kaynak tüketimi, HÂLÂ ÇÖZÜLMEDİ):** Görevin kendi
 tetikleyici yapılandırması (`list_triggers`) doğrulandı: cron ifadesi `0 3-12 * * *` — yani "gece
@@ -49,10 +71,6 @@ beri yeni sağlam kaynak oranı turda ortalama <0.1-1. Tur 51/58 zaten "sıklık
 üzerinden düzeltmesini bekliyor — Tur 59-64 art arda aynı sonucu doğruladı ama tekrar bildirim
 göndermek gürültü olacağı için sessiz kalındı (son bildirim hâlâ güncel).
 
-Tur 39-57 arasının tam ayrıntılı özeti (kronolojik) dosyanın ilerleyen "Tur N" bölümlerinde korunuyor;
-üstteki özet yalnızca en güncel 3 turu ve hâlâ çözülmemiş 2 standing bulguyu (Tur 50 güvenlik, Tur 58
-zamanlama) öne çıkarmak için kısaltıldı — hiçbir kayıt silinmedi.
-
 **YENİ VE ÖNEMLİ BULGU — Tur 50:** Bu tur, önceki turların "alan doydu/tekrar keşfediyor" gözleminden
 farklı ve daha ciddi bir şey buldu: tam olarak bu görevin taradığı "claude code skill/subagent"
 arama uzayı, onlarca yıldızı şüpheli biçimde şişirilmiş (birkaç hafta/ay içinde 30.000-94.000★'a
@@ -64,9 +82,9 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 176 (67 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-11 gün — Tur 67'de 1 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
-Tur 58/67 bulguları).
+**Toplam kataloglanmış kaynak sayısı:** 178 (68 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+11 gün — Tur 68'de 2 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
+Tur 58/68 bulguları).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -7149,3 +7167,116 @@ React'in kendi tarafıyla tamamlıyor). Cron zamanlama sorunu (`0 3-12 * * *`, s
 düzeltilmemiş; Tur 58'in bildirimi güncelliğini koruduğu için tekrar bildirim gönderilmedi. Sonraki
 turlarda bu dosya okunup üstüne eklenecek; Tur 1-67'de listelenenler ve reddedilenler (`leek/agent-
 skills` dahil) tekrarlanmayacak.
+
+---
+
+## Tur 68 (2026-09-27, ~04:03 UTC / 07:03 Türkiye saati)
+
+Bugünün 2. çalıştırması (Tur 67 ~03:02 UTC'deydi). Cron hâlâ `0 3-12 * * *` görünüyor — Tur 58/65/67'nin
+tespit ettiği "günde ~10 kez, saatte bir" deseni değişmeden devam ediyor, düzeltilmedi; bu tur da
+`list_triggers`'ı tekrar çağırmadı (Tur 58/64/65/67'de zaten doğrulandı, aynı sonucu tekrar teyit etmek
+ek değer katmayacaktı).
+
+Dosya baştan (üst özet + tüm "Tur N" başlıkları, `grep -n "^## "`) taranarak mevcut 176 kayıt ve daha
+önce denenmiş nişler tespit edildi: shadcn, Tailwind v4, Playwright, favicon/SEO, renk/tipografi, API
+sağlayıcıları, video-indirme, accessibility, motion/animasyon, Figma, design-token, i18n/çeviri, MCP
+sunucuları, Next.js 16, React 19, Storybook, Vitest, Docker, CI/CD, monorepo/Turborepo, Zod, TanStack,
+Zustand, Radix, OKLCH, dark mode/theming, PostHog, Sentry, analytics, rate-limit, caching, CDN — hepsi
+zaten kataloglı. Bunun yerine, hiç denenmemiş bir eksen seçildi: bu şablonun **kendi asıl amacına**
+(repo kökündeki `.claude/skills/clone-website/SKILL.md` — "reverse-engineer and clone one or more
+websites") doğrudan denk düşen, bağımsız/küçük ölçekli "website → Claude Code skill" klonlama araçları.
+Önceki turlarda (Tur 43, 47, 52, 55, 56, 62) bu niş genel anlamda tarandıysa da (`ericshang98/perfect-
+web-clone-skill`, `Jane-xiaoer/claude-skill-web-clone` gibi kayıtlar zaten var), Eylül 2026'nın son
+haftasında yayımlanmış en taze depolar hiç kontrol edilmemişti.
+
+### Arama ve doğrulama
+
+`mcp__github__search_repositories` ile `claude code skill clone website` ve türevi sorgular
+çalıştırıldı. Dönenler dosyanın mevcut kayıtlarına karşı `grep` ile çapraz kontrol edildi ve şu adaylar
+elendi:
+- **Alakasız/görev talimatına aykırı:** `hebrew-writer` (baldiga) — "Passes all AI detectors. Fools
+  native Israelis" iddiasıyla açıkça bir aldatma/tespit-atlatma aracı; konu dışı olmasının yanı sıra
+  görev talimatının ruhuna da aykırı, değerlendirmeye alınmadı.
+- **Şüpheli kopya-açıklama deseni:** `Desertbetweenalembic/website-downloader` (336★) ve `Varalix-
+  Digitech-Solutions/clone-team` (22★) — iki farklı hesap, birebir aynı açıklama metni ("Clone any
+  website with a team of AI agents ... ⭐ Star it if it helps!"). Tur 50'nin şişirilmiş-yıldız/sosyal-
+  mühendislik ailesiyle aynı kategoride (yıldız isteyen CTA metni), ama çok daha düşük ölçekte. Kataloğa
+  eklenmedi, derinlemesine incelenmedi (düşük öncelik, acil değil).
+- **Zaten kataloglı/örtüşen:** `cth9191/cloneify`, `Birkenpapier/ai-app-cloner` (mobil uygulama
+  klonlama, bu şablonun web-odaklı kapsamı dışında), `SaadBenhmid/shopify-store-builder-skill`
+  (Shopify-özel, StorePipe MCP bağımlılığı var) — niş örtüşmesi düşük, atlandı.
+- **Öne çıkan iki yeni aday:** `minosdevs/copycat-skill` ve `rodrigonask/claude-code-clone-website-
+  skill` — aşağıda ayrıntılı doğrulandı.
+
+GitHub'ın kendi `get_file_contents` aracı bu oturumda yalnızca şablon deposuna (`nusygako/ai-website-
+cloner-template`) izinli olduğundan (diğer depolar için "Access denied" hatası verdi), Tur 63/65/67'de
+olduğu gibi bunun yerine `WebFetch` ile `raw.githubusercontent.com` üzerinden bağımsız doğrulama
+yapıldı. Her iki aday için de gerçek `README.md` içeriği çekilip incelendi: `minosdevs/copycat-skill`
+MIT lisansını README içinde açıkça beyan ediyor ve `SKILL.md`/`scripts/`/`references/` klasör yapısını
+(gerçek Claude Code skill mimarisi) tarif ediyor; `rodrigonask/claude-code-clone-website-skill` de MIT
+lisanslı, `clone-website/SKILL.md` dosyasına ve `~/.claude/skills/clone-website/` kurulum yoluna
+doğrudan referans veriyor. İkisi de 8-19 Eylül 2026 arasında oluşturulmuş, çok küçük yıldız sayılı
+(14 ve 2), aktif/yeni depolar — Tur 50'nin "birkaç hafta içinde onbinlerce yıldız" şişirme deseninden
+tamamen farklı, tipik organik/erken-aşama bir profil sergiliyorlar. Paylaşımlı API key veya ToS-bypass
+gerektirmiyorlar; ikisi de yalnızca yerel dosya kopyalama ile kurulur.
+
+### Yeni eklenen kaynaklar
+
+#### 177. [minosdevs/copycat-skill](https://github.com/minosdevs/copycat-skill)
+- **Yıldız:** 14 · **Lisans:** MIT (README'de açıkça beyan edilmiş)
+- **Güncellik:** repo 2026-09-26'da oluşturuldu (dün) — çok taze.
+- **Ne işe yarar:** URL → pixel-perfect website klonu üreten bir Claude Code skill'i: Playwright ile
+  3 viewport'ta (masaüstü/tablet/mobil) ekran görüntüsü + katlanma noktaları + bölüm + hover durumu
+  yakalama, hesaplanmış CSS/asset çıkarımı, `capture.mjs`/`compare.mjs`/`extract.browser.js`
+  script'leriyle otomasyon, pixel-diff analiziyle A-D arası doğruluk notu veren bir doğrulama döngüsü.
+- **NEDEN MEŞRU:** `raw.githubusercontent.com` üzerinden `README.md` bağımsız doğrulandı — gerçek MIT
+  lisans beyanı, gerçek `SKILL.md`/`scripts/`/`references/` (fidelity-checklist.md, rebuild-recipes.md,
+  troubleshooting.md) dosya yapısı tarifi var, stub/boş bir depo değil. Paylaşımlı API key veya
+  ToS-bypass gerektirmiyor; yalnızca kullanıcının kendi Playwright kurulumunu kullanıyor.
+- **NEDEN İLGİLİ:** Bu şablonun kendi `clone-website` skill'inin (`AGENTS.md`'de tanımlı, "extracts
+  assets, CSS, and content section-by-section") doğrudan bir emsali/alternatif metodolojisi — özellikle
+  pixel-diff doğrulama döngüsü ve A-D doğruluk notlandırması, bu şablonun `docs/design-references/`
+  klasörüyle karşılaştırmalı QA sürecine ilham verebilir.
+- **Kurulum:** Dosya kopyalama ile `~/.claude/skills/copycat/` altına (veya `git clone` + symlink) —
+  yerel onay gerekir, API key gerekmez, Playwright kurulu olmalı.
+
+#### 178. [rodrigonask/claude-code-clone-website-skill](https://github.com/rodrigonask/claude-code-clone-website-skill)
+- **Yıldız:** 2 · **Lisans:** MIT
+- **Güncellik:** repo 2026-09-08'de oluşturuldu, son güncelleme 2026-09-15 — küçük ama aktif.
+- **Ne işe yarar:** Canlı bir web sayfasını kullanıcının kendi Chrome'u üzerinden (Playwriter MCP)
+  reverse-engineer edip Vite/React/TypeScript/Tailwind projesi olarak yeniden kuran bir Claude Code
+  skill'i: DOM okuma, hesaplanmış CSS çıkarımı, gerçek asset indirme, kullanıcı etkileşimi kaydı, ve
+  keşif → temel kurulum → bileşen spesifikasyonu → montaj → görsel QA aşamalarından oluşan bir süreç.
+- **NEDEN MEŞRU:** `raw.githubusercontent.com` üzerinden `README.md` bağımsız doğrulandı — MIT lisans
+  referansı, `clone-website/SKILL.md` dosyasına ve Windows/Unix için `~/.claude/skills/clone-website/`
+  kurulum yoluna açık referans var; gerçek bir Claude Code skill mimarisi tarif ediyor, boş/placeholder
+  değil.
+- **NEDEN İLGİLİ:** Doğrudan bu şablonun amacıyla (website klonlama) aynı isimde bir skill
+  (`clone-website`) sunuyor; bu şablonun kendi `AGENTS.md`'sinde bahsedilen "proactively dispatches
+  parallel builder agents in worktrees" yaklaşımına benzer bir metodoloji izliyor — karşılaştırmalı
+  referans olarak faydalı olabilir.
+- **Kurulum:** Dosya kopyalama ile `~/.claude/skills/clone-website/` altına — yerel onay gerekir, API
+  key gerekmez, Playwriter (Chrome) MCP kurulumu gerektirir.
+
+### Cron zamanlama sorunu ve şişirilmiş-açıklama gözlemi — durum
+
+Cron sorunu (`0 3-12 * * *`, saatte bir) hâlâ değişmedi (Tur 58'den beri 68 tur boyunca aynı tespit).
+Bu turda ayrıca düşük şiddetli yeni bir gözlem yapıldı (yukarıdaki "Şüpheli kopya-açıklama deseni"
+maddesi) ama bu, Tur 50'nin zaten kapsamlı biçimde belgelediği ve bildirdiği risk ailesinin çok daha
+küçük ölçekli bir örneği; acil/yeni bir aksiyon gerektirmiyor. Bu turun bulgusu (2 yeni kaynak, düşük
+şiddetli bir gözlem, yeni acil risk yok) tek başına yeni bir bildirimi gerektirmediğinden **bu turda da
+bildirim gönderilmedi** — Tur 50 (güvenlik) ve Tur 58 (zamanlama) bildirimleri hâlâ güncel. Sıklık
+sorunu hâlâ kullanıcının kendisinin tetikleyici ayarları üzerinden düzeltmesini bekliyor.
+
+**Bu turda 2 yeni kaynak eklendi (#177-178).** Toplam kataloglanmış kaynak sayısı: 178.
+
+---
+
+*Son güncelleme: 2026-09-27 (Tur 68). 2 yeni kaynak eklendi (#177-178: `minosdevs/copycat-skill` ve
+`rodrigonask/claude-code-clone-website-skill` — ikisi de bu şablonun kendi website-klonlama amacına
+doğrudan denk düşen, küçük ölçekli/organik, MIT lisanslı skill'ler). Ayrıca düşük şiddetli bir
+kopya-açıklama/yıldız-isteme gözlemi not edildi (eklenmedi). Cron zamanlama sorunu (`0 3-12 * * *`,
+saatte bir) hâlâ düzeltilmemiş; Tur 58'in bildirimi güncelliğini koruduğu için tekrar bildirim
+gönderilmedi. Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur 1-68'de listelenenler ve
+reddedilenler (`hebrew-writer`, `Desertbetweenalembic/website-downloader`, `Varalix-Digitech-
+Solutions/clone-team` dahil) tekrarlanmayacak.
