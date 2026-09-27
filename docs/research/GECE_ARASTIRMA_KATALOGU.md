@@ -1,63 +1,40 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 68, 2026-09-27, ~04:03 UTC (07:03 Türkiye saati) — kesme saatinin (12:00 UTC/15:00
-Türkiye) çok öncesinde, bugünün 2. çalıştırması (Tur 67 ~03:02 UTC'deydi — cron hâlâ saatte bir
-çalışıyor, aşağıya bak). Bu tur, kataloğun taradığı genel "claude code skill/subagent" uzayı yerine bu
-şablonun **kendi asıl amacına** (repo kökündeki `clone-website` skill'i — pixel-perfect website klonlama)
-doğrudan denk düşen ama şimdiye kadar hiç sistematik aranmamış bir alt-niş tarandı: bağımsız, küçük
-ölçekli "website → Claude Code skill" klonlama araçları. **2 yeni kaynak eklendi** (#177-178:
-`minosdevs/copycat-skill` — 14★/MIT, Playwright çok-viewport yakalama + tasarım-token çıkarımı +
-pixel-diff doğrulama döngüsü; `rodrigonask/claude-code-clone-website-skill` — 2★/MIT, DOM okuma +
-Vite/React/TS/Tailwind yeniden kurulumu). İkisi de `raw.githubusercontent.com` üzerinden gerçek
-`SKILL.md`/`README.md`/`LICENSE` içerikleriyle doğrulandı; yıldız sayıları çok küçük ve depolar yeni
-(8-19 Eylül 2026'da oluşturulmuş) — Tur 50'nin şişirilmiş-yıldız deseniyle hiç uyuşmuyor, aksine tipik
-organik/erken-aşama bir profil.
+**Son tur:** Tur 69, 2026-09-27, ~05:02 UTC (08:02 Türkiye saati) — kesme saatinin (12:00 UTC/15:00
+Türkiye) çok öncesinde, bugünün 3. çalıştırması (Tur 67 ~03:02 UTC, Tur 68 ~04:03 UTC'deydi — cron
+hâlâ saatte bir çalışıyor, aşağıya bak). Bu tur, bu şablonun tam yığınına özel iki dar niş tarandı:
+(1) **Vercel deployment'a özel** Claude Code skill/agent'ları (bu şablon Vercel'e deploy ediyor) ve
+(2) **SVG ikon çıkarma / React ikon bileşenine dönüştürme** skill'leri (bu şablonun "icons... will be
+replaced/supplemented by extracted SVGs" notuna doğrudan denk düşüyor). Araştırma bir general-purpose
+alt-agent'a devredildi; ana oturum adayları kendi `WebFetch` çağrılarıyla (`api.github.com` JSON +
+`raw.githubusercontent.com` üzerinden gerçek `SKILL.md` içeriği) ikinci kez bağımsız doğruladı.
 
-**Yeni gözlem — düşük şiddetli, ayrı bildirim gerektirmiyor:** Aynı taramada iki farklı hesaba ait iki
-depo (`Desertbetweenalembic/website-downloader`, 336★ ve `Varalix-Digitech-Solutions/clone-team`, 22★)
-**birebir aynı açıklama metnini** kullanıyor: "Clone any website with a team of AI agents — pixel-perfect
-UI clone + reverse-engineered architecture docs. A Claude Code skill built on the new dynamic Workflow
-engine with an unskippable test gate. ⭐ Star it if it helps!" — şablon/kopyala-yapıştır pazarlama +
-yıldız-isteme deseni. Tur 50'nin işaret ettiği şişirilmiş-yıldız ailesiyle aynı kategoride ama çok daha
-küçük ölçekte (onbinler değil, yüzler). Kataloğa **eklenmedi**; ikisi de derinlemesine incelenmedi
-(düşük öncelik). Acil/yeni bir risk oluşturmadığı için bu gözlem için ayrı bir bildirim gönderilmedi.
+Niş 1'in alt-agentın önerdiği ilk adayı (`vercel-labs/agent-skills`) dosya içi `grep` ile **zaten
+#153'te kataloglı** olduğu tespit edilip tekrar eklenmedi (Tur 44'ten beri listede — alt-agent bunu
+bilmiyordu, ana oturumun dedupe kontrolü yakaladı). **1 yeni kaynak eklendi** (#179:
+`vercel/vercel-deploy-claude-code-plugin` — resmi `vercel/` organizasyonu, 13★/5 fork/MIT,
+`setup`/`deploy`/`vercel-logs` skill'lerini içeren resmi Claude Code plugin'i). Niş 2'de (SVG ikon
+çıkarma) hiçbir meşru/amaca-uygun aday bulunamadı — 4 aday değerlendirilip reddedildi (bkz. "Tur 69"
+bölümü); zorlanıp eklenmedi, dürüstçe boş bırakıldı.
 
-**Önceki tur (Tur 67, 2026-09-27, ~03:02 UTC / 06:02 Türkiye saati) — yeni günün ilk çalıştırması,
-kesme saatinin (12:00 UTC/15:00 Türkiye) çok öncesinde. Not: Tur 66 (2026-09-26, ~12:03 UTC) kesme
-saatini geçtiği için hiç arama yapmamış, yalnızca bu üst özeti güncellemişti — bu yüzden ayrı bir
-"Tur 66" bölümü dosyada yok, numaralandırma buradan Tur 67 ile devam ediyor. Bu turda daha önce hiç
-denenmemiş bir eksen arandı: proje yığınının **React 19'a özgü** (Next.js 16'dan ayrı, doğrudan React
-kütüphanesinin kendi breaking-change'lerine odaklanan) tarafı. **1 yeni kaynak eklendi** (#176:
-`Jeffallan/claude-skills` — 11.635★/1.124 fork/34 açık issue/MIT, 67 skill'lik geniş bir full-stack
-koleksiyon; `react-expert` skill'i `use()`/`useActionState` gibi React 19'a özgü kalıpları gerçek kod
-örnekleriyle kapsıyor). Yüksek yıldız sayısına rağmen Tur 50'nin şişirilmiş-yıldız deseniyle
-uyuşmuyor: 11 aylık organik büyüme, Awesome Claude Code/Trendshift gibi bağımsız kaynaklarda anılıyor,
-Anthropic hakkında yanlış iddia yok, AI ajanlarını kendi kendine kuruluma teşvik eden dil yok. Cron
-sorunu (`0 3-12 * * *`, saatte bir, günde ~10 kez) hâlâ düzeltilmemiş görünüyor (bu, dünkü son
-çalıştırmadan (~12:03 UTC) tam olarak bir sonraki günün başlangıç saatinde (~03:02 UTC) geldi); bu
+Cron zamanlama sorunu (`0 3-12 * * *`, saatte bir, günde ~10 kez) hâlâ düzeltilmemiş görünüyor; bu
 turun bulgusu (1 yeni kaynak, yeni risk yok) acil olmadığından **bu turda da tekrar bildirim
-gönderilmedi** — Tur 50/58 bildirimleri hâlâ güncel. Ayrıntılar dosyanın "Tur 67" bölümünde.
+gönderilmedi** — Tur 50/58 bildirimleri hâlâ güncel.
 
-**Önceki tur (Tur 65, 2026-09-26, ~11:03 UTC, 14:03 Türkiye saati):** Tur 56-64'ün denediği tüm dar
-nişler (shadcn, Tailwind v4, playwright, favicon/SEO, renk/tipografi, API sağlayıcıları, video-indirme)
-dosya içi `grep` ile teyit edilip atlandı; bunun yerine daha önce hiç denenmemiş, gerçekten taze bir
-niş seçildi: bu şablonun tam olarak kullandığı **Next.js 16'ya özel** (App Router'ın ötesinde, sürüme
-özgü breaking-change'lere odaklanan) skill koleksiyonları. **2 yeni kaynak eklendi** (#174-175:
-`laguagu/claude-code-nextjs-skills` — 67★/MIT, `nextjs-shadcn` dahil 24 skill; `gocallum/nextjs16-
-agent-skills` — 23★/README'de MIT beyanı, `nextjs16-skills`+`shadcn-skills` dahil). İkisi de
-`raw.githubusercontent.com` üzerinden gerçek `SKILL.md` içerikleriyle doğrulandı, yıldız sayıları
-makul/organik (Tur 50'nin şişirilmiş-yıldız deseniyle uyuşmuyor). Cron sorunu (`0 3-12 * * *`, saatte
-bir) hâlâ düzeltilmedi — bu bugünün 10. ardışık saatlik çalıştırması; bu turun bulgusu (2 yeni kaynak,
-yeni risk yok) acil değil, bu yüzden **bu turda da tekrar bildirim gönderilmedi** — Tur 50/58
-bildirimleri hâlâ güncel. Ayrıntılar dosyanın "Tur 65" bölümünde.
+**Önceki tur (Tur 68, 2026-09-27, ~04:03 UTC):** Bağımsız/küçük ölçekli "website → Claude Code skill"
+klonlama araçları tarandı, **2 yeni kaynak** (#177-178: `minosdevs/copycat-skill`,
+`rodrigonask/claude-code-clone-website-skill`) eklendi; ayrıca düşük şiddetli bir kopya-açıklama/
+yıldız-isteme gözlemi not edildi (eklenmedi). Ayrıntılar dosyanın "Tur 68" bölümünde.
 
-**Önceki tur (Tur 64, 2026-09-26, ~10:03 UTC):** 0 yeni kaynak — şablonun ana yığınına (shadcn/
-Tailwind v4/Next.js App Router) odaklanan arama tamamen doygun bulundu. Ayrıntılar dosyanın "Tur 64"
-bölümünde.
+**Önceki tur (Tur 67, 2026-09-27, ~03:02 UTC):** React 19'a özgü skill'ler tarandı, **1 yeni kaynak**
+(#176: `Jeffallan/claude-skills` — 11.635★/MIT, 67 skill'lik full-stack koleksiyon) eklendi. Ayrıntılar
+dosyanın "Tur 67" bölümünde.
 
-Tur 39-63 arasının tam ayrıntılı özeti (kronolojik, Tur 63 dahil) dosyanın ilerleyen "Tur N"
-bölümlerinde korunuyor; üstteki özet yalnızca en güncel turları öne çıkarmak için kısaltıldı — hiçbir
-kayıt silinmedi.
+**Önceki tur (Tur 65, 2026-09-26, ~11:03 UTC):** Next.js 16'ya özel skill koleksiyonları tarandı, **2
+yeni kaynak** (#174-175) eklendi. Ayrıntılar dosyanın "Tur 65" bölümünde.
+
+Tur 39-68 arasının tam ayrıntılı özeti (kronolojik) dosyanın ilerleyen "Tur N" bölümlerinde korunuyor;
+üstteki özet yalnızca en güncel turları öne çıkarmak için kısaltıldı — hiçbir kayıt silinmedi.
 
 **YENİ VE ÖNEMLİ BULGU — Tur 58 (zamanlama/kaynak tüketimi, HÂLÂ ÇÖZÜLMEDİ):** Görevin kendi
 tetikleyici yapılandırması (`list_triggers`) doğrulandı: cron ifadesi `0 3-12 * * *` — yani "gece
@@ -82,9 +59,9 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 178 (68 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-11 gün — Tur 68'de 2 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
-Tur 58/68 bulguları).
+**Toplam kataloglanmış kaynak sayısı:** 179 (69 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+11 gün — Tur 69'da 1 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
+Tur 58/69 bulguları).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -97,7 +74,7 @@ Tur 58/68 bulguları).
    Agent Skills deposu; BigQuery, GKE, Cloud Run, Gemini API gibi 100+ gerçek `SKILL.md` paketi.
 4. **[cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)**
    (~4.300★, Apache-2.0) — Cloudflare'in resmi, ürüne-özel 13+ MCP sunucusu koleksiyonu.
-5. **[Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills)** (#176, en son eklenen —
+5. **[Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills)** (#176 —
    ~11.635★, MIT) — 12 kategoride 67 gerçek `SKILL.md`'lik geniş full-stack koleksiyon; `react-expert`
    skill'i React 19'a özgü kalıpları (`use()`, `useActionState`) doğrudan kapsıyor.
 
@@ -7280,3 +7257,105 @@ saatte bir) hâlâ düzeltilmemiş; Tur 58'in bildirimi güncelliğini koruduğu
 gönderilmedi. Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur 1-68'de listelenenler ve
 reddedilenler (`hebrew-writer`, `Desertbetweenalembic/website-downloader`, `Varalix-Digitech-
 Solutions/clone-team` dahil) tekrarlanmayacak.
+
+---
+
+## Tur 69 (2026-09-27, ~05:02 UTC / 08:02 Türkiye saati)
+
+Bugünün 3. çalıştırması (Tur 67 ~03:02 UTC, Tur 68 ~04:03 UTC'deydi). Cron hâlâ `0 3-12 * * *`
+görünüyor — Tur 58/64/65/67/68'in tespit ettiği "günde ~10 kez, saatte bir" deseni değişmeden devam
+ediyor, düzeltilmedi; bu tur da `list_triggers`'ı tekrar çağırmadı (önceki turlarda zaten doğrulandı,
+aynı sonucu tekrar teyit etmek ek değer katmayacaktı).
+
+Dosya baştan taranarak (`grep -n "^## "` + "vercel" için hedefli `grep`) mevcut 178 kayıt ve daha önce
+denenmiş nişler tespit edildi. Tur 68'in de belirttiği gibi genel yığın (shadcn, Tailwind v4,
+Playwright, favicon/SEO, renk/tipografi, API sağlayıcıları, video-indirme, accessibility, motion/
+animasyon, Figma, design-token, i18n, MCP sunucuları, Next.js 16, React 19, Storybook, Vitest, Docker,
+CI/CD, monorepo/Turborepo, Zod, TanStack, Zustand, Radix, OKLCH, dark mode/theming, PostHog, Sentry,
+analytics, rate-limit, caching, CDN, website-klonlama skill'leri) doygun. Bu tur, bu şablonun tam
+yığınına özel ama hiç sistematik aranmamış iki eksen seçildi: (1) bu şablonun bizzat deploy ettiği
+**Vercel platformuna özel** Claude Code skill/agent'ları, (2) `AGENTS.md`'nin "icons ... will be
+replaced/supplemented by extracted SVGs" notuna denk düşen **SVG ikon çıkarma/React ikon bileşenine
+dönüştürme** skill'leri.
+
+### Arama ve doğrulama
+
+Araştırma bir general-purpose alt-agent'a devredildi (görev talimatının hariç-tutma kriterleri —
+paylaşımlı/havuzlanmış API key, ToS-bypass scraping, hesap-askıya-alınma riski, kanıtsız trading
+araçları, şişirilmiş-yıldız/kopya-açıklama desenleri — ve doğrulama metodolojisi verildi). GitHub'ın
+kendi `get_file_contents`/`search_repositories` araçları bu oturumda yalnızca şablon deposuna
+(`nusygako/ai-website-cloner-template`) izinli olduğundan, hem alt-agent hem de ana oturum
+`WebSearch`/`WebFetch` ile `api.github.com/repos/{owner}/{repo}` (yıldız/fork/lisans/tarih JSON'ı) ve
+`raw.githubusercontent.com` (gerçek `SKILL.md`/`README.md` içeriği) üzerinden bağımsız doğrulama yaptı.
+
+**Niş 1 (Vercel deployment) — alt-agentın önerdiği 2 aday:**
+- `vercel-labs/agent-skills` (~31.589★) — ana oturum dosya içi `grep` ile bunun **zaten #153'te
+  Tur 44'ten beri kataloglı** olduğunu tespit etti (alt-agent mevcut kataloğun tam listesine sahip
+  değildi, bu yüzden tekrar önerdi). Tekrar eklenmedi.
+- `vercel/vercel-deploy-claude-code-plugin` — yeni, aşağıda ayrıntılı doğrulandı ve eklendi.
+
+**Niş 2 (SVG ikon çıkarma) — hiçbir aday geçmedi.** Alt-agent 4 aday değerlendirdi ve dördünü de
+reddetti:
+- **`jezweb/claude-skills`** (1.032★, MIT, meşru/organik) — `icon-set-generator` skill'i var ama
+  işlevi **amaca uymuyor**: mevcut bir siteden SVG çıkarma değil, sıfırdan yeni ikon seti *üretme* işi
+  yapıyor. Repo kendisi meşru, sadece niş dışı — kataloğa eklenmedi.
+- **`jeremylongshore/claude-code-plugins-plus-skills`** (2.793★, MIT) — `svg-icon-generator` yolu
+  "planned-skills/generated/..." altında; 2.810 iddia edilen skill'in toplu/otomatik üretildiği bir
+  "skill fabrikası" yapısı — görev talimatının şüpheli-toplu-üretim red bayrağına uyuyor, reddedildi.
+- **`vci-nguyenhiep/tc-dev-uat-gitops`** üzerinden bir "svg-to-react" skill'i (skills.lc'de listelenmiş)
+  — kaynak repo bağımsız yayımlanmış bir açık kaynak koleksiyon değil, bir şirketin özel görünümlü
+  GitOps reposu; GitHub API 403 döndürdü (doğrulanamadı) — reddedildi.
+- **`svgnew/plugin`** — üçüncü taraf ücretli/API tabanlı bir vektörleştirme servisini (svg.new)
+  sarmalıyor, muhtemelen harici ücretli/paylaşımlı API'ye bağımlı; GitHub API 403 verdi
+  (doğrulanamadı) — reddedildi (ücretli/paylaşımlı API riski).
+
+Ana oturum, alt-agentın önerdiği tek yeni adayı (`vercel/vercel-deploy-claude-code-plugin`) kendi
+`WebFetch` çağrılarıyla ikinci kez bağımsız doğruladı: `api.github.com/repos/vercel/vercel-deploy-
+claude-code-plugin` üzerinden yıldız (13), fork (5), lisans (MIT/SPDX), oluşturulma (2025-12-17) ve son
+push (2025-12-18) rakamları alt-agentın raporuyla birebir tutarlı çıktı; ayrıca
+`raw.githubusercontent.com/vercel/vercel-deploy-claude-code-plugin/main/skills/setup/SKILL.md`
+dosyasının gerçek, YAML frontmatter'lı, şablon-olmayan bir skill dosyası olduğu doğrudan görüldü.
+
+### Yeni eklenen kaynak
+
+#### 179. [vercel/vercel-deploy-claude-code-plugin](https://github.com/vercel/vercel-deploy-claude-code-plugin)
+- **Yıldız:** 13 · **Fork:** 5 · **Lisans:** MIT (GitHub API `license.spdx_id` alanından doğrulandı)
+- **Güncellik:** oluşturulma 2025-12-17, son push 2025-12-18 — küçük ve mütevazı, tipik organik bir
+  erken-aşama profil (Tur 50'nin şişirilmiş-yıldız deseninin tam tersi).
+- **Ne işe yarar:** Vercel'in kendi resmi GitHub organizasyonundan (`vercel/`) resmi bir Claude Code
+  plugin'i: `setup` (Vercel CLI kurulumu, `vercel login`/`vercel link`, ortam değişkeni yönetimi),
+  `deploy` (production deploy) ve `vercel-logs` (deploy loglarını çekme) skill'lerini içeriyor.
+- **NEDEN MEŞRU:** `raw.githubusercontent.com` üzerinden `skills/setup/SKILL.md` bağımsız çekildi —
+  gerçek YAML frontmatter (`name`, `description`) + somut CLI komutları içeren, stub olmayan bir dosya.
+  Resmi `vercel/` organizasyonu altında, MIT lisansı SPDX alanından doğrulandı. Paylaşımlı API key
+  gerektirmiyor — kullanıcı kendi Vercel hesabıyla `vercel login` yapıyor.
+- **NEDEN İLGİLİ:** Bu şablonun `AGENTS.md`'sinde açıkça belirtilen dağıtım hedefiyle
+  (`**Deployment:** Vercel`) birebir örtüşüyor; `#30`/`#35`/`#67` (Vercel'in diğer resmi MCP/tarayıcı
+  araçları) ile aynı resmi-kaynak güvenilirlik seviyesinde, deployment iş akışının eksik kalan
+  skill/plugin tarafını tamamlıyor.
+- **Kurulum:** Claude Code içinde `/plugin install vercel@claude-plugins-official` — Vercel CLI kurulu
+  ve hesaba giriş yapılmış olmalı, ek API anahtarı gerekmez.
+
+### Cron zamanlama sorunu — durum hâlâ değişmedi
+
+Cron sorunu (`0 3-12 * * *`, saatte bir) hâlâ değişmedi (Tur 58'den beri 69 tur boyunca aynı tespit —
+bu, Tur 58'in ilk bildiriminden bu yana geçen 11. saatlik çalıştırma). Bu turun bulgusu (1 yeni kaynak,
+1 dedupe yakalaması, 4 reddedilen aday, yeni acil risk yok) tek başına yeni bir bildirimi
+gerektirmediğinden **bu turda da bildirim gönderilmedi** — Tur 50 (güvenlik) ve Tur 58 (zamanlama)
+bildirimleri hâlâ güncel. Sıklık sorunu hâlâ kullanıcının kendisinin tetikleyici ayarları üzerinden
+düzeltmesini bekliyor.
+
+**Bu turda 1 yeni kaynak eklendi (#179).** Toplam kataloglanmış kaynak sayısı: 179.
+
+---
+
+*Son güncelleme: 2026-09-27 (Tur 69). 1 yeni kaynak eklendi (#179, `vercel/vercel-deploy-claude-code-
+plugin` — resmi Vercel Claude Code plugin'i, bu şablonun Vercel dağıtım hedefine doğrudan hizmet
+ediyor). Alt-agentın önerdiği ikinci aday (`vercel-labs/agent-skills`) zaten #153'te kataloglı olduğu
+için tekrar eklenmedi — bu, alt-agent devrinde dedupe kontrolünün ana oturumda kalması gerektiğini
+doğruluyor. SVG ikon çıkarma nişinde hiçbir meşru aday bulunamadı; 4 aday değerlendirilip reddedildi
+(ayrıntılar yukarıda) — bir dahaki turda bu 4 aday tekrar araştırılmamalı. Cron zamanlama sorunu
+(`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş; Tur 58'in bildirimi güncelliğini koruduğu için tekrar
+bildirim gönderilmedi. Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur 1-69'da listelenenler ve
+reddedilenler (`jezweb/claude-skills` icon-set-generator, `jeremylongshore/claude-code-plugins-plus-
+skills`, `vci-nguyenhiep/tc-dev-uat-gitops`, `svgnew/plugin` dahil) tekrarlanmayacak.
