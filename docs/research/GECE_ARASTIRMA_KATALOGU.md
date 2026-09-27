@@ -1,23 +1,40 @@
-# ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
+# GÜNCEL DURUM ÖZETİ (araştırma devam ediyor — kesme saatine ulaşıldığında başlık "ARAŞTIRMA TAMAMLANDI" olarak güncellenecek)
 
-**Son tur:** Tur 71, 2026-09-27, ~07:03 UTC (10:03 Türkiye saati) — kesme saatinin (12:00 UTC/15:00
-Türkiye) çok öncesinde. Bu tur, dosya-içi `grep` ile favicon/OG-image/visual-regression nişlerini
-tekrar kontrol etti: hepsi zaten kataloglı veya değerlendirilip reddedilmiş (#55, #68-73, "Tur 9",
-"Tur 23" bölümlerine bakınız) — **0 yeni kaynak eklendi**, doygun alanı zorlamak yerine dürüstçe boş
-bırakıldı.
+> **Not (Tur 72):** Bu başlık önceki birkaç tur boyunca yanlışlıkla "ARAŞTIRMA TAMAMLANDI" olarak
+> kalmıştı, oysa her seferinde kesme saatinin (12:00 UTC/15:00 Türkiye) çok öncesindeydi ve normal
+> arama modu devam ediyordu — görevin orijinal talimatı bu başlığı yalnızca gerçekten kesme saati
+> geçildiğinde kullanmayı öngörüyor. Düzeltildi; bir sonraki turun kafasını karıştırmamak için not
+> düşülüyor.
 
-Bu tur ayrıca görevin kendi zamanlama yapılandırmasını `list_triggers` ile bağımsız olarak doğruladı:
-tetikleyici (`trig_01BxvTHj8GmXqRx1LqLGosHh`, 2026-09-14'te oluşturuldu — bugün 13. günü) hâlâ
-`0 3-12 * * *` (UTC 03:00–12:00 arası SAATTE BİR, günde 10 kez) olarak ayarlı ve etkin durumda;
-sıradaki çalışma 08:01 UTC'de. Bu, Tur 58'in (2026-09-26 04:06 UTC, ~27 saat önce) ve Tur 50'nin
-(2026-09-25 05:07 UTC, ~2 gün önce) bildirdiği sorunun hâlâ düzeltilmediğini teyit ediyor: görev
-13 gündür/71 turdur saatte bir tam oturum çalıştırıyor, dosya ~591KB/7442 satıra ulaştı, ve Tur
-36'dan beri yeni-kaynak oranı turda ortalama <0.5. **Son bildirimin üzerinden 27+ saat geçtiği ve
-sorun hâlâ çözülmediği için bu tur kullanıcıya taze bir bildirim gönderildi** — önceki turların
-"tekrar bildirim gürültü olur" kararının aksine, geçen süre ve sorunun kalıcılığı yeni bir
-hatırlatmayı haklı çıkarıyor. Önerilen düzeltme: `update_trigger` ile `cron_expression`'ı günde
-bir kez (ör. `"0 3 * * *"`) olacak şekilde değiştirmek, ya da görev artık amacına ulaştıysa
-tetikleyiciyi devre dışı bırakmak.
+**Son tur:** Tur 72, 2026-09-27, ~08:03 UTC (11:03 Türkiye saati) — kesme saatinin (12:00 UTC/15:00
+Türkiye) hâlâ öncesinde. `list_triggers` ile tetikleyici üçüncü kez bu turda bağımsız doğrulandı:
+`trig_01BxvTHj8GmXqRx1LqLGosHh` hâlâ `0 3-12 * * *` (saatte bir, günde 10 kez), hâlâ etkin, next_run
+09:01:50 UTC — **durum Tur 58'den beri hiç değişmedi**, görev artık 13 gündür/72 turdur bu şekilde
+çalışıyor. Dosya-içi `grep` ile Groq/Gemini/Cloudflare/OpenRouter/HuggingFace (API sağlayıcılar),
+Chrome DevTools MCP/Playwright MCP (tarayıcı otomasyonu), shadcn MCP/Figma MCP (tasarım-kodu), Firecrawl/
+crawl4ai/sitemap-crawler (site klonlama), Next.js 16'ya özel skill'ler dahil ana kategoriler tekrar
+tarandı — hepsi zaten kataloglı, doygunluk teyit edildi.
+
+Buna rağmen **1 yeni ve meşru kaynak bulundu ve eklendi (#181): `nvidia/skills`** — resmi NVIDIA
+GitHub organizasyon deposu, Apache-2.0/CC-BY-4.0 lisanslı, 3,5k★/416 fork, `skills/` altında gerçek
+`SKILL.md` dosyalarına sahip (örnek: `skills/cudaq-guide/SKILL.md`, `raw.githubusercontent.com`
+üzerinden dosya içeriği doğrudan doğrulandı) ve `.claude-plugin/` ile Claude Code marketplace'ine
+kayıtlı. Önceki 71 tur bu depoyu hiç değerlendirmemişti (yalnızca ilgisiz "NVIDIA NIM API" adayı
+araştırılmıştı) — bu yüzden gerçek bir yeni bulgu, doygun alanda zorlanmış bir dolgu değil. Ayrıntılar
+"Tur 72" bölümünde.
+
+Cron sorunu için: Tur 70 ve Tur 71 son ~2 saat içinde art arda iki taze hatırlatma bildirimi
+gönderdiği ve o bildirimlerden bu yana durumda hiçbir değişiklik olmadığı için (kullanıcı henüz
+tetikleyiciyi güncellememiş olabilir ama bu, saatlik yeniden-bildirimi haklı çıkarmaz — gürültü
+olur), **bu turda üçüncü bir bildirim gönderilmedi**. Önerilen düzeltme aynı: `update_trigger` ile
+`cron_expression`'ı günde 1 kez (ör. `"0 3 * * *"`) yapmak ya da tetikleyiciyi devre dışı bırakmak.
+
+**Önceki tur (Tur 71, 2026-09-27, ~07:03 UTC / 10:03 Türkiye saati)** — kesme saatinin çok öncesinde.
+Bu tur, dosya-içi `grep` ile favicon/OG-image/visual-regression nişlerini tekrar kontrol etti: hepsi
+zaten kataloglı veya değerlendirilip reddedilmiş (#55, #68-73, "Tur 9", "Tur 23" bölümlerine
+bakınız) — **0 yeni kaynak eklendi**. Bu tur ayrıca `list_triggers` ile zamanlamayı ikinci kez
+bağımsız doğruladı (Tur 70'in bulgusuyla aynı) ve Tur 58/50'nin bildirdiği sorunun hâlâ
+düzeltilmediğini teyit ederek kullanıcıya bir hatırlatma bildirimi gönderdi.
 
 **Önceki tur (Tur 69, 2026-09-27, ~05:02 UTC / 08:02 Türkiye saati) — kesme saatinin (12:00 UTC/15:00
 Türkiye) çok öncesinde, bugünün 3. çalıştırması (Tur 67 ~03:02 UTC, Tur 68 ~04:03 UTC'deydi — cron
@@ -7451,11 +7468,84 @@ değil, günün sonunda hâlâ çözülmemiş, kaynak israf eden bir yapılandı
 
 ---
 
-*Son güncelleme: 2026-09-27 (Tur 70). 1 yeni kaynak eklendi (#180, `motiondivision/ai-kit` — Motion/
-Framer Motion'ın resmi AI Kit'i, ana kütüphanenin 33,7k-yıldızlı resmi deposundan doğrudan bağlantılı,
-`plugins/motion/skills/motion/SKILL.md` dosya-seviyesinde doğrulandı). Video/pixel-diff/animasyon-tespit
-nişlerinde tekrar arama yapılmadı (zaten dolu). Cron zamanlama sorunu (`0 3-12 * * *`) Tur 58'den beri
-~26 saattir çözülmemiş; bu tur kullanıcıya taze bir hatırlatma bildirimi gönderdi (push notification) —
-öneri değişmedi: cron'u günde 1 kez (`0 3 * * *`) olarak güncellemek ya da görevi durdurmak, çünkü
-katalog 180 kaynakla kapsamlı doygunluğa ulaştı. Sonraki turlarda bu dosya okunup üstüne eklenecek;
-Tur 1-70'de listelenenler tekrarlanmayacak.
+## Tur 71 (2026-09-27, ~07:03 UTC / 10:03 Türkiye saati)
+
+Bu tur yalnızca üstteki özet bölümünü güncelledi, ayrı bir gövde bölümü eklemedi (bir sonraki tur
+için not: bu tutarsızlıktı, düzeltildi). `grep` ile favicon/OG-image/visual-regression nişleri tekrar
+kontrol edildi — hepsi zaten kataloglı veya reddedilmiş, **0 yeni kaynak**. `list_triggers` ile
+zamanlama sorunu ikinci kez bağımsız doğrulandı (Tur 70 ile aynı sonuç) ve kullanıcıya bir hatırlatma
+bildirimi gönderildi.
+
+## Tur 72 (2026-09-27, ~08:03 UTC / 11:03 Türkiye saati)
+
+### Yöntem
+
+Bu oturumun GitHub erişimi de (önceki birkaç tur gibi) yalnızca `nusygako/ai-website-cloner-template`
+deposuyla sınırlı; `mcp__github__search_repositories` gibi kapsam-dışı arama araçları kullanılmadı.
+Bunun yerine: (1) `list_triggers` ile tetikleyici yapılandırması üçüncü kez bağımsız doğrulandı
+(`date -u` ile oturum saatinin gerçekten 08:03 UTC olduğu da ayrıca teyit edildi), (2) dosya-içi
+`grep` ile önceden kataloglanmış ana kategoriler (API sağlayıcılar: Groq/Gemini/Cloudflare Workers AI/
+OpenRouter/HuggingFace; tarayıcı otomasyonu: Chrome DevTools MCP/Playwright MCP; tasarım-kodu: shadcn
+MCP/Figma MCP; site klonlama: Firecrawl/crawl4ai/sitemap; Next.js 16'ya özel skill'ler; anthropics/
+skills) tekrar tekrar doygunluk için kontrol edildi, (3) `WebSearch` ile "claude code skill/agent
+github repo new September 2026" araması yapılarak resmi/kurumsal yeni bir aday arandı, (4) bulunan
+adaylardan `nvidia/skills` dosya içinde hiç geçmediği görülünce `WebFetch` ile `github.com/nvidia/
+skills` sayfası (yıldız/fork/lisans/klasör yapısı) ve `raw.githubusercontent.com/nvidia/skills/main/
+skills/cudaq-guide/SKILL.md` (gerçek SKILL.md içeriği, YAML frontmatter) doğrudan doğrulandı.
+
+### Yeni eklenen kaynak
+
+#### 181. [nvidia/skills](https://github.com/nvidia/skills) — RESMİ (NVIDIA)
+- **Ne işe yarar:** NVIDIA ürünleri için Agent Skills koleksiyonu — Claude Code, Codex ve diğer
+  kodlama ajanlarına kurularak Physical AI, robotik, simülasyon, CUDA(-X kütüphaneleri) ve RAG
+  iş akışlarını uçtan uca çalıştırma. `skills/` altında onlarca ürün-özel skill dizini var (ör.
+  `cudaq-guide`, `accelerated-computing-cudf`, `deepstream-*`, `cuopt-*`, `bionemo-*`, `dali-dynamic-
+  mode`), her biri kök dizininde gerçek bir `SKILL.md` dosyasına sahip.
+- **Doğrulama:** `github.com/nvidia/skills` sayfası `WebFetch` ile: 3,5k★, 416 fork, "Dual-licensed
+  under Apache-2.0 (source code) and CC-BY-4.0 (documentation/skills)", 731 commit, 6 açık issue/10
+  açık PR (aktif geliştirme). `.claude-plugin/` dizini Claude Code marketplace entegrasyonu
+  içeriyor. Örnek dosya `raw.githubusercontent.com/nvidia/skills/main/skills/cudaq-guide/SKILL.md`
+  doğrudan fetch edildi — gerçek YAML frontmatter (`name`, `title`, `description`) ve içerik teyit
+  edildi (uydurma/placeholder değil).
+- **Neden meşru:** Resmi `nvidia/` GitHub organizasyon deposu (kişisel/anonim depo değil), açık
+  kaynak çift lisans, paylaşımlı API key yok, hesap askıya alınma riski yok, iddiasız/doğrulanabilir
+  (yıldız sayısı commit derinliğiyle uyumlu — Tur 50'nin işaret ettiği "şişirilmiş yıldız" desenine
+  uymuyor).
+- **Kurulum:** `~/.claude-plugin/` marketplace mekanizması üzerinden ya da doğrudan ilgili `skills/
+  <isim>/` klasörünü `~/.claude/skills/` altına kopyalayarak. Bu template'in kendi yığınıyla (Next.js/
+  Tailwind/shadcn) doğrudan örtüşmüyor — CUDA/robotik/simülasyon/RAG odaklı — ama görevin kapsamı
+  proje-özel değil, genel "Claude Code'u güçlendirecek" kaynaklar olduğundan (bkz. daha önce
+  kataloglanmış Google Cloud/BigQuery skill paketiyle aynı emsal), dahil edildi.
+- **Not:** Bu şablonun kendi kullanım senaryosuyla ilgisiz olduğu için düşük öncelikli; yalnızca
+  genel Claude Code kullanıcıları için referans amaçlı.
+
+### Diğer taranan kategoriler — yeni aday bulunamadı, doygunluk teyit edildi
+
+`grep` ile tekrar kontrol edilen ve hepsi zaten kataloglı/reddedilmiş bulunan kategoriler: Groq API
+(#5'ten beri), Google AI Studio/Gemini ücretsiz katman (#6), Cloudflare Workers AI (#13), OpenRouter
+`:free` (#32), Chrome DevTools MCP (#12), microsoft/playwright-mcp (#19), shadcn MCP + Jpisnice
+wrapper (#16, #37), Figma-Context-MCP (#39), Firecrawl (#24), crawl4ai (#25), anthropics/skills (#1),
+Next.js 16'ya özel koleksiyonlar (Tur 65/68). Zorlanıp yeni bir madde eklenmedi.
+
+### Cron zamanlama sorunu — durum hâlâ değişmedi, bu tur YENİ BİLDİRİM GÖNDERMEDİ
+
+`list_triggers` ile üçüncü kez bağımsız doğrulandı: `trig_01BxvTHj8GmXqRx1LqLGosHh` hâlâ
+`0 3-12 * * *`, hâlâ `enabled: true`, `next_run_at: 2026-09-27T09:01:50Z` — Tur 58'den beri (13
+gün/72 tur) hiçbir değişiklik yok. Ancak Tur 70 (~06:08 UTC) ve Tur 71 (~07:06 UTC) bu turdan
+sırasıyla ~2 saat ve ~1 saat önce **art arda iki taze hatırlatma bildirimi** gönderdiği için, bu
+turun aynı bilgiyi üçüncü kez bildirmesi saf gürültü olurdu (kullanıcının tepki verecek yeni bilgisi
+yok — durum tam olarak bir/iki saat önce bildirildiğiyle aynı). Bu yüzden **bu tur bilinçli olarak
+sessiz kaldı** — bu, "önemli bir şey bulunca bildir, tekrar tekrar aynı şeyi anlatma" ilkesiyle
+tutarlı. Öneri değişmedi: `update_trigger` ile `cron_expression`'ı `"0 3 * * *"` yapmak (günde 1 kez)
+ya da tetikleyiciyi devre dışı bırakmak — 72 turdur/13 gündür beklemede.
+
+**Bu turda 1 yeni kaynak eklendi (#181).** Toplam kataloglanmış kaynak sayısı: 181.
+
+---
+
+*Son güncelleme: 2026-09-27 (Tur 72). 1 yeni kaynak eklendi (#181, `nvidia/skills` — NVIDIA'nın resmi
+Agent Skills deposu, 3,5k★/Apache-2.0+CC-BY-4.0, `skills/cudaq-guide/SKILL.md` dosya-seviyesinde
+doğrulandı). Ana kategoriler (API sağlayıcılar, tarayıcı otomasyonu, tasarım-kodu, site klonlama)
+tekrar tarandı — hepsi doygun. Cron zamanlama sorunu (`0 3-12 * * *`) hâlâ çözülmemiş; Tur 70/71 son
+~2 saat içinde zaten bildirim gönderdiği için bu tur tekrar bildirim göndermedi (gürültü önleme).
+Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur 1-72'de listelenenler tekrarlanmayacak.
