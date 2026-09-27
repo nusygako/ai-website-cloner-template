@@ -1,12 +1,20 @@
 # ARAŞTIRMA TAMAMLANDI - KULLANICI DÖNDÜĞÜNDE OKUNACAK
 
-**Son tur:** Tur 66, 2026-09-26, ~12:03 UTC (15:03 Türkiye saati) — görev talimatına göre Türkiye
-saati 15:00'i geçtiği için bu turda normal arama YAPILMADI; yalnızca bu özet güncellendi. **0 yeni
-kaynak eklendi**, toplam hâlâ 175. Öne çıkan 5 kaynak ve iki standing bulgu (Tur 50 güvenlik, Tur 58
-zamanlama/sıklık) aşağıda değişmeden korundu; ikisi de hâlâ geçerli ve kullanıcının `list_triggers`
-üzerinden gözden geçirmesini bekliyor. Bu turda yeni bir push bildirimi gönderilmedi çünkü Tur 50/58
-bildirimleri hâlâ güncel ve bu turun tek bulgusu ("kesinti saatine ulaşıldı, arama atlandı") acil/yeni
-bir durum oluşturmuyor.
+**Son tur:** Tur 67, 2026-09-27, ~03:02 UTC (06:02 Türkiye saati) — yeni günün ilk çalıştırması,
+kesme saatinin (12:00 UTC/15:00 Türkiye) çok öncesinde. Not: Tur 66 (2026-09-26, ~12:03 UTC) kesme
+saatini geçtiği için hiç arama yapmamış, yalnızca bu üst özeti güncellemişti — bu yüzden ayrı bir
+"Tur 66" bölümü dosyada yok, numaralandırma buradan Tur 67 ile devam ediyor. Bu turda daha önce hiç
+denenmemiş bir eksen arandı: proje yığınının **React 19'a özgü** (Next.js 16'dan ayrı, doğrudan React
+kütüphanesinin kendi breaking-change'lerine odaklanan) tarafı. **1 yeni kaynak eklendi** (#176:
+`Jeffallan/claude-skills` — 11.635★/1.124 fork/34 açık issue/MIT, 67 skill'lik geniş bir full-stack
+koleksiyon; `react-expert` skill'i `use()`/`useActionState` gibi React 19'a özgü kalıpları gerçek kod
+örnekleriyle kapsıyor). Yüksek yıldız sayısına rağmen Tur 50'nin şişirilmiş-yıldız deseniyle
+uyuşmuyor: 11 aylık organik büyüme, Awesome Claude Code/Trendshift gibi bağımsız kaynaklarda anılıyor,
+Anthropic hakkında yanlış iddia yok, AI ajanlarını kendi kendine kuruluma teşvik eden dil yok. Cron
+sorunu (`0 3-12 * * *`, saatte bir, günde ~10 kez) hâlâ düzeltilmemiş görünüyor (bu, dünkü son
+çalıştırmadan (~12:03 UTC) tam olarak bir sonraki günün başlangıç saatinde (~03:02 UTC) geldi); bu
+turun bulgusu (1 yeni kaynak, yeni risk yok) acil olmadığından **bu turda da tekrar bildirim
+gönderilmedi** — Tur 50/58 bildirimleri hâlâ güncel. Ayrıntılar dosyanın "Tur 67" bölümünde.
 
 **Önceki tur (Tur 65, 2026-09-26, ~11:03 UTC, 14:03 Türkiye saati):** Tur 56-64'ün denediği tüm dar
 nişler (shadcn, Tailwind v4, playwright, favicon/SEO, renk/tipografi, API sağlayıcıları, video-indirme)
@@ -56,9 +64,9 @@ otomatik gece-araştırma görevlerini hedef alan bir sosyal-mühendislik/tedari
 Ayrıntılar dosyanın "Tur 50" bölümünde. **Hiçbir şüpheli aday kataloğa eklenmedi**, bulgu yalnızca
 kullanıcının dikkatine sunulmak üzere belgelendi ve ayrıca bir bildirimle iletildi.
 
-**Toplam kataloglanmış kaynak sayısı:** 175 (65 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
-10 gün — Tur 65'te 2 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
-Tur 58/65 bulguları).
+**Toplam kataloglanmış kaynak sayısı:** 176 (67 gece turu boyunca biriktirildi, 2026-09-16'dan bu yana,
+11 gün — Tur 67'de 1 yeni kaynak eklendi, görev zamanlaması hâlâ saatte bir çalışıyor, bkz. yukarıdaki
+Tur 58/67 bulguları).
 
 **Öne çıkan 5 kaynak (kataloğun genelinden en yüksek etkili / en alakalı girdiler):**
 1. **[garrytan/gstack](https://github.com/garrytan/gstack)** (~134.000★, MIT) — Y Combinator Başkanı
@@ -71,9 +79,9 @@ Tur 58/65 bulguları).
    Agent Skills deposu; BigQuery, GKE, Cloud Run, Gemini API gibi 100+ gerçek `SKILL.md` paketi.
 4. **[cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare)**
    (~4.300★, Apache-2.0) — Cloudflare'in resmi, ürüne-özel 13+ MCP sunucusu koleksiyonu.
-5. **[mattbx/shadcn-skills](https://github.com/mattbx/shadcn-skills)** (#164, en son eklenen —
-   19★, MIT) — bu şablonun tam olarak kullandığı shadcn/ui + Tailwind v4 yığını için bileşen-keşfi
-   ve kalite-denetimi skill çifti.
+5. **[Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills)** (#176, en son eklenen —
+   ~11.635★, MIT) — 12 kategoride 67 gerçek `SKILL.md`'lik geniş full-stack koleksiyon; `react-expert`
+   skill'i React 19'a özgü kalıpları (`use()`, `useActionState`) doğrudan kapsıyor.
 
 **ÖNEMLİ GÖZLEM — görevin kullanıcı tarafından gözden geçirilmesi önerilir:** Bu katalog 10 gündür,
 64 turdur her ~1 saatte bir çalışıyor ve dosya artık ~650KB+ / 6900+ satır. Genel anahtar-kelime
@@ -7034,3 +7042,110 @@ koleksiyonları — Tur 56-64'ün denediği nişlerin dışında, tamamen taze b
 sorunu (`0 3-12 * * *`, saatte bir) hâlâ düzeltilmemiş; Tur 58'in bildirimi güncelliğini koruduğu için
 tekrar bildirim gönderilmedi. Sonraki turlarda bu dosya okunup üstüne eklenecek; Tur 1-65'te
 listelenenler ve reddedilenler (`wsimmonds/claude-nextjs-skills` dahil) tekrarlanmayacak.
+
+## Tur 66 — kesme saati (2026-09-26, ~12:03 UTC / 15:03 Türkiye saati)
+
+Görev talimatına göre Türkiye saati 15:00'i (12:00 UTC) geçtiği için bu çalıştırmada normal arama
+YAPILMADI; yalnızca dosyanın en üstündeki "ARAŞTIRMA TAMAMLANDI" özeti güncellendi (o zamanki hâliyle
+Tur 65'in ayrıntıları korunarak). Bu yüzden ayrı bir gövde bölümü oluşturulmadı — bu satır yalnızca
+turun var olduğunu ve numaralandırmada bir boşluk bırakılmadığını belgelemek için sonradan (Tur 67
+sırasında) eklendi. **0 yeni kaynak, 0 yeni bulgu.**
+
+---
+
+## Tur 67 (2026-09-27, ~03:02 UTC / 06:02 Türkiye saati)
+
+Yeni günün ilk çalıştırması — kesme saatinin (12:00 UTC/15:00 Türkiye) çok öncesinde başladı. Cron
+hâlâ `0 3-12 * * *` görünüyor: dünkü son çalıştırma (~12:03 UTC) ile bugünkü ilk çalıştırma (~03:02
+UTC) arasındaki boşluk tam olarak beklenen "gece boyunca duraklama" ile uyumlu — Tur 58/65'in tespit
+ettiği "günde ~10 kez, saatte bir" deseni değişmeden devam ediyor, düzeltilmedi.
+
+Dosya baştan (üst özet + tüm "Tur N" başlıkları) okunarak mevcut 175 kayıt ve reddedilen adaylar not
+edildi. Tur 65'in stratejisi tekrarlandı: Tur 56-64'ün denediği TÜM dar nişler zaten kataloglı, bu
+yüzden tamamen denenmemiş bir alt-niş arandı. Bu şablonun `AGENTS.md`'si Next.js 16'nın kendi
+breaking-change'lerine dikkat çekiyor (Tur 65'te arandı), ama React'in kendisi de (Next.js 16, React
+19 üzerine kurulu) ayrı bir eğitim-verisi-sonrası breaking-change kaynağı — bu, önceki turlarda
+"App Router" veya "Next.js 16" gibi genel/sürüm terimleriyle arandı ama **"React 19"** sürüm-
+spesifik terimiyle ayrı bir eksen olarak hiç aranmamıştı.
+
+### Arama ve doğrulama
+
+Tek bir hedefli `WebSearch` sorgusu çalıştırıldı: `"claude code" skill OR subagent "React 19" github
+SKILL.md 2026`. Dönen adaylar dosyanın mevcut kayıtlarına karşı `grep` ile çapraz kontrol edildi:
+
+- `awesome-skills/code-review-skill`, `jezweb/claude-skills` — zaten kataloğun **#61-62** maddeleri
+  (Tur 15).
+- `ComposioHQ/awesome-claude-skills`, `travisvn/awesome-claude-skills` — zaten kataloğun **#10, #42**
+  maddeleri, ikisi de "liste/keşif deposu" notuyla değerlendirilmiş.
+- `leek/agent-skills` — `mcp__github__search_repositories` ile temel meta veri çekildi: yalnızca
+  **3 yıldız**, kişisel/küçük ölçekli bir koleksiyon. Derinlemesine doğrulama (raw `SKILL.md` fetch)
+  yapılmadı — bu ölçekte bir kişisel depoyu doğrulamaya harcanacak eforun, doygunlaşmış bir arama
+  uzayında daha düşük getirisi olacağı değerlendirildi; **eklenmedi**, gelecek bir tur isterse
+  bakabilir.
+- **`Jeffallan/claude-skills`** — öne çıkan yeni aday, aşağıda ayrıntılı doğrulandı.
+
+`Jeffallan/claude-skills`, `mcp__github__search_repositories` ile temel meta veri doğrulandı (11.635★,
+1.124 fork, 34 açık issue, oluşturulma 2025-10-20, son güncelleme 2026-09-26 — dün, aktif bakımlı).
+GitHub'ın kendi `get_file_contents` aracı bu oturumda yalnızca şablon deposuna (`nusygako/ai-website-
+cloner-template`) izinli olduğundan (diğer depolar için "Access denied" hatası verdi), Tur 63/65'te
+olduğu gibi bunun yerine `WebFetch` ile `raw.githubusercontent.com` üzerinden bağımsız doğrulama
+yapıldı: `LICENSE` dosyası gerçek MIT metni içeriyor, `README.md` 67 skill/12 kategori/9 workflow/371
+referans dosyası olduğunu, Awesome Claude Code'da anıldığını ve Trendshift'te sıralandığını
+doğruluyor — Anthropic hakkında yanlış/abartılı bir iddia yok, AI ajanlarını kendi kendine kurulum
+yapmaya teşvik eden bir dil yok (Tur 50'nin işaret ettiği sosyal-mühendislik deseninin TERSİ). `skills/
+react-expert/SKILL.md` raw içerik olarak doğrulandı: stub değil, React 19'a özgü `use()` hook'u ve
+`useActionState` form-yönetimi kalıplarını gerçek kod örnekleriyle kapsıyor, ayrıca state yönetimi
+(Context/Redux/Zustand/TanStack Query), Suspense/error boundary, custom hook'lar, performans ve test
+konularını da içeriyor.
+
+11.635★/11 ay (~1.050★/ay ortalama) Tur 50'nin "birkaç hafta/ay içinde 30.000-94.000★" şişirme
+deseninden farklı: daha uzun bir zaman dilimine yayılmış, bağımsız üçüncü-taraf listelerde (Awesome
+Claude Code, Trendshift) anılıyor ve içerik gerçek/derinlikli — bu yüzden dikkatli ama olumlu
+değerlendirildi.
+
+### Yeni eklenen kaynak
+
+#### 176. [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills)
+- **Yıldız:** 11.635 · **Fork:** 1.124 · **Açık issue:** 34 · **Lisans:** MIT
+- **Güncellik:** repo 2025-10-20'de oluşturuldu, son güncelleme 2026-09-26 (dün) — çok aktif.
+- **Ne işe yarar:** 12 kategoride (diller, çerçeveler, altyapı, API'ler, test, DevOps, güvenlik,
+  veri/ML) 67 gerçek `SKILL.md` içeren geniş bir full-stack geliştirici koleksiyonu; en alakalısı
+  `react-expert` (React 19'a özgü `use()`/`useActionState` kalıpları, Server Components, Suspense),
+  ayrıca `nextjs-developer`, `typescript-pro`, `javascript-pro` gibi bu şablonun yığınıyla örtüşen
+  skill'ler içeriyor.
+- **NEDEN MEŞRU:** `raw.githubusercontent.com` üzerinden `LICENSE` (gerçek MIT metni) ve `README.md`
+  (67 skill/12 kategori/371 referans dosyası iddiası, Awesome Claude Code + Trendshift'te anılma)
+  bağımsız doğrulandı; `skills/react-expert/SKILL.md` gerçek/detaylı içerik (stub değil, üç çalışan
+  kod örneği: Server Component veri çekme, React 19 `useActionState` formu, cleanup'lı custom hook).
+  Anthropic hakkında yanlış iddia veya AI ajanlarını kendi kendine kuruluma teşvik eden dil yok
+  (Tur 50'nin işaret ettiği desenin tersi). Paylaşımlı API key veya ToS-bypass gerektirmiyor.
+- **⚠️ Dikkat:** 11 ayda 11.635★ (aylık ~1.050★) yüksek bir oran; Tur 50'nin "haftalar içinde
+  onbinlerce yıldız" şişirme deseninden farklı olsa da kullanıcı kurulumdan önce kendi değerlendirmesini
+  yapabilir. Ağır bir kurulum değil — tek tek skill seçilebiliyor.
+- **NEDEN İLGİLİ:** `react-expert` skill'i, bu şablonun `AGENTS.md`'sinin React 19 + Next.js 16
+  kombinasyonuna (eğitim verisinden farklı breaking-change'ler) doğrudan uygulanabilir; Tur 174-175'in
+  (Next.js 16'ya özgü) tamamlayıcısı olarak React'in kendi tarafını kapsıyor.
+- **Kurulum:** `/plugin marketplace add jeffallan/claude-skills` ardından
+  `/plugin install fullstack-dev-skills@jeffallan` (tek tek skill seçimi de mümkün) — yerel onay
+  gerekir, API key gerekmez.
+
+### Cron zamanlama sorunu — durum hâlâ değişmedi
+
+Bu tur `list_triggers`/`CronList` tekrar çağrılmadı (Tur 58/64/65'te zaten doğrulandı, aynı sonucu
+tekrar teyit etmek bu turda ek değer katmayacaktı); dosyanın kendi geçmişi ve dünden bugüne geçen
+zaman boşluğu hâlâ `0 3-12 * * *` (saatte bir, 03:00-12:00 UTC) deseniyle tutarlı. Bu turun bulgusu (1
+yeni kaynak, hiçbir yeni güvenlik/zamanlama sorunu yok) yeni bir eylem gerektirmiyor, bu yüzden **bu
+turda da tekrar bildirim gönderilmedi** — Tur 50 (güvenlik) ve Tur 58 (zamanlama) bildirimleri hâlâ
+güncel. Sıklık sorunu hâlâ kullanıcının kendisinin tetikleyici ayarları üzerinden düzeltmesini
+bekliyor.
+
+**Bu turda 1 yeni kaynak eklendi (#176).** Toplam kataloglanmış kaynak sayısı: 176.
+
+---
+
+*Son güncelleme: 2026-09-27 (Tur 67). 1 yeni kaynak eklendi (#176, `Jeffallan/claude-skills` — React
+19'a özgü `react-expert` skill'i dahil geniş full-stack koleksiyon; Tur 174-175'in Next.js 16 odağını
+React'in kendi tarafıyla tamamlıyor). Cron zamanlama sorunu (`0 3-12 * * *`, saatte bir) hâlâ
+düzeltilmemiş; Tur 58'in bildirimi güncelliğini koruduğu için tekrar bildirim gönderilmedi. Sonraki
+turlarda bu dosya okunup üstüne eklenecek; Tur 1-67'de listelenenler ve reddedilenler (`leek/agent-
+skills` dahil) tekrarlanmayacak.
